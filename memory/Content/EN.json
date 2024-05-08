@@ -1,0 +1,10 @@
+{
+    "win": "You win!",
+    "lose": "You lose.",
+    "changeLang": "Change the language by pressing the corresponding number.",
+    "gameName": "Boom Box",
+    "score": "Score",
+    "welcome": "Welcome to Boom Box!",
+    "goal": "Press the numbers on the keyboard to hear a sound. Find all the pairs to move to the next level.",
+    "keys": "Press enter when you're ready.\n F2 and F3 are used to adjust sound level.\n F5 opens the change language menu.\n Escape closes the game."
+}
