@@ -48,9 +48,9 @@ public class SoundSystem
     Sound sound;
     if (!Musics.Any())
     {
-      sound = System.CreateStream(CONTENTFOLDER + "music/PLAYROOM.mp3", Mode.Loop_Normal);
+      sound = System.CreateStream(CONTENTFOLDER + "music/neutral.mp3", Mode.Loop_Normal);
       Channel? channel = (Channel?)System.PlaySound(sound, paused: false);
-      channel.SetLoopPoints(TimeUnit.MS, 0, TimeUnit.MS, 31623);
+      channel.SetLoopPoints(TimeUnit.MS, 12, TimeUnit.MS, 88369);
       Musics.Add(channel);
     }
   }
