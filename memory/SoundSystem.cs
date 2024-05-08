@@ -39,7 +39,6 @@ public class SoundSystem
     //Load sounds
     this.MaxSounds = maxSounds;
     Sounds = new Sound[maxSounds];
-    LoadLevelSounds(group1, group2);
     Musics = new List<Channel>();
     Channels = new Channel[MaxSounds];
     LoadLevelMusics();
@@ -55,32 +54,7 @@ public class SoundSystem
       Musics.Add(channel);
     }
   }
-  private void LoadLevelSounds(string group1, string? group2)
-  {
-    Sound sound;
-    var rnd = new Random();
-    if (group2 == null)
-    {
-      var files = Directory.GetFiles(group1, "*.*");
-      var rndArray = Enumerable.Range(0, files.Length).OrderBy(item => rnd.Next()).ToArray();
-      for (int i = 0; i < MaxSounds; i++)
-      {
-        Sounds[i] = sound = System.CreateSound(files[rndArray[i]], Mode.Loop_Off);
-      }
-    }
-    else
-    {
-      var files1 = Directory.GetFiles(group1, "*.wav");
-      var rndArray1 = Enumerable.Range(0, files1.Length).OrderBy(item => rnd.Next()).ToArray();
-      var files2 = Directory.GetFiles(group2, "*.wav");
-      var rndArray2 = Enumerable.Range(0, files2.Length).OrderBy(item => rnd.Next()).ToArray();
-      for (int i = 0; i < MaxSounds; i++)
-      {
-        if (i % 2 == 0) Sounds[i] = sound = System.CreateSound(files1[rndArray1[i]], Mode._3D | Mode.Loop_Off | Mode._3D_LinearSquareRolloff);
-        else Sounds[i] = sound = System.CreateSound(files2[rndArray2[i]], Mode._3D | Mode.Loop_Off | Mode._3D_LinearSquareRolloff);
-      }
-    }
-  }
+
   private void LoadLevelMusics()
   {
     Sound sound;

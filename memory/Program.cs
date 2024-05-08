@@ -22,7 +22,7 @@ internal class Program
   }
   public static void SetConsoleParams(string language)
   {
-    Console.Title = "Boom box";
+    Console.Title = "Chaos";
     if (language!=null) CultureInfo.CurrentUICulture = new CultureInfo(language);
   }
   public static Parameters LoadJson()
