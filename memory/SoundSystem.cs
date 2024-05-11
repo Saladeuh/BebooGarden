@@ -55,7 +55,7 @@ public class SoundSystem
   {
     Sound sound;
     sound = sound = System.CreateStream(CONTENTFOLDER + "music/neutral.mp3", Mode.Loop_Normal);
-    Channel channel = (Channel?)System.PlaySound(sound);
+    Channel channel = (Channel?)System.PlaySound(sound, paused: true);
     channel.SetLoopPoints(TimeUnit.MS, 12, TimeUnit.MS, 88369);
     channel.Volume = 0.5f;
     Musics.Add(channel);
@@ -78,7 +78,7 @@ public class SoundSystem
     var files = Directory.GetFiles(CONTENTFOLDER + "Sounds/birds/", "*.*");
     for (int i = 0; i < files.Length; i++)
     {
-      var sound = System.CreateSound(files[i], Mode._3D | Mode._3D_LinearRolloff);
+      var sound = System.CreateSound(files[i], Mode._3D | Mode._3D_LinearSquareRolloff);
       AmbiSounds.Add(sound);
     }
   }
