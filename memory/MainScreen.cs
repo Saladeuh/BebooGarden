@@ -45,8 +45,7 @@ internal class MainScreen : IGlobalConsoleActions
           if (changed) Console.WriteLine("Language changed, please restart");
           break;
         case ConsoleKey.LeftArrow:
-          position += new Vector3(-1, 0, 0);
-          SoundSystem.System.Set3DListenerAttributes(0, position, default, in SoundSystem.Forward, in SoundSystem.Up);
+          SoundSystem.MoveOf(new Vector3(-1, 0, 0));
           break;
         default:
           GlobalActions(keyinfo.Key);
