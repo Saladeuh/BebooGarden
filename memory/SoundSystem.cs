@@ -60,12 +60,17 @@ public class SoundSystem
     channel.SetLoopPoints(TimeUnit.MS, 12, TimeUnit.MS, 88369);
     Musics.Add(channel);
 
-    sound = System.CreateStream(CONTENTFOLDER + "sounds/WaterCalmWide.wav", Mode.Loop_Normal | Mode._3D | Mode._3D_LinearSquareRolloff);
+    sound = System.CreateStream(CONTENTFOLDER + "sounds/WaterCalmWide.wav", Mode.Loop_Normal | Mode._3D);
     channel = (Channel?)System.PlaySound(sound, paused: false);
     channel.SetLoopPoints(TimeUnit.MS, 2780, TimeUnit.MS, 17796);
     channel.Set3DAttributes(new Vector3(-20f, 0f, 0f), default, default);
     channel.Set3DMinMaxDistance(10, 40);
     channel.Volume = 0.3f;
+
+    sound = System.CreateStream(CONTENTFOLDER + "sounds/Grass_Shake.wav", Mode.Loop_Normal);
+    channel = (Channel?)System.PlaySound(sound, paused: false);
+    channel.SetLoopPoints(TimeUnit.MS, 678, TimeUnit.MS, 6007);
+    channel.Volume = 0.5f;
   }
 
   public void LoadAmbiSounds()
@@ -136,5 +141,10 @@ public class SoundSystem
       music?.Stop();
     });
     Musics.Clear();
+  }
+  public void MoveOf(Vector3 movement)
+  {
+    System.Get3DListenerAttributes(0, out Vector3 currentPosition, out _, out _, out _);
+    System.Set3DListenerAttributes(0,currentPosition+movement, default, in Forward, in Up);
   }
 }
