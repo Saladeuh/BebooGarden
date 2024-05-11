@@ -43,6 +43,34 @@ internal abstract class IGlobalConsoleActions
       case ConsoleKey.F3:
         SoundSystem.Volume += 0.1f;
         break;
+      case ConsoleKey.F1:
+      case ConsoleKey.H:
+        //Console.WriteLine("Aide");
+        break;
+      case ConsoleKey.L:
+      case ConsoleKey.F5:
+        bool changed = ChangeLanguageMenu();
+        if (changed) Console.WriteLine("Language changed, please restart");
+        break;
     }
+  }
+  private bool ChangeLanguageMenu()  // bool to indicate if a n^ew language is choosed
+  {
+    Console.WriteLine(this.Localizer.GetString("changeLang"));
+    for (int i = 0; i < SUPPORTEDLANGUAGES.Length; i++)
+    {
+      Console.WriteLine($"{i}: {SUPPORTEDLANGUAGES[i]}");
+    }
+    ConsoleKeyInfo keyinfo;
+    do
+    {
+      keyinfo = Console.ReadKey();
+      if (char.IsDigit(keyinfo.KeyChar) && int.Parse(keyinfo.KeyChar.ToString()) < SUPPORTEDLANGUAGES.Length)
+      {
+        CultureInfo.CurrentUICulture = new CultureInfo(SUPPORTEDLANGUAGES[Int32.Parse(keyinfo.KeyChar.ToString())]);
+        return true;
+      }
+    } while (keyinfo.Key != ConsoleKey.Escape);
+    return false;
   }
 }

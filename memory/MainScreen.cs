@@ -31,19 +31,6 @@ internal class MainScreen : IGlobalConsoleActions
       keyinfo = Console.ReadKey(true);
       switch (keyinfo.Key)
       {
-        case ConsoleKey.Enter:
-        case ConsoleKey.Spacebar:
-          Console.Clear();
-          break;
-        case ConsoleKey.F1:
-        case ConsoleKey.H:
-          //Console.WriteLine("Aide");
-          break;
-        case ConsoleKey.L:
-        case ConsoleKey.F5:
-          bool changed = ChangeLanguageMenu();
-          if (changed) Console.WriteLine("Language changed, please restart");
-          break;
         case ConsoleKey.LeftArrow:
           SoundSystem.MoveOf(new Vector3(-1, 0, 0));
           break;
@@ -55,23 +42,4 @@ internal class MainScreen : IGlobalConsoleActions
     return new Parameters { Volume = SoundSystem.Volume, Language = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName };
   }
 
-  private bool ChangeLanguageMenu()  // bool to indicate if a n^ew language is choosed
-  {
-    Console.WriteLine(this.Localizer.GetString("changeLang"));
-    for (int i = 0; i < SUPPORTEDLANGUAGES.Length; i++)
-    {
-      Console.WriteLine($"{i}: {SUPPORTEDLANGUAGES[i]}");
-    }
-    ConsoleKeyInfo keyinfo;
-    do
-    {
-      keyinfo = Console.ReadKey();
-      if (char.IsDigit(keyinfo.KeyChar) && int.Parse(keyinfo.KeyChar.ToString()) < SUPPORTEDLANGUAGES.Length)
-      {
-        CultureInfo.CurrentUICulture = new CultureInfo(SUPPORTEDLANGUAGES[Int32.Parse(keyinfo.KeyChar.ToString())]);
-        return true;
-      }
-    } while (keyinfo.Key != ConsoleKey.Escape);
-    return false;
-  }
 }
