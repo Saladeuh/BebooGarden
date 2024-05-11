@@ -32,15 +32,19 @@ internal class MainScreen : IGlobalConsoleActions
       switch (keyinfo.Key)
       {
         case ConsoleKey.LeftArrow:
+        case ConsoleKey.Q:
           SoundSystem.MoveOf(new Vector3(-1, 0, 0));
           break;
         case ConsoleKey.RightArrow:
+        case ConsoleKey.D:
           SoundSystem.MoveOf(new Vector3(1, 0, 0));
           break;
         case ConsoleKey.UpArrow:
+        case ConsoleKey.Z:
           SoundSystem.MoveOf(new Vector3(0, 1, 0));
           break;
         case ConsoleKey.DownArrow:
+        case ConsoleKey.S:
           SoundSystem.MoveOf(new Vector3(0, -1, 0));
           break;
         default:
