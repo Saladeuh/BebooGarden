@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Reflection.Emit;
+using FFXIVAccess;
 using LocalizationCultureCore.StringLocalizer;
 using memoryGame;
 using Microsoft.Extensions.Localization;
@@ -14,6 +15,7 @@ internal class Program
   private const string DATAFILEPATH = "data.json";
   static void Main()
   {
+    ScreenReader.Load();
     var parameters = LoadJson();
     SetConsoleParams(parameters.Language);
     var menu = new MainScreen(parameters);
