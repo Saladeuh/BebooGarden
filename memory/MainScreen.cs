@@ -1,7 +1,10 @@
 ﻿using System.Globalization;
+using System.Numerics;
 using System.Text;
+using FFXIVAccess;
 using FmodAudio;
 using memoryGame;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Localization;
 
 namespace BoomBox;
@@ -18,11 +21,14 @@ internal class MainScreen : IGlobalConsoleActions
   public Parameters Run()
   {
     ConsoleKeyInfo keyinfo;
+    SoundSystem.LoadMainScreen();
+    SoundSystem.LoadAmbiSounds();
+    var position = new Vector3(0, 0, 0);
     do
     {
       //Console.WriteLine(Localizer.GetString("welcome"));
-      SoundSystem.LoadMainScreen();
-      keyinfo = Console.ReadKey();
+      SoundSystem.System.Update();
+      keyinfo = Console.ReadKey(true);
       switch (keyinfo.Key)
       {
         case ConsoleKey.Enter:
@@ -37,6 +43,10 @@ internal class MainScreen : IGlobalConsoleActions
         case ConsoleKey.F5:
           bool changed = ChangeLanguageMenu();
           if (changed) Console.WriteLine("Language changed, please restart");
+          break;
+        case ConsoleKey.LeftArrow:
+          position += new Vector3(-1, 0, 0);
+          SoundSystem.System.Set3DListenerAttributes(0, position, default, in SoundSystem.Forward, in SoundSystem.Up);
           break;
         default:
           GlobalActions(keyinfo.Key);

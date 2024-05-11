@@ -1,4 +1,6 @@
 using System.Numerics;
+using System.Text.RegularExpressions;
+using System.Timers;
 using FmodAudio;
 
 namespace memoryGame;
@@ -6,11 +8,9 @@ public class SoundSystem
 {
   private const string CONTENTFOLDER = "Content/";
   public FmodSystem System { get; }
-  public Sound[] Sounds { get; set; }
+  public List<Sound> AmbiSounds { get; set; }
   public Channel[] Channels { get; set; }
-  private Vector3 ListenerPos = new() { Z = -1.0f };
-  public Vector3 Up = new(0, 1, 0), Forward = new(0, 0, -1);
-  public int MaxSounds { get; set; }
+  public Vector3 Up = new Vector3(0, 0, 1), Forward = new Vector3(0, 1, 0);
   public List<Channel> Musics { get; private set; }
   public Sound JingleCaseWin { get; private set; }
   public Sound JingleCaseLose { get; private set; }
@@ -18,6 +18,7 @@ public class SoundSystem
   public Sound JingleLose { get; private set; }
   public Sound JingleError { get; private set; }
   public float Volume { get { return System.MasterSoundGroup.GetValueOrDefault().Volume; } set { System.MasterSoundGroup.GetValueOrDefault().Volume = value; } }
+  private static System.Timers.Timer AmbiTimer;
 
   public SoundSystem(float initialVolume)
   {
@@ -25,33 +26,55 @@ public class SoundSystem
     System = FmodAudio.Fmod.CreateSystem();
     //System object Initialization
     System.Init(4093, InitFlags._3D_RightHanded);
+    System.Set3DSettings(1.0f, 1.0f, 1.0f);
     Volume = initialVolume;
     //Set the distance Units (Meters/Feet etc)
-    System.Set3DSettings(1.0f, 1.0f, 1.0f);
-    System.Set3DListenerAttributes(0, in ListenerPos, default, in Forward, in Up);
-    Sounds = Array.Empty<Sound>();
+    System.Set3DListenerAttributes(0, new Vector3(0,0,0), default, Forward, Up);
     Channels = Array.Empty<Channel>();
+    AmbiSounds = new List<Sound>();
     Musics = new List<Channel>();
+    AmbiTimer = new System.Timers.Timer(2000);
+    AmbiTimer.Elapsed += onAmbiTimer;
+    AmbiTimer.Enabled = true;
   }
 
-  public void LoadLevel(int maxSounds, string group1, string? group2 = null)
+  private void onAmbiTimer(object? sender, ElapsedEventArgs e)
   {
-    //Load sounds
-    this.MaxSounds = maxSounds;
-    Sounds = new Sound[maxSounds];
-    Musics = new List<Channel>();
-    Channels = new Channel[MaxSounds];
-    LoadLevelMusics();
+    var rand = new Random();
+    var sound = AmbiSounds[rand.Next(AmbiSounds.Count())];
+    Channel channel = System.PlaySound(sound, paused: true);
+    channel.Set3DAttributes(new Vector3(rand.Next(-20, 20), rand.Next(-20, 20), 0f), default, default);
+    channel.Set3DMinMaxDistance(0, 30);
+    channel.Paused = false;
+    AmbiTimer.Dispose();
+    AmbiTimer = new System.Timers.Timer(rand.Next(1000, 4000));
+    AmbiTimer.Elapsed += onAmbiTimer;
+    AmbiTimer.Enabled = true;
   }
+
   public void LoadMainScreen()
   {
     Sound sound;
-    if (!Musics.Any())
+    sound = sound = System.CreateStream(CONTENTFOLDER + "music/neutral.mp3", Mode.Loop_Normal);
+    Channel channel = (Channel?)System.PlaySound(sound, paused: true);
+    channel.SetLoopPoints(TimeUnit.MS, 12, TimeUnit.MS, 88369);
+    Musics.Add(channel);
+
+    sound = System.CreateStream(CONTENTFOLDER + "sounds/WaterCalmWide.wav", Mode.Loop_Normal | Mode._3D | Mode._3D_LinearSquareRolloff);
+    channel = (Channel?)System.PlaySound(sound, paused: false);
+    channel.SetLoopPoints(TimeUnit.MS, 2780, TimeUnit.MS, 17796);
+    channel.Set3DAttributes(new Vector3(-20f, 0f, 0f), default, default);
+    channel.Set3DMinMaxDistance(10, 40);
+    channel.Volume = 0.3f;
+  }
+
+  public void LoadAmbiSounds()
+  {
+    var files = Directory.GetFiles(CONTENTFOLDER + "Sounds/birds/", "*.*");
+    for (int i = 0; i < files.Length; i++)
     {
-      sound = System.CreateStream(CONTENTFOLDER + "music/neutral.mp3", Mode.Loop_Normal);
-      Channel? channel = (Channel?)System.PlaySound(sound, paused: false);
-      channel.SetLoopPoints(TimeUnit.MS, 12, TimeUnit.MS, 88369);
-      Musics.Add(channel);
+      var sound = System.CreateSound(files[i], Mode._3D | Mode._3D_LinearRolloff);
+      AmbiSounds.Add(sound);
     }
   }
 
