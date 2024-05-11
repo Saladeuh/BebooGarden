@@ -34,6 +34,15 @@ internal class MainScreen : IGlobalConsoleActions
         case ConsoleKey.LeftArrow:
           SoundSystem.MoveOf(new Vector3(-1, 0, 0));
           break;
+        case ConsoleKey.RightArrow:
+          SoundSystem.MoveOf(new Vector3(1, 0, 0));
+          break;
+        case ConsoleKey.UpArrow:
+          SoundSystem.MoveOf(new Vector3(0, 1, 0));
+          break;
+        case ConsoleKey.DownArrow:
+          SoundSystem.MoveOf(new Vector3(0, -1, 0));
+          break;
         default:
           GlobalActions(keyinfo.Key);
           break;
