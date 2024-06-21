@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 using System.Timers;
 using FmodAudio;
 
-namespace BoomBox;
+namespace BebooGarden;
 public class SoundSystem
 {
   private const string CONTENTFOLDER = "Content/";

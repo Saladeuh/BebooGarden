@@ -2,7 +2,7 @@ using DavyKager;
 using System;
 using System.IO;
 
-namespace BoomBox;
+namespace BebooGarden;
 
 internal class ScreenReader
 {

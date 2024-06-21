@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LocalizationCultureCore.StringLocalizer;
-using BoomBox;
+using BebooGarden;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 
-namespace BoomBox;
+namespace BebooGarden;
 
 public class GlobalActions
 {
