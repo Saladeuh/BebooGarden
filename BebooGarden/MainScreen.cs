@@ -12,7 +12,6 @@ namespace BoomBox;
 internal class MainScreen : IGlobalConsoleActions
 {
   private const string CONTENTFOLDER = "Content/sounds";
-  public FmodSystem System { get; }
   public override SoundSystem SoundSystem { get; set; }
   public MainScreen(Parameters parameters)
   {

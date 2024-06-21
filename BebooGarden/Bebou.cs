@@ -10,10 +10,21 @@ namespace chaos;
 internal class Bebou
 {
   public string Name { get; set; }
-  public int energy { get; set; }
+  public int Energy { get; set; }
   public int Happiness { get; set; }
-  public Mood mood { get; set; }
-  public Vector3 position { get; set; }
+  public Mood Mood { get; set; }
+  public Vector3 Position { get; set; }
+  public Bebou() {
+    Name = "waw";
+    Energy = 10;
+    Happiness = 0;
+    Mood = Mood.Happy;
+    Position= new Vector3(0,0,0);
+  }
+  public void MoveTo(Vector3 destination)
+  {
+    Position = destination;
+  }
 }
 
 internal enum Mood
