@@ -1,31 +1,27 @@
-﻿using System.Globalization;
-using System.Reflection.Emit;
-using FFXIVAccess;
-using LocalizationCultureCore.StringLocalizer;
-using memoryGame;
-using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Logging;
+using BoomBox;
+using System.Globalization;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using BoomBox;
 using Newtonsoft.Json;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace BoomBox;
 
-internal class Program
+internal static class Program
 {
   private const string DATAFILEPATH = "data.json";
+  [STAThread]
   static void Main()
   {
-    ScreenReader.Load();
+    ScreenReader.Load("wsh", "2");
     var parameters = LoadJson();
     SetConsoleParams(parameters.Language);
-    var menu = new MainScreen(parameters);
-    parameters= menu.Run();
+    ApplicationConfiguration.Initialize();
+    Application.Run(new Form1(parameters));
     WriteJson(parameters);
   }
   public static void SetConsoleParams(string language)
   {
-    Console.Title = "Chaos";
-    if (language!=null) CultureInfo.CurrentUICulture = new CultureInfo(language);
+    if (language != null) CultureInfo.CurrentUICulture = new CultureInfo(language);
   }
   public static Parameters LoadJson()
   {

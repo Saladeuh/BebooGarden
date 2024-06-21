@@ -5,19 +5,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LocalizationCultureCore.StringLocalizer;
-using memoryGame;
+using BoomBox;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 
 namespace BoomBox;
 
-internal abstract class IGlobalConsoleActions
+public class GlobalActions
 {
-  public abstract SoundSystem SoundSystem { get; set; }
+  public SoundSystem SoundSystem { get; set; }
   protected IStringLocalizer? Localizer { get; set; }
   public static readonly string[] SUPPORTEDLANGUAGES = { "fr", "en" };
-  public IGlobalConsoleActions()
+  public GlobalActions(SoundSystem soundSystem)
   {
+    SoundSystem = soundSystem;
     string twoLetterISOLanguageName = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
     if (!SUPPORTEDLANGUAGES.Contains(twoLetterISOLanguageName))
     {
@@ -33,33 +34,33 @@ internal abstract class IGlobalConsoleActions
     CultureInfo.CurrentUICulture = new CultureInfo(language);
   }
 
-  protected void GlobalActions(ConsoleKey keyinfo)
+  public void CheckGlobalActions(Keys keyinfo)
   {
     switch (keyinfo)
     {
-      case ConsoleKey.F2:
+      case Keys.F2:
         SoundSystem.Volume -= 0.1f;
         break;
-      case ConsoleKey.F3:
+      case Keys.F3:
         SoundSystem.Volume += 0.1f;
         break;
-      case ConsoleKey.F1:
-      case ConsoleKey.H:
+      case Keys.F1:
+      case Keys.H:
         //Console.WriteLine("Aide");
         break;
-      case ConsoleKey.L:
-      case ConsoleKey.F5:
+      case Keys.L:
+      case Keys.F5:
         bool changed = ChangeLanguageMenu();
-        if (changed) Console.WriteLine("Language changed, please restart");
+        if (changed) ScreenReader.Output("Language changed, please restart");
         break;
     }
   }
   private bool ChangeLanguageMenu()  // bool to indicate if a n^ew language is choosed
   {
-    Console.WriteLine(this.Localizer.GetString("changeLang"));
+    ScreenReader.Output(this.Localizer.GetString("changeLang"));
     for (int i = 0; i < SUPPORTEDLANGUAGES.Length; i++)
     {
-      Console.WriteLine($"{i}: {SUPPORTEDLANGUAGES[i]}");
+      ScreenReader.Output($"{i}: {SUPPORTEDLANGUAGES[i]}");
     }
     ConsoleKeyInfo keyinfo;
     do
