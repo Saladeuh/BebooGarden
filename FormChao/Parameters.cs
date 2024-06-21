@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BoomBox;
 
-internal class Parameters
+public class Parameters
 {
   public float Volume {  get; set; }
   public string Language { get; set; }

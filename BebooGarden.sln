@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BebooGarden", "BebooGarden\BebooGarden.csproj", "{E2E71D6D-F05C-4628-AFF3-76AC2CED5386}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FormChao", "FormChao\FormChao.csproj", "{40B19A0E-889F-4D74-A659-972894153799}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{E2E71D6D-F05C-4628-AFF3-76AC2CED5386}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2E71D6D-F05C-4628-AFF3-76AC2CED5386}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2E71D6D-F05C-4628-AFF3-76AC2CED5386}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40B19A0E-889F-4D74-A659-972894153799}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40B19A0E-889F-4D74-A659-972894153799}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40B19A0E-889F-4D74-A659-972894153799}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40B19A0E-889F-4D74-A659-972894153799}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
