@@ -1,10 +1,10 @@
-using BoomBox;
+using BebooGarden;
 using System.Globalization;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using BoomBox;
+using BebooGarden;
 using Newtonsoft.Json;
 
-namespace BoomBox;
+namespace BebooGarden;
 
 internal static class Program
 {

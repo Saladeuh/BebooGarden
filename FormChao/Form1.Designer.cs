@@ -1,4 +1,4 @@
-﻿namespace BoomBox
+﻿namespace BebooGarden
 {
   partial class Form1
   {

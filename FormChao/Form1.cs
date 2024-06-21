@@ -2,7 +2,7 @@
 using System.Numerics;
 using System.Security.Cryptography.Xml;
 
-namespace BoomBox;
+namespace BebooGarden;
 
 public partial class Form1 : Form
 {
