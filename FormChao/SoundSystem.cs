@@ -64,7 +64,7 @@ public class SoundSystem
     channel = (Channel?)System.PlaySound(sound, paused: false);
     channel.SetLoopPoints(TimeUnit.MS, 2780, TimeUnit.MS, 17796);
     channel.Set3DAttributes(new Vector3(-20f, 0f, 0f), default, default);
-    channel.Set3DMinMaxDistance(10, 30);
+    channel.Set3DMinMaxDistance(30f, 30f);
     channel.Volume = 0.1f;
 
     sound = System.CreateStream(CONTENTFOLDER + "sounds/Grass_Shake.wav", Mode.Loop_Normal);
