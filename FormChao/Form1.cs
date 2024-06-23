@@ -7,20 +7,27 @@ namespace BebooGarden;
 public partial class Form1 : Form
 {
   private const string CONTENTFOLDER = "Content/sounds";
-  public SoundSystem SoundSystem { get; set; }
-  public GlobalActions GlobalActions { get; set; }
+  private SoundSystem SoundSystem { get; set; }
+  private GlobalActions GlobalActions { get; set; }
+  private DateTime LastPressedKeyTime { get; set; }
+  static System.Windows.Forms.Timer tickTimer = new System.Windows.Forms.Timer();
+
   public Form1(Parameters parameters)
   {
     InitializeComponent();
     SoundSystem = new SoundSystem(parameters.Volume);
     GlobalActions = new GlobalActions(SoundSystem);
     SoundSystem.LoadMainScreen();
+    LastPressedKeyTime = DateTime.Now;
     var position = new Vector3(0, 0, 0);
     this.KeyDown += onKeyDown;
+    tickTimer.Tick += new EventHandler(TimerEventProcessor);
   }
+
   private void onKeyDown(object sender, KeyEventArgs e)
   {
-    SoundSystem.System.Update();
+    if ((DateTime.Now - LastPressedKeyTime).TotalMilliseconds < 200) return;
+    else LastPressedKeyTime = DateTime.Now;
     switch (e.KeyCode)
     {
       case Keys.Left:
@@ -39,15 +46,18 @@ public partial class Form1 : Form
       case Keys.S:
         SoundSystem.MoveOf(new Vector3(0, -1, 0));
         break;
-      default:
+      case Keys.Space:
+        SoundSystem.System.PlaySound(SoundSystem.AmbiSounds[0]);
+        break;
+        default:
         GlobalActions.CheckGlobalActions(e.KeyCode);
         break;
     }
+    SoundSystem.System.Update();
     //ScreenReader.Output(e.KeyCode.ToString());
   }
-
-  private void Form1_Load(object sender, EventArgs e)
+  private static void TimerEventProcessor(Object myObject, EventArgs myEventArgs)
   {
-
+    ScreenReader.Output("wah");
   }
 }
