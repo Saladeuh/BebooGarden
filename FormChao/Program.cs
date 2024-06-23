@@ -1,7 +1,6 @@
 using BebooGarden;
 using System.Globalization;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using BebooGarden;
 using Newtonsoft.Json;
 
 namespace BebooGarden;

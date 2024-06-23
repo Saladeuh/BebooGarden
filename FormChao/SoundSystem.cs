@@ -25,17 +25,21 @@ public class SoundSystem
     //Creates the FmodSystem object
     System = FmodAudio.Fmod.CreateSystem();
     //System object Initialization
-    System.Init(4093, InitFlags._3D_RightHanded);
+    System.Init(32, InitFlags._3D_RightHanded);
     System.Set3DSettings(1.0f, 1.0f, 1.0f);
     Volume = initialVolume;
     //Set the distance Units (Meters/Feet etc)
-    System.Set3DListenerAttributes(0, new Vector3(0,0,0), default, Forward, Up);
+    System.Set3DListenerAttributes(0, new Vector3(0, 0, 0), default, Forward, Up);
     Channels = Array.Empty<Channel>();
     AmbiSounds = new List<Sound>();
     Musics = new List<Channel>();
+    LoadAmbiSounds();
     AmbiTimer = new System.Timers.Timer(2000);
     AmbiTimer.Elapsed += onAmbiTimer;
     AmbiTimer.Enabled = true;
+    Reverb3D reverb = System.CreateReverb3D();
+    reverb.SetProperties(Preset.Plain);
+    reverb.Set3DAttributes(new Vector3(0, 0, 0), 0f, 500f);
   }
 
   private void onAmbiTimer(object? sender, ElapsedEventArgs e)
@@ -60,11 +64,11 @@ public class SoundSystem
     channel.Volume = 0.5f;
     Musics.Add(channel);
 
-    sound = System.CreateStream(CONTENTFOLDER + "sounds/WaterCalmWide.wav", Mode.Loop_Normal | Mode._3D | Mode._3D_LinearRolloff);
+    sound = System.CreateStream(CONTENTFOLDER + "sounds/WaterCalmWide.wav", Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff);
     channel = (Channel?)System.PlaySound(sound, paused: false);
     channel.SetLoopPoints(TimeUnit.MS, 2780, TimeUnit.MS, 17796);
-    channel.Set3DAttributes(new Vector3(-20f, 0f, 0f), default, default);
-    channel.Set3DMinMaxDistance(30f, 30f);
+    channel.Set3DAttributes(new Vector3(-20f, 0f, -5f), default, default);
+    channel.Set3DMinMaxDistance(3f, 24f);
     channel.Volume = 0.1f;
 
     sound = System.CreateStream(CONTENTFOLDER + "sounds/Grass_Shake.wav", Mode.Loop_Normal);
