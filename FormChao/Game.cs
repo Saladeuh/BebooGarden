@@ -13,6 +13,7 @@ internal class Game
   private GlobalActions GlobalActions { get; set; }
   private DateTime LastPressedKeyTime { get; set; }
   static System.Windows.Forms.Timer tickTimer = new System.Windows.Forms.Timer();
+  public Beboo beboo;
   public Game(Parameters parameters)
   {
     SoundSystem = new SoundSystem(parameters.Volume);
@@ -20,6 +21,7 @@ internal class Game
     SoundSystem.LoadMainScreen();
     LastPressedKeyTime = DateTime.Now;
     tickTimer.Tick += new EventHandler(Tick);
+    beboo = new Beboo(SoundSystem);
   }
   public void KeyDownMapper(object sender, KeyEventArgs e)
   {
@@ -29,31 +31,31 @@ internal class Game
     {
       case Keys.Left:
       case Keys.Q:
-        SoundSystem.MoveOf(new Vector3(-1, 0, 0));
+        SoundSystem.MovePlayerOf(new Vector3(-1, 0, 0));
         break;
       case Keys.Right:
       case Keys.D:
-        SoundSystem.MoveOf(new Vector3(1, 0, 0));
+        SoundSystem.MovePlayerOf(new Vector3(1, 0, 0));
         break;
       case Keys.Up:
       case Keys.Z:
-        SoundSystem.MoveOf(new Vector3(0, 1, 0));
+        SoundSystem.MovePlayerOf(new Vector3(0, 1, 0));
         break;
       case Keys.Down:
       case Keys.S:
-        SoundSystem.MoveOf(new Vector3(0, -1, 0));
+        SoundSystem.MovePlayerOf(new Vector3(0, -1, 0));
         break;
       case Keys.Space:
-        SoundSystem.System.PlaySound(SoundSystem.AmbiSounds[0]);
+        beboo.DoCuteThing();
         break;
       default:
         GlobalActions.CheckGlobalActions(e.KeyCode);
         break;
     }
-    SoundSystem.System.Update();
-    //ScreenReader.Output(e.KeyCode.ToString());
   }
+
   public void Tick(Object myObject, EventArgs myEventArgs)
   {
+    SoundSystem.System.Update();
   }
 }
