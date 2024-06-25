@@ -59,7 +59,7 @@ internal class SoundSystem
   {
     Sound sound;
     sound = sound = System.CreateStream(CONTENTFOLDER + "music/neutral.mp3", Mode.Loop_Normal);
-    Channel channel = (Channel?)System.PlaySound(sound, paused: true);
+    Channel channel = (Channel?)System.PlaySound(sound, paused: false);
     channel.SetLoopPoints(TimeUnit.MS, 12, TimeUnit.MS, 88369);
     channel.Volume = 0.5f;
     Musics.Add(channel);
