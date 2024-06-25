@@ -2,9 +2,10 @@ using System.Numerics;
 using System.Text.RegularExpressions;
 using System.Timers;
 using FmodAudio;
+using FmodAudio.Base;
 
 namespace BebooGarden;
-public class SoundSystem
+internal class SoundSystem
 {
   private const string CONTENTFOLDER = "Content/";
   public FmodSystem System { get; }
@@ -12,12 +13,10 @@ public class SoundSystem
   public Channel[] Channels { get; set; }
   public Vector3 Up = new Vector3(0, 0, 1), Forward = new Vector3(0, 1, 0);
   public List<Channel> Musics { get; private set; }
-  public Sound JingleCaseWin { get; private set; }
-  public Sound JingleCaseLose { get; private set; }
-  public Sound JingleWin { get; private set; }
-  public Sound JingleLose { get; private set; }
-  public Sound JingleError { get; private set; }
   public float Volume { get { return System.MasterSoundGroup.GetValueOrDefault().Volume; } set { System.MasterSoundGroup.GetValueOrDefault().Volume = value; } }
+
+  public Sound BebooCuteSound { get; }
+
   private static System.Timers.Timer AmbiTimer;
 
   public SoundSystem(float initialVolume)
@@ -30,10 +29,10 @@ public class SoundSystem
     Volume = initialVolume;
     //Set the distance Units (Meters/Feet etc)
     System.Set3DListenerAttributes(0, new Vector3(0, 0, 0), default, Forward, Up);
-    Channels = Array.Empty<Channel>();
     AmbiSounds = new List<Sound>();
     Musics = new List<Channel>();
     LoadAmbiSounds();
+    BebooCuteSound = System.CreateSound(CONTENTFOLDER + "sounds/beboo/ouou.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     AmbiTimer = new System.Timers.Timer(2000);
     AmbiTimer.Elapsed += onAmbiTimer;
     AmbiTimer.Enabled = true;
@@ -87,20 +86,6 @@ public class SoundSystem
     }
   }
 
-  private void LoadLevelMusics()
-  {
-    Sound sound;
-    sound = System.CreateStream(CONTENTFOLDER + "music/OTOATE.wav", Mode.Loop_Normal);
-    Channel channel = System.PlaySound(sound, paused: false);
-    channel.SetLoopPoints(TimeUnit.MS, 5201, TimeUnit.MS, sound.GetLength(TimeUnit.MS) - 1);
-    Musics.Add(channel);
-    JingleCaseWin = System.CreateSound(CONTENTFOLDER + "music/Jingle_SLVSTAR1.mp3");
-    JingleCaseLose = System.CreateSound(CONTENTFOLDER + "music/Jingle_DROPSTAR.mp3");
-    JingleWin = System.CreateSound(CONTENTFOLDER + "music/Jingle_MINICLEAR.mp3");
-    JingleLose = System.CreateSound(CONTENTFOLDER + "music/Jingle_MINIOVER.mp3");
-    JingleError = System.CreateSound(CONTENTFOLDER + "music/SM64_Error.ogg");
-  }
-
   public List<Task> tasks = new();
   public void PlayQueue(Sound sound, bool queued = true)
   {
@@ -146,9 +131,16 @@ public class SoundSystem
     });
     Musics.Clear();
   }
-  public void MoveOf(Vector3 movement)
+  public void MovePlayerOf(Vector3 movement)
   {
     System.Get3DListenerAttributes(0, out Vector3 currentPosition, out _, out _, out _);
     System.Set3DListenerAttributes(0,currentPosition+movement, default, in Forward, in Up);
+  }
+  public void PlayCuteSound(Beboo beboo)
+  {
+    Channel bebooCuteChannel = System.PlaySound(BebooCuteSound, paused: true);
+    bebooCuteChannel.Set3DMinMaxDistance(0f, 30f);
+    bebooCuteChannel.Set3DAttributes(beboo.Position, default, default);
+    bebooCuteChannel.Paused = false;
   }
 }

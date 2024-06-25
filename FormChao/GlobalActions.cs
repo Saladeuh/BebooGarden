@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace BebooGarden;
 
-public class GlobalActions
+internal class GlobalActions
 {
   public SoundSystem SoundSystem { get; set; }
   protected IStringLocalizer? Localizer { get; set; }
