@@ -1,5 +1,4 @@
 using System.Numerics;
-using System.Text.RegularExpressions;
 using System.Timers;
 using BebooGarden.GameCore;
 using FmodAudio;
@@ -13,10 +12,12 @@ internal class SoundSystem
   public List<Sound> AmbiSounds { get; set; }
   public Channel[] Channels { get; set; }
   public Vector3 Up = new Vector3(0, 0, 1), Forward = new Vector3(0, 1, 0);
-  public List<Channel> Musics { get; private set; }
   public float Volume { get { return System.MasterSoundGroup.GetValueOrDefault().Volume; } set { System.MasterSoundGroup.GetValueOrDefault().Volume = value; } }
 
   public Sound BebooCuteSound { get; }
+  public Sound BebooStepSound { get; }
+  public Sound WhistleSound { get; }
+  public Channel bebooChannel { get; private set; }
 
   private static System.Timers.Timer AmbiTimer;
 
@@ -25,15 +26,19 @@ internal class SoundSystem
     //Creates the FmodSystem object
     System = FmodAudio.Fmod.CreateSystem();
     //System object Initialization
-    System.Init(32, InitFlags._3D_RightHanded);
+    System.Init(32, InitFlags._3D_RightHanded | InitFlags.Vol0_Becomes_Virtual);
+    var advancedSettings = new AdvancedSettings();
+    advancedSettings.Vol0VirtualVol = 0.01f;
+    System.SetAdvancedSettings(advancedSettings);
     System.Set3DSettings(1.0f, 1.0f, 1.0f);
     Volume = initialVolume;
     //Set the distance Units (Meters/Feet etc)
     System.Set3DListenerAttributes(0, new Vector3(0, 0, 0), default, Forward, Up);
     AmbiSounds = new List<Sound>();
-    Musics = new List<Channel>();
     LoadAmbiSounds();
     BebooCuteSound = System.CreateSound(CONTENTFOLDER + "sounds/beboo/ouou.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
+    BebooStepSound = System.CreateSound(CONTENTFOLDER + "sounds/beboo/step.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
+    WhistleSound = System.CreateSound(CONTENTFOLDER + "sounds/character/se_sys_whistle_1p.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     AmbiTimer = new System.Timers.Timer(2000);
     AmbiTimer.Elapsed += onAmbiTimer;
     AmbiTimer.Enabled = true;
@@ -62,8 +67,7 @@ internal class SoundSystem
     Channel channel = (Channel?)System.PlaySound(sound, paused: false);
     channel.SetLoopPoints(TimeUnit.MS, 12, TimeUnit.MS, 88369);
     channel.Volume = 0.5f;
-    Musics.Add(channel);
-
+    
     sound = System.CreateStream(CONTENTFOLDER + "sounds/WaterCalmWide.wav", Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff);
     channel = (Channel?)System.PlaySound(sound, paused: false);
     channel.SetLoopPoints(TimeUnit.MS, 2780, TimeUnit.MS, 17796);
@@ -124,24 +128,21 @@ internal class SoundSystem
       }));
     }
   }
-  public void FreeRessources()
-  {
-    Musics.ForEach((music) =>
-    {
-      music?.Stop();
-    });
-    Musics.Clear();
-  }
   public void MovePlayerOf(Vector3 movement)
   {
     System.Get3DListenerAttributes(0, out Vector3 currentPosition, out _, out _, out _);
     System.Set3DListenerAttributes(0,currentPosition+movement, default, in Forward, in Up);
   }
-  public void PlayCuteSound(Beboo beboo)
+  public void PlayBebooSound(Sound sound, Beboo beboo)
   {
-    Channel bebooCuteChannel = System.PlaySound(BebooCuteSound, paused: true);
-    bebooCuteChannel.Set3DMinMaxDistance(0f, 30f);
-    bebooCuteChannel.Set3DAttributes(beboo.Position, default, default);
-    bebooCuteChannel.Paused = false;
+   bebooChannel = System.PlaySound(sound, paused: true);
+   bebooChannel.Set3DMinMaxDistance(0f, 30f);
+    bebooChannel.Set3DAttributes(beboo.Position+new Vector3(0,0,-2), default, default);
+    bebooChannel.Paused = false;
+    
+  }
+  public void Whistle()
+  {
+    System.PlaySound(WhistleSound);
   }
 }
