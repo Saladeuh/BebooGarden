@@ -10,15 +10,11 @@ internal class SoundSystem
   private const string CONTENTFOLDER = "Content/";
   public FmodSystem System { get; }
   public List<Sound> AmbiSounds { get; set; }
-  public Channel[] Channels { get; set; }
   public Vector3 Up = new Vector3(0, 0, 1), Forward = new Vector3(0, 1, 0);
   public float Volume { get { return System.MasterSoundGroup.GetValueOrDefault().Volume; } set { System.MasterSoundGroup.GetValueOrDefault().Volume = value; } }
-
-  public Sound BebooCuteSound { get; }
-  public Sound BebooStepSound { get; }
+  public List<Sound> BebooCuteSounds { get; private set; }
+  public Sound BebooStepSound { get; set; }
   public Sound WhistleSound { get; }
-  public Channel bebooChannel { get; private set; }
-
   private static System.Timers.Timer AmbiTimer;
 
   public SoundSystem(float initialVolume)
@@ -36,15 +32,26 @@ internal class SoundSystem
     System.Set3DListenerAttributes(0, new Vector3(0, 0, 0), default, Forward, Up);
     AmbiSounds = new List<Sound>();
     LoadAmbiSounds();
-    BebooCuteSound = System.CreateSound(CONTENTFOLDER + "sounds/beboo/ouou.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
-    BebooStepSound = System.CreateSound(CONTENTFOLDER + "sounds/beboo/step.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
+    BebooCuteSounds = new List<Sound>();
+    LoadBebooSounds(); 
     WhistleSound = System.CreateSound(CONTENTFOLDER + "sounds/character/se_sys_whistle_1p.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     AmbiTimer = new System.Timers.Timer(2000);
     AmbiTimer.Elapsed += onAmbiTimer;
     AmbiTimer.Enabled = true;
     Reverb3D reverb = System.CreateReverb3D();
-    reverb.SetProperties(Preset.Plain);
+    reverb.SetProperties(Preset.Bathroom);
     reverb.Set3DAttributes(new Vector3(0, 0, 0), 0f, 500f);
+  }
+
+  private void LoadBebooSounds()
+  {
+    var ouou = System.CreateSound(CONTENTFOLDER + "sounds/beboo/ouou.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
+    BebooCuteSounds.Add(ouou);
+    var ouou2 = System.CreateSound(CONTENTFOLDER + "sounds/beboo/ouou2.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
+    BebooCuteSounds.Add(ouou2);
+    var agougougou = System.CreateSound(CONTENTFOLDER + "sounds/beboo/agougougou.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
+    BebooCuteSounds.Add(agougougou);
+    BebooStepSound = System.CreateSound(CONTENTFOLDER + "sounds/beboo/step.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
   }
 
   private void onAmbiTimer(object? sender, ElapsedEventArgs e)
@@ -135,12 +142,21 @@ internal class SoundSystem
   }
   public void PlayBebooSound(Sound sound, Beboo beboo)
   {
-   bebooChannel = System.PlaySound(sound, paused: true);
+   Channel bebooChannel = System.PlaySound(sound, paused: true);
    bebooChannel.Set3DMinMaxDistance(0f, 30f);
     bebooChannel.Set3DAttributes(beboo.Position+new Vector3(0,0,-2), default, default);
     bebooChannel.Paused = false;
-    
   }
+  public void PlayBebooSound(List<Sound> sounds, Beboo beboo)
+  {
+    var rand = new Random();
+    var sound = sounds[rand.Next(sounds.Count())];
+    Channel bebooChannel = System.PlaySound(sound, paused: true);
+    bebooChannel.Set3DMinMaxDistance(0f, 30f);
+    bebooChannel.Set3DAttributes(beboo.Position + new Vector3(0, 0, -2), default, default);
+    bebooChannel.Paused = false;
+  }
+
   public void Whistle()
   {
     System.PlaySound(WhistleSound);

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Numerics;
+﻿using System.Numerics;
 using BebooGarden.Interface;
 
 namespace BebooGarden.GameCore;
@@ -48,15 +47,6 @@ internal class Beboo
   }
   public void DoCuteThing()
   {
-    SoundSystem.PlayBebooSound(SoundSystem.BebooCuteSound, this);
+    SoundSystem.PlayBebooSound(SoundSystem.BebooCuteSounds, this);
   }
-}
-
-internal enum Mood
-{
-  Happy,
-  Angry,
-  Sad,
-  Tired,
-  Sleeping,
 }
