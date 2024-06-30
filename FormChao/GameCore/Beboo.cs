@@ -18,25 +18,28 @@ internal class Beboo
   public BebooBehaviour MoveBehaviour { get; }
   public BebooBehaviour SleepingBehaviour { get; }
 
-  public Beboo(SoundSystem soundSystem)
+  public Beboo(SoundSystem soundSystem, string name = "Bob", int age = 0, DateTime lastPlayed = default(DateTime))
   {
-    Name = "waw";
-    Energy = 1;
-    Happiness = 0;
-    Age = 0;
-    Mood = Mood.Happy;
-    Position = new Vector3(0, 0, 0);
     SoundSystem = soundSystem;
+    Position = new Vector3(0, 0, 0);
+    Name = name;
+    Happiness = 0;
+    Age = age;
+    bool isSleepingAtStart = (DateTime.Now.Hour < 8 || DateTime.Now.Hour > 20);
+    if (isSleepingAtStart) Mood = Mood.Sleeping;
+    else Mood = Mood.Happy;
+    if((DateTime.Now-lastPlayed).Hours>4) Energy = 1;
+    else Energy = 10;
     CuteBehaviour = new BebooBehaviour(this, 15000, 25000, (Beboo beboo) =>
     {
       beboo.DoCuteThing();
     });
-    CuteBehaviour.Start();
+    if (!isSleepingAtStart) CuteBehaviour.Start();
     MoveBehaviour = new(this, 200, 400, (Beboo beboo) =>
     {
       beboo.MoveTowardGoal();
     });
-    MoveBehaviour.Start();
+    if (!isSleepingAtStart) MoveBehaviour.Start();
     BebooBehaviour fancyMoveBehaviour = new(this, 30000, 60000, (Beboo beboo) =>
     {
       beboo.WannaGoToRandomPlace();
@@ -46,15 +49,16 @@ internal class Beboo
     {
       if (beboo.Age < 2) beboo.Energy -= 2;
       else beboo.Energy--;
-      if(beboo.Energy<=0) GoAsleep();
+      if (beboo.Energy <= 0) GoAsleep();
     });
-    GoingTiredBehaviour.Start();
+    if (!isSleepingAtStart) GoingTiredBehaviour.Start();
     SleepingBehaviour = new BebooBehaviour(this, 5000, 10000, (Beboo beboo) =>
     {
       beboo.Energy += 0.10f;
       SoundSystem.PlayBebooSound(SoundSystem.BebooSleepingSounds, beboo, 0.3f);
-      if (beboo.Energy>=10) WakeUp();  
+      //if (beboo.Energy >= 10) WakeUp();
     });
+    if (isSleepingAtStart) SleepingBehaviour.Start();
   }
   public bool MoveTowardGoal()
   {
