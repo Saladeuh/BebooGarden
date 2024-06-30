@@ -1,3 +1,4 @@
+using System.IO.Compression;
 using System.Numerics;
 using System.Timers;
 using BebooGarden.GameCore;
@@ -33,7 +34,7 @@ internal class SoundSystem
     AmbiSounds = new List<Sound>();
     LoadAmbiSounds();
     BebooCuteSounds = new List<Sound>();
-    LoadBebooSounds(); 
+    LoadBebooSounds();
     WhistleSound = System.CreateSound(CONTENTFOLDER + "sounds/character/se_sys_whistle_1p.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     AmbiTimer = new System.Timers.Timer(2000);
     AmbiTimer.Elapsed += onAmbiTimer;
@@ -41,8 +42,8 @@ internal class SoundSystem
     Reverb3D reverb = System.CreateReverb3D();
     reverb.SetProperties(Preset.Bathroom);
     reverb.Set3DAttributes(new Vector3(0, 0, 0), 0f, 500f);
-  }
-
+    }
+  
   private void LoadBebooSounds()
   {
     var ouou = System.CreateSound(CONTENTFOLDER + "sounds/beboo/ouou.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
@@ -74,7 +75,7 @@ internal class SoundSystem
     Channel channel = (Channel?)System.PlaySound(sound, paused: false);
     channel.SetLoopPoints(TimeUnit.MS, 12, TimeUnit.MS, 88369);
     channel.Volume = 0.5f;
-    
+
     sound = System.CreateStream(CONTENTFOLDER + "sounds/WaterCalmWide.wav", Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff);
     channel = (Channel?)System.PlaySound(sound, paused: false);
     channel.SetLoopPoints(TimeUnit.MS, 2780, TimeUnit.MS, 17796);
@@ -138,13 +139,13 @@ internal class SoundSystem
   public void MovePlayerOf(Vector3 movement)
   {
     System.Get3DListenerAttributes(0, out Vector3 currentPosition, out _, out _, out _);
-    System.Set3DListenerAttributes(0,currentPosition+movement, default, in Forward, in Up);
+    System.Set3DListenerAttributes(0, currentPosition + movement, default, in Forward, in Up);
   }
   public void PlayBebooSound(Sound sound, Beboo beboo)
   {
-   Channel bebooChannel = System.PlaySound(sound, paused: true);
-   bebooChannel.Set3DMinMaxDistance(0f, 30f);
-    bebooChannel.Set3DAttributes(beboo.Position+new Vector3(0,0,-2), default, default);
+    Channel bebooChannel = System.PlaySound(sound, paused: true);
+    bebooChannel.Set3DMinMaxDistance(0f, 30f);
+    bebooChannel.Set3DAttributes(beboo.Position + new Vector3(0, 0, -2), default, default);
     bebooChannel.Paused = false;
   }
   public void PlayBebooSound(List<Sound> sounds, Beboo beboo)

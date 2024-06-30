@@ -1,12 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
-    <PublishSingleFile>true</PublishSingleFile>
-    <Nullable>enable</Nullable>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<PublishSingleFile>true</PublishSingleFile>
+		<Nullable>enable</Nullable>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<DebugType>embedded</DebugType>
+		<EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+	</PropertyGroup>
 	<ItemGroup>
 		<Content Include="Content\**">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -16,16 +18,16 @@
 		</Content>
 	</ItemGroup>
 	<ItemGroup>
-	  <PackageReference Include="LocalizationCultureCore" Version="1.1.2" />
-	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="LocalizationCultureCore" Version="1.1.2" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Reference Include="FmodAudio">
-	    <HintPath>Libs\FmodAudio.dll</HintPath>
-	  </Reference>
-	  <Reference Include="TolkDotNet">
-	    <HintPath>Libs\TolkDotNet.dll</HintPath>
-	  </Reference>
+		<Reference Include="FmodAudio">
+			<HintPath>Libs\FmodAudio.dll</HintPath>
+		</Reference>
+		<Reference Include="TolkDotNet">
+			<HintPath>Libs\TolkDotNet.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 
 </Project>
