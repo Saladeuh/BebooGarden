@@ -18,7 +18,15 @@ internal static class Program
     ApplicationConfiguration.Initialize();
     var mainWindow = new Form1(parameters);
     Application.Run(mainWindow);
-    parameters = new Parameters { Language = parameters.Language, Volume = mainWindow.Game.SoundSystem.Volume };
+    parameters = new Parameters
+    {
+      Language = parameters.Language,
+      Volume = mainWindow.Game.SoundSystem.Volume,
+      BebooName = mainWindow.Game.beboo.Name,
+      Mood = mainWindow.Game.beboo.Mood,
+      Age = mainWindow.Game.beboo.Age,
+      LastPayed= DateTime.Now,
+    };
     WriteJson(parameters);
   }
   public static void SetConsoleParams(string language)

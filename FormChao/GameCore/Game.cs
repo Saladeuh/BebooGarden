@@ -18,7 +18,7 @@ internal class Game
     SoundSystem.LoadMainScreen();
     LastPressedKeyTime = DateTime.Now;
     tickTimer.Tick += new EventHandler(Tick);
-    beboo = new Beboo(SoundSystem);
+    beboo = new Beboo(SoundSystem, parameters.BebooName, parameters.Age, parameters.LastPayed);
   }
   public void KeyDownMapper(object sender, KeyEventArgs e)
   {
@@ -47,8 +47,8 @@ internal class Game
         //ScreenReader.Output($"{channels} {virt}");
         SoundSystem.System.Get3DListenerAttributes(0, out Vector3 currentPosition, out _, out _, out _);
         SoundSystem.Whistle();
-        beboo.GoalPosition = currentPosition;
         beboo.WakeUp();
+        beboo.GoalPosition = currentPosition;
         break;
       default:
         GlobalActions.CheckGlobalActions(e.KeyCode);
