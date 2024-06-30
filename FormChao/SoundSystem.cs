@@ -12,11 +12,11 @@ internal class SoundSystem
   public Vector3 Up = new Vector3(0, 0, 1), Forward = new Vector3(0, 1, 0);
   public float Volume { get { return System.MasterSoundGroup.GetValueOrDefault().Volume; } set { System.MasterSoundGroup.GetValueOrDefault().Volume = value; } }
   public List<Sound> BebooCuteSounds { get; private set; }
-  public Sound BebooStepSound { get; set; }
   public List<Sound> BebooSleepSounds { get; private set; }
   public List<Sound> BebooYawningSounds { get; private set; }
   public Sound WhistleSound { get; set; }
   public List<Sound> BebooSleepingSounds { get; private set; }
+  public Sound BebooStepSound { get; private set; }
 
   private static System.Timers.Timer AmbiTimer;
 
@@ -42,7 +42,6 @@ internal class SoundSystem
     foreach (var file in files)
     {
       var sound = System.CreateSound(CONTENTFOLDER + prefixe + file, Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
-      BebooCuteSounds.Add(sound);
       sounds.Add(sound);
     }
   }
@@ -78,13 +77,14 @@ internal class SoundSystem
     channel.Volume = 0.5f;
     AmbiSounds = new();
     LoadAmbiSounds();
-    BebooCuteSounds = new List<Sound>();
+    BebooCuteSounds = new();
     LoadSoundsInList(["ouou.wav", "ouou2.wav", "agougougou.wav"], BebooCuteSounds, "sounds/beboo/");
-    BebooYawningSounds = new List<Sound>();
-    LoadSoundsInList(["baille.wav", "baille2.wav", "baille3.wav"], BebooYawningSounds, "sounds/beboo/");
-    BebooSleepingSounds = new List<Sound>();
-    LoadSoundsInList(["ron.wav", "pich.wav"], BebooSleepingSounds, "sounds/beboo/");
+    BebooYawningSounds = new();
+    LoadSoundsInList(["baille.wav", "baille2.wav"], BebooYawningSounds, "sounds/beboo/");
+    BebooSleepingSounds = new();
+    LoadSoundsInList(["ronfle.wav", "dodo.wav"], BebooSleepingSounds, "sounds/beboo/");
     WhistleSound = System.CreateSound(CONTENTFOLDER + "sounds/character/se_sys_whistle_1p.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
+    BebooStepSound = System.CreateSound(CONTENTFOLDER + "sounds/beboo/step.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     Reverb3D reverb = System.CreateReverb3D();
     reverb.SetProperties(Preset.Bathroom);
     reverb.Set3DAttributes(new Vector3(0, 0, 0), 0f, 500f);
@@ -148,13 +148,14 @@ internal class SoundSystem
     bebooChannel.Set3DAttributes(beboo.Position + new Vector3(0, 0, -2), default, default);
     bebooChannel.Paused = false;
   }
-  public void PlayBebooSound(List<Sound> sounds, Beboo beboo)
+  public void PlayBebooSound(List<Sound> sounds, Beboo beboo, float volume=-1)
   {
     var rand = new Random();
     var sound = sounds[rand.Next(sounds.Count())];
     Channel bebooChannel = System.PlaySound(sound, paused: true);
     bebooChannel.Set3DMinMaxDistance(0f, 30f);
     bebooChannel.Set3DAttributes(beboo.Position + new Vector3(0, 0, -2), default, default);
+    if (volume != -1) bebooChannel.Volume = volume;
     bebooChannel.Paused = false;
   }
 

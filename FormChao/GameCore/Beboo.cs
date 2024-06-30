@@ -6,35 +6,55 @@ namespace BebooGarden.GameCore;
 internal class Beboo
 {
   public string Name { get; set; }
-  public int Energy { get; set; }
+  public int Age { get; set; }
+  public float Energy { get; set; }
   public int Happiness { get; set; }
   public Mood Mood { get; set; }
   public Vector3 Position { get; set; }
   public SoundSystem SoundSystem { get; set; }
+  public BebooBehaviour CuteBehaviour { get; }
   public Vector3? GoalPosition { get; set; }
+  public BebooBehaviour GoingTiredBehaviour { get; }
+  public BebooBehaviour MoveBehaviour { get; }
+  public BebooBehaviour SleepingBehaviour { get; }
+
   public Beboo(SoundSystem soundSystem)
   {
     Name = "waw";
-    Energy = 10;
+    Energy = 5;
     Happiness = 0;
+    Age = 0;
     Mood = Mood.Happy;
     Position = new Vector3(0, 0, 0);
     SoundSystem = soundSystem;
-    BebooBehaviour cuteBehaviour = new(this, 5000, 20000, (Beboo beboo) =>
+    CuteBehaviour = new BebooBehaviour(this, 5000, 20000, (Beboo beboo) =>
     {
       beboo.DoCuteThing();
     });
-    cuteBehaviour.Start();
-    BebooBehaviour moveBehaviour = new(this, 200, 400, (Beboo beboo) =>
+    CuteBehaviour.Start();
+    MoveBehaviour = new(this, 200, 400, (Beboo beboo) =>
     {
       beboo.MoveTowardGoal();
     });
-    moveBehaviour.Start();
+    MoveBehaviour.Start();
     BebooBehaviour fancyMoveBehaviour = new(this, 30000, 60000, (Beboo beboo) =>
     {
       beboo.WannaGoToRandomPlace();
     });
     fancyMoveBehaviour.Start();
+    GoingTiredBehaviour = new BebooBehaviour(this, 50000, 70000, (Beboo beboo) =>
+    {
+      if (beboo.Age < 2) beboo.Energy -= 2;
+      else beboo.Energy--;
+      if(beboo.Energy<=0) GoAsleep();
+    });
+    GoingTiredBehaviour.Start();
+    SleepingBehaviour = new BebooBehaviour(this, 5000, 10000, (Beboo beboo) =>
+    {
+      beboo.Energy += 0.10f;
+      SoundSystem.PlayBebooSound(SoundSystem.BebooSleepingSounds, beboo, 0.3f);
+      if (beboo.Energy>=10) WakeUp();  
+    });
   }
   public bool MoveTowardGoal()
   {
@@ -46,7 +66,7 @@ internal class Beboo
     Position += directionNormalized;
     bool moved = Position != GoalPosition;
     SoundSystem.PlayBebooSound(SoundSystem.BebooStepSound, this);
-    if(!moved) GoalPosition = null;
+    if (!moved) GoalPosition = null;
     return moved;
   }
   public void DoCuteThing()
@@ -61,6 +81,23 @@ internal class Beboo
   }
   public void GoAsleep()
   {
-    Mood=Mood.Sleeping;
+    ScreenReader.Output($"{Name} va dormir.");
+    GoingTiredBehaviour.Stop();
+    MoveBehaviour.Stop();
+    CuteBehaviour.Stop();
+    SoundSystem.PlayBebooSound(SoundSystem.BebooYawningSounds, this);
+    Mood = Mood.Sleeping;
+    SleepingBehaviour.Start();
+  }
+  public void WakeUp()
+  {
+    if (Mood != Mood.Sleeping) return;
+    ScreenReader.Output($"{Name} se réveille.");
+    GoingTiredBehaviour.Start();
+    MoveBehaviour.Start();
+    CuteBehaviour.Start();
+    SleepingBehaviour.Stop();
+    SoundSystem.PlayBebooSound(SoundSystem.BebooYawningSounds, this);
+    Mood = Mood.Happy;
   }
 }
