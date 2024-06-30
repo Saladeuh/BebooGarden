@@ -44,10 +44,11 @@ internal class Game
         break;
       case Keys.Space:
         SoundSystem.System.GetChannelsPlaying(out int channels, out int virt);
-        ScreenReader.Output($"{channels} {virt}");
+        //ScreenReader.Output($"{channels} {virt}");
         SoundSystem.System.Get3DListenerAttributes(0, out Vector3 currentPosition, out _, out _, out _);
         SoundSystem.Whistle();
         beboo.GoalPosition = currentPosition;
+        beboo.WakeUp();
         break;
       default:
         GlobalActions.CheckGlobalActions(e.KeyCode);
