@@ -1,8 +1,8 @@
 using System.Globalization;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using Newtonsoft.Json;
 using BebooGarden.Interface;
 using BebooGarden.Save;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 
 namespace BebooGarden;
 
@@ -28,7 +28,7 @@ internal static class Program
     if (File.Exists(DATAFILEPATH))
     {
       using StreamReader r = new(DATAFILEPATH);
-      string json = StringCipher.Decrypt(r.ReadToEnd(), "lol");
+      string json = StringCipher.Decrypt(r.ReadToEnd(), Secrets.SAVEKEY);
       Parameters parameters = JsonConvert.DeserializeObject<Parameters>(json);
       return parameters;
     }
@@ -40,6 +40,6 @@ internal static class Program
   public static void WriteJson(Parameters parameters)
   {
     var json = JsonConvert.SerializeObject(parameters);
-    File.WriteAllText(DATAFILEPATH, StringCipher.Encrypt(json, "lol"));
+    File.WriteAllText(DATAFILEPATH, StringCipher.Encrypt(json, Secrets.SAVEKEY));
   }
 }
