@@ -59,4 +59,8 @@ internal class Beboo
     var randomMove = new Vector3(rnd.Next(-4, 5), rnd.Next(-4, 5), 0);
     GoalPosition = Position + randomMove;
   }
+  public void GoAsleep()
+  {
+    Mood=Mood.Sleeping;
+  }
 }

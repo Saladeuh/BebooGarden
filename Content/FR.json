@@ -1,0 +1,10 @@
+{
+    "win": "Gagné!",
+    "lose": "Perdu!",
+    "changeLang": "Changez La langue en appuyant sur le numéro correspondant.",
+    "gameName": "Trésors sonores",
+    "score": "Score",
+    "welcome": "Bienvenue dans trésors sonores!",
+    "goal": "Appuyez sur les chiffres du clavier pour entendre un son. Trouvez toutes les pairs pour passer au niveau suivant.",
+    "keys":  "Appuyez sur entrée quand vous êtes prêt.\n F2 et F3 servent à ajuster le volu.\n F5 ouvre le menu pour changer de langue.\n Échape ferme le jeu."
+}

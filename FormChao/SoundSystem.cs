@@ -1,9 +1,7 @@
-using System.IO.Compression;
 using System.Numerics;
 using System.Timers;
 using BebooGarden.GameCore;
 using FmodAudio;
-using FmodAudio.Base;
 
 namespace BebooGarden;
 internal class SoundSystem
@@ -15,7 +13,11 @@ internal class SoundSystem
   public float Volume { get { return System.MasterSoundGroup.GetValueOrDefault().Volume; } set { System.MasterSoundGroup.GetValueOrDefault().Volume = value; } }
   public List<Sound> BebooCuteSounds { get; private set; }
   public Sound BebooStepSound { get; set; }
-  public Sound WhistleSound { get; }
+  public List<Sound> BebooSleepSounds { get; private set; }
+  public List<Sound> BebooYawningSounds { get; private set; }
+  public Sound WhistleSound { get; set; }
+  public List<Sound> BebooSleepingSounds { get; private set; }
+
   private static System.Timers.Timer AmbiTimer;
 
   public SoundSystem(float initialVolume)
@@ -31,30 +33,19 @@ internal class SoundSystem
     Volume = initialVolume;
     //Set the distance Units (Meters/Feet etc)
     System.Set3DListenerAttributes(0, new Vector3(0, 0, 0), default, Forward, Up);
-    AmbiSounds = new List<Sound>();
-    LoadAmbiSounds();
-    BebooCuteSounds = new List<Sound>();
-    LoadBebooSounds();
-    WhistleSound = System.CreateSound(CONTENTFOLDER + "sounds/character/se_sys_whistle_1p.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     AmbiTimer = new System.Timers.Timer(2000);
     AmbiTimer.Elapsed += onAmbiTimer;
     AmbiTimer.Enabled = true;
-    Reverb3D reverb = System.CreateReverb3D();
-    reverb.SetProperties(Preset.Bathroom);
-    reverb.Set3DAttributes(new Vector3(0, 0, 0), 0f, 500f);
-    }
-  
-  private void LoadBebooSounds()
-  {
-    var ouou = System.CreateSound(CONTENTFOLDER + "sounds/beboo/ouou.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
-    BebooCuteSounds.Add(ouou);
-    var ouou2 = System.CreateSound(CONTENTFOLDER + "sounds/beboo/ouou2.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
-    BebooCuteSounds.Add(ouou2);
-    var agougougou = System.CreateSound(CONTENTFOLDER + "sounds/beboo/agougougou.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
-    BebooCuteSounds.Add(agougougou);
-    BebooStepSound = System.CreateSound(CONTENTFOLDER + "sounds/beboo/step.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
   }
-
+  public void LoadSoundsInList(string[] files, List<Sound> sounds, string prefixe = "")
+  {
+    foreach (var file in files)
+    {
+      var sound = System.CreateSound(CONTENTFOLDER + prefixe + file, Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
+      BebooCuteSounds.Add(sound);
+      sounds.Add(sound);
+    }
+  }
   private void onAmbiTimer(object? sender, ElapsedEventArgs e)
   {
     var rand = new Random();
@@ -75,20 +66,29 @@ internal class SoundSystem
     Channel channel = (Channel?)System.PlaySound(sound, paused: false);
     channel.SetLoopPoints(TimeUnit.MS, 12, TimeUnit.MS, 88369);
     channel.Volume = 0.5f;
-
     sound = System.CreateStream(CONTENTFOLDER + "sounds/WaterCalmWide.wav", Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff);
     channel = (Channel?)System.PlaySound(sound, paused: false);
     channel.SetLoopPoints(TimeUnit.MS, 2780, TimeUnit.MS, 17796);
     channel.Set3DAttributes(new Vector3(-20f, 0f, -5f), default, default);
     channel.Set3DMinMaxDistance(3f, 24f);
     channel.Volume = 0.1f;
-
     sound = System.CreateStream(CONTENTFOLDER + "sounds/Grass_Shake.wav", Mode.Loop_Normal);
     channel = (Channel?)System.PlaySound(sound, paused: false);
     channel.SetLoopPoints(TimeUnit.MS, 678, TimeUnit.MS, 6007);
     channel.Volume = 0.5f;
+    AmbiSounds = new();
+    LoadAmbiSounds();
+    BebooCuteSounds = new List<Sound>();
+    LoadSoundsInList(["ouou.wav", "ouou2.wav", "agougougou.wav"], BebooCuteSounds, "sounds/beboo/");
+    BebooYawningSounds = new List<Sound>();
+    LoadSoundsInList(["baille.wav", "baille2.wav", "baille3.wav"], BebooYawningSounds, "sounds/beboo/");
+    BebooSleepingSounds = new List<Sound>();
+    LoadSoundsInList(["ron.wav", "pich.wav"], BebooSleepingSounds, "sounds/beboo/");
+    WhistleSound = System.CreateSound(CONTENTFOLDER + "sounds/character/se_sys_whistle_1p.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
+    Reverb3D reverb = System.CreateReverb3D();
+    reverb.SetProperties(Preset.Bathroom);
+    reverb.Set3DAttributes(new Vector3(0, 0, 0), 0f, 500f);
   }
-
   public void LoadAmbiSounds()
   {
     var files = Directory.GetFiles(CONTENTFOLDER + "Sounds/birds/", "*.*");
