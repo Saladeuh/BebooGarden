@@ -8,7 +8,8 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<DebugType>embedded</DebugType>
 		<EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
-	</PropertyGroup>
+	  <UserSecretsId>10abba7d-019b-44f9-aab8-54fc3fe3d76f</UserSecretsId>
+  </PropertyGroup>
 	<ItemGroup>
 		<Content Include="Content\**">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
