@@ -6,7 +6,7 @@ namespace BebooGarden.GameCore;
 
 internal class Game
 {
-  private SoundSystem SoundSystem { get; set; }
+  public SoundSystem SoundSystem { get; set; }
   private GlobalActions GlobalActions { get; set; }
   private DateTime LastPressedKeyTime { get; set; }
   static System.Windows.Forms.Timer tickTimer = new System.Windows.Forms.Timer();

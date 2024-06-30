@@ -21,13 +21,13 @@ internal class Beboo
   public Beboo(SoundSystem soundSystem)
   {
     Name = "waw";
-    Energy = 5;
+    Energy = 1;
     Happiness = 0;
     Age = 0;
     Mood = Mood.Happy;
     Position = new Vector3(0, 0, 0);
     SoundSystem = soundSystem;
-    CuteBehaviour = new BebooBehaviour(this, 5000, 20000, (Beboo beboo) =>
+    CuteBehaviour = new BebooBehaviour(this, 15000, 25000, (Beboo beboo) =>
     {
       beboo.DoCuteThing();
     });
@@ -85,6 +85,7 @@ internal class Beboo
     GoingTiredBehaviour.Stop();
     MoveBehaviour.Stop();
     CuteBehaviour.Stop();
+    SoundSystem.PlayBebooSound(SoundSystem.GrassSound, this);
     SoundSystem.PlayBebooSound(SoundSystem.BebooYawningSounds, this);
     Mood = Mood.Sleeping;
     SleepingBehaviour.Start();
@@ -97,6 +98,7 @@ internal class Beboo
     MoveBehaviour.Start();
     CuteBehaviour.Start();
     SleepingBehaviour.Stop();
+    SoundSystem.PlayBebooSound(SoundSystem.GrassSound, this);
     SoundSystem.PlayBebooSound(SoundSystem.BebooYawningSounds, this);
     Mood = Mood.Happy;
   }

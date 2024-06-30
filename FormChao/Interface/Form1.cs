@@ -6,12 +6,13 @@ namespace BebooGarden;
 
 public partial class Form1 : Form
 {
+  internal Game Game { get; }
   public Form1(Parameters parameters)
   {
     InitializeComponent();
     this.Text = "Jardin Bébous";
-    var game = new Game(parameters);
-    this.KeyDown += game.KeyDownMapper;
+    Game = new Game(parameters);
+    this.KeyDown += Game.KeyDownMapper;
   }
 
 }

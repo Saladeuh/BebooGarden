@@ -16,7 +16,9 @@ internal static class Program
     var parameters = LoadJson();
     SetConsoleParams(parameters.Language);
     ApplicationConfiguration.Initialize();
-    Application.Run(new Form1(parameters));
+    var mainWindow = new Form1(parameters);
+    Application.Run(mainWindow);
+    parameters = new Parameters { Language = parameters.Language, Volume = mainWindow.Game.SoundSystem.Volume };
     WriteJson(parameters);
   }
   public static void SetConsoleParams(string language)
