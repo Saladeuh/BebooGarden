@@ -99,7 +99,7 @@ internal class Beboo
     if (Mood != Mood.Sleeping) return;
     ScreenReader.Output($"{Name} se réveille.");
     GoingTiredBehaviour.Start();
-    MoveBehaviour.Start();
+    MoveBehaviour.Start(3000);
     CuteBehaviour.Start();
     SleepingBehaviour.Stop();
     SoundSystem.PlayBebooSound(SoundSystem.GrassSound, this);
