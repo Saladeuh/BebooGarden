@@ -18,7 +18,7 @@ internal class Beboo
   public BebooBehaviour MoveBehaviour { get; }
   public BebooBehaviour SleepingBehaviour { get; }
 
-  public Beboo(SoundSystem soundSystem, string name = "Bob", int age = 0, DateTime lastPlayed = default(DateTime))
+  public Beboo(SoundSystem soundSystem, string name = "Bob", int age = 0, DateTime lastPlayed = default)
   {
     SoundSystem = soundSystem;
     Position = new Vector3(0, 0, 0);

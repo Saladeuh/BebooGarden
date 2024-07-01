@@ -7,8 +7,6 @@ public class Parameters
 {
   private string name;
   private DateTime now;
-  private object value;
-
   public float Volume { get; set; }
   public string Language { get; set; }
   public Mood Mood { get; set; }

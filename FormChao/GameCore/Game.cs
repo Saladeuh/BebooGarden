@@ -10,7 +10,7 @@ internal class Game
   public SoundSystem SoundSystem { get; set; }
   private GlobalActions GlobalActions { get; set; }
   private DateTime LastPressedKeyTime { get; set; }
-  static System.Windows.Forms.Timer tickTimer = new System.Windows.Forms.Timer();
+  static readonly System.Windows.Forms.Timer tickTimer = new();
   public Beboo beboo;
   public Game(Parameters parameters)
   {
@@ -44,7 +44,6 @@ internal class Game
         SoundSystem.MovePlayerOf(new Vector3(0, -1, 0));
         break;
       case Keys.Space:
-        SoundSystem.System.GetChannelsPlaying(out int channels, out int virt);
         //ScreenReader.Output($"{channels} {virt}");
         SoundSystem.System.Get3DListenerAttributes(0, out Vector3 currentPosition, out _, out _, out _);
         SoundSystem.Whistle();
@@ -57,7 +56,7 @@ internal class Game
     }
   }
 
-  public void Tick(object myObject, EventArgs myEventArgs)
+  public void Tick(object? _, EventArgs __)
   {
     SoundSystem.System.Update();
   }

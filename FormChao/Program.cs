@@ -17,7 +17,7 @@ internal static class Program
     SetConsoleParams((parameters.Language ?? "en"));
     var mainWindow = new Form1(parameters);
     Application.Run(mainWindow);
-    parameters = new Parameters(language: parameters.Language,
+    parameters = new Parameters(language: (parameters.Language ?? "en"),
   volume: mainWindow.Game.SoundSystem.Volume,
       bebooName: mainWindow.Game.beboo.Name,
       mood: mainWindow.Game.beboo.Mood,
@@ -39,7 +39,7 @@ internal static class Program
       {
         json = StringCipher.Decrypt(r.ReadToEnd(), Secrets.SAVEKEY);
       }
-      catch (FormatException e)
+      catch (FormatException)
       {
         json = r.ReadToEnd();
       }
