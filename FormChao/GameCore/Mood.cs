@@ -5,4 +5,5 @@
   Sad,
   Tired,
   Sleeping,
+  None,
 }

@@ -13,43 +13,51 @@ internal static class Program
   static void Main()
   {
     ScreenReader.Load("wsh", "2");
-    var parameters = LoadJson();
-    SetConsoleParams(parameters.Language);
-    ApplicationConfiguration.Initialize();
+    var parameters = (LoadJson() ?? new Parameters());
+    SetConsoleParams((parameters.Language ?? "en"));
     var mainWindow = new Form1(parameters);
     Application.Run(mainWindow);
-    parameters = new Parameters
-    {
-      Language = parameters.Language,
-      Volume = mainWindow.Game.SoundSystem.Volume,
-      BebooName = mainWindow.Game.beboo.Name,
-      Mood = mainWindow.Game.beboo.Mood,
-      Age = mainWindow.Game.beboo.Age,
-      LastPayed= DateTime.Now,
-    };
+    parameters = new Parameters(language: parameters.Language,
+  volume: mainWindow.Game.SoundSystem.Volume,
+      bebooName: mainWindow.Game.beboo.Name,
+      mood: mainWindow.Game.beboo.Mood,
+      age: mainWindow.Game.beboo.Age,
+      lastPayed: DateTime.Now);
     WriteJson(parameters);
   }
   public static void SetConsoleParams(string language)
   {
     if (language != null) CultureInfo.CurrentUICulture = new CultureInfo(language);
   }
-  public static Parameters LoadJson()
+  public static Parameters? LoadJson()
   {
     if (File.Exists(DATAFILEPATH))
     {
       using StreamReader r = new(DATAFILEPATH);
-      string json = StringCipher.Decrypt(r.ReadToEnd(), Secrets.SAVEKEY);
-      Parameters parameters = JsonConvert.DeserializeObject<Parameters>(json);
+      string json = string.Empty;
+      try
+      {
+        json = StringCipher.Decrypt(r.ReadToEnd(), Secrets.SAVEKEY);
+      }
+      catch (FormatException e)
+      {
+        json = r.ReadToEnd();
+      }
+      var parameters = JsonConvert.DeserializeObject<Parameters>(json, new JsonSerializerSettings
+      {ConstructorHandling=ConstructorHandling.AllowNonPublicDefaultConstructor, NullValueHandling=NullValueHandling.Ignore });
       return parameters;
     }
     else
     {
-      return new Parameters { Volume = 0.5f };
+      return null;
     }
   }
   public static void WriteJson(Parameters parameters)
   {
     var json = JsonConvert.SerializeObject(parameters);
-    File.WriteAllText(DATAFILEPATH, StringCipher.Encrypt(json, Secrets.SAVEKEY));
+#if !DEBUG
+    json = StringCipher.Encrypt(json, Secrets.SAVEKEY);
+#endif
+    File.WriteAllText(DATAFILEPATH, json);
   }
 }

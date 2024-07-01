@@ -28,8 +28,8 @@ internal class Beboo
     bool isSleepingAtStart = (DateTime.Now.Hour < 8 || DateTime.Now.Hour > 20);
     if (isSleepingAtStart) Mood = Mood.Sleeping;
     else Mood = Mood.Happy;
-    if((DateTime.Now-lastPlayed).Hours>4) Energy = 1;
-    else Energy = 10;
+    if((DateTime.Now-lastPlayed).Hours>4) Energy = 10;
+    else Energy = 1;
     CuteBehaviour = new BebooBehaviour(this, 15000, 25000, (Beboo beboo) =>
     {
       beboo.DoCuteThing();
