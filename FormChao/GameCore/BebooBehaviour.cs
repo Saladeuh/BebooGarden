@@ -28,8 +28,14 @@ internal class BebooBehaviour
     ActionTimer.Elapsed += onTimer;
     ActionTimer.Enabled = true;
   }
-  public void Start() {
-    ActionTimer.Enabled = true;
+  public void Start(float delayMS=0) {
+    if (delayMS == 0) ActionTimer.Enabled = true;
+    else
+    {
+      var delayTimer = new System.Timers.Timer(delayMS);
+      delayTimer.Elapsed += (object? _, ElapsedEventArgs _) => ActionTimer.Enabled = true;
+      delayTimer.Enabled = true;
+    }
   }
   public void Stop()
   {
