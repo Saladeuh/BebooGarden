@@ -4,16 +4,16 @@ namespace BebooGarden.GameCore;
 internal class BebooBehaviour
 {
   private Beboo Beboo { get; set; }
-  private int minSecond { get; set; }
-  private int maxSecond { get; set; }
+  private int MinMS { get; set; }
+  private int MaxMS { get; set; }
   private Action<Beboo> Action { get; set; }
   private System.Timers.Timer ActionTimer { get; set; }
 
   public BebooBehaviour(Beboo beboo, int minSecond, int maxSecond, Action<Beboo> action)
   {
     this.Beboo=beboo;
-    this.minSecond = minSecond;
-    this.maxSecond = maxSecond;
+    this.MinMS = minSecond;
+    this.MaxMS = maxSecond;
     this.Action = action;
     ActionTimer = new System.Timers.Timer(minSecond);
     ActionTimer.Elapsed += onTimer;
@@ -23,8 +23,10 @@ internal class BebooBehaviour
     Action(Beboo);
     var rnd = new Random();
     ActionTimer.Dispose();
-    ActionTimer = new System.Timers.Timer(rnd.Next(minSecond, maxSecond));
-    ActionTimer.Enabled = true;
+    ActionTimer = new(rnd.Next(MinMS, MaxMS))
+    {
+      Enabled = true
+    };
     ActionTimer.Elapsed += onTimer;
     ActionTimer.Enabled = true;
   }
