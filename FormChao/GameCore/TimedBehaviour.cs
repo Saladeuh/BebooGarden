@@ -1,17 +1,18 @@
 ﻿using System.Timers;
+using BebooGarden.GameCore.Map;
 
-namespace BebooGarden.GameCore.Beboo;
-internal class BebooBehaviour
+namespace BebooGarden.GameCore;
+internal class TimedBehaviour<T>
 {
-    private Beboo Beboo { get; set; }
+    private T ActionParameter { get; set; }
     private int MinMS { get; set; }
     private int MaxMS { get; set; }
-    private Action<Beboo> Action { get; set; }
+    private Action<T> Action { get; set; }
     private System.Timers.Timer ActionTimer { get; set; }
 
-    public BebooBehaviour(Beboo beboo, int minSecond, int maxSecond, Action<Beboo> action)
+    public TimedBehaviour(T actionParameter, int minSecond, int maxSecond, Action<T> action)
     {
-        Beboo = beboo;
+        ActionParameter = actionParameter;
         MinMS = minSecond;
         MaxMS = maxSecond;
         Action = action;
@@ -20,13 +21,16 @@ internal class BebooBehaviour
     }
     public void onTimer(object? sender, ElapsedEventArgs e)
     {
-        Action(Beboo);
-        var rnd = new Random();
+        Action(ActionParameter);
         ActionTimer.Dispose();
-        ActionTimer = new(rnd.Next(MinMS, MaxMS))
+        var ms = 0;
+        if (MinMS != MaxMS)
         {
-            Enabled = true
-        };
+            var rnd = new Random();
+            ms = rnd.Next(MinMS, MaxMS);
+        }
+        else ms = MinMS;
+        ActionTimer = new(ms);
         ActionTimer.Elapsed += onTimer;
         ActionTimer.Enabled = true;
     }

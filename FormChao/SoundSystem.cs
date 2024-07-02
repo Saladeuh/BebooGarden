@@ -1,6 +1,6 @@
 using System.Numerics;
 using System.Timers;
-using BebooGarden.GameCore.Beboo;
+using BebooGarden.GameCore.Pet;
 using FmodAudio;
 
 namespace BebooGarden;

@@ -1,8 +1,8 @@
 ﻿using System.Numerics;
 using System.Timers;
+using BebooGarden.GameCore.Pet;
 using BebooGarden.Interface;
 using BebooGarden.Save;
-
 namespace BebooGarden.GameCore;
 
 internal class Game
@@ -11,7 +11,7 @@ internal class Game
   private GlobalActions GlobalActions { get; set; }
   private DateTime LastPressedKeyTime { get; set; }
   static readonly System.Windows.Forms.Timer tickTimer = new();
-  public Beboo beboo;
+  public Beboo beboo { get; set; }
   public Game(Parameters parameters)
   {
     SoundSystem = new SoundSystem(parameters.Volume);
