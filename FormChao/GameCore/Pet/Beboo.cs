@@ -1,7 +1,7 @@
 ﻿using System.Numerics;
 using BebooGarden.Interface;
 
-namespace BebooGarden.GameCore.Beboo;
+namespace BebooGarden.GameCore.Pet;
 
 internal class Beboo
 {
@@ -12,11 +12,11 @@ internal class Beboo
     public Mood Mood { get; set; }
     public Vector3 Position { get; set; }
     public SoundSystem SoundSystem { get; set; }
-    public BebooBehaviour CuteBehaviour { get; }
+    public TimedBehaviour<Beboo> CuteBehaviour { get; }
     public Vector3? GoalPosition { get; set; }
-    public BebooBehaviour GoingTiredBehaviour { get; }
-    public BebooBehaviour MoveBehaviour { get; }
-    public BebooBehaviour SleepingBehaviour { get; }
+    public TimedBehaviour<Beboo> GoingTiredBehaviour { get; }
+    public TimedBehaviour<Beboo> MoveBehaviour { get; }
+    public TimedBehaviour<Beboo> SleepingBehaviour { get; }
 
     public Beboo(SoundSystem soundSystem, string name = "Bob", int age = 0, DateTime lastPlayed = default)
     {
@@ -30,7 +30,7 @@ internal class Beboo
         else Mood = Mood.Happy;
         if ((DateTime.Now - lastPlayed).Hours > 4) Energy = 10;
         else Energy = 1;
-        CuteBehaviour = new BebooBehaviour(this, 15000, 25000, (Beboo beboo) =>
+        CuteBehaviour = new(this, 15000, 25000, (Beboo beboo) =>
         {
             beboo.DoCuteThing();
         });
@@ -40,19 +40,19 @@ internal class Beboo
             beboo.MoveTowardGoal();
         });
         if (!isSleepingAtStart) MoveBehaviour.Start();
-        BebooBehaviour fancyMoveBehaviour = new(this, 30000, 60000, (Beboo beboo) =>
+        TimedBehaviour<Beboo> fancyMoveBehaviour = new(this, 30000, 60000, (Beboo beboo) =>
         {
             beboo.WannaGoToRandomPlace();
         });
         fancyMoveBehaviour.Start();
-        GoingTiredBehaviour = new BebooBehaviour(this, 50000, 70000, (Beboo beboo) =>
+        GoingTiredBehaviour = new(this, 50000, 70000, (Beboo beboo) =>
         {
             if (beboo.Age < 2) beboo.Energy -= 2;
             else beboo.Energy--;
             if (beboo.Energy <= 0) GoAsleep();
         });
         if (!isSleepingAtStart) GoingTiredBehaviour.Start();
-        SleepingBehaviour = new BebooBehaviour(this, 5000, 10000, (Beboo beboo) =>
+        SleepingBehaviour = new(this, 5000, 10000, (Beboo beboo) =>
         {
             beboo.Energy += 0.10f;
             SoundSystem.PlayBebooSound(SoundSystem.BebooSleepingSounds, beboo, 0.3f);
