@@ -1,5 +1,4 @@
 ﻿using System.Timers;
-using BebooGarden.GameCore.Map;
 
 namespace BebooGarden.GameCore;
 internal class TimedBehaviour<T>

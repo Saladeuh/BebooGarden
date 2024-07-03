@@ -1,6 +1,7 @@
 ﻿using System.Numerics;
 using System.Timers;
 using BebooGarden.GameCore.Pet;
+using BebooGarden.GameCore.World;
 using BebooGarden.Interface;
 using BebooGarden.Save;
 namespace BebooGarden.GameCore;
@@ -12,6 +13,7 @@ internal class Game
   private DateTime LastPressedKeyTime { get; set; }
   static readonly System.Windows.Forms.Timer tickTimer = new();
   public Beboo beboo { get; set; }
+  public BebooGarden.GameCore.World.Map Map { get; set; }
   public Game(Parameters parameters)
   {
     SoundSystem = new SoundSystem(parameters.Volume);
@@ -19,7 +21,8 @@ internal class Game
     SoundSystem.LoadMainScreen();
     LastPressedKeyTime = DateTime.Now;
     tickTimer.Tick += new EventHandler(Tick);
-    beboo = new Beboo(SoundSystem, parameters.BebooName, parameters.Age, parameters.LastPayed);
+    Map = new(40, 40, [new TreeLine(new Vector2(19, 19), new Vector2(19, -19))]);
+    beboo = new(this, parameters.BebooName, parameters.Age, parameters.LastPayed);
   }
   public void KeyDownMapper(object sender, KeyEventArgs e)
   {
