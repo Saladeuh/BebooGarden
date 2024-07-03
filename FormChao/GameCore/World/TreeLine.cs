@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace BebooGarden.GameCore.Map;
+namespace BebooGarden.GameCore.World;
 
 internal class TreeLine
 {
@@ -16,8 +16,8 @@ internal class TreeLine
     Y = y;
     FruitPerHour = fruitPerHour;
     Fruits = fruitPerHour;
-    AvailableFruitSpecies = (availableFruitSpecies ?? [FruitSpecies.Normal]);
-    RegenerateBehaviour=new(this, 60/fruitPerHour, 60/fruitPerHour, (TreeLine treeLine) =>
+    AvailableFruitSpecies = availableFruitSpecies ?? [FruitSpecies.Normal];
+    RegenerateBehaviour = new(this, 60 / fruitPerHour, 60 / fruitPerHour, (treeLine) =>
     {
       treeLine.Regenerate();
     });

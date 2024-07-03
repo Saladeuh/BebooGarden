@@ -5,8 +5,6 @@ namespace BebooGarden.Save;
 
 public class Parameters
 {
-  private string name;
-  private DateTime now;
   public float Volume { get; set; }
   public string Language { get; set; }
   public Mood Mood { get; set; }

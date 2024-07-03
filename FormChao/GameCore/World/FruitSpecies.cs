@@ -1,4 +1,4 @@
-﻿namespace BebooGarden.GameCore.Map;
+﻿namespace BebooGarden.GameCore.World;
 
 internal enum FruitSpecies
 {
