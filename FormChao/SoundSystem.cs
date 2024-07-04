@@ -15,6 +15,7 @@ internal class SoundSystem
   public List<Sound> BebooSleepSounds { get; private set; }
   public List<Sound> BebooYawningSounds { get; private set; }
   public Sound WhistleSound { get; set; }
+  public Sound WallSound { get; private set; }
   public List<Sound> BebooSleepingSounds { get; private set; }
   public Sound BebooStepSound { get; private set; }
   public Sound GrassSound { get; private set; }
@@ -71,7 +72,8 @@ internal class SoundSystem
     LoadSoundsInList(["baille.wav", "baille2.wav"], BebooYawningSounds, "sounds/beboo/");
     BebooSleepingSounds = new();
     LoadSoundsInList(["ronfle.wav", "dodo.wav"], BebooSleepingSounds, "sounds/beboo/");
-    WhistleSound = System.CreateSound(CONTENTFOLDER + "sounds/character/se_sys_whistle_1p.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
+    WhistleSound = System.CreateSound(CONTENTFOLDER + "sounds/character/se_sys_whistle_1p.wav", Mode.Unique);
+    WallSound = System.CreateSound(CONTENTFOLDER + "sounds/wall.wav", Mode.Unique);
     BebooStepSound = System.CreateSound(CONTENTFOLDER + "sounds/beboo/step.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     GrassSound = System.CreateSound(CONTENTFOLDER + "sounds/grass_rustle.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     Reverb3D reverb = System.CreateReverb3D();
@@ -138,10 +140,9 @@ internal class SoundSystem
       }));
     }
   }
-  public void MovePlayerOf(Vector3 movement)
+  public void MovePlayerTo(Vector3 newPos)
   {
-    System.Get3DListenerAttributes(0, out Vector3 currentPosition, out _, out _, out _);
-    System.Set3DListenerAttributes(0, currentPosition + movement, default, in Forward, in Up);
+    System.Set3DListenerAttributes(0, newPos, default, in Forward, in Up);
   }
   public void PlayBebooSound(Sound sound, Beboo beboo)
   {
@@ -150,7 +151,7 @@ internal class SoundSystem
     bebooChannel.Set3DAttributes(beboo.Position + new Vector3(0, 0, -2), default, default);
     bebooChannel.Paused = false;
   }
-  public void PlayBebooSound(List<Sound> sounds, Beboo beboo, float volume=-1)
+  public void PlayBebooSound(List<Sound> sounds, Beboo beboo, float volume = -1)
   {
     var rand = new Random();
     var sound = sounds[rand.Next(sounds.Count())];
@@ -164,5 +165,10 @@ internal class SoundSystem
   public void Whistle()
   {
     System.PlaySound(WhistleSound);
+  }
+
+  internal void WallBouncing()
+  {
+    System.PlaySound(WallSound);
   }
 }
