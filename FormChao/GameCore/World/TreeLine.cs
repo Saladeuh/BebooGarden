@@ -1,4 +1,6 @@
 ﻿using System.Numerics;
+using System.Security.Cryptography;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 namespace BebooGarden.GameCore.World;
 
@@ -21,6 +23,7 @@ internal class TreeLine
     {
       treeLine.Regenerate();
     });
+    RegenerateBehaviour.Start();
   }
   private void Regenerate() => Fruits++;
   public FruitSpecies? Shake()
@@ -32,5 +35,25 @@ internal class TreeLine
       return AvailableFruitSpecies[rnd.Next(AvailableFruitSpecies.Count)];
     }
     else return null;
+  }
+  public bool isOnLine(Vector3 point)
+  {
+    var dxc = point.X - X.X;
+    var dyc = point.Y - X.Y;
+    var dxl = Y.X - X.X;
+    var dyl = Y.Y - X.Y;
+    var cross = dxc * dyl - dyc * dxl;
+    if (cross != 0)
+    {
+      return false;
+    }
+    if (Math.Abs(dxl) >= Math.Abs(dyl))
+      return dxl > 0 ?
+        X.X <= point.X && point.X <= Y.X :
+        Y.X <= point.X && point.X <= X.X;
+    else
+      return dyl > 0 ?
+        X.Y <= point.Y && point.Y <= Y.Y :
+        Y.Y <= point.Y && point.Y <= X.Y;
   }
 }

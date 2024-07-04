@@ -32,7 +32,8 @@ internal class Beboo
   {
     Game = game;
     Position = new Vector3(0, 0, 0);
-    Name = name;
+    if (name == string.Empty) Name = "bob";
+    else Name = name;
     Happiness = 0;
     Age = age;
     bool isSleepingAtStart = DateTime.Now.Hour < 8 || DateTime.Now.Hour > 20;

@@ -21,5 +21,10 @@ internal class Map
     float z = value.Z;
     return new Vector3(x, y, z);
   }
-
+  public TreeLine? GetTreeLineAtPosition(Vector3 position)
+  {
+    return TreeLines.FirstOrDefault(
+      (TreeLine treeLine) => treeLine.isOnLine(position),
+      null );
+  }
 }

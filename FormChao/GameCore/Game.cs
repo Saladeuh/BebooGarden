@@ -13,6 +13,7 @@ internal class Game
   private DateTime LastPressedKeyTime { get; set; }
   static readonly System.Windows.Forms.Timer tickTimer = new();
   public Beboo beboo { get; set; }
+  public Vector3 PlayerPosition { get; private set; }
   public BebooGarden.GameCore.World.Map Map { get; set; }
   public Game(Parameters parameters)
   {
@@ -21,6 +22,7 @@ internal class Game
     SoundSystem.LoadMainScreen();
     LastPressedKeyTime = DateTime.Now;
     tickTimer.Tick += new EventHandler(Tick);
+    PlayerPosition = new Vector3(0, 0, 0);
     Map = new(40, 40, [new TreeLine(new Vector2(19, 19), new Vector2(19, -19))]);
     beboo = new(this, parameters.BebooName, parameters.Age, parameters.LastPayed);
   }
@@ -32,30 +34,64 @@ internal class Game
     {
       case Keys.Left:
       case Keys.Q:
-        SoundSystem.MovePlayerOf(new Vector3(-1, 0, 0));
+        MoveOf(new Vector3(-1, 0, 0));
         break;
       case Keys.Right:
       case Keys.D:
-        SoundSystem.MovePlayerOf(new Vector3(1, 0, 0));
+        MoveOf(new Vector3(1, 0, 0));
         break;
       case Keys.Up:
       case Keys.Z:
-        SoundSystem.MovePlayerOf(new Vector3(0, 1, 0));
+        MoveOf(new Vector3(0, 1, 0));
         break;
       case Keys.Down:
       case Keys.S:
-        SoundSystem.MovePlayerOf(new Vector3(0, -1, 0));
+        MoveOf(new Vector3(0, -1, 0));
         break;
       case Keys.Space:
-        //ScreenReader.Output($"{channels} {virt}");
-        SoundSystem.System.Get3DListenerAttributes(0, out Vector3 currentPosition, out _, out _, out _);
-        SoundSystem.Whistle();
-        beboo.WakeUp();
-        beboo.GoalPosition = currentPosition;
+        if (Vector3.Distance(PlayerPosition, beboo.Position) < 4)
+        {
+          FeedBeboo();
+        }
+        else Whistle();
+
         break;
       default:
         GlobalActions.CheckGlobalActions(e.KeyCode);
         break;
+    }
+  }
+
+  private void FeedBeboo()
+  {
+    //throw new NotImplementedException();
+  }
+
+  private void Whistle()
+  {
+    SoundSystem.System.Get3DListenerAttributes(0, out Vector3 currentPosition, out _, out _, out _);
+    SoundSystem.Whistle();
+    beboo.WakeUp();
+    beboo.GoalPosition = currentPosition;
+  }
+
+  public void MoveOf(Vector3 movement)
+  {
+    var newPos = Map.Clamp(PlayerPosition + movement);
+    if (newPos != PlayerPosition + movement) SoundSystem.WallBouncing();
+    PlayerPosition = newPos;
+    SoundSystem.MovePlayerTo(newPos);
+    SpeakObjectUnderCursor();
+  }
+
+  private void SpeakObjectUnderCursor()
+  {
+    if (Vector3.Distance(PlayerPosition,beboo.Position)<4)
+    {
+      ScreenReader.Output(beboo.Name);
+    } else if (Map.GetTreeLineAtPosition(PlayerPosition)!=null)
+    {
+      ScreenReader.Output("Arbre");
     }
   }
 
