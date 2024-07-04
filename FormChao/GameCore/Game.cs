@@ -23,7 +23,7 @@ internal class Game
     LastPressedKeyTime = DateTime.Now;
     tickTimer.Tick += new EventHandler(Tick);
     PlayerPosition = new Vector3(0, 0, 0);
-    Map = new(40, 40, [new TreeLine(new Vector2(19, 19), new Vector2(19, -19))]);
+    Map = new(40, 40, [new TreeLine(new Vector2(20, 20), new Vector2(20, -20))]);
     beboo = new(this, parameters.BebooName, parameters.Age, parameters.LastPayed);
   }
   public void KeyDownMapper(object sender, KeyEventArgs e)
@@ -49,7 +49,7 @@ internal class Game
         MoveOf(new Vector3(0, -1, 0));
         break;
       case Keys.Space:
-        if (Vector3.Distance(PlayerPosition, beboo.Position) < 4)
+        if (Util.IsInSquare(beboo.Position, PlayerPosition, 1))
         {
           FeedBeboo();
         }
@@ -86,7 +86,7 @@ internal class Game
 
   private void SpeakObjectUnderCursor()
   {
-    if (Vector3.Distance(PlayerPosition,beboo.Position)<4)
+    if (Util.IsInSquare(beboo.Position, PlayerPosition, 1))
     {
       ScreenReader.Output(beboo.Name);
     } else if (Map.GetTreeLineAtPosition(PlayerPosition)!=null)
