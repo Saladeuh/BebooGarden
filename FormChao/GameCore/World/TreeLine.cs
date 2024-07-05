@@ -19,21 +19,27 @@ internal class TreeLine
     FruitPerHour = fruitPerHour;
     Fruits = fruitPerHour;
     AvailableFruitSpecies = availableFruitSpecies ?? [FruitSpecies.Normal];
-    RegenerateBehaviour = new(this, 60 / fruitPerHour, 60 / fruitPerHour, (treeLine) =>
+    RegenerateBehaviour = new(this, 3600000 / fruitPerHour, 60 / fruitPerHour, (treeLine) =>
     {
       treeLine.Regenerate();
     });
     RegenerateBehaviour.Start();
   }
   private void Regenerate() => Fruits++;
+  private DateTime lastShaked = DateTime.MinValue;
   public FruitSpecies? Shake()
   {
+    if((DateTime.Now-lastShaked).TotalSeconds <1) return null;
+    else lastShaked = DateTime.Now;
+    Game.SoundSystem.ShakeTrees();
     var rnd = new Random();
-    if (Fruits > 0 && rnd.Next(11) == 10)
+    if (Fruits > 0 && rnd.Next(6) == 5)
     {
       Fruits--;
-      return AvailableFruitSpecies[rnd.Next(AvailableFruitSpecies.Count)];
-    }
+      var droppedFruit= AvailableFruitSpecies[rnd.Next(AvailableFruitSpecies.Count)];
+      Game.SoundSystem.DropFruitSound(droppedFruit);
+      return droppedFruit;
+        }
     else return null;
   }
   public bool isOnLine(Vector3 point)

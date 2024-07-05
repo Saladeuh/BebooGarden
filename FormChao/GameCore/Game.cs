@@ -8,13 +8,13 @@ namespace BebooGarden.GameCore;
 
 internal class Game
 {
-  public SoundSystem SoundSystem { get; set; }
+  public static SoundSystem SoundSystem { get; set; }
   private GlobalActions GlobalActions { get; set; }
   private DateTime LastPressedKeyTime { get; set; }
   static readonly System.Windows.Forms.Timer tickTimer = new();
   public Beboo beboo { get; set; }
   public Vector3 PlayerPosition { get; private set; }
-  public BebooGarden.GameCore.World.Map Map { get; set; }
+  public static BebooGarden.GameCore.World.Map Map { get; set; }
   public Game(Parameters parameters)
   {
     Map = new(40, 40,
@@ -27,7 +27,7 @@ internal class Game
     LastPressedKeyTime = DateTime.Now;
     tickTimer.Tick += new EventHandler(Tick);
     PlayerPosition = new Vector3(0, 0, 0);
-    beboo = new(this, parameters.BebooName, parameters.Age, parameters.LastPayed);
+    beboo = new(parameters.BebooName, parameters.Age, parameters.LastPayed);
   }
   public void KeyDownMapper(object sender, KeyEventArgs e)
   {
@@ -52,12 +52,17 @@ internal class Game
         MoveOf(new Vector3(0, -1, 0));
         break;
       case Keys.Space:
+        TreeLine? treeLine = Map.GetTreeLineAtPosition(PlayerPosition);
         if (Util.IsInSquare(beboo.Position, PlayerPosition, 1))
         {
-          FeedBeboo();
+          if (beboo.Mood == Mood.Sleeping) Whistle();
+          else FeedBeboo();
+        }
+        else if (treeLine != null)
+        {
+          treeLine.Shake();
         }
         else Whistle();
-
         break;
       default:
         GlobalActions.CheckGlobalActions(e.KeyCode);

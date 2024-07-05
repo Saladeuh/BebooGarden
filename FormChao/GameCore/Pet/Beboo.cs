@@ -13,7 +13,6 @@ internal class Beboo
   public int Happiness { get; set; }
   public Mood Mood { get; set; }
   public Vector3 Position { get; set; }
-  private Game Game { get; }
   public TimedBehaviour<Beboo> CuteBehaviour { get; }
   private Vector3? goalPosition;
   public Vector3? GoalPosition
@@ -29,9 +28,8 @@ internal class Beboo
   public TimedBehaviour<Beboo> MoveBehaviour { get; }
   public TimedBehaviour<Beboo> SleepingBehaviour { get; }
 
-  public Beboo(Game game, string name = "Bob", int age = 0, DateTime lastPlayed = default)
+  public Beboo(string name = "Bob", int age = 0, DateTime lastPlayed = default)
   {
-    Game = game;
     Position = new Vector3(0, 0, 0);
     if (name == string.Empty) Name = "bob";
     else Name = name;
@@ -120,9 +118,11 @@ internal class Beboo
   }
   public void Eat(FruitSpecies fruitSpecies)
   {
+    if (Mood == Mood.Sleeping) return;
     if (fruitSpecies==FruitSpecies.Normal)
     {
       Energy ++;
+      Happiness ++;
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooChewSounds, this, 0.5f);
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooYumySounds, this);
     }
