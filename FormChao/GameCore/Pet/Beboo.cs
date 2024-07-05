@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using BebooGarden.GameCore.World;
 using BebooGarden.Interface;
 
 namespace BebooGarden.GameCore.Pet;
@@ -116,5 +117,14 @@ internal class Beboo
     Game.SoundSystem.PlayBebooSound(Game.SoundSystem.GrassSound, this);
     Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooYawningSounds, this);
     Mood = Mood.Happy;
+  }
+  public void Eat(FruitSpecies fruitSpecies)
+  {
+    if (fruitSpecies==FruitSpecies.Normal)
+    {
+      Energy ++;
+      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooChewSounds, this, 0.5f);
+      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooYumySounds, this);
+    }
   }
 }

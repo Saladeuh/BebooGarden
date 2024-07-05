@@ -6,13 +6,15 @@ internal class Map
 {
   public int SizeX { get; set; }
   public int SizeY { get; set; }
-  public List<TreeLine> TreeLines { get; set; }
+  public List<TreeLine> TreeLines { get; }
+  public Vector3 WaterPoint { get; }
 
-  public Map(int sizeX, int sizeY, List<TreeLine> treeLines)
+  public Map(int sizeX, int sizeY, List<TreeLine> treeLines, Vector3 waterPoint)
   {
     SizeX = sizeX;
     SizeY = sizeY;
     TreeLines = treeLines;
+    WaterPoint= waterPoint;
   }
   public Vector3 Clamp(Vector3 value)
   {

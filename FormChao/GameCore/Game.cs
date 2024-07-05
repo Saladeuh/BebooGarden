@@ -17,13 +17,16 @@ internal class Game
   public BebooGarden.GameCore.World.Map Map { get; set; }
   public Game(Parameters parameters)
   {
+    Map = new(40, 40,
+      [new TreeLine(new Vector2(20, 20), new Vector2(20, -20))],
+      new Vector3(-15, 0, 0));
     SoundSystem = new SoundSystem(parameters.Volume);
-    GlobalActions = new GlobalActions(SoundSystem);
     SoundSystem.LoadMainScreen();
+    SoundSystem.LoadMap(Map);
+    GlobalActions = new GlobalActions(SoundSystem);
     LastPressedKeyTime = DateTime.Now;
     tickTimer.Tick += new EventHandler(Tick);
     PlayerPosition = new Vector3(0, 0, 0);
-    Map = new(40, 40, [new TreeLine(new Vector2(20, 20), new Vector2(20, -20))]);
     beboo = new(this, parameters.BebooName, parameters.Age, parameters.LastPayed);
   }
   public void KeyDownMapper(object sender, KeyEventArgs e)
@@ -64,7 +67,7 @@ internal class Game
 
   private void FeedBeboo()
   {
-    //throw new NotImplementedException();
+    beboo.Eat(FruitSpecies.Normal);
   }
 
   private void Whistle()
@@ -89,7 +92,8 @@ internal class Game
     if (Util.IsInSquare(beboo.Position, PlayerPosition, 1))
     {
       ScreenReader.Output(beboo.Name);
-    } else if (Map.GetTreeLineAtPosition(PlayerPosition)!=null)
+    }
+    else if (Map.GetTreeLineAtPosition(PlayerPosition) != null)
     {
       ScreenReader.Output("Arbre");
     }

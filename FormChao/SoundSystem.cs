@@ -1,7 +1,9 @@
 using System.Numerics;
 using System.Timers;
 using BebooGarden.GameCore.Pet;
+using BebooGarden.GameCore.World;
 using FmodAudio;
+using FmodAudio.Base;
 
 namespace BebooGarden;
 internal class SoundSystem
@@ -14,11 +16,15 @@ internal class SoundSystem
   public List<Sound> BebooCuteSounds { get; private set; }
   public List<Sound> BebooSleepSounds { get; private set; }
   public List<Sound> BebooYawningSounds { get; private set; }
+  public List<Sound> BebooChewSounds { get; private set; }
   public Sound WhistleSound { get; set; }
   public Sound WallSound { get; private set; }
   public List<Sound> BebooSleepingSounds { get; private set; }
   public Sound BebooStepSound { get; private set; }
   public Sound GrassSound { get; private set; }
+  public Sound WaterSound { get; private set; }
+  public SoundHandle TreeWindSound { get; private set; }
+  public List<Sound> BebooYumySounds { get; private set; }
 
   private static System.Timers.Timer AmbiTimer;
 
@@ -54,12 +60,8 @@ internal class SoundSystem
     Channel channel = (Channel?)System.PlaySound(sound, paused: true);
     channel.SetLoopPoints(TimeUnit.MS, 12, TimeUnit.MS, 88369);
     channel.Volume = 0.5f;
-    sound = System.CreateStream(CONTENTFOLDER + "sounds/WaterCalmWide.wav", Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff);
-    channel = (Channel?)System.PlaySound(sound, paused: false);
-    channel.SetLoopPoints(TimeUnit.MS, 2780, TimeUnit.MS, 17796);
-    channel.Set3DAttributes(new Vector3(-20f, 0f, -5f), default, default);
-    channel.Set3DMinMaxDistance(3f, 24f);
-    channel.Volume = 0.1f;
+    WaterSound = System.CreateStream(CONTENTFOLDER + "sounds/WaterCalmWide.wav", Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff | Mode._3D_WorldRelative);
+    TreeWindSound = System.CreateStream(CONTENTFOLDER + "sounds/Wind_Trees_Cattails_Fienup_001.wav", Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff | Mode._3D_WorldRelative);
     sound = System.CreateStream(CONTENTFOLDER + "sounds/Grass_Shake.wav", Mode.Loop_Normal);
     channel = (Channel?)System.PlaySound(sound, paused: false);
     channel.SetLoopPoints(TimeUnit.MS, 678, TimeUnit.MS, 6007);
@@ -72,6 +74,10 @@ internal class SoundSystem
     LoadSoundsInList(["baille.wav", "baille2.wav"], BebooYawningSounds, "sounds/beboo/");
     BebooSleepingSounds = new();
     LoadSoundsInList(["ronfle.wav", "dodo.wav"], BebooSleepingSounds, "sounds/beboo/");
+    BebooChewSounds = new();
+    LoadSoundsInList(["crunch.wav", "EatingApple.wav"], BebooChewSounds, "sounds/beboo/");
+    BebooYumySounds = new();
+    LoadSoundsInList(["miam.wav", "miam2.wav", "miam3.wav"], BebooYumySounds, "sounds/beboo/");
     WhistleSound = System.CreateSound(CONTENTFOLDER + "sounds/character/se_sys_whistle_1p.wav", Mode.Unique);
     WallSound = System.CreateSound(CONTENTFOLDER + "sounds/wall.wav", Mode.Unique);
     BebooStepSound = System.CreateSound(CONTENTFOLDER + "sounds/beboo/step.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
@@ -79,6 +85,24 @@ internal class SoundSystem
     Reverb3D reverb = System.CreateReverb3D();
     reverb.SetProperties(Preset.Bathroom);
     reverb.Set3DAttributes(new Vector3(0, 0, 0), 0f, 500f);
+  }
+  public void LoadMap(Map map)
+  {
+    Channel channel = System.PlaySound(WaterSound, paused: true);
+    channel.SetLoopPoints(TimeUnit.MS, 2780, TimeUnit.MS, 17796);
+    channel.Set3DAttributes(map.WaterPoint, default, default);
+    channel.Set3DMinMaxDistance(3f, 24f);
+    channel.Volume = 0.1f;
+    channel.Paused = false;
+    channel = System.PlaySound(TreeWindSound, paused: true);
+    channel.SetLoopPoints(TimeUnit.PCM, 668725, TimeUnit.PCM, 2961327);
+    //channel.SetLoopPoints(TimeUnit.MS, 2780, TimeUnit.MS, 17796);
+    var treePosVector2 = map.TreeLines[0].X;
+    var treePosVector3 = new Vector3(treePosVector2.X, treePosVector2.Y, 0);
+    channel.Set3DAttributes(treePosVector3, default, default);
+    channel.Set3DMinMaxDistance(3f, 35f);
+    //channel.Volume = 0.1f;
+    channel.Paused = false;
   }
   public void LoadAmbiSounds()
   {
