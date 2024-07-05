@@ -1,4 +1,5 @@
 using System.Globalization;
+using BebooGarden.GameCore;
 using BebooGarden.Interface;
 using BebooGarden.Save;
 using Microsoft.Extensions.Configuration;
@@ -18,7 +19,7 @@ internal static class Program
     var mainWindow = new Form1(parameters);
     Application.Run(mainWindow);
     parameters = new Parameters(language: (parameters.Language ?? "en"),
-  volume: mainWindow.Game.SoundSystem.Volume,
+  volume: Game.SoundSystem.Volume,
       bebooName: mainWindow.Game.beboo.Name,
       mood: mainWindow.Game.beboo.Mood,
       age: mainWindow.Game.beboo.Age,

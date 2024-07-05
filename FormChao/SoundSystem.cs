@@ -18,14 +18,15 @@ internal class SoundSystem
   public List<Sound> BebooYawningSounds { get; private set; }
   public List<Sound> BebooChewSounds { get; private set; }
   public Sound WhistleSound { get; set; }
+  public Sound TreesShakeSound { get; private set; }
   public Sound WallSound { get; private set; }
   public List<Sound> BebooSleepingSounds { get; private set; }
   public Sound BebooStepSound { get; private set; }
   public Sound GrassSound { get; private set; }
   public Sound WaterSound { get; private set; }
-  public SoundHandle TreeWindSound { get; private set; }
+  public Sound TreeWindSound { get; private set; }
   public List<Sound> BebooYumySounds { get; private set; }
-
+  private SortedDictionary<FruitSpecies, Sound> FruitsSounds { get; set; }
   private static System.Timers.Timer AmbiTimer;
 
   public SoundSystem(float initialVolume)
@@ -79,6 +80,9 @@ internal class SoundSystem
     BebooYumySounds = new();
     LoadSoundsInList(["miam.wav", "miam2.wav", "miam3.wav"], BebooYumySounds, "sounds/beboo/");
     WhistleSound = System.CreateSound(CONTENTFOLDER + "sounds/character/se_sys_whistle_1p.wav", Mode.Unique);
+    TreesShakeSound = System.CreateSound(CONTENTFOLDER + "sounds/character/Tree_Shake.wav", Mode.Unique);
+    FruitsSounds = new();
+    FruitsSounds[FruitSpecies.Normal]= System.CreateSound(CONTENTFOLDER + "sounds/character/fruit.wav", Mode.Unique);
     WallSound = System.CreateSound(CONTENTFOLDER + "sounds/wall.wav", Mode.Unique);
     BebooStepSound = System.CreateSound(CONTENTFOLDER + "sounds/beboo/step.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     GrassSound = System.CreateSound(CONTENTFOLDER + "sounds/grass_rustle.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
@@ -190,9 +194,18 @@ internal class SoundSystem
   {
     System.PlaySound(WhistleSound);
   }
+  public void ShakeTrees()
+  {
+    System.PlaySound(TreesShakeSound);
+  }
 
   internal void WallBouncing()
   {
     System.PlaySound(WallSound);
+  }
+
+  internal void DropFruitSound(FruitSpecies fruitSpecies)
+  {
+    System.PlaySound(FruitsSounds[fruitSpecies]);
   }
 }
