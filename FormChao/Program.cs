@@ -19,6 +19,8 @@ internal static class Program
 #if !DEBUG
     AutoUpdater.InstalledVersion = new Version(version); 
     AutoUpdater.Synchronous = true;
+    AutoUpdater.ShowSkipButton = false;
+    AutoUpdater.ShowRemindLaterButton = false;
     AutoUpdater.Start("https://raw.githubusercontent.com/Saladeuh/BebooGarden/main/AutoUpdater.xml");
 #endif
     var parameters = (LoadJson() ?? new Parameters());
