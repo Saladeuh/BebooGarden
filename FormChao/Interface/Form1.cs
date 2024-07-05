@@ -2,6 +2,7 @@ using System.Numerics;
 using System.Security.Cryptography.Xml;
 using BebooGarden.GameCore;
 using BebooGarden.Save;
+using AutoUpdaterDotNET;
 namespace BebooGarden;
 
 public partial class Form1 : Form

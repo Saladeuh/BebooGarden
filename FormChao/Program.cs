@@ -1,4 +1,5 @@
 using System.Globalization;
+using AutoUpdaterDotNET;
 using BebooGarden.GameCore;
 using BebooGarden.Interface;
 using BebooGarden.Save;
@@ -10,10 +11,16 @@ namespace BebooGarden;
 internal static class Program
 {
   private const string DATAFILEPATH = "save.dat";
+  private const string version = "0.5";
   [STAThread]
   static void Main()
   {
     ScreenReader.Load("wsh", "2");
+#if !DEBUG
+    AutoUpdater.InstalledVersion = new Version(version); 
+    AutoUpdater.Synchronous = true;
+    AutoUpdater.Start("https://raw.githubusercontent.com/Saladeuh/BebooGarden/main/AutoUpdater.xml");
+#endif
     var parameters = (LoadJson() ?? new Parameters());
     SetConsoleParams((parameters.Language ?? "en"));
     var mainWindow = new Form1(parameters);
