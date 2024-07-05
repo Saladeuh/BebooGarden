@@ -14,6 +14,7 @@ internal class Game
   static readonly System.Windows.Forms.Timer tickTimer = new();
   public Beboo beboo { get; set; }
   public Vector3 PlayerPosition { get; private set; }
+  public SortedDictionary<FruitSpecies, int> FruitsBasket { get; set; }
   public static BebooGarden.GameCore.World.Map Map { get; set; }
   public Game(Parameters parameters)
   {
@@ -28,6 +29,11 @@ internal class Game
     tickTimer.Tick += new EventHandler(Tick);
     PlayerPosition = new Vector3(0, 0, 0);
     beboo = new(parameters.BebooName, parameters.Age, parameters.LastPayed);
+    FruitsBasket = new();
+    foreach (FruitSpecies fruitSpecies in Enum.GetValues(typeof(FruitSpecies)))
+    {
+      FruitsBasket[fruitSpecies] = 0;
+    }
   }
   public void KeyDownMapper(object sender, KeyEventArgs e)
   {
@@ -60,7 +66,8 @@ internal class Game
         }
         else if (treeLine != null)
         {
-          treeLine.Shake();
+          var dropped = treeLine.Shake();
+          if (dropped != null) FruitsBasket[dropped.Value]++;
         }
         else Whistle();
         break;
@@ -72,7 +79,11 @@ internal class Game
 
   private void FeedBeboo()
   {
-    beboo.Eat(FruitSpecies.Normal);
+    if (FruitsBasket[FruitSpecies.Normal] > 0)
+    {
+      beboo.Eat(FruitSpecies.Normal);
+      FruitsBasket[FruitSpecies.Normal]--;
+    }
   }
 
   private void Whistle()
