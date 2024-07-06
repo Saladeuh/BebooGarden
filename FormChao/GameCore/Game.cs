@@ -10,6 +10,7 @@ internal class Game
 {
   public static SoundSystem SoundSystem { get; set; }
   private GlobalActions GlobalActions { get; set; }
+  private Dictionary<Keys, bool> KeyState { get; set; }
   private DateTime LastPressedKeyTime { get; set; }
   static readonly System.Windows.Forms.Timer tickTimer = new();
   public Beboo beboo { get; set; }
@@ -34,46 +35,65 @@ internal class Game
     {
       FruitsBasket[fruitSpecies] = 0;
     }
+    KeyState = new();
+    foreach (Keys key in Enum.GetValues(typeof(Keys)))
+    {
+      KeyState[key] = false;
+    }
   }
   public void KeyDownMapper(object sender, KeyEventArgs e)
   {
-    if ((DateTime.Now - LastPressedKeyTime).TotalMilliseconds < 200) return;
+    if ((DateTime.Now - LastPressedKeyTime).TotalMilliseconds < 150) return;
     else LastPressedKeyTime = DateTime.Now;
     switch (e.KeyCode)
     {
-      case Keys.Left:
-      case Keys.Q:
+      case System.Windows.Forms.Keys.Left:
+      case System.Windows.Forms.Keys.Q:
         MoveOf(new Vector3(-1, 0, 0));
         break;
-      case Keys.Right:
-      case Keys.D:
+      case System.Windows.Forms.Keys.Right:
+      case System.Windows.Forms.Keys.D:
         MoveOf(new Vector3(1, 0, 0));
         break;
-      case Keys.Up:
-      case Keys.Z:
-        MoveOf(new Vector3(0, 1, 0));
+      case System.Windows.Forms.Keys.Up:
+      case System.Windows.Forms.Keys.Z:
+        if (KeyState[Keys.Space])
+        {
+          ShakeAtPlayerPosition();
+        }
+        else MoveOf(new Vector3(0, 1, 0));
         break;
-      case Keys.Down:
-      case Keys.S:
-        MoveOf(new Vector3(0, -1, 0));
+      case System.Windows.Forms.Keys.Down:
+      case System.Windows.Forms.Keys.S:
+        if (KeyState[Keys.Space])
+        {
+          ShakeAtPlayerPosition();
+        }
+        else MoveOf(new Vector3(0, -1, 0));
         break;
-      case Keys.Space:
-        TreeLine? treeLine = Map.GetTreeLineAtPosition(PlayerPosition);
+      case System.Windows.Forms.Keys.Space:
+        if (KeyState[Keys.Space]) break;
         if (Util.IsInSquare(beboo.Position, PlayerPosition, 1))
         {
           if (beboo.Mood == Mood.Sleeping) Whistle();
           else FeedBeboo();
-        }
-        else if (treeLine != null)
-        {
-          var dropped = treeLine.Shake();
-          if (dropped != null) FruitsBasket[dropped.Value]++;
-        }
+        } else if(Map.GetTreeLineAtPosition(PlayerPosition)!=null) break;
         else Whistle();
         break;
       default:
         GlobalActions.CheckGlobalActions(e.KeyCode);
         break;
+    }
+    KeyState[e.KeyCode] = true;
+  }
+
+  private void ShakeAtPlayerPosition()
+  {
+    var treeLine = Map.GetTreeLineAtPosition(PlayerPosition);
+    if (treeLine != null)
+    {
+      var dropped = treeLine.Shake();
+      if (dropped != null) FruitsBasket[dropped.Value]++;
     }
   }
 
@@ -118,5 +138,10 @@ internal class Game
   public void Tick(object? _, EventArgs __)
   {
     SoundSystem.System.Update();
+  }
+
+  internal void KeyUpMapper(object? sender, KeyEventArgs e)
+  {
+    KeyState[e.KeyCode] = false;
   }
 }

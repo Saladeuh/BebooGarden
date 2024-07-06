@@ -14,6 +14,7 @@ public partial class Form1 : Form
     this.Text = "Jardin Bébous";
     Game = new Game(parameters);
     this.KeyDown += Game.KeyDownMapper;
+    this.KeyUp += Game.KeyUpMapper;
   }
 
 }

@@ -29,7 +29,7 @@ internal class TreeLine
   private DateTime lastShaked = DateTime.MinValue;
   public FruitSpecies? Shake()
   {
-    if((DateTime.Now-lastShaked).TotalSeconds <1) return null;
+    if((DateTime.Now-lastShaked).TotalMilliseconds <500) return null;
     else lastShaked = DateTime.Now;
     Game.SoundSystem.ShakeTrees();
     var rnd = new Random();

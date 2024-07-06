@@ -4,4 +4,5 @@ internal enum FruitSpecies
 {
   Normal,
   Energetic
+
 }
