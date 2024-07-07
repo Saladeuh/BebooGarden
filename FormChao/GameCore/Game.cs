@@ -13,7 +13,7 @@ internal class Game
   private Dictionary<Keys, bool> KeyState { get; set; }
   private DateTime LastPressedKeyTime { get; set; }
   static readonly System.Windows.Forms.Timer tickTimer = new();
-  public Beboo beboo { get; set; }
+  public Beboo Beboo { get; set; }
   public Vector3 PlayerPosition { get; private set; }
   public SortedDictionary<FruitSpecies, int> FruitsBasket { get; set; }
   public static BebooGarden.GameCore.World.Map Map { get; set; }
@@ -29,18 +29,19 @@ internal class Game
     LastPressedKeyTime = DateTime.Now;
     tickTimer.Tick += new EventHandler(Tick);
     PlayerPosition = new Vector3(0, 0, 0);
-    beboo = new(parameters.BebooName, parameters.Age, parameters.LastPayed);
-    FruitsBasket = new();
+    Beboo = new(parameters.BebooName, parameters.Age, parameters.LastPayed);
+    FruitsBasket = [];
     foreach (FruitSpecies fruitSpecies in Enum.GetValues(typeof(FruitSpecies)))
     {
       FruitsBasket[fruitSpecies] = 0;
     }
-    KeyState = new();
+    KeyState = [];
     foreach (Keys key in Enum.GetValues(typeof(Keys)))
     {
       KeyState[key] = false;
     }
   }
+  bool lastArrowWasUp=false;
   public void KeyDownMapper(object sender, KeyEventArgs e)
   {
     if ((DateTime.Now - LastPressedKeyTime).TotalMilliseconds < 150) return;
@@ -59,7 +60,11 @@ internal class Game
       case System.Windows.Forms.Keys.Z:
         if (KeyState[Keys.Space])
         {
-          ShakeAtPlayerPosition();
+          if (!lastArrowWasUp)
+          {
+            ShakeAtPlayerPosition();
+            lastArrowWasUp = true;
+          }
         }
         else MoveOf(new Vector3(0, 1, 0));
         break;
@@ -67,15 +72,18 @@ internal class Game
       case System.Windows.Forms.Keys.S:
         if (KeyState[Keys.Space])
         {
-          ShakeAtPlayerPosition();
+          if (lastArrowWasUp) {
+            ShakeAtPlayerPosition();
+            lastArrowWasUp = false;
+          }
         }
         else MoveOf(new Vector3(0, -1, 0));
         break;
       case System.Windows.Forms.Keys.Space:
         if (KeyState[Keys.Space]) break;
-        if (Util.IsInSquare(beboo.Position, PlayerPosition, 1))
+        if (Util.IsInSquare(Beboo.Position, PlayerPosition, 1))
         {
-          if (beboo.Mood == Mood.Sleeping) Whistle();
+          if (Beboo.Mood == Mood.Sleeping) Whistle();
           else FeedBeboo();
         } else if(Map.GetTreeLineAtPosition(PlayerPosition)!=null) break;
         else Whistle();
@@ -101,7 +109,7 @@ internal class Game
   {
     if (FruitsBasket[FruitSpecies.Normal] > 0)
     {
-      beboo.Eat(FruitSpecies.Normal);
+      Beboo.Eat(FruitSpecies.Normal);
       FruitsBasket[FruitSpecies.Normal]--;
     }
   }
@@ -110,8 +118,8 @@ internal class Game
   {
     SoundSystem.System.Get3DListenerAttributes(0, out Vector3 currentPosition, out _, out _, out _);
     SoundSystem.Whistle();
-    beboo.WakeUp();
-    beboo.GoalPosition = currentPosition;
+    Beboo.WakeUp();
+    Beboo.GoalPosition = currentPosition;
   }
 
   public void MoveOf(Vector3 movement)
@@ -125,9 +133,9 @@ internal class Game
 
   private void SpeakObjectUnderCursor()
   {
-    if (Util.IsInSquare(beboo.Position, PlayerPosition, 1))
+    if (Util.IsInSquare(Beboo.Position, PlayerPosition, 1))
     {
-      ScreenReader.Output(beboo.Name);
+      ScreenReader.Output(Beboo.Name);
     }
     else if (Map.GetTreeLineAtPosition(PlayerPosition) != null)
     {

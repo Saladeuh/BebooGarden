@@ -26,7 +26,7 @@ internal class Map
   public TreeLine? GetTreeLineAtPosition(Vector3 position)
   {
     return TreeLines.FirstOrDefault(
-      (TreeLine treeLine) => treeLine.isOnLine(position),
+      (TreeLine treeLine) => treeLine.IsOnLine(position),
       null );
   }
 }

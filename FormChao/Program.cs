@@ -29,9 +29,9 @@ internal static class Program
     Application.Run(mainWindow);
     parameters = new Parameters(language: (parameters.Language ?? "en"),
   volume: Game.SoundSystem.Volume,
-      bebooName: mainWindow.Game.beboo.Name,
-      mood: mainWindow.Game.beboo.Mood,
-      age: mainWindow.Game.beboo.Age,
+      bebooName: mainWindow.Game.Beboo.Name,
+      mood: mainWindow.Game.Beboo.Mood,
+      age: mainWindow.Game.Beboo.Age,
       lastPayed: DateTime.Now);
     WriteJson(parameters);
   }

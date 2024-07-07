@@ -29,20 +29,20 @@ internal class TreeLine
   private DateTime lastShaked = DateTime.MinValue;
   public FruitSpecies? Shake()
   {
-    if((DateTime.Now-lastShaked).TotalMilliseconds <500) return null;
+    if ((DateTime.Now - lastShaked).TotalMilliseconds < 500) return null;
     else lastShaked = DateTime.Now;
     Game.SoundSystem.ShakeTrees();
     var rnd = new Random();
     if (Fruits > 0 && rnd.Next(6) == 5)
     {
       Fruits--;
-      var droppedFruit= AvailableFruitSpecies[rnd.Next(AvailableFruitSpecies.Count)];
+      var droppedFruit = AvailableFruitSpecies[rnd.Next(AvailableFruitSpecies.Count)];
       Game.SoundSystem.DropFruitSound(droppedFruit);
       return droppedFruit;
-        }
+    }
     else return null;
   }
-  public bool isOnLine(Vector3 point)
+  public bool IsOnLine(Vector3 point)
   {
     var dxc = point.X - X.X;
     var dyc = point.Y - X.Y;
