@@ -27,6 +27,10 @@ internal class SoundSystem
   public Sound TreeWindSound { get; private set; }
   public List<Sound> BebooYumySounds { get; private set; }
   private SortedDictionary<FruitSpecies, Sound> FruitsSounds { get; set; }
+  public Sound NeutralMusicStream { get; private set; }
+  public Channel Music { get; private set; }
+  public Sound SadMusicStream { get; private set; }
+
   private static System.Timers.Timer AmbiTimer;
 
   public SoundSystem(float initialVolume)
@@ -56,11 +60,12 @@ internal class SoundSystem
   }
   public void LoadMainScreen()
   {
-    Sound sound;
-    sound = System.CreateStream(CONTENTFOLDER + "music/neutral.mp3", Mode.Loop_Normal);
-    Channel channel = (Channel?)System.PlaySound(sound, paused: true);
-    channel.SetLoopPoints(TimeUnit.MS, 12, TimeUnit.MS, 88369);
-    channel.Volume = 0.5f;
+    Sound sound; Channel channel;
+    NeutralMusicStream = System.CreateStream(CONTENTFOLDER + "music/neutral.mp3", Mode.Loop_Normal);
+    Music = (Channel?)System.PlaySound(NeutralMusicStream, paused: true);
+    Music.SetLoopPoints(TimeUnit.MS, 12, TimeUnit.MS, 88369);
+    Music.Volume = 0.5f;
+    SadMusicStream = System.CreateStream(CONTENTFOLDER + "music/Depressed.mp3", Mode.Loop_Normal);
     WaterSound = System.CreateStream(CONTENTFOLDER + "sounds/WaterCalmWide.wav", Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff | Mode._3D_WorldRelative);
     TreeWindSound = System.CreateStream(CONTENTFOLDER + "sounds/Wind_Trees_Cattails_Fienup_001.wav", Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff | Mode._3D_WorldRelative);
     sound = System.CreateStream(CONTENTFOLDER + "sounds/Grass_Shake.wav", Mode.Loop_Normal);
@@ -82,7 +87,7 @@ internal class SoundSystem
     WhistleSound = System.CreateSound(CONTENTFOLDER + "sounds/character/se_sys_whistle_1p.wav", Mode.Unique);
     TreesShakeSound = System.CreateSound(CONTENTFOLDER + "sounds/character/Tree_Shake.wav");
     FruitsSounds = new();
-    FruitsSounds[FruitSpecies.Normal]= System.CreateSound(CONTENTFOLDER + "sounds/character/fruit.wav", Mode.Unique);
+    FruitsSounds[FruitSpecies.Normal] = System.CreateSound(CONTENTFOLDER + "sounds/character/fruit.wav", Mode.Unique);
     WallSound = System.CreateSound(CONTENTFOLDER + "sounds/wall.wav", Mode.Unique);
     BebooStepSound = System.CreateSound(CONTENTFOLDER + "sounds/beboo/step.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     GrassSound = System.CreateSound(CONTENTFOLDER + "sounds/grass_rustle.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
@@ -207,5 +212,13 @@ internal class SoundSystem
   internal void DropFruitSound(FruitSpecies fruitSpecies)
   {
     System.PlaySound(FruitsSounds[fruitSpecies]);
+  }
+  public void MusicTransition(Sound music, uint startLoop, uint endLoop, float volume=0.5f)
+  {
+    Music.Stop();
+    Music = System.PlaySound(music, paused: false);
+    Music.SetLoopPoints(TimeUnit.PCM, startLoop, TimeUnit.PCM, endLoop);
+    //  Music.SetLoopPoints(TimeUnit.PCM, 464375, TimeUnit.PCM, 4471817);
+    Music.Volume = volume;
   }
 }
