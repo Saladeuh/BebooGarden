@@ -6,16 +6,16 @@ namespace BebooGarden.Save;
 public class Parameters
 {
   public float Volume { get; set; }
-  public string Language { get; set; }
+  public string? Language { get; set; }
   public Mood Mood { get; set; }
   public string BebooName { get; set; }
   public int Age { get; set; }
   public DateTime LastPayed { get; set; }
 
-  public Parameters(string language, float volume, Mood mood, string bebooName, int age, DateTime lastPayed)
+  public Parameters(string? language, float volume, Mood mood, string bebooName, int age, DateTime lastPayed)
   {
     Volume = volume;
-    Language = (language ?? "en");
+    Language = language;
     Mood = mood;
     BebooName = (bebooName ?? "");
     Age = age;

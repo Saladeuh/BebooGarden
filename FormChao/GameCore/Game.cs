@@ -4,12 +4,12 @@ using BebooGarden.GameCore.Pet;
 using BebooGarden.GameCore.World;
 using BebooGarden.Interface;
 using BebooGarden.Save;
+using Microsoft.Extensions.Localization;
 namespace BebooGarden.GameCore;
 
-internal class Game
+internal class Game : IGlobalActions
 {
   public static SoundSystem SoundSystem { get; set; }
-  private GlobalActions GlobalActions { get; set; }
   private Dictionary<Keys, bool> KeyState { get; set; }
   private DateTime LastPressedKeyTime { get; set; }
   static readonly System.Windows.Forms.Timer tickTimer = new();
@@ -25,7 +25,6 @@ internal class Game
     SoundSystem = new SoundSystem(parameters.Volume);
     SoundSystem.LoadMainScreen();
     SoundSystem.LoadMap(Map);
-    GlobalActions = new GlobalActions(SoundSystem);
     LastPressedKeyTime = DateTime.Now;
     tickTimer.Tick += new EventHandler(Tick);
     PlayerPosition = new Vector3(0, 0, 0);
@@ -40,6 +39,7 @@ internal class Game
     {
       KeyState[key] = false;
     }
+    SayLocalizedString("win", 3, 4);
   }
   bool lastArrowWasUp=false;
   public void KeyDownMapper(object sender, KeyEventArgs e)
@@ -89,7 +89,7 @@ internal class Game
         else Whistle();
         break;
       default:
-        GlobalActions.CheckGlobalActions(e.KeyCode);
+        CheckGlobalActions(e.KeyCode);
         break;
     }
     KeyState[e.KeyCode] = true;
