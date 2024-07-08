@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Dynamic;
+using System.Globalization;
 using System.Text;
 using LocalizationCultureCore.StringLocalizer;
 using Microsoft.Extensions.Localization;
@@ -72,8 +73,16 @@ internal class IGlobalActions
   {
     return String.Format(Localizer.GetString(translationKey), args);
   }
-  protected static void SayLocalizedString(string translationKey, params Object[] args, bool interrupt=false)
+  protected static string GetLocalizedString(string translationKey)
   {
-    ScreenReader.Output(GetLocalizedString(translationKey, args), interrupt);
+    return Localizer.GetString(translationKey);
+  }
+  public static void SayLocalizedString(string translationKey, params Object[] args)
+  {
+    ScreenReader.Output(GetLocalizedString(translationKey, args));
+  }
+  public static void SayLocalizedString(string translationKey)
+  {
+    ScreenReader.Output(GetLocalizedString(translationKey));
   }
 }

@@ -39,7 +39,6 @@ internal class Game : IGlobalActions
     {
       KeyState[key] = false;
     }
-    SayLocalizedString("win", 3, 4);
   }
   bool lastArrowWasUp=false;
   public void KeyDownMapper(object sender, KeyEventArgs e)
@@ -139,7 +138,7 @@ internal class Game : IGlobalActions
     }
     else if (Map.GetTreeLineAtPosition(PlayerPosition) != null)
     {
-      ScreenReader.Output("Arbre");
+      SayLocalizedString("trees");
     }
   }
 

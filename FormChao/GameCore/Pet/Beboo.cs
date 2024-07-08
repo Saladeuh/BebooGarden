@@ -95,7 +95,7 @@ internal class Beboo
   }
   public void GoAsleep()
   {
-    ScreenReader.Output($"{Name} va dormir.");
+    Game.SayLocalizedString("beboo.gosleep", this.Name);
     GoingTiredBehaviour.Stop();
     MoveBehaviour.Stop();
     CuteBehaviour.Stop();
@@ -107,7 +107,7 @@ internal class Beboo
   public void WakeUp()
   {
     if (Mood != Mood.Sleeping) return;
-    ScreenReader.Output($"{Name} se réveille.");
+    Game.SayLocalizedString("beboo.wakeup", this.Name);
     GoingTiredBehaviour.Start();
     MoveBehaviour.Start(3000);
     CuteBehaviour.Start();
