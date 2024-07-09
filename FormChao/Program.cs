@@ -1,9 +1,7 @@
 using System.Globalization;
-using AutoUpdaterDotNET;
 using BebooGarden.GameCore;
 using BebooGarden.Interface;
 using BebooGarden.Save;
-using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 
 namespace BebooGarden;
@@ -28,23 +26,26 @@ internal static class Program
     var mainWindow = new Form1(parameters);
     Application.Run(mainWindow);
     parameters = new Parameters(language: (parameters.Language ?? "en"),
-  volume: Game.SoundSystem.Volume,
+      volume: Game.SoundSystem.Volume,
       bebooName: mainWindow.Game.Beboo.Name,
       mood: mainWindow.Game.Beboo.Mood,
+      energy: mainWindow.Game.Beboo.Energy,
       age: mainWindow.Game.Beboo.Age,
       lastPayed: DateTime.Now);
     WriteJson(parameters);
   }
-  public static void SetConsoleParams(string language)
+
+  private static void SetConsoleParams(string language)
   {
-    if (language != null) CultureInfo.CurrentUICulture = new CultureInfo(language);
+    CultureInfo.CurrentUICulture = new CultureInfo(language);
   }
-  public static Parameters? LoadJson()
+
+  private static Parameters? LoadJson()
   {
     if (File.Exists(DATAFILEPATH))
     {
       using StreamReader r = new(DATAFILEPATH);
-      string json = string.Empty;
+      string json;
       try
       {
         json = StringCipher.Decrypt(r.ReadToEnd(), Secrets.SAVEKEY);
@@ -54,7 +55,7 @@ internal static class Program
         json = r.ReadToEnd();
       }
       var parameters = JsonConvert.DeserializeObject<Parameters>(json, new JsonSerializerSettings
-      {ConstructorHandling=ConstructorHandling.AllowNonPublicDefaultConstructor, NullValueHandling=NullValueHandling.Ignore });
+      { ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor, NullValueHandling = NullValueHandling.Ignore });
       return parameters;
     }
     else
@@ -62,7 +63,8 @@ internal static class Program
       return null;
     }
   }
-  public static void WriteJson(Parameters parameters)
+
+  private static void WriteJson(Parameters parameters)
   {
     var json = JsonConvert.SerializeObject(parameters);
 #if !DEBUG

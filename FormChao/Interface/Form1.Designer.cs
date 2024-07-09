@@ -1,4 +1,4 @@
-﻿namespace BebooGarden
+﻿namespace BebooGarden.Interface
 {
   partial class Form1
   {

@@ -1,5 +1,5 @@
 {
     "trees": "Trees",
-    "beboo.gosleep": "{1} go asleep", // 1=beboo name
-    "beboo.wakeup": "{1} wakes up" // 1=beboo name
+    "beboo.gosleep": "{0} go asleep", // 1=beboo name
+    "beboo.wakeup": "{0} wakes up" // 1=beboo name
 }

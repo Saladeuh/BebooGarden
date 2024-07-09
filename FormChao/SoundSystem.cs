@@ -30,6 +30,7 @@ internal class SoundSystem
   public Sound NeutralMusicStream { get; private set; }
   public Channel Music { get; private set; }
   public Sound SadMusicStream { get; private set; }
+  public List<Sound> BebooCrySounds { get; private set; }
 
   private static System.Timers.Timer AmbiTimer;
 
@@ -62,7 +63,7 @@ internal class SoundSystem
   {
     Sound sound; Channel channel;
     NeutralMusicStream = System.CreateStream(CONTENTFOLDER + "music/neutral.mp3", Mode.Loop_Normal);
-    Music = (Channel?)System.PlaySound(NeutralMusicStream, paused: true);
+    Music = (Channel?)System.PlaySound(NeutralMusicStream, paused: false);
     Music.SetLoopPoints(TimeUnit.MS, 12, TimeUnit.MS, 88369);
     Music.Volume = 0.5f;
     SadMusicStream = System.CreateStream(CONTENTFOLDER + "music/Depressed.mp3", Mode.Loop_Normal);
@@ -81,9 +82,11 @@ internal class SoundSystem
     BebooSleepingSounds = new();
     LoadSoundsInList(["ronfle.wav", "dodo.wav"], BebooSleepingSounds, "sounds/beboo/");
     BebooChewSounds = new();
-    LoadSoundsInList(["crunch.wav", "EatingApple.wav"], BebooChewSounds, "sounds/beboo/");
+    LoadSoundsInList(["crunch.wav", "crunch2.wav", "EatingApple.wav"], BebooChewSounds, "sounds/beboo/");
     BebooYumySounds = new();
     LoadSoundsInList(["miam.wav", "miam2.wav", "miam3.wav"], BebooYumySounds, "sounds/beboo/");
+    BebooCrySounds = new();
+    LoadSoundsInList(["trist.wav"], BebooCrySounds, "sounds/beboo/");
     WhistleSound = System.CreateSound(CONTENTFOLDER + "sounds/character/se_sys_whistle_1p.wav", Mode.Unique);
     TreesShakeSound = System.CreateSound(CONTENTFOLDER + "sounds/character/Tree_Shake.wav");
     FruitsSounds = new();
@@ -213,12 +216,12 @@ internal class SoundSystem
   {
     System.PlaySound(FruitsSounds[fruitSpecies]);
   }
-  public void MusicTransition(Sound music, uint startLoop, uint endLoop, float volume=0.5f)
+  public void MusicTransition(Sound music, uint startLoop, uint endLoop, TimeUnit timeUnit, float volume=0.5f)
   {
     Music.Stop();
     Music = System.PlaySound(music, paused: false);
-    Music.SetLoopPoints(TimeUnit.PCM, startLoop, TimeUnit.PCM, endLoop);
-    //  Music.SetLoopPoints(TimeUnit.PCM, 464375, TimeUnit.PCM, 4471817);
+    Music.SetLoopPoints(timeUnit, startLoop, timeUnit, endLoop);
+    //Music.SetLoopPoints(TimeUnit.PCM, 464375, TimeUnit.PCM, 4471817);
     Music.Volume = volume;
   }
 }

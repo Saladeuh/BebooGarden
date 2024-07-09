@@ -1,6 +1,4 @@
-﻿using System.Dynamic;
-using System.Globalization;
-using System.Text;
+﻿using System.Globalization;
 using LocalizationCultureCore.StringLocalizer;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
@@ -9,17 +7,19 @@ namespace BebooGarden.Interface;
 
 internal class IGlobalActions
 {
-  protected static IStringLocalizer Localizer { get; set; }
-  private static readonly string[] SUPPORTEDLANGUAGES = { "fr", "en" };
-  public IGlobalActions()
+  private static IStringLocalizer Localizer { get; set; }
+  private static readonly string[] SUPPORTEDLANGUAGES = new string[] { "fr", "en" };
+
+  protected IGlobalActions()
   {
     string twoLetterISOLanguageName = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
     if (!SUPPORTEDLANGUAGES.Contains(twoLetterISOLanguageName))
     {
       ChangeLanguage("en-US");
     }
-    Func<string, LogLevel, bool> filterFunction = (category, logLevel) => logLevel >= LogLevel.Critical;
-    ILogger logger = new Microsoft.Extensions.Logging.Console.ConsoleLogger("", filterFunction, false);
+
+    bool FilterFunction(string _, LogLevel logLevel) => logLevel >= LogLevel.Critical;
+    ILogger logger = new Microsoft.Extensions.Logging.Console.ConsoleLogger("", FilterFunction, false);
     Localizer = new JsonStringLocalizer("Content", "test", logger);
   }
 

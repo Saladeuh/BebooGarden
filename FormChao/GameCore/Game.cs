@@ -1,22 +1,20 @@
 ﻿using System.Numerics;
-using System.Timers;
 using BebooGarden.GameCore.Pet;
 using BebooGarden.GameCore.World;
 using BebooGarden.Interface;
 using BebooGarden.Save;
-using Microsoft.Extensions.Localization;
 namespace BebooGarden.GameCore;
 
 internal class Game : IGlobalActions
 {
-  public static SoundSystem SoundSystem { get; set; }
+  public static SoundSystem SoundSystem { get; private set; }
   private Dictionary<Keys, bool> KeyState { get; set; }
   private DateTime LastPressedKeyTime { get; set; }
-  static readonly System.Windows.Forms.Timer tickTimer = new();
+  static readonly System.Windows.Forms.Timer TickTimer = new();
   public Beboo Beboo { get; set; }
-  public Vector3 PlayerPosition { get; private set; }
-  public SortedDictionary<FruitSpecies, int> FruitsBasket { get; set; }
-  public static BebooGarden.GameCore.World.Map Map { get; set; }
+  private Vector3 PlayerPosition { get; set; }
+  private SortedDictionary<FruitSpecies, int> FruitsBasket { get; set; }
+  public static Map Map { get; private set; }
   public Game(Parameters parameters)
   {
     Map = new(40, 40,
@@ -26,7 +24,7 @@ internal class Game : IGlobalActions
     SoundSystem.LoadMainScreen();
     SoundSystem.LoadMap(Map);
     LastPressedKeyTime = DateTime.Now;
-    tickTimer.Tick += new EventHandler(Tick);
+    TickTimer.Tick += Tick;
     PlayerPosition = new Vector3(0, 0, 0);
     Beboo = new(parameters.BebooName, parameters.Age, parameters.LastPayed);
     FruitsBasket = [];
@@ -40,45 +38,45 @@ internal class Game : IGlobalActions
       KeyState[key] = false;
     }
   }
-  bool lastArrowWasUp=false;
+  bool _lastArrowWasUp=false;
   public void KeyDownMapper(object sender, KeyEventArgs e)
   {
     if ((DateTime.Now - LastPressedKeyTime).TotalMilliseconds < 150) return;
     else LastPressedKeyTime = DateTime.Now;
     switch (e.KeyCode)
     {
-      case System.Windows.Forms.Keys.Left:
-      case System.Windows.Forms.Keys.Q:
+      case Keys.Left:
+      case Keys.Q:
         MoveOf(new Vector3(-1, 0, 0));
         break;
-      case System.Windows.Forms.Keys.Right:
-      case System.Windows.Forms.Keys.D:
+      case Keys.Right:
+      case Keys.D:
         MoveOf(new Vector3(1, 0, 0));
         break;
-      case System.Windows.Forms.Keys.Up:
-      case System.Windows.Forms.Keys.Z:
+      case Keys.Up:
+      case Keys.Z:
         if (KeyState[Keys.Space])
         {
-          if (!lastArrowWasUp)
+          if (!_lastArrowWasUp)
           {
             ShakeAtPlayerPosition();
-            lastArrowWasUp = true;
+            _lastArrowWasUp = true;
           }
         }
         else MoveOf(new Vector3(0, 1, 0));
         break;
-      case System.Windows.Forms.Keys.Down:
-      case System.Windows.Forms.Keys.S:
+      case Keys.Down:
+      case Keys.S:
         if (KeyState[Keys.Space])
         {
-          if (lastArrowWasUp) {
+          if (_lastArrowWasUp) {
             ShakeAtPlayerPosition();
-            lastArrowWasUp = false;
+            _lastArrowWasUp = false;
           }
         }
         else MoveOf(new Vector3(0, -1, 0));
         break;
-      case System.Windows.Forms.Keys.Space:
+      case Keys.Space:
         if (KeyState[Keys.Space]) break;
         if (Util.IsInSquare(Beboo.Position, PlayerPosition, 1))
         {
@@ -121,7 +119,7 @@ internal class Game : IGlobalActions
     Beboo.GoalPosition = currentPosition;
   }
 
-  public void MoveOf(Vector3 movement)
+  private void MoveOf(Vector3 movement)
   {
     var newPos = Map.Clamp(PlayerPosition + movement);
     if (newPos != PlayerPosition + movement) SoundSystem.WallBouncing();
@@ -142,7 +140,7 @@ internal class Game : IGlobalActions
     }
   }
 
-  public void Tick(object? _, EventArgs __)
+  private void Tick(object? _, EventArgs __)
   {
     SoundSystem.System.Update();
   }

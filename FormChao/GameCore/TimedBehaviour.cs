@@ -4,8 +4,8 @@ namespace BebooGarden.GameCore;
 internal class TimedBehaviour<T>
 {
     private T ActionParameter { get; set; }
-    private int MinMS { get; set; }
-    private int MaxMS { get; set; }
+    public int MinMS { get; set; }
+    public int MaxMS { get; set; }
     private Action<T> Action { get; set; }
     private System.Timers.Timer ActionTimer { get; set; }
 
@@ -22,7 +22,7 @@ internal class TimedBehaviour<T>
     {
         Action(ActionParameter);
         ActionTimer.Dispose();
-        var ms = 0;
+        int ms;
         if (MinMS != MaxMS)
         {
             var rnd = new Random();

@@ -1,6 +1,4 @@
 ﻿using System.Numerics;
-using System.Security.Cryptography;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 namespace BebooGarden.GameCore.World;
 
@@ -26,11 +24,11 @@ internal class TreeLine
     RegenerateBehaviour.Start();
   }
   private void Regenerate() => Fruits++;
-  private DateTime lastShaked = DateTime.MinValue;
+  private DateTime _lastShaked = DateTime.MinValue;
   public FruitSpecies? Shake()
   {
-    if ((DateTime.Now - lastShaked).TotalMilliseconds < 500) return null;
-    else lastShaked = DateTime.Now;
+    if ((DateTime.Now - _lastShaked).TotalMilliseconds < 500) return null;
+    else _lastShaked = DateTime.Now;
     Game.SoundSystem.ShakeTrees();
     var rnd = new Random();
     if (Fruits > 0 && rnd.Next(6) == 5)

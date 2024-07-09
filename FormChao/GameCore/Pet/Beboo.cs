@@ -1,5 +1,4 @@
-﻿using System;
-using System.Numerics;
+﻿using System.Numerics;
 using BebooGarden.GameCore.World;
 using BebooGarden.Interface;
 
@@ -9,60 +8,79 @@ internal class Beboo
 {
   public string Name { get; set; }
   public int Age { get; set; }
-  public float Energy { get; set; }
-  public int Happiness { get; set; }
-  public Mood Mood { get; set; }
-  public Vector3 Position { get; set; }
-  public TimedBehaviour<Beboo> CuteBehaviour { get; }
-  private Vector3? goalPosition;
-  public Vector3? GoalPosition
+  public float Energy { get; private set; }
+  private int _hapiness;
+  private int Happiness
   {
-    get { return goalPosition; }
+    get => _hapiness;
     set
     {
-      if (value.HasValue) goalPosition= Game.Map.Clamp(value.Value);
-      else goalPosition = null;
+      if (_hapiness > value && value <= 0) BurstInTearrs();
+      else if (_hapiness < value && _hapiness <= 0) BeHappy();
+      _hapiness = value;
     }
   }
-  public TimedBehaviour<Beboo> GoingTiredBehaviour { get; }
-  public TimedBehaviour<Beboo> MoveBehaviour { get; }
-  public TimedBehaviour<Beboo> SleepingBehaviour { get; }
+  public Mood Mood { get; private set; }
+  public Vector3 Position { get; private set; }
+  private TimedBehaviour<Beboo> CuteBehaviour { get; }
+  private Vector3? _goalPosition;
+  public Vector3? GoalPosition
+  {
+    get => _goalPosition;
+    set
+    {
+      if (value.HasValue) _goalPosition= Game.Map.Clamp(value.Value);
+      else _goalPosition = null;
+    }
+  }
+
+  private TimedBehaviour<Beboo> GoingTiredBehaviour { get; }
+  private TimedBehaviour<Beboo> MoveBehaviour { get; }
+  private TimedBehaviour<Beboo> SadBehaviour { get; }
+  private TimedBehaviour<Beboo> SleepingBehaviour { get; }
 
   public Beboo(string name = "Bob", int age = 0, DateTime lastPlayed = default)
   {
     Position = new Vector3(0, 0, 0);
-    if (name == string.Empty) Name = "bob";
-    else Name = name;
-    Happiness = 0;
+    Name = name == string.Empty ? "bob" : name;
+    Happiness = 5;
     Age = age;
     bool isSleepingAtStart = DateTime.Now.Hour < 8 || DateTime.Now.Hour > 20;
-    if (isSleepingAtStart) Mood = Mood.Sleeping;
-    else Mood = Mood.Happy;
-    if ((DateTime.Now - lastPlayed).Hours > 4) Energy = 10;
-    else Energy = 1;
-    CuteBehaviour = new(this, 15000, 25000, (Beboo beboo) =>
+    Mood = isSleepingAtStart ? Mood.Sleeping : Mood.Happy;
+    Energy = (DateTime.Now - lastPlayed).Hours > 4 ? 10 : 5;
+    CuteBehaviour = new(this, 15000, 25000, beboo =>
     {
       beboo.DoCuteThing();
     });
     if (!isSleepingAtStart) CuteBehaviour.Start();
-    MoveBehaviour = new(this, 200, 400, (Beboo beboo) =>
+    MoveBehaviour = new(this, 200, 400, beboo =>
     {
       beboo.MoveTowardGoal();
     });
     if (!isSleepingAtStart) MoveBehaviour.Start();
-    TimedBehaviour<Beboo> fancyMoveBehaviour = new(this, 30000, 60000, (Beboo beboo) =>
+    TimedBehaviour<Beboo> fancyMoveBehaviour = new(this, 30000, 60000, beboo =>
     {
       beboo.WannaGoToRandomPlace();
     });
     fancyMoveBehaviour.Start();
-    GoingTiredBehaviour = new(this, 50000, 70000, (Beboo beboo) =>
+    GoingTiredBehaviour = new(this, 50000, 70000, beboo =>
     {
       if (beboo.Age < 2) beboo.Energy -= 2;
       else beboo.Energy--;
       if (beboo.Energy <= 0) GoAsleep();
     });
     if (!isSleepingAtStart) GoingTiredBehaviour.Start();
-    SleepingBehaviour = new(this, 5000, 10000, (Beboo beboo) =>
+    TimedBehaviour<Beboo> goingDepressedBehaviour = new(this, 120000, 150000, beboo =>
+    {
+      beboo.Happiness--;
+      //if (beboo is { Happiness: <= 0, Mood: Mood.Happy }) beboo.BurstInTearrs();
+    });
+    goingDepressedBehaviour.Start();
+    SadBehaviour = new(this, 5000, 7000, beboo =>
+    {
+      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooCrySounds, beboo);
+    });
+    SleepingBehaviour = new(this, 5000, 10000, beboo =>
     {
       beboo.Energy += 0.10f;
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooSleepingSounds, beboo, 0.3f);
@@ -70,7 +88,29 @@ internal class Beboo
     });
     if (isSleepingAtStart) SleepingBehaviour.Start();
   }
-  public bool MoveTowardGoal()
+
+  private void BurstInTearrs()
+  {
+    if (Mood == Mood.Sad) return;
+    this.Mood = Mood.Sad;
+    Game.SoundSystem.MusicTransition(Game.SoundSystem.SadMusicStream, 464375, 4471817, FmodAudio.TimeUnit.PCM, 0.1f);
+    this.CuteBehaviour.Stop();
+    this.SadBehaviour.Start();
+    this.MoveBehaviour.MinMS = 500;
+    this.MoveBehaviour.MaxMS = 1000;
+  }
+
+  private void BeHappy()
+  {
+    if (Mood == Mood.Happy) return;
+    this.Mood = Mood.Happy;
+    Game.SoundSystem.MusicTransition(Game.SoundSystem.NeutralMusicStream, 12, 88369, FmodAudio.TimeUnit.MS);
+    this.CuteBehaviour.Start();
+    this.SadBehaviour.Stop();
+    this.MoveBehaviour.MinMS = 200;
+    this.MoveBehaviour.MaxMS = 400;
+  }
+  private bool MoveTowardGoal()
   {
     if (GoalPosition == null || GoalPosition == Position) return false;
     Vector3 direction = (Vector3)GoalPosition - Position;
@@ -83,19 +123,22 @@ internal class Beboo
     if (!moved) GoalPosition = null;
     return moved;
   }
-  public void DoCuteThing()
+
+  private void DoCuteThing()
   {
     Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooCuteSounds, this);
   }
-  public void WannaGoToRandomPlace()
+
+  private void WannaGoToRandomPlace()
   {
     var rnd = new Random();
     var randomMove = new Vector3(rnd.Next(-4, 5), rnd.Next(-4, 5), 0);
     GoalPosition = Position + randomMove;
   }
-  public void GoAsleep()
+
+  private void GoAsleep()
   {
-    Game.SayLocalizedString("beboo.gosleep", this.Name);
+    IGlobalActions.SayLocalizedString("beboo.gosleep", this.Name);
     GoingTiredBehaviour.Stop();
     MoveBehaviour.Stop();
     CuteBehaviour.Stop();
@@ -107,7 +150,7 @@ internal class Beboo
   public void WakeUp()
   {
     if (Mood != Mood.Sleeping) return;
-    Game.SayLocalizedString("beboo.wakeup", this.Name);
+    IGlobalActions.SayLocalizedString("beboo.wakeup", this.Name);
     GoingTiredBehaviour.Start();
     MoveBehaviour.Start(3000);
     CuteBehaviour.Start();

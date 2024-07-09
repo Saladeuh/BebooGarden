@@ -1,4 +1,5 @@
-﻿public enum Mood
+﻿namespace BebooGarden.GameCore.Pet;
+public enum Mood
 {
   Happy,
   Angry,

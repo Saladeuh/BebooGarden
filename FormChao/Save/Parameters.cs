@@ -1,5 +1,5 @@
-﻿using BebooGarden.GameCore;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+﻿
+using BebooGarden.GameCore.Pet;
 
 namespace BebooGarden.Save;
 
@@ -11,12 +11,13 @@ public class Parameters
   public string BebooName { get; set; }
   public int Age { get; set; }
   public DateTime LastPayed { get; set; }
-
-  public Parameters(string? language, float volume, Mood mood, string bebooName, int age, DateTime lastPayed)
+  public float Energy { get; set; } 
+  public Parameters(string? language, float volume, BebooGarden.GameCore.Pet.Mood mood, string bebooName, int age, float energy, DateTime lastPayed)
   {
     Volume = volume;
     Language = language;
     Mood = mood;
+    Energy = energy;
     BebooName = (bebooName ?? "");
     Age = age;
     LastPayed = lastPayed;
@@ -30,5 +31,6 @@ public class Parameters
     BebooName = string.Empty;
     Age = 0;
     LastPayed = default(DateTime);
+    Energy = 5;
   }
 }
