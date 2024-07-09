@@ -86,7 +86,7 @@ internal class SoundSystem
     BebooYumySounds = new();
     LoadSoundsInList(["miam.wav", "miam2.wav", "miam3.wav"], BebooYumySounds, "sounds/beboo/");
     BebooCrySounds = new();
-    LoadSoundsInList(["trist.wav"], BebooCrySounds, "sounds/beboo/");
+    LoadSoundsInList(["trist.wav", "trist2.wav"], BebooCrySounds, "sounds/beboo/");
     WhistleSound = System.CreateSound(CONTENTFOLDER + "sounds/character/se_sys_whistle_1p.wav", Mode.Unique);
     TreesShakeSound = System.CreateSound(CONTENTFOLDER + "sounds/character/Tree_Shake.wav");
     FruitsSounds = new();

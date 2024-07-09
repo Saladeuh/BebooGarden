@@ -70,13 +70,13 @@ internal class Beboo
       if (beboo.Energy <= 0) GoAsleep();
     });
     if (!isSleepingAtStart) GoingTiredBehaviour.Start();
-    TimedBehaviour<Beboo> goingDepressedBehaviour = new(this, 120000, 150000, beboo =>
+    TimedBehaviour<Beboo> goingDepressedBehaviour = new(this, 120, 1503, beboo =>
     {
       beboo.Happiness--;
       //if (beboo is { Happiness: <= 0, Mood: Mood.Happy }) beboo.BurstInTearrs();
     });
     goingDepressedBehaviour.Start();
-    SadBehaviour = new(this, 5000, 7000, beboo =>
+    SadBehaviour = new(this, 5000, 15000, beboo =>
     {
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooCrySounds, beboo);
     });
