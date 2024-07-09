@@ -20,8 +20,7 @@ internal class TreeLine
     RegenerateBehaviour = new(this, 3600000 / fruitPerHour, 60 / fruitPerHour, (treeLine) =>
     {
       treeLine.Regenerate();
-    });
-    RegenerateBehaviour.Start();
+    }, true);
   }
   private void Regenerate() => Fruits++;
   private DateTime _lastShaked = DateTime.MinValue;

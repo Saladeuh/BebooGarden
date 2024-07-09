@@ -51,42 +51,36 @@ internal class Beboo
     CuteBehaviour = new(this, 15000, 25000, beboo =>
     {
       beboo.DoCuteThing();
-    });
-    if (!isSleepingAtStart) CuteBehaviour.Start();
+    }, !isSleepingAtStart);
     MoveBehaviour = new(this, 200, 400, beboo =>
     {
       beboo.MoveTowardGoal();
-    });
-    if (!isSleepingAtStart) MoveBehaviour.Start();
+    }, !isSleepingAtStart);
     TimedBehaviour<Beboo> fancyMoveBehaviour = new(this, 30000, 60000, beboo =>
     {
       beboo.WannaGoToRandomPlace();
-    });
-    fancyMoveBehaviour.Start();
+    }, true);
     GoingTiredBehaviour = new(this, 50000, 70000, beboo =>
     {
       if (beboo.Age < 2) beboo.Energy -= 2;
       else beboo.Energy--;
       if (beboo.Energy <= 0) GoAsleep();
-    });
-    if (!isSleepingAtStart) GoingTiredBehaviour.Start();
-    TimedBehaviour<Beboo> goingDepressedBehaviour = new(this, 120, 1503, beboo =>
+    }, !isSleepingAtStart);
+    TimedBehaviour<Beboo> goingDepressedBehaviour = new(this, 120000, 1503000, beboo =>
     {
       beboo.Happiness--;
       //if (beboo is { Happiness: <= 0, Mood: Mood.Happy }) beboo.BurstInTearrs();
-    });
-    goingDepressedBehaviour.Start();
+    }, true);
     SadBehaviour = new(this, 5000, 15000, beboo =>
     {
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooCrySounds, beboo);
-    });
+    }, false);
     SleepingBehaviour = new(this, 5000, 10000, beboo =>
     {
       beboo.Energy += 0.10f;
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooSleepingSounds, beboo, 0.3f);
       //if (beboo.Energy >= 10) WakeUp();
-    });
-    if (isSleepingAtStart) SleepingBehaviour.Start();
+    }, isSleepingAtStart);
   }
 
   private void BurstInTearrs()
@@ -96,7 +90,7 @@ internal class Beboo
     Game.SoundSystem.MusicTransition(Game.SoundSystem.SadMusicStream, 464375, 4471817, FmodAudio.TimeUnit.PCM, 0.1f);
     this.CuteBehaviour.Stop();
     this.SadBehaviour.Start();
-    this.MoveBehaviour.MinMS = 500;
+    this.MoveBehaviour.MinMS = 800;
     this.MoveBehaviour.MaxMS = 1000;
   }
 
