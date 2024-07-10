@@ -15,7 +15,7 @@ internal class Game : IGlobalActions
   private Vector3 PlayerPosition { get; set; }
   private SortedDictionary<FruitSpecies, int> FruitsBasket { get; set; }
   public static Map Map { get; private set; }
-  public Game(Parameters parameters)
+  public Game(SaveParameters parameters)
   {
     Map = new(40, 40,
       [new TreeLine(new Vector2(20, 20), new Vector2(20, -20))],
@@ -26,7 +26,7 @@ internal class Game : IGlobalActions
     LastPressedKeyTime = DateTime.Now;
     TickTimer.Tick += Tick;
     PlayerPosition = new Vector3(0, 0, 0);
-    Beboo = new(parameters.BebooName, parameters.Age, parameters.LastPayed);
+    Beboo = new(parameters.BebooName, parameters.Age, parameters.LastPayed, parameters.Energy);
     FruitsBasket = [];
     foreach (FruitSpecies fruitSpecies in Enum.GetValues(typeof(FruitSpecies)))
     {
@@ -38,7 +38,7 @@ internal class Game : IGlobalActions
       KeyState[key] = false;
     }
   }
-  bool _lastArrowWasUp=false;
+  bool _lastArrowWasUp = false;
   public void KeyDownMapper(object sender, KeyEventArgs e)
   {
     if ((DateTime.Now - LastPressedKeyTime).TotalMilliseconds < 150) return;
@@ -69,12 +69,16 @@ internal class Game : IGlobalActions
       case Keys.S:
         if (KeyState[Keys.Space])
         {
-          if (_lastArrowWasUp) {
+          if (_lastArrowWasUp)
+          {
             ShakeAtPlayerPosition();
             _lastArrowWasUp = false;
           }
         }
         else MoveOf(new Vector3(0, -1, 0));
+        break;
+      case Keys.F:
+        SayBebooState();
         break;
       case Keys.Space:
         if (KeyState[Keys.Space]) break;
@@ -82,7 +86,8 @@ internal class Game : IGlobalActions
         {
           if (Beboo.Mood == Mood.Sleeping) Whistle();
           else FeedBeboo();
-        } else if(Map.GetTreeLineAtPosition(PlayerPosition)!=null) break;
+        }
+        else if (Map.GetTreeLineAtPosition(PlayerPosition) != null) break;
         else Whistle();
         break;
       default:
@@ -90,6 +95,11 @@ internal class Game : IGlobalActions
         break;
     }
     KeyState[e.KeyCode] = true;
+  }
+
+  private void SayBebooState()
+  {
+    ScreenReader.Output($"Energy {Beboo.Energy}, hapiness {Beboo.Happiness}");
   }
 
   private void ShakeAtPlayerPosition()
@@ -115,7 +125,11 @@ internal class Game : IGlobalActions
   {
     SoundSystem.System.Get3DListenerAttributes(0, out Vector3 currentPosition, out _, out _, out _);
     SoundSystem.Whistle();
-    Beboo.WakeUp();
+    Task.Run(async () =>
+    {
+      await Task.Delay(1000);
+      Beboo.WakeUp();
+    });
     Beboo.GoalPosition = currentPosition;
   }
 

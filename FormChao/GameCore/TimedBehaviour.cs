@@ -46,6 +46,6 @@ internal class TimedBehaviour<T>
   }
   public void Stop()
   {
-    ActionTimer.Enabled = false;
+    ActionTimer.Stop();
   }
 }

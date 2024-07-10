@@ -6,7 +6,7 @@ namespace BebooGarden.Interface;
 public partial class Form1 : Form
 {
   internal Game Game { get; }
-  public Form1(Parameters parameters)
+  public Form1(SaveParameters parameters)
   {
     InitializeComponent();
     this.Text = "Jardin Bébous";

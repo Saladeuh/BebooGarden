@@ -3,7 +3,7 @@ using BebooGarden.GameCore.Pet;
 
 namespace BebooGarden.Save;
 
-public class Parameters
+public class SaveParameters
 {
   public float Volume { get; set; }
   public string? Language { get; set; }
@@ -12,7 +12,7 @@ public class Parameters
   public int Age { get; set; }
   public DateTime LastPayed { get; set; }
   public float Energy { get; set; } 
-  public Parameters(string? language, float volume, BebooGarden.GameCore.Pet.Mood mood, string bebooName, int age, float energy, DateTime lastPayed)
+  public SaveParameters(string? language, float volume, BebooGarden.GameCore.Pet.Mood mood, string bebooName, int age, float energy, DateTime lastPayed)
   {
     Volume = volume;
     Language = language;
@@ -23,7 +23,7 @@ public class Parameters
     LastPayed = lastPayed;
   }
 
-  public Parameters()
+  public SaveParameters()
   {
     Volume = 0.5f;
     Language = "en";
