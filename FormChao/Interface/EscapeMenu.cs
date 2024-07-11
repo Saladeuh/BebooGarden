@@ -7,18 +7,17 @@ namespace BebooGarden.Interface;
 public partial class ChooseMenu<T> : Form
 {
   private Label lblTitle;
-  private Button[] btnOptions;
   private Dictionary<string, T> Choices { get; set; }
   public T? Result;
   public ChooseMenu(string title, Dictionary<string, T> choices)
   {
     Choices = choices;
     lblTitle = new Label();
+    Text = title;
     lblTitle.Text = title;
     lblTitle.AutoSize = true;
     Controls.Add(lblTitle);
 
-    btnOptions = new Button[Choices.Keys.Count];
     for (int i = 0; i < Choices.Keys.Count; i++)
     {
       var choiceText = Choices.Keys.ElementAt(i);
@@ -28,16 +27,16 @@ public partial class ChooseMenu<T> : Form
       btnOption.Click += btn_Click; // Attach click event handler
       btnOption.Enter += btn_enter;
       Controls.Add(btnOption);
-      btnOptions[i] = btnOption;
     }
   }
   private void btn_enter(object? sender, EventArgs e)
   {
-    Game.SoundSystem.Whistle();
+    Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuBipSound);
   }
 
   void btn_Click(object sender, EventArgs e)
   {
+    Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuOkSound);
     Button clickedButton = (Button)sender;
     Result = Choices[clickedButton.Text];
     Game.GameWindow.Show();

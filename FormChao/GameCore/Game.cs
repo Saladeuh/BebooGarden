@@ -82,6 +82,11 @@ internal class Game : IGlobalActions
       case Keys.F:
         SayBebooState();
         break;
+      case Keys.Enter:
+        var textmenu = new TextForm("titre", "placeholder", 12);
+        GameWindow.Hide();
+        textmenu.Show();
+        break;
       case Keys.Escape:
         var menu = new ChooseMenu<string>("test", new Dictionary<string, string>
         {

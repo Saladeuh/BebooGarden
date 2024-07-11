@@ -23,6 +23,11 @@ internal class SoundSystem
   public List<Sound> BebooSleepingSounds { get; private set; }
   public Sound BebooStepSound { get; private set; }
   public Sound GrassSound { get; private set; }
+  public Sound MenuBipSound { get; private set; }
+  public Sound MenuKeySound { get; private set; }
+  public Sound MenuKeyDeleteSound { get; private set; }
+  public Sound MenuKeyFullSound { get; private set; }
+  public Sound MenuOkSound { get; private set; }
   public Sound WaterSound { get; private set; }
   public Sound TreeWindSound { get; private set; }
   public List<Sound> BebooYumySounds { get; private set; }
@@ -95,6 +100,11 @@ internal class SoundSystem
     WallSound = System.CreateSound(CONTENTFOLDER + "sounds/wall.wav", Mode.Unique);
     BebooStepSound = System.CreateSound(CONTENTFOLDER + "sounds/beboo/step.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     GrassSound = System.CreateSound(CONTENTFOLDER + "sounds/grass_rustle.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
+    MenuBipSound = System.CreateSound(CONTENTFOLDER + "sounds/menu/boup.wav", Mode.Unique);
+    MenuOkSound = System.CreateSound(CONTENTFOLDER + "sounds/menu/ok.wav", Mode.Unique);
+    MenuKeySound = System.CreateSound(CONTENTFOLDER + "sounds/menu/key.wav", Mode.Unique);
+    MenuKeyDeleteSound = System.CreateSound(CONTENTFOLDER + "sounds/menu/keydelete.wav", Mode.Unique);
+    MenuKeyFullSound = System.CreateSound(CONTENTFOLDER + "sounds/menu/keyfull.wav", Mode.Unique);
     Reverb3D reverb = System.CreateReverb3D();
     reverb.SetProperties(Preset.Bathroom);
     reverb.Set3DAttributes(new Vector3(0, 0, 0), 0f, 500f);
@@ -183,7 +193,7 @@ internal class SoundSystem
   }
   public void PlayBebooSound(Sound sound, Beboo beboo)
   {
-    BebooChannel.Stop();
+    if (BebooChannel != null) BebooChannel.Stop();
     BebooChannel = System.PlaySound(sound, paused: true);
     BebooChannel.Set3DMinMaxDistance(0f, 30f);
     BebooChannel.Set3DAttributes(beboo.Position + new Vector3(0, 0, -2), default, default);
@@ -193,7 +203,7 @@ internal class SoundSystem
   {
     var rand = new Random();
     var sound = sounds[rand.Next(sounds.Count())];
-    BebooChannel.Stop();
+    if (BebooChannel != null) BebooChannel.Stop();
     BebooChannel = System.PlaySound(sound, paused: true);
     BebooChannel.Set3DMinMaxDistance(0f, 30f);
     BebooChannel.Set3DAttributes(beboo.Position + new Vector3(0, 0, -2), default, default);
@@ -219,7 +229,7 @@ internal class SoundSystem
   {
     System.PlaySound(FruitsSounds[fruitSpecies]);
   }
-  public void MusicTransition(Sound music, uint startLoop, uint endLoop, TimeUnit timeUnit, float volume=0.5f)
+  public void MusicTransition(Sound music, uint startLoop, uint endLoop, TimeUnit timeUnit, float volume = 0.5f)
   {
     Music.Stop();
     Music = System.PlaySound(music, paused: false);
