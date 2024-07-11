@@ -31,6 +31,7 @@ internal class SoundSystem
   public Channel Music { get; private set; }
   public Sound SadMusicStream { get; private set; }
   public List<Sound> BebooCrySounds { get; private set; }
+  public Channel BebooChannel { get; private set; }
 
   private static System.Timers.Timer AmbiTimer;
 
@@ -182,20 +183,22 @@ internal class SoundSystem
   }
   public void PlayBebooSound(Sound sound, Beboo beboo)
   {
-    Channel bebooChannel = System.PlaySound(sound, paused: true);
-    bebooChannel.Set3DMinMaxDistance(0f, 30f);
-    bebooChannel.Set3DAttributes(beboo.Position + new Vector3(0, 0, -2), default, default);
-    bebooChannel.Paused = false;
+    BebooChannel.Stop();
+    BebooChannel = System.PlaySound(sound, paused: true);
+    BebooChannel.Set3DMinMaxDistance(0f, 30f);
+    BebooChannel.Set3DAttributes(beboo.Position + new Vector3(0, 0, -2), default, default);
+    BebooChannel.Paused = false;
   }
   public void PlayBebooSound(List<Sound> sounds, Beboo beboo, float volume = -1)
   {
     var rand = new Random();
     var sound = sounds[rand.Next(sounds.Count())];
-    Channel bebooChannel = System.PlaySound(sound, paused: true);
-    bebooChannel.Set3DMinMaxDistance(0f, 30f);
-    bebooChannel.Set3DAttributes(beboo.Position + new Vector3(0, 0, -2), default, default);
-    if (volume != -1) bebooChannel.Volume = volume;
-    bebooChannel.Paused = false;
+    BebooChannel.Stop();
+    BebooChannel = System.PlaySound(sound, paused: true);
+    BebooChannel.Set3DMinMaxDistance(0f, 30f);
+    BebooChannel.Set3DAttributes(beboo.Position + new Vector3(0, 0, -2), default, default);
+    if (volume != -1) BebooChannel.Volume = volume;
+    BebooChannel.Paused = false;
   }
 
   public void Whistle()
