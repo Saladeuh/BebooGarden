@@ -10,7 +10,7 @@ public partial class Form1 : Form
   {
     InitializeComponent();
     this.Text = "Jardin Bébous";
-    Game = new Game(parameters);
+    Game = new Game(parameters, this);
     this.KeyDown += Game.KeyDownMapper;
     this.KeyUp += Game.KeyUpMapper;
   }

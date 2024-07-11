@@ -14,9 +14,11 @@ internal class Game : IGlobalActions
   public Beboo Beboo { get; set; }
   private Vector3 PlayerPosition { get; set; }
   private SortedDictionary<FruitSpecies, int> FruitsBasket { get; set; }
+  public static Form GameWindow { get; set; }
   public static Map Map { get; private set; }
-  public Game(SaveParameters parameters)
+  public Game(SaveParameters parameters, Form form)
   {
+    GameWindow = form;
     Map = new(40, 40,
       [new TreeLine(new Vector2(20, 20), new Vector2(20, -20))],
       new Vector3(-15, 0, 0));
@@ -80,6 +82,16 @@ internal class Game : IGlobalActions
       case Keys.F:
         SayBebooState();
         break;
+      case Keys.Escape:
+        var menu = new ChooseMenu<string>("test", new Dictionary<string, string>
+        {
+          { "test", "b" },
+          { "waw", "a" }
+        });
+        menu.FormClosing += EscapeMenuResultHandle;
+        GameWindow.Hide();
+        menu.Show();
+        break;
       case Keys.Space:
         if (KeyState[Keys.Space]) break;
         if (Util.IsInSquare(Beboo.Position, PlayerPosition, 1))
@@ -95,6 +107,12 @@ internal class Game : IGlobalActions
         break;
     }
     KeyState[e.KeyCode] = true;
+  }
+
+  private void EscapeMenuResultHandle(object? sender, FormClosingEventArgs e)
+  {
+    ChooseMenu<string> form=sender as ChooseMenu<string>; 
+    ScreenReader.Output(form.Result);
   }
 
   private void SayBebooState()

@@ -57,7 +57,7 @@ internal class Beboo
   private TimedBehaviour<Beboo> SadBehaviour { get; }
   private TimedBehaviour<Beboo> SleepingBehaviour { get; }
 
-  public Beboo(string name, int age = 0, DateTime lastPlayed, float energy)
+  public Beboo(string name, int age, DateTime lastPlayed, float energy)
   {
     Position = new Vector3(0, 0, 0);
     Name = name == string.Empty ? "boby" : name;
@@ -65,7 +65,7 @@ internal class Beboo
     Age = age;
     bool isSleepingAtStart = DateTime.Now.Hour < 8 || DateTime.Now.Hour > 20;
     Mood = isSleepingAtStart ? Mood.Sleeping : Mood.Happy;
-    Energy = (DateTime.Now - lastPlayed).TotalHours > 4 ? 10 : ;
+    Energy = (DateTime.Now - lastPlayed).TotalHours > 4 ? 10 : 5;
     CuteBehaviour = new(this, 15000, 25000, beboo =>
     {
       beboo.DoCuteThing();
