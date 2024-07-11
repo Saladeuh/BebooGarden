@@ -30,7 +30,7 @@ internal class Beboo
     private set
     {
       if (_hapiness > value && value <= 0) BurstInTearrs();
-      else if (_hapiness < value && _hapiness <= 0) Task.Run(async () =>
+      else if (_hapiness <=0 && value > 0 && Mood!=Mood.Happy) Task.Run(async () =>
       {
         await Task.Delay(1000);
         BeHappy();
