@@ -31,7 +31,6 @@ public partial class TextForm : Form
     {
       Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuOkSound);
       Result = TextBox.Text;
-      Game.GameWindow.Show();
       Close();
     }
   }

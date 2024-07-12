@@ -12,7 +12,9 @@ public class SaveParameters
   public int Age { get; set; }
   public DateTime LastPayed { get; set; }
   public float Energy { get; set; } 
-  public SaveParameters(string? language, float volume, BebooGarden.GameCore.Pet.Mood mood, string bebooName, int age, float energy, DateTime lastPayed)
+  public Flags Flags { get; set; }
+  public string PlayerName { get; set; }
+  public SaveParameters(string? language, float volume, BebooGarden.GameCore.Pet.Mood mood, string bebooName, int age, float energy, DateTime lastPayed, Flags flags, string playerName)
   {
     Volume = volume;
     Language = language;
@@ -21,6 +23,8 @@ public class SaveParameters
     BebooName = (bebooName ?? "");
     Age = age;
     LastPayed = lastPayed;
+    Flags = flags;
+    PlayerName = playerName;
   }
 
   public SaveParameters()
@@ -32,5 +36,7 @@ public class SaveParameters
     Age = 0;
     LastPayed = default(DateTime);
     Energy = 5;
+    Flags = new();
+    PlayerName = string.Empty;
   }
 }

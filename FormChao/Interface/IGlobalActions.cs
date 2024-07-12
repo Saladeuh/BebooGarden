@@ -8,7 +8,7 @@ namespace BebooGarden.Interface;
 internal class IGlobalActions
 {
   private static IStringLocalizer Localizer { get; set; }
-  private static readonly string[] SUPPORTEDLANGUAGES = new string[] { "fr", "en" };
+  public static readonly string[] SUPPORTEDLANGUAGES = new string[] { "fr", "en" };
 
   protected IGlobalActions()
   {

@@ -40,7 +40,7 @@ internal class SoundSystem
 
   private static System.Timers.Timer AmbiTimer;
 
-  public SoundSystem(float initialVolume)
+  public SoundSystem(float initialVolume=0.5f)
   {
     //Creates the FmodSystem object
     System = FmodAudio.Fmod.CreateSystem();
@@ -55,7 +55,6 @@ internal class SoundSystem
     System.Set3DListenerAttributes(0, new Vector3(0, 0, 0), default, Forward, Up);
     AmbiTimer = new System.Timers.Timer(2000);
     AmbiTimer.Elapsed += onAmbiTimer;
-    AmbiTimer.Enabled = true;
   }
   public void LoadSoundsInList(string[] files, List<Sound> sounds, string prefixe = "")
   {
@@ -100,15 +99,21 @@ internal class SoundSystem
     WallSound = System.CreateSound(CONTENTFOLDER + "sounds/wall.wav", Mode.Unique);
     BebooStepSound = System.CreateSound(CONTENTFOLDER + "sounds/beboo/step.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     GrassSound = System.CreateSound(CONTENTFOLDER + "sounds/grass_rustle.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
+    LoadMenuSounds(); 
+    Reverb3D reverb = System.CreateReverb3D();
+    reverb.SetProperties(Preset.Bathroom);
+    reverb.Set3DAttributes(new Vector3(0, 0, 0), 0f, 500f);
+  }
+
+  public void LoadMenuSounds()
+  {
     MenuBipSound = System.CreateSound(CONTENTFOLDER + "sounds/menu/boup.wav", Mode.Unique);
     MenuOkSound = System.CreateSound(CONTENTFOLDER + "sounds/menu/ok.wav", Mode.Unique);
     MenuKeySound = System.CreateSound(CONTENTFOLDER + "sounds/menu/key.wav", Mode.Unique);
     MenuKeyDeleteSound = System.CreateSound(CONTENTFOLDER + "sounds/menu/keydelete.wav", Mode.Unique);
     MenuKeyFullSound = System.CreateSound(CONTENTFOLDER + "sounds/menu/keyfull.wav", Mode.Unique);
-    Reverb3D reverb = System.CreateReverb3D();
-    reverb.SetProperties(Preset.Bathroom);
-    reverb.Set3DAttributes(new Vector3(0, 0, 0), 0f, 500f);
   }
+
   public void LoadMap(Map map)
   {
     Channel channel = System.PlaySound(WaterSound, paused: true);
@@ -135,6 +140,7 @@ internal class SoundSystem
       var sound = System.CreateSound(files[i], Mode._3D | Mode._3D_LinearSquareRolloff);
       AmbiSounds.Add(sound);
     }
+    AmbiTimer.Enabled = true;
   }
 
   private void onAmbiTimer(object? sender, ElapsedEventArgs e)

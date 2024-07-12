@@ -16,13 +16,20 @@ internal class Game : IGlobalActions
   private SortedDictionary<FruitSpecies, int> FruitsBasket { get; set; }
   public static Form GameWindow { get; set; }
   public static Map Map { get; private set; }
-  public Game(SaveParameters parameters, Form form)
+  public Flags Flags { get; }
+  public string PlayerName { get; }
+  static Game()
+  {
+    SoundSystem = new SoundSystem();
+  }
+  public Game(Form form)
   {
     GameWindow = form;
+    SaveParameters parameters = SaveManager.LoadSave();
     Map = new(40, 40,
-      [new TreeLine(new Vector2(20, 20), new Vector2(20, -20))],
-      new Vector3(-15, 0, 0));
-    SoundSystem = new SoundSystem(parameters.Volume);
+    [new TreeLine(new Vector2(20, 20), new Vector2(20, -20))],
+    new Vector3(-15, 0, 0));
+    SoundSystem.Volume = parameters.Volume;
     SoundSystem.LoadMainScreen();
     SoundSystem.LoadMap(Map);
     LastPressedKeyTime = DateTime.Now;
@@ -39,6 +46,8 @@ internal class Game : IGlobalActions
     {
       KeyState[key] = false;
     }
+    Flags = parameters.Flags;
+    PlayerName = parameters.PlayerName;
   }
   bool _lastArrowWasUp = false;
   public void KeyDownMapper(object sender, KeyEventArgs e)
@@ -84,8 +93,9 @@ internal class Game : IGlobalActions
         break;
       case Keys.Enter:
         var textmenu = new TextForm("titre", "placeholder", 12);
-        GameWindow.Hide();
-        textmenu.Show();
+        //GameWindow.Hide();
+        //textmenu.Show();
+        textmenu.ShowDialog(GameWindow);
         break;
       case Keys.Escape:
         var menu = new ChooseMenu<string>("test", new Dictionary<string, string>
@@ -94,8 +104,9 @@ internal class Game : IGlobalActions
           { "waw", "a" }
         });
         menu.FormClosing += EscapeMenuResultHandle;
-        GameWindow.Hide();
-        menu.Show();
+        //GameWindow.Hide();
+        //menu.Show();
+        menu.ShowDialog(GameWindow);
         break;
       case Keys.Space:
         if (KeyState[Keys.Space]) break;
@@ -116,7 +127,7 @@ internal class Game : IGlobalActions
 
   private void EscapeMenuResultHandle(object? sender, FormClosingEventArgs e)
   {
-    ChooseMenu<string> form=sender as ChooseMenu<string>; 
+    ChooseMenu<string> form = sender as ChooseMenu<string>;
     ScreenReader.Output(form.Result);
   }
 

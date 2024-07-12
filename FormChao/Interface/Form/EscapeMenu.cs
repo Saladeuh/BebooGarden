@@ -39,7 +39,7 @@ public partial class ChooseMenu<T> : Form
     Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuOkSound);
     Button clickedButton = (Button)sender;
     Result = Choices[clickedButton.Text];
-    Game.GameWindow.Show();
+    //Game.GameWindow.Show();
     Close();
   }
 }
