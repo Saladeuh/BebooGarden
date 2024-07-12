@@ -1,6 +1,5 @@
 #todo
-localisation
-tristitude/saleté/faim
+saleté
 jouets
 nuit
 online
