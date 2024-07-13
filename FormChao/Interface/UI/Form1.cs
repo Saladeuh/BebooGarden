@@ -8,7 +8,7 @@ public partial class Form1 : Form
   internal Game Game { get; set; }
   public Form1()
   {
-    InitializeComponent();
+    WindowState = FormWindowState.Maximized;
     this.Text = "Jardin Bébous";
     Load += onLoad;
   }

@@ -8,6 +8,7 @@ public partial class Talk : Form
   private string[] FullText { get; set; }
   public Talk(string text)
   {
+    WindowState = FormWindowState.Maximized;
     FullText = text.SplitToLines().ToArray();
     Text = FullText[CurrentLine];
     ScreenReader.Output(Text);

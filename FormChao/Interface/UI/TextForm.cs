@@ -12,6 +12,7 @@ public partial class TextForm : Form
 
   public TextForm(string title, string placeholderText, int maxLength)
   {
+    WindowState = FormWindowState.Maximized;
     lblTitle = new Label();
     Text = title;
     lblTitle.Text = title;

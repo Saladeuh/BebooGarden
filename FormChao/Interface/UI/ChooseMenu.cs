@@ -11,6 +11,7 @@ public partial class ChooseMenu<T> : Form
   public T? Result;
   public ChooseMenu(string title, Dictionary<string, T> choices)
   {
+    WindowState = FormWindowState.Maximized;
     Choices = choices;
     lblTitle = new Label();
     Text = title;
