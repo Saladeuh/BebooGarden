@@ -19,7 +19,6 @@ internal class SaveManager
     }
     SetConsoleParams((parameters.Language ?? "en"));
     return parameters;
-    return parameters;
   }
 
   private static SaveParameters? LoadJson()
@@ -40,7 +39,7 @@ internal class SaveManager
         {
           ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
           NullValueHandling = NullValueHandling.Ignore,
-          DefaultValueHandling = DefaultValueHandling.Ignore
+          DefaultValueHandling = DefaultValueHandling.Populate
         });
         return parameters;
       }

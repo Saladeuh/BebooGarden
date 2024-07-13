@@ -25,7 +25,8 @@ internal class Game : IGlobalActions
   public Game(Form form)
   {
     GameWindow = form;
-    SaveParameters parameters = SaveManager.LoadSave();
+    var parameters = SaveManager.LoadSave();
+    Flags=parameters.Flags;
     Map = new(40, 40,
     [new TreeLine(new Vector2(20, 20), new Vector2(20, -20))],
     new Vector3(-15, 0, 0));
@@ -46,7 +47,6 @@ internal class Game : IGlobalActions
     {
       KeyState[key] = false;
     }
-    Flags = parameters.Flags;
     PlayerName = parameters.PlayerName;
   }
   bool _lastArrowWasUp = false;

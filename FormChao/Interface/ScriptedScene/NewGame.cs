@@ -30,6 +30,7 @@ internal class NewGame
       parameters.Language = language;
       parameters.PlayerName = playerName;
       parameters.BebooName = bebooName;
+      parameters.Flags.NewGame=false;
     }
   }
 }
