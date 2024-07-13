@@ -32,8 +32,12 @@ public partial class TextForm : Form
   {
     if (e.KeyCode == Keys.Enter)
     {
+      if (TextBox.Text.Length == 0) { 
+        ScreenReader.Output("non vide");
+        return;
+      }
       Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuOkSound);
-      Result = TextBox.Text;
+      Result = Char.ToUpper(TextBox.Text[0]) + TextBox.Text[1..];
       Close();
     }
   }
