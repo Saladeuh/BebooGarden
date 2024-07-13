@@ -1,19 +1,16 @@
-﻿using System;
-using System.Windows.Forms;
-using BebooGarden.GameCore;
+﻿using BebooGarden.GameCore;
 
 namespace BebooGarden.Interface.UI;
 
 public partial class ChooseMenu<T> : Form
 {
-  private Label lblTitle;
   private Dictionary<string, T> Choices { get; set; }
   public T? Result;
   public ChooseMenu(string title, Dictionary<string, T> choices)
   {
     WindowState = FormWindowState.Maximized;
     Choices = choices;
-    lblTitle = new Label();
+    var lblTitle = new Label();
     Text = title;
     lblTitle.Text = title;
     lblTitle.AutoSize = true;

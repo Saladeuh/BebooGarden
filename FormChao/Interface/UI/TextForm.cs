@@ -1,26 +1,28 @@
 ﻿using BebooGarden.GameCore;
 
-namespace BebooGarden.Interface;
+namespace BebooGarden.Interface.UI;
 
 public partial class TextForm : Form
 {
-  private Label lblTitle;
-  private TextBox TextBox;
+  private TextBox TextBox { get; set; }
   private int MaxLength { get; }
+  private bool NameFormat { get; }
+
   public string Result;
   private string _lastText = "";
+  private bool _lastWasIncorrect=false;
 
-  public TextForm(string title, string placeholderText, int maxLength)
+  public TextForm(string title, int maxLength, bool nameFormat)
   {
     WindowState = FormWindowState.Maximized;
-    lblTitle = new Label();
+    var lblTitle = new Label();
     Text = title;
     lblTitle.Text = title;
     lblTitle.AutoSize = true;
     Controls.Add(lblTitle);
     TextBox = new();
     MaxLength = maxLength;
-    TextBox.PlaceholderText = placeholderText;
+    NameFormat = nameFormat;
     TextBox.TextChanged += TextBox_modified;
     TextBox.KeyDown += TextBox_keydown;
     Controls.Add(TextBox);
@@ -38,15 +40,21 @@ public partial class TextForm : Form
 
   private void TextBox_modified(object? sender, EventArgs e)
   {
-    if (_lastText.Length == TextBox.TextLength + 1) // delete one letter
+    var lastSelectorPosition=TextBox.SelectionStart;
+    if (_lastText.Length == TextBox.TextLength + 1) // letter deleted
       Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuKeyDeleteSound);
-    else if (TextBox.TextLength > MaxLength)
+    else if (TextBox.TextLength > MaxLength || 
+      (NameFormat && !System.Text.RegularExpressions.Regex.IsMatch(TextBox.Text, @"^[a-zA-Z0-9_-]+$") && TextBox.Text != string.Empty) )
     {
+      _lastWasIncorrect = true;
       Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuKeyFullSound);
       TextBox.Text = _lastText;
-      TextBox.SelectionStart = TextBox.Text.Length;
+      if (lastSelectorPosition != 0) lastSelectorPosition--;
+      TextBox.SelectionStart = lastSelectorPosition;
     }
-    else Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuKeySound);
+    else if (!_lastWasIncorrect) { Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuKeySound);
+    }
+    else _lastWasIncorrect = false;
     _lastText = TextBox.Text;
   }
 }

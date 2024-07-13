@@ -18,10 +18,10 @@ internal class NewGame
     var menuLang = new ChooseMenu<int>("test", languages);
     menuLang.ShowDialog(Game.GameWindow);
     string language = Game.SUPPORTEDLANGUAGES[menuLang.Result];
-    var textPlayerMenu = new TextForm("Votre pseudo", "Pseudo", 12);
+    var textPlayerMenu = new TextForm("Votre pseudo", 12, true);
     textPlayerMenu.ShowDialog(Game.GameWindow);
     string playerName = textPlayerMenu.Result;
-    var textBebooMenu = new TextForm("Nom du bébou", "", 12);
+    var textBebooMenu = new TextForm("Nom du bébou", 12, true);
     textBebooMenu.ShowDialog(Game.GameWindow);
     string bebooName = textBebooMenu.Result;
     if (string.IsNullOrEmpty(playerName) || string.IsNullOrEmpty(bebooName) || string.IsNullOrEmpty(playerName))

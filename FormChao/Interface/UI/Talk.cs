@@ -4,7 +4,7 @@ namespace BebooGarden.Interface.UI;
 
 public partial class Talk : Form
 {
-  private int CurrentLine { get; set; } = 0;
+  private int CurrentLine { get; set; }=0;
   private string[] FullText { get; set; }
   public Talk(string text)
   {

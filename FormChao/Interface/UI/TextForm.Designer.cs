@@ -1,4 +1,4 @@
-﻿namespace BebooGarden.Interface
+﻿namespace BebooGarden.Interface.UI
 {
   partial class TextForm
   {

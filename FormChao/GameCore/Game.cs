@@ -93,7 +93,7 @@ internal class Game : IGlobalActions
         SayBebooState();
         break;
       case Keys.Enter:
-        var textmenu = new TextForm("titre", "placeholder", 12);
+        var textmenu = new TextForm("titre", 12,true);
         //GameWindow.Hide();
         //textmenu.Show();
         textmenu.ShowDialog(GameWindow);
