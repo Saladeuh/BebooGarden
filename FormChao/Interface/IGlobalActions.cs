@@ -8,10 +8,11 @@ namespace BebooGarden.Interface;
 internal class IGlobalActions
 {
   private static IStringLocalizer Localizer { get; set; }
-  public static readonly string[] SUPPORTEDLANGUAGES = new string[] { "fr", "en" };
+  public static readonly string[] SUPPORTEDLANGUAGES = ["fr", "en"];
 
-  protected IGlobalActions()
+ static IGlobalActions()
   {
+    CultureInfo.CurrentUICulture = CultureInfo.InstalledUICulture;
     string twoLetterISOLanguageName = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
     if (!SUPPORTEDLANGUAGES.Contains(twoLetterISOLanguageName))
     {
@@ -21,11 +22,11 @@ internal class IGlobalActions
     bool FilterFunction(string _, LogLevel logLevel) => logLevel >= LogLevel.Critical;
     ILogger logger = new Microsoft.Extensions.Logging.Console.ConsoleLogger("", FilterFunction, false);
     Localizer = new JsonStringLocalizer("Content", "test", logger);
+
   }
 
   private static void ChangeLanguage(string language)
   {
-    CultureInfo.CurrentUICulture = new CultureInfo(language);
   }
 
   public void CheckGlobalActions(Keys keyinfo)
@@ -69,11 +70,11 @@ internal class IGlobalActions
     */
     return false;
   }
-  protected static string GetLocalizedString(string translationKey, params Object[] args)
+  public static string GetLocalizedString(string translationKey, params Object[] args)
   {
     return String.Format(Localizer.GetString(translationKey), args);
   }
-  protected static string GetLocalizedString(string translationKey)
+  public static string GetLocalizedString(string translationKey)
   {
     return Localizer.GetString(translationKey);
   }
@@ -84,5 +85,9 @@ internal class IGlobalActions
   public static void SayLocalizedString(string translationKey)
   {
     ScreenReader.Output(GetLocalizedString(translationKey));
+  }
+  public static void SetAppLanguage(string language)
+  {
+    CultureInfo.CurrentUICulture = new CultureInfo(language);
   }
 }

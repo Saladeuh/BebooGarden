@@ -32,8 +32,8 @@ public partial class TextForm : Form
   {
     if (e.KeyCode == Keys.Enter)
     {
-      if (TextBox.Text.Length == 0) { 
-        ScreenReader.Output("non vide");
+      if (TextBox.Text.Length == 0) {
+        Game.SayLocalizedString("ui.empty");
         return;
       }
       Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuOkSound);

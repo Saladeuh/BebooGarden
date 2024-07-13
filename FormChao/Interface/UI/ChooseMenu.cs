@@ -21,7 +21,7 @@ public partial class ChooseMenu<T> : Form
       var choiceText = Choices.Keys.ElementAt(i);
       var btnOption = new Button();
       btnOption.Text = choiceText;
-      btnOption.AccessibleDescription = (i + 1) + " of " + Choices.Keys.Count;
+      btnOption.AccessibleDescription = (i + 1) + "/" + Choices.Keys.Count;
       btnOption.Click += btn_Click; // Attach click event handler
       btnOption.Enter += btn_enter;
       Controls.Add(btnOption);

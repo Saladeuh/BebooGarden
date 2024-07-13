@@ -1,5 +1,10 @@
 {
     "trees": "Arbres",
     "beboo.gosleep": "{0} va dormir", // 1=beboo name
-    "beboo.wakeup": "{0} se réveille" // 1=beboo name
+    "beboo.wakeup": "{0} se réveille", // 1=beboo name
+    "ui.empty": "Vous devez écrire quelque chose.",
+    "ui.yourname": "Votre nom",
+    "ui.bebooname": "Le nom de votre Bébou",
+    "ui.welcome": "Bienvenue dans le Jardin Bébou!
+Pour commencer, comment dois-je vous appeler ?"
 }

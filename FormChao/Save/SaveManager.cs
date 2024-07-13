@@ -17,7 +17,7 @@ internal class SaveManager
     {
       NewGame.Run(parameters);
     }
-    SetConsoleParams((parameters.Language ?? "en"));
+    Game.SetAppLanguage((parameters.Language ?? "en"));
     return parameters;
   }
 
@@ -53,11 +53,7 @@ internal class SaveManager
     }
   }
 
-  private static void SetConsoleParams(string language)
-  {
-    CultureInfo.CurrentUICulture = new CultureInfo(language);
-  }
-
+  
   public static void WriteJson(SaveParameters parameters)
   {
     var json = JsonConvert.SerializeObject(parameters);
