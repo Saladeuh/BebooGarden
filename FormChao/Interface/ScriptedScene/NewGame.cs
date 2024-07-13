@@ -1,4 +1,5 @@
 ﻿using BebooGarden.GameCore;
+using BebooGarden.Interface.UI;
 using BebooGarden.Save;
 
 namespace BebooGarden.Interface.ScriptedScene;
@@ -7,6 +8,8 @@ internal class NewGame
 {
   public static void Run(SaveParameters parameters)
   {
+    var welcome = new Talk("la\nla\nli\nla");
+    welcome.ShowDialog(Game.GameWindow);
     Dictionary<string, int> languages = new();
     for (var i = 0; i < Game.SUPPORTEDLANGUAGES.Length; i++)
     {

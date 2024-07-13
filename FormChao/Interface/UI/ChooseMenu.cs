@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using BebooGarden.GameCore;
 
-namespace BebooGarden.Interface;
+namespace BebooGarden.Interface.UI;
 
 public partial class ChooseMenu<T> : Form
 {

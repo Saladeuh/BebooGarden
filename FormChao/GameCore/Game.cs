@@ -2,6 +2,7 @@
 using BebooGarden.GameCore.Pet;
 using BebooGarden.GameCore.World;
 using BebooGarden.Interface;
+using BebooGarden.Interface.UI;
 using BebooGarden.Save;
 namespace BebooGarden.GameCore;
 
