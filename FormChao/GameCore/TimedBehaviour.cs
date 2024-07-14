@@ -8,7 +8,7 @@ internal class TimedBehaviour<T>
   public int MaxMS { get; set; }
   private Action<T> Action { get; set; }
   private System.Timers.Timer ActionTimer { get; set; }
-
+  private bool Enabled { get; set; } = true;
   public TimedBehaviour(T actionParameter, int minSecond, int maxSecond, Action<T> action, bool startAtInit)
   {
     ActionParameter = actionParameter;
@@ -30,22 +30,26 @@ internal class TimedBehaviour<T>
       ms = rnd.Next(MinMS, MaxMS);
     }
     else ms = MinMS;
-    ActionTimer = new(ms);
+   ActionTimer = new(ms);
     ActionTimer.Elapsed += onTimer;
-    ActionTimer.Enabled = true;
+    ActionTimer.Enabled = Enabled;
   }
   public void Start(float delayMS = 0)
   {
-    if (delayMS == 0) ActionTimer.Enabled = true;
+    if (delayMS == 0) { ActionTimer.Enabled = true;
+      Enabled = true;
+    }
     else
     {
       var delayTimer = new System.Timers.Timer(delayMS);
       delayTimer.Elapsed += (_, _) => ActionTimer.Enabled = true;
       delayTimer.Enabled = true;
+      Enabled = true;
     }
   }
   public void Stop()
   {
     ActionTimer.Stop();
+    Enabled = false;
   }
 }

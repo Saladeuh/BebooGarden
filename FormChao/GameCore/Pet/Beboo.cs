@@ -79,6 +79,7 @@ internal class Beboo
     {
       if (beboo.Age < 2) beboo.Energy -= 2;
       else beboo.Energy--;
+      ScreenReader.Output("fatiguax");
     }, !isSleepingAtStart);
     TimedBehaviour<Beboo> goingDepressedBehaviour = new(this, 120000, 1503000, beboo =>
     {
@@ -91,9 +92,9 @@ internal class Beboo
     SleepingBehaviour = new(this, 5000, 10000, beboo =>
     {
       beboo.Energy += 0.10f;
-      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooSleepingSounds, beboo, 0.3f);
+      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooSleepingSounds, beboo, true, 0.3f);
     }, isSleepingAtStart);
-    Happiness = 5;
+    Happiness = 3;
     Age = age;
     Energy = (DateTime.Now - lastPlayed).TotalHours > 4 ? 10 : 5;
   }
@@ -128,7 +129,7 @@ internal class Beboo
     directionNormalized.Y = Math.Sign(directionNormalized.Y);
     Position += directionNormalized;
     bool moved = Position != GoalPosition;
-    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooStepSound, this);
+    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooStepSound, this, false);
     if (!moved) GoalPosition = null;
     return moved;
   }
@@ -176,7 +177,7 @@ internal class Beboo
     {
       Energy++;
       Happiness++;
-      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooChewSounds, this, 0.5f);
+      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooChewSounds, this, true, 0.5f);
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooYumySounds, this);
     }
   }
@@ -188,11 +189,13 @@ internal class Beboo
     if ((DateTime.Now - _lastPetted).TotalMilliseconds < 500) return;
     _petCount++;
     _lastPetted = DateTime.Now;
-    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooPetSound, this);
+    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooPetSound, this, false);
     var rnd = new Random();
-    if (_petCount + rnd.Next(2)>= 6){
+    if (_petCount + rnd.Next(2)>= 5){
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooDelightSounds, this);
-      if (Happiness <= 5 && rnd.Next(4) == 3) Happiness++;
+      if (Happiness <= 5 && rnd.Next(4) == 3) { Happiness++;
+        Game.SoundSystem.System.PlaySound(Game.SoundSystem.JingleComplete);
+      }
       _petCount = 0;
     }
   }
