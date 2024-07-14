@@ -1,5 +1,6 @@
 ﻿
 using BebooGarden.GameCore.Pet;
+using BebooGarden.GameCore.World;
 
 namespace BebooGarden.Save;
 
@@ -15,8 +16,9 @@ public class SaveParameters
   public Flags Flags { get; set; }
   public string PlayerName { get; set; }
   public string FavoredColor { get; internal set; }
+  public SortedDictionary<FruitSpecies, int> FruitsBasket { get; set; }
 
-  public SaveParameters(string? language, float volume, BebooGarden.GameCore.Pet.Mood mood, string bebooName, int age, float energy, DateTime lastPayed, Flags flags, string playerName)
+  public SaveParameters(string? language, float volume, BebooGarden.GameCore.Pet.Mood mood, string bebooName, int age, float energy, DateTime lastPayed, Flags flags, string playerName, SortedDictionary<FruitSpecies,int> fruitsBasket)
   {
     Volume = volume;
     Language = language;
@@ -27,6 +29,7 @@ public class SaveParameters
     LastPayed = lastPayed;
     Flags = flags;
     PlayerName = playerName;
+    FruitsBasket = fruitsBasket;
   }
 
   public SaveParameters()
@@ -41,5 +44,6 @@ public class SaveParameters
     Flags = new();
     PlayerName = string.Empty;
     FavoredColor = "none";
+    FruitsBasket = [];
   }
 }

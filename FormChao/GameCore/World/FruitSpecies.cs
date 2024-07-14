@@ -1,6 +1,6 @@
 ﻿namespace BebooGarden.GameCore.World;
 
-internal enum FruitSpecies
+public enum FruitSpecies
 {
   Normal,
   Energetic

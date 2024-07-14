@@ -14,7 +14,7 @@ internal class Game : IGlobalActions
   static readonly System.Windows.Forms.Timer TickTimer = new();
   public Beboo Beboo { get; set; }
   private Vector3 PlayerPosition { get; set; }
-  private SortedDictionary<FruitSpecies, int> FruitsBasket { get; set; }
+  public SortedDictionary<FruitSpecies, int> FruitsBasket { get; set; }
   public static Form GameWindow { get; set; }
   public static Map Map { get; private set; }
   public Flags Flags { get; }
@@ -39,10 +39,14 @@ internal class Game : IGlobalActions
     TickTimer.Enabled = true;
     PlayerPosition = new Vector3(0, 0, 0);
     Beboo = new(parameters.BebooName, parameters.Age, parameters.LastPayed, parameters.Energy);
-    FruitsBasket = [];
-    foreach (FruitSpecies fruitSpecies in Enum.GetValues(typeof(FruitSpecies)))
+    FruitsBasket =parameters.FruitsBasket;
+    if (FruitsBasket==null || FruitsBasket.Count == 0)
     {
-      FruitsBasket[fruitSpecies] = 0;
+      FruitsBasket = [];
+      foreach (FruitSpecies fruitSpecies in Enum.GetValues(typeof(FruitSpecies)))
+      {
+        FruitsBasket[fruitSpecies] = 0;
+      }
     }
     KeyState = [];
     foreach (Keys key in Enum.GetValues(typeof(Keys)))
