@@ -15,11 +15,7 @@ public partial class TextForm : Form
   public TextForm(string title, int maxLength, bool nameFormat)
   {
     WindowState = FormWindowState.Maximized;
-    var lblTitle = new Label();
     Text = title;
-    lblTitle.Text = title;
-    lblTitle.AutoSize = true;
-    Controls.Add(lblTitle);
     TextBox = new();
     MaxLength = maxLength;
     NameFormat = nameFormat;
@@ -48,7 +44,7 @@ public partial class TextForm : Form
     if (_lastText.Length == TextBox.TextLength + 1) // letter deleted
       Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuKeyDeleteSound);
     else if (TextBox.TextLength > MaxLength || 
-      (NameFormat && !System.Text.RegularExpressions.Regex.IsMatch(TextBox.Text, @"^[a-zA-Z0-9_-]+$") && TextBox.Text != string.Empty) )
+      (NameFormat && !System.Text.RegularExpressions.Regex.IsMatch(TextBox.Text, @"^[a-zA-Z0-9\p{L}\p{M}_-]+$") && TextBox.Text != string.Empty) )
     {
       _lastWasIncorrect = true;
       Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuKeyFullSound);
