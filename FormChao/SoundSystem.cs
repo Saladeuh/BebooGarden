@@ -30,6 +30,8 @@ internal class SoundSystem
   public Sound MenuOkSound { get; private set; }
   public Sound WaterSound { get; private set; }
   public Sound TreeWindSound { get; private set; }
+  public Sound JingleComplete { get; private set; }
+  public Sound JingleStar { get; private set; }
   public List<Sound> BebooYumySounds { get; private set; }
   private SortedDictionary<FruitSpecies, Sound> FruitsSounds { get; set; }
   public Sound NeutralMusicStream { get; private set; }
@@ -39,6 +41,9 @@ internal class SoundSystem
   public List<Sound> BebooCrySounds { get; private set; }
   public Channel BebooChannel { get; private set; }
   public List<Sound> BebooDelightSounds { get; private set; }
+  public Sound JingleStar2 { get; private set; }
+  public Sound JingleWaw { get; private set; }
+  public SoundHandle JingleLittleStar { get; private set; }
 
   private static System.Timers.Timer AmbiTimer;
 
@@ -76,7 +81,12 @@ internal class SoundSystem
     SadMusicStream = System.CreateStream(CONTENTFOLDER + "music/Depressed.mp3", Mode.Loop_Normal);
     WaterSound = System.CreateStream(CONTENTFOLDER + "sounds/WaterCalmWide.wav", Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff | Mode._3D_WorldRelative);
     TreeWindSound = System.CreateStream(CONTENTFOLDER + "sounds/Wind_Trees_Cattails_Fienup_001.wav", Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff | Mode._3D_WorldRelative);
+    JingleComplete = System.CreateStream(CONTENTFOLDER + "music/coplete.wav", Mode.Loop_Normal);
+    JingleStar = System.CreateStream(CONTENTFOLDER + "music/star.wav", Mode.Loop_Normal);
+    JingleStar2 = System.CreateStream(CONTENTFOLDER + "music/star2.wav", Mode.Loop_Normal);
+    JingleWaw = System.CreateStream(CONTENTFOLDER + "music/waw.wav", Mode.Loop_Normal);
     sound = System.CreateStream(CONTENTFOLDER + "sounds/Grass_Shake.wav", Mode.Loop_Normal);
+    JingleLittleStar = System.CreateStream(CONTENTFOLDER + "music/LittleStar.wav", Mode.Loop_Normal);
     channel = (Channel?)System.PlaySound(sound, paused: false);
     channel.SetLoopPoints(TimeUnit.MS, 678, TimeUnit.MS, 6007);
     channel.Volume = 0.5f;
