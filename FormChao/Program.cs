@@ -32,7 +32,7 @@ internal class Program
     SaveManager.WriteJson(parameters);
   }
 
-  private void AutoUpdate()
+  private static void AutoUpdate()
   {
     AutoUpdater.Synchronous = true;
     AutoUpdater.ShowSkipButton = false;
