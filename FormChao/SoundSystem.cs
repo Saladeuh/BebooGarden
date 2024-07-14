@@ -134,17 +134,16 @@ internal class SoundSystem
   {
     Channel channel = System.PlaySound(WaterSound, paused: true);
     channel.SetLoopPoints(TimeUnit.MS, 2780, TimeUnit.MS, 17796);
-    channel.Set3DAttributes(map.WaterPoint, default, default);
-    channel.Set3DMinMaxDistance(3f, 24f);
-    channel.Volume = 0.1f;
+    channel.Set3DAttributes(map.WaterPoint+new Vector3(0,0,5), default, default);
+    channel.Set3DMinMaxDistance(3f, 30f);
+    channel.Volume = 0.2f;
     channel.Paused = false;
     channel = System.PlaySound(TreeWindSound, paused: true);
     channel.SetLoopPoints(TimeUnit.PCM, 668725, TimeUnit.PCM, 2961327);
-    //channel.SetLoopPoints(TimeUnit.MS, 2780, TimeUnit.MS, 17796);
     var treePosVector2 = map.TreeLines[0].X;
-    var treePosVector3 = new Vector3(treePosVector2.X, treePosVector2.Y, 0);
+    var treePosVector3 = new Vector3(treePosVector2.X, treePosVector2.Y, 5);
     channel.Set3DAttributes(treePosVector3, default, default);
-    channel.Set3DMinMaxDistance(3f, 35f);
+    channel.Set3DMinMaxDistance(3f, 40f);
     //channel.Volume = 0.1f;
     channel.Paused = false;
   }
