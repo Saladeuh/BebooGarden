@@ -36,6 +36,7 @@ internal class Game : IGlobalActions
     SoundSystem.LoadMap(Map);
     LastPressedKeyTime = DateTime.Now;
     TickTimer.Tick += Tick;
+    TickTimer.Enabled = true;
     PlayerPosition = new Vector3(0, 0, 0);
     Beboo = new(parameters.BebooName, parameters.Age, parameters.LastPayed, parameters.Energy);
     FruitsBasket = [];
@@ -51,6 +52,7 @@ internal class Game : IGlobalActions
     PlayerName = parameters.PlayerName;
   }
   bool _lastArrowWasUp = false;
+
   public void KeyDownMapper(object sender, KeyEventArgs e)
   {
     if ((DateTime.Now - LastPressedKeyTime).TotalMilliseconds < 150) return;
@@ -91,6 +93,8 @@ internal class Game : IGlobalActions
         break;
       case Keys.F:
         SayBebooState();
+        SoundSystem.System.GetChannelsPlaying(out int channel, out int real);
+        //ScreenReader.Output($"{channel} {real}");
         break;
       case Keys.Enter:
         var textmenu = new TextForm("titre", 12,true);

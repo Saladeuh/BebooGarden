@@ -79,9 +79,8 @@ internal class Beboo
     {
       if (beboo.Age < 2) beboo.Energy -= 2;
       else beboo.Energy--;
-      ScreenReader.Output("fatiguax");
     }, !isSleepingAtStart);
-    TimedBehaviour<Beboo> goingDepressedBehaviour = new(this, 120000, 1503000, beboo =>
+    TimedBehaviour<Beboo> goingDepressedBehaviour = new(this, 120000, 150000, beboo =>
     {
       beboo.Happiness--;
     }, true);

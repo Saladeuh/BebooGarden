@@ -43,7 +43,7 @@ internal class SoundSystem
   public List<Sound> BebooDelightSounds { get; private set; }
   public Sound JingleStar2 { get; private set; }
   public Sound JingleWaw { get; private set; }
-  public SoundHandle JingleLittleStar { get; private set; }
+  public Sound JingleLittleStar { get; private set; }
 
   private static System.Timers.Timer AmbiTimer;
 
@@ -75,7 +75,7 @@ internal class SoundSystem
   {
     Sound sound; Channel channel;
     NeutralMusicStream = System.CreateStream(CONTENTFOLDER + "music/neutral.mp3", Mode.Loop_Normal);
-    Music = (Channel?)System.PlaySound(NeutralMusicStream, paused: false);
+    Music = (Channel?)System.PlaySound(NeutralMusicStream, paused: true);
     Music.SetLoopPoints(TimeUnit.MS, 12, TimeUnit.MS, 88369);
     Music.Volume = 0.5f;
     SadMusicStream = System.CreateStream(CONTENTFOLDER + "music/Depressed.mp3", Mode.Loop_Normal);
@@ -117,7 +117,7 @@ internal class SoundSystem
     GrassSound = System.CreateSound(CONTENTFOLDER + "sounds/grass_rustle.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     LoadMenuSounds(); 
     Reverb3D reverb = System.CreateReverb3D();
-    reverb.SetProperties(Preset.Bathroom);
+    reverb.SetProperties(Preset.Plain);
     reverb.Set3DAttributes(new Vector3(0, 0, 0), 0f, 500f);
   }
 
@@ -215,7 +215,7 @@ internal class SoundSystem
   }
   public void PlayBebooSound(Sound sound, Beboo beboo, bool stopOthers=true)
   {
-    if (BebooChannel != null && stopOthers) BebooChannel.Stop();
+    if (BebooChannel != null && stopOthers && BebooChannel.IsPlaying) BebooChannel.Stop();
     BebooChannel = System.PlaySound(sound, paused: true);
     BebooChannel.Set3DMinMaxDistance(0f, 30f);
     BebooChannel.Set3DAttributes(beboo.Position + new Vector3(0, 0, -2), default, default);
@@ -225,7 +225,7 @@ internal class SoundSystem
   {
     var rand = new Random();
     var sound = sounds[rand.Next(sounds.Count())];
-    if (BebooChannel != null && stopOthers) BebooChannel.Stop();
+    if (BebooChannel != null && stopOthers && BebooChannel.IsPlaying) BebooChannel.Stop();
     BebooChannel = System.PlaySound(sound, paused: true);
     BebooChannel.Set3DMinMaxDistance(0f, 30f);
     BebooChannel.Set3DAttributes(beboo.Position + new Vector3(0, 0, -2), default, default);
