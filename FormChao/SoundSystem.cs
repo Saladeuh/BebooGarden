@@ -35,8 +35,10 @@ internal class SoundSystem
   public Sound NeutralMusicStream { get; private set; }
   public Channel Music { get; private set; }
   public Sound SadMusicStream { get; private set; }
+  public List<Sound> BebooPetSound { get; private set; }
   public List<Sound> BebooCrySounds { get; private set; }
   public Channel BebooChannel { get; private set; }
+  public List<Sound> BebooDelightSounds { get; private set; }
 
   private static System.Timers.Timer AmbiTimer;
 
@@ -90,6 +92,10 @@ internal class SoundSystem
     LoadSoundsInList(["crunch.wav", "crunch2.wav", "EatingApple.wav"], BebooChewSounds, "sounds/beboo/");
     BebooYumySounds = new();
     LoadSoundsInList(["miam.wav", "miam2.wav", "miam3.wav"], BebooYumySounds, "sounds/beboo/");
+    BebooDelightSounds = new();
+    LoadSoundsInList(["rourou.wav", "rourou2.wav", "rourou3.wav"], BebooDelightSounds, "sounds/beboo/");
+    BebooPetSound=new();
+    LoadSoundsInList(["pet.wav", "pet2.wav"], BebooPetSound, "sounds/character/");
     BebooCrySounds = new();
     LoadSoundsInList(["trist.wav", "trist2.wav"], BebooCrySounds, "sounds/beboo/");
     WhistleSound = System.CreateSound(CONTENTFOLDER + "sounds/character/se_sys_whistle_1p.wav", Mode.Unique);

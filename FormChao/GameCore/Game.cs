@@ -71,7 +71,7 @@ internal class Game : IGlobalActions
         {
           if (!_lastArrowWasUp)
           {
-            ShakeAtPlayerPosition();
+            ShakeOrPetAtPlayerPosition();
             _lastArrowWasUp = true;
           }
         }
@@ -83,7 +83,7 @@ internal class Game : IGlobalActions
         {
           if (_lastArrowWasUp)
           {
-            ShakeAtPlayerPosition();
+            ShakeOrPetAtPlayerPosition();
             _lastArrowWasUp = false;
           }
         }
@@ -137,7 +137,7 @@ internal class Game : IGlobalActions
     ScreenReader.Output($"Energy {Beboo.Energy}, hapiness {Beboo.Happiness}");
   }
 
-  private void ShakeAtPlayerPosition()
+  private void ShakeOrPetAtPlayerPosition()
   {
     var treeLine = Map.GetTreeLineAtPosition(PlayerPosition);
     if (treeLine != null)
@@ -145,6 +145,7 @@ internal class Game : IGlobalActions
       var dropped = treeLine.Shake();
       if (dropped != null) FruitsBasket[dropped.Value]++;
     }
+    else Beboo.GetPetted();
   }
 
   private void FeedBeboo()

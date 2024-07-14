@@ -30,7 +30,7 @@ internal class Beboo
     private set
     {
       if (_hapiness > value && value <= 0) BurstInTearrs();
-      else if (_hapiness <=0 && value > 0 && Mood!=Mood.Happy) Task.Run(async () =>
+      else if (_hapiness <= 0 && value > 0 && Mood != Mood.Happy) Task.Run(async () =>
       {
         await Task.Delay(1000);
         BeHappy();
@@ -61,11 +61,8 @@ internal class Beboo
   {
     Position = new Vector3(0, 0, 0);
     Name = name == string.Empty ? "boby" : name;
-    Happiness = 5;
-    Age = age;
     bool isSleepingAtStart = DateTime.Now.Hour < 8 || DateTime.Now.Hour > 20;
     Mood = isSleepingAtStart ? Mood.Sleeping : Mood.Happy;
-    Energy = (DateTime.Now - lastPlayed).TotalHours > 4 ? 10 : 5;
     CuteBehaviour = new(this, 15000, 25000, beboo =>
     {
       beboo.DoCuteThing();
@@ -96,6 +93,9 @@ internal class Beboo
       beboo.Energy += 0.10f;
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooSleepingSounds, beboo, 0.3f);
     }, isSleepingAtStart);
+    Happiness = 5;
+    Age = age;
+    Energy = (DateTime.Now - lastPlayed).TotalHours > 4 ? 10 : 5;
   }
 
   private void BurstInTearrs()
@@ -178,6 +178,22 @@ internal class Beboo
       Happiness++;
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooChewSounds, this, 0.5f);
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooYumySounds, this);
+    }
+  }
+  private DateTime _lastPetted = DateTime.MinValue;
+
+  private int _petCount = 0;
+  public void GetPetted()
+  {
+    if ((DateTime.Now - _lastPetted).TotalMilliseconds < 500) return;
+    _petCount++;
+    _lastPetted = DateTime.Now;
+    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooPetSound, this);
+    var rnd = new Random();
+    if (_petCount + rnd.Next(2)>= 6){
+      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooDelightSounds, this);
+      if (Happiness <= 5 && rnd.Next(4) == 3) Happiness++;
+      _petCount = 0;
     }
   }
 }
