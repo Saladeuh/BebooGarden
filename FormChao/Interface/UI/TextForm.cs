@@ -7,7 +7,6 @@ public partial class TextForm : Form
   private TextBox TextBox { get; set; }
   private int MaxLength { get; }
   private bool NameFormat { get; }
-
   public string Result;
   private string _lastText = "";
   private bool _lastWasIncorrect=false;

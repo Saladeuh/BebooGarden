@@ -1,4 +1,6 @@
 ﻿using System.Globalization;
+using BebooGarden.GameCore;
+using BebooGarden.Interface.UI;
 using LocalizationCultureCore.StringLocalizer;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
@@ -24,7 +26,18 @@ internal class IGlobalActions
     Localizer = new JsonStringLocalizer("Content", "test", logger);
 
   }
-
+  public string LanguageMenu()
+  {
+    Dictionary<string, int> languages = new();
+    for (var i = 0; i < SUPPORTEDLANGUAGES.Length; i++)
+    {
+      languages[SUPPORTEDLANGUAGES[i]] = i;
+    }
+    var menuLang = new ChooseMenu<int>("Choose your language", languages);
+    menuLang.ShowDialog(Game.GameWindow);
+    string language = SUPPORTEDLANGUAGES[menuLang.Result];
+    return language;
+  }
   private static void ChangeLanguage(string language)
   {
   }

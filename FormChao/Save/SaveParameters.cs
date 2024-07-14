@@ -14,6 +14,8 @@ public class SaveParameters
   public float Energy { get; set; } 
   public Flags Flags { get; set; }
   public string PlayerName { get; set; }
+  public string FavoredColor { get; internal set; }
+
   public SaveParameters(string? language, float volume, BebooGarden.GameCore.Pet.Mood mood, string bebooName, int age, float energy, DateTime lastPayed, Flags flags, string playerName)
   {
     Volume = volume;
@@ -38,5 +40,6 @@ public class SaveParameters
     Energy = 5;
     Flags = new();
     PlayerName = string.Empty;
+    FavoredColor = "none";
   }
 }

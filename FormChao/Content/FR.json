@@ -1,10 +1,20 @@
 {
+    "pink": "Rose",
+    "red": "Rouge",
+    "orange": "Orange",
+    "yellow": "Jaune",
+    "green": "Vert",
+    "blue": "Bleu",
+    "indigo": "Indigo",
+    "violet": "Violet",
+    "none": "Aucune",
     "trees": "Arbres",
     "beboo.gosleep": "{0} va dormir", // 1=beboo name
     "beboo.wakeup": "{0} se réveille", // 1=beboo name
     "ui.empty": "Vous devez écrire quelque chose.",
     "ui.yourname": "Votre nom",
     "ui.bebooname": "Le nom de votre Bébou",
-    "ui.welcome": "Bienvenue dans le Jardin Bébou!
-Pour commencer, comment dois-je vous appeler ?"
+    "ui.welcome": "Bienvenue dans le Jardin Bébou!\nPour commencer, comment dois-je vous appeler ?",
+    "ui.aboutyou": "Super ! Maintenant, {0}, peux-tu m'en dire plus sur toi ?\nCommençons simplement.", // 0=player name
+    "ui.color": "Quelle est ta couleur préférée ?"
 }

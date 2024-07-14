@@ -28,7 +28,8 @@ internal class Program
       age: mainWindow.Game.Beboo.Age,
       lastPayed: DateTime.Now,
       flags: mainWindow.Game.Flags,
-      playerName: mainWindow.Game.PlayerName);
+      playerName: mainWindow.Game.PlayerName
+      );
     SaveManager.WriteJson(parameters);
   }
 

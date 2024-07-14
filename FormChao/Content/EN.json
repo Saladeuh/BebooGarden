@@ -1,10 +1,19 @@
 {
+    "red": "Red",
+    "orange": "Orange",
+    "yellow": "Yellow",
+    "green": "Green",
+    "blue": "Blue",
+    "indigo": "Indigo",
+    "violet": "Violet",
+    "none": "None",
     "trees": "Trees",
     "beboo.gosleep": "{0} go asleep", // 1=beboo name
     "beboo.wakeup": "{0} wakes up", // 1=beboo name
     "ui.empty": "You must type something.",
     "ui.yourname": "Your name",
     "ui.bebooname": "Your Beboo's cute name",
-    "ui.welcome": "You're welcome in the Beboo Garden !
-To begin it, how may I have to call you?""
+    "ui.welcome": "Welcome to the Beboo Garden !\nTo begin with, what should I call you?",
+    "ui.aboutyou": "Great! Now, {0}, can you tell me a little about you ?\nCommençons simplement.", // 0=player name
+    "ui.color": "What is your favorite color?"
 }
