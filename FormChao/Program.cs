@@ -23,7 +23,6 @@ internal class Program
     var parameters = new SaveParameters(language: (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName ?? "en"),
       volume: Game.SoundSystem.Volume,
       bebooName: mainWindow.Game.Beboo.Name,
-      mood: mainWindow.Game.Beboo.Mood,
       energy: mainWindow.Game.Beboo.Energy,
       age: mainWindow.Game.Beboo.Age,
       lastPayed: DateTime.Now,

@@ -135,7 +135,7 @@ internal class Game : IGlobalActions
         if (KeyState[Keys.Space]) break;
         if (Util.IsInSquare(Beboo.Position, PlayerPosition, 1))
         {
-          if (Beboo.Mood == Mood.Sleeping) Whistle();
+          if (Beboo.Sleeping) Whistle();
           else FeedBeboo();
         }
         else if (Map.GetTreeLineAtPosition(PlayerPosition) != null) break;

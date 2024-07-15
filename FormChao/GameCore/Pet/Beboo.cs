@@ -12,9 +12,9 @@ internal class Beboo
   public float Energy
   {
     get => _energy;
-    set
+    private set
     {
-      if (_energy > value && value <= 0) GoAsleep();
+      if (_energy > value && ((Happy&& value <= -2) || (!Happy && value <=-5))) GoAsleep();
       else if (_energy < value && _energy >= 0) Task.Run(async () =>
       {
         await Task.Delay(1000);
@@ -30,7 +30,7 @@ internal class Beboo
     private set
     {
       if (_hapiness > value && value <= 0) BurstInTearrs();
-      else if (_hapiness <= 0 && value > 0 && Mood != Mood.Happy) Task.Run(async () =>
+      else if (_hapiness <= 0 && value > 0) Task.Run(async () =>
       {
         await Task.Delay(1000);
         BeHappy();
@@ -38,8 +38,9 @@ internal class Beboo
       _hapiness = value;
     }
   }
-  public Mood Mood { get; private set; }
   public Vector3 Position { get; private set; }
+  public bool Happy {  get; private set; }=true;
+  public bool Sleeping {  get; private set; }=false; 
   private TimedBehaviour<Beboo> CuteBehaviour { get; }
   private Vector3? _goalPosition;
   public Vector3? GoalPosition
@@ -53,7 +54,9 @@ internal class Beboo
   }
 
   private TimedBehaviour<Beboo> GoingTiredBehaviour { get; }
+  public TimedBehaviour<Beboo> GoingDepressedBehaviour { get; }
   private TimedBehaviour<Beboo> MoveBehaviour { get; }
+  public TimedBehaviour<Beboo> FancyMoveBehaviour { get; }
   private TimedBehaviour<Beboo> SadBehaviour { get; }
   private TimedBehaviour<Beboo> SleepingBehaviour { get; }
 
@@ -62,7 +65,7 @@ internal class Beboo
     Position = new Vector3(0, 0, 0);
     Name = name == string.Empty ? "boby" : name;
     bool isSleepingAtStart = DateTime.Now.Hour < 8 || DateTime.Now.Hour > 20;
-    Mood = isSleepingAtStart ? Mood.Sleeping : Mood.Happy;
+    Sleeping=isSleepingAtStart;
     CuteBehaviour = new(this, 15000, 25000, beboo =>
     {
       beboo.DoCuteThing();
@@ -71,7 +74,7 @@ internal class Beboo
     {
       beboo.MoveTowardGoal();
     }, !isSleepingAtStart);
-    TimedBehaviour<Beboo> fancyMoveBehaviour = new(this, 30000, 60000, beboo =>
+    FancyMoveBehaviour = new TimedBehaviour<Beboo>(this, 30000, 60000, beboo =>
     {
       beboo.WannaGoToRandomPlace();
     }, true);
@@ -80,7 +83,7 @@ internal class Beboo
       if (beboo.Age < 2) beboo.Energy -= 2;
       else beboo.Energy--;
     }, !isSleepingAtStart);
-    TimedBehaviour<Beboo> goingDepressedBehaviour = new(this, 120000, 150000, beboo =>
+    GoingDepressedBehaviour = new(this, 120000, 150000, beboo =>
     {
       beboo.Happiness--;
     }, true);
@@ -93,15 +96,15 @@ internal class Beboo
       beboo.Energy += 0.10f;
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooSleepingSounds, beboo, true, 0.3f);
     }, isSleepingAtStart);
-    Happiness = 3;
+    Happiness = 1;// 3;
     Age = age;
-    Energy = (DateTime.Now - lastPlayed).TotalHours > 4 ? 10 : 5;
+    Energy = 1; // (DateTime.Now - lastPlayed).TotalHours > 4 ? 10 : 5;
   }
 
   private void BurstInTearrs()
   {
-    if (Mood == Mood.Sad) return;
-    this.Mood = Mood.Sad;
+    if (!Happy) return;
+    Happy = false;
     Game.SoundSystem.MusicTransition(Game.SoundSystem.SadMusicStream, 464375, 4471817, FmodAudio.TimeUnit.PCM, 0.1f);
     this.CuteBehaviour.Stop();
     this.SadBehaviour.Start();
@@ -111,8 +114,8 @@ internal class Beboo
 
   private void BeHappy()
   {
-    if (Mood == Mood.Happy) return;
-    this.Mood = Mood.Happy;
+    if (Happy) return;
+    Happy = true;
     Game.SoundSystem.MusicTransition(Game.SoundSystem.NeutralMusicStream, 12, 88369, FmodAudio.TimeUnit.MS);
     this.CuteBehaviour.Start();
     this.SadBehaviour.Stop();
@@ -147,31 +150,36 @@ internal class Beboo
 
   private void GoAsleep()
   {
-    if (Mood == Mood.Sleeping) return;
+    if (Sleeping) return;
     IGlobalActions.SayLocalizedString("beboo.gosleep", this.Name);
     GoingTiredBehaviour.Stop();
     MoveBehaviour.Stop();
+    FancyMoveBehaviour.Stop();  
     CuteBehaviour.Stop();
+    GoingDepressedBehaviour.Stop();
     Game.SoundSystem.PlayBebooSound(Game.SoundSystem.GrassSound, this);
     Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooYawningSounds, this);
-    Mood = Mood.Sleeping;
+    Sleeping=true;
     SleepingBehaviour.Start();
   }
   public void WakeUp()
   {
-    if (Mood != Mood.Sleeping) return;
-    IGlobalActions.SayLocalizedString("beboo.wakeup", this.Name);
+    if (!Sleeping) return;
+    Game.SayLocalizedString("beboo.wakeup", this.Name);
+    SleepingBehaviour.Stop();
     GoingTiredBehaviour.Start();
+    FancyMoveBehaviour.Start();
     MoveBehaviour.Start(3000);
     CuteBehaviour.Start();
-    SleepingBehaviour.Stop();
+    GoingDepressedBehaviour.Start();
     Game.SoundSystem.PlayBebooSound(Game.SoundSystem.GrassSound, this);
     Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooYawningSounds, this);
-    Mood = Mood.Happy;
+    Sleeping = false;
+    BeHappy();
   }
   public void Eat(FruitSpecies fruitSpecies)
   {
-    if (Mood == Mood.Sleeping) return;
+    if (Sleeping) return;
     if (fruitSpecies == FruitSpecies.Normal)
     {
       Energy++;

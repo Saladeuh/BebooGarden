@@ -8,7 +8,6 @@ public class SaveParameters
 {
   public float Volume { get; set; }
   public string? Language { get; set; }
-  public Mood Mood { get; set; }
   public string BebooName { get; set; }
   public int Age { get; set; }
   public DateTime LastPayed { get; set; }
@@ -18,11 +17,10 @@ public class SaveParameters
   public string FavoredColor { get; internal set; }
   public SortedDictionary<FruitSpecies, int> FruitsBasket { get; set; }
 
-  public SaveParameters(string? language, float volume, BebooGarden.GameCore.Pet.Mood mood, string bebooName, int age, float energy, DateTime lastPayed, Flags flags, string playerName, SortedDictionary<FruitSpecies,int> fruitsBasket)
+  public SaveParameters(string? language, float volume, string bebooName, int age, float energy, DateTime lastPayed, Flags flags, string playerName, SortedDictionary<FruitSpecies,int> fruitsBasket)
   {
     Volume = volume;
     Language = language;
-    Mood = mood;
     Energy = energy;
     BebooName = (bebooName ?? "");
     Age = age;
@@ -36,7 +34,6 @@ public class SaveParameters
   {
     Volume = 0.5f;
     Language = "en";
-    Mood = Mood.None;
     BebooName = string.Empty;
     Age = 0;
     LastPayed = default(DateTime);

@@ -2,6 +2,6 @@
 saleté
 jouets: boitasik, bulles
 online
-vocal
 maps
+plus commandes vocales
 nuit
