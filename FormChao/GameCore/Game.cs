@@ -12,6 +12,7 @@ internal class Game : IGlobalActions
   private Dictionary<Keys, bool> KeyState { get; set; }
   private DateTime LastPressedKeyTime { get; set; }
   static readonly System.Windows.Forms.Timer TickTimer = new();
+  private BebooSpeechRecognition BebooSpeechRecognition { get; }
   public Beboo Beboo { get; set; }
   private Vector3 PlayerPosition { get; set; }
   public SortedDictionary<FruitSpecies, int> FruitsBasket { get; set; }
@@ -39,6 +40,8 @@ internal class Game : IGlobalActions
     TickTimer.Enabled = true;
     PlayerPosition = new Vector3(0, 0, 0);
     Beboo = new(parameters.BebooName, parameters.Age, parameters.LastPayed, parameters.Energy);
+    BebooSpeechRecognition = new(Beboo.Name);
+    BebooSpeechRecognition.BebooCalled += Call;
     FruitsBasket =parameters.FruitsBasket;
     if (FruitsBasket==null || FruitsBasket.Count == 0)
     {
@@ -55,8 +58,19 @@ internal class Game : IGlobalActions
     }
     PlayerName = parameters.PlayerName;
   }
-  bool _lastArrowWasUp = false;
 
+  private void Call(object? sender, EventArgs e)
+  {
+    SoundSystem.System.Get3DListenerAttributes(0, out Vector3 currentPosition, out _, out _, out _);
+    Task.Run(async () =>
+    {
+      await Task.Delay(1000);
+      Beboo.WakeUp();
+    });
+    Beboo.GoalPosition = currentPosition;
+  }
+
+  bool _lastArrowWasUp = false;
   public void KeyDownMapper(object sender, KeyEventArgs e)
   {
     if ((DateTime.Now - LastPressedKeyTime).TotalMilliseconds < 150) return;
