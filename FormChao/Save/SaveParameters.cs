@@ -11,17 +11,19 @@ public class SaveParameters
   public string BebooName { get; set; }
   public int Age { get; set; }
   public DateTime LastPlayed { get; set; }
-  public float Energy { get; set; } 
+  public float Energy { get; set; }
+  public int Happiness { get; set; }
   public Flags Flags { get; set; }
   public string PlayerName { get; set; }
   public string FavoredColor { get; internal set; }
   public SortedDictionary<FruitSpecies, int> FruitsBasket { get; set; }
   public int RemainingFruits {  get; set; }
-  public SaveParameters(string? language, float volume, string bebooName, int age, float energy, DateTime lastPayed, Flags flags, string playerName, SortedDictionary<FruitSpecies,int> fruitsBasket, int remainingFruits)
+  public SaveParameters(string? language, float volume, string bebooName, int age, float energy, int happiness, DateTime lastPayed, Flags flags, string playerName, SortedDictionary<FruitSpecies,int> fruitsBasket, int remainingFruits)
   {
     Volume = volume;
     Language = language;
     Energy = energy;
+    Happiness = happiness;
     BebooName = (bebooName ?? "");
     Age = age;
     LastPlayed = lastPayed;

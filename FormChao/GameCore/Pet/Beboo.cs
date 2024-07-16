@@ -14,7 +14,8 @@ internal class Beboo
     get => _energy;
     private set
     {
-      if (_energy > value && ((Happy&& value <= -2) || (!Happy && value <=-5))) GoAsleep();
+      value=Math.Clamp(value, -10, 10);
+      if (_energy > value && ((Happy && value <= -2) || (!Happy && value <= -5))) GoAsleep();
       else if (_energy < value && _energy >= 2) Task.Run(async () =>
       {
         await Task.Delay(1000);
@@ -29,6 +30,7 @@ internal class Beboo
     get => _hapiness;
     private set
     {
+      value = Math.Clamp(value, -10, 10);
       if (_hapiness > value && value <= 0) BurstInTearrs();
       else if (_hapiness <= 0 && value > 0) Task.Run(async () =>
       {
@@ -39,8 +41,8 @@ internal class Beboo
     }
   }
   public Vector3 Position { get; private set; }
-  public bool Happy {  get; private set; }=true;
-  public bool Sleeping {  get; private set; }=false; 
+  public bool Happy { get; private set; } = true;
+  public bool Sleeping { get; private set; } = false;
   private TimedBehaviour<Beboo> CuteBehaviour { get; }
   private Vector3? _goalPosition;
   public Vector3? GoalPosition
@@ -60,12 +62,12 @@ internal class Beboo
   private TimedBehaviour<Beboo> SadBehaviour { get; }
   private TimedBehaviour<Beboo> SleepingBehaviour { get; }
 
-  public Beboo(string name, int age, DateTime lastPlayed, float energy)
+  public Beboo(string name, int age, DateTime lastPlayed, float energy, int happiness)
   {
     Position = new Vector3(0, 0, 0);
     Name = name == string.Empty ? "boby" : name;
     bool isSleepingAtStart = DateTime.Now.Hour < 8 || DateTime.Now.Hour > 20;
-    Sleeping=isSleepingAtStart;
+    Sleeping = isSleepingAtStart;
     CuteBehaviour = new(this, 15000, 25000, beboo =>
     {
       beboo.DoCuteThing();
@@ -95,9 +97,10 @@ internal class Beboo
       beboo.Energy += 0.10f;
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooSleepingSounds, beboo, true, 0.3f);
     }, isSleepingAtStart);
-    Happiness = 1;// 3;
+    TimeSpan elapsedTime = DateTime.Now - lastPlayed;
+    Happiness = elapsedTime.TotalHours > 4 ? 5 : happiness;
     Age = age;
-    Energy = -1; // (DateTime.Now - lastPlayed).TotalHours > 4 ? 10 : 5;
+    Energy = (float)(elapsedTime.TotalHours > 8 ? 5 : energy + elapsedTime.TotalHours);
   }
 
   private void BurstInTearrs()
@@ -153,12 +156,12 @@ internal class Beboo
     IGlobalActions.SayLocalizedString("beboo.gosleep", this.Name);
     GoingTiredBehaviour.Stop();
     MoveBehaviour.Stop();
-    FancyMoveBehaviour.Stop();  
+    FancyMoveBehaviour.Stop();
     CuteBehaviour.Stop();
     GoingDepressedBehaviour.Stop();
     Game.SoundSystem.PlayBebooSound(Game.SoundSystem.GrassSound, this);
     Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooYawningSounds, this);
-    Sleeping=true;
+    Sleeping = true;
     SleepingBehaviour.Start();
   }
   public void WakeUp()
@@ -197,9 +200,12 @@ internal class Beboo
     _lastPetted = DateTime.Now;
     Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooPetSound, this, false);
     var rnd = new Random();
-    if (_petCount + rnd.Next(2)>= 5){
+    if (_petCount + rnd.Next(2) >= 5)
+    {
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooDelightSounds, this);
-      if (Happiness <= 5 && rnd.Next(4) == 3) { Happiness++;
+      if (Happiness <= 5 && rnd.Next(4) == 3)
+      {
+        Happiness++;
         Game.SoundSystem.System.PlaySound(Game.SoundSystem.JingleComplete);
       }
       _petCount = 0;

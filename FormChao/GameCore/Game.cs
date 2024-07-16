@@ -41,7 +41,7 @@ internal class Game : IGlobalActions
     TickTimer.Tick += Tick;
     TickTimer.Enabled = true;
     PlayerPosition = new Vector3(0, 0, 0);
-    Beboo = new(parameters.BebooName, parameters.Age, parameters.LastPlayed, parameters.Energy);
+    Beboo = new(parameters.BebooName, parameters.Age, parameters.LastPlayed, parameters.Energy, parameters.Happiness);
     BebooSpeechRecognition = new(Beboo.Name);
     BebooSpeechRecognition.BebooCalled += Call;
     FruitsBasket = parameters.FruitsBasket;
@@ -231,6 +231,7 @@ internal class Game : IGlobalActions
   volume: SoundSystem.Volume,
   bebooName: Beboo.Name,
   energy: Beboo.Energy,
+  happiness: Beboo.Happiness,
   age: Beboo.Age,
   lastPayed: DateTime.Now,
   flags: Flags,
