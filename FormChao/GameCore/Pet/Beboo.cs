@@ -15,7 +15,7 @@ internal class Beboo
     private set
     {
       if (_energy > value && ((Happy&& value <= -2) || (!Happy && value <=-5))) GoAsleep();
-      else if (_energy < value && _energy >= 0) Task.Run(async () =>
+      else if (_energy < value && _energy >= 2) Task.Run(async () =>
       {
         await Task.Delay(1000);
         WakeUp();
@@ -80,8 +80,7 @@ internal class Beboo
     }, true);
     GoingTiredBehaviour = new(this, 50000, 70000, beboo =>
     {
-      if (beboo.Age < 2) beboo.Energy -= 2;
-      else beboo.Energy--;
+      beboo.Energy--;
     }, !isSleepingAtStart);
     GoingDepressedBehaviour = new(this, 120000, 150000, beboo =>
     {
@@ -98,7 +97,7 @@ internal class Beboo
     }, isSleepingAtStart);
     Happiness = 1;// 3;
     Age = age;
-    Energy = 1; // (DateTime.Now - lastPlayed).TotalHours > 4 ? 10 : 5;
+    Energy = -1; // (DateTime.Now - lastPlayed).TotalHours > 4 ? 10 : 5;
   }
 
   private void BurstInTearrs()

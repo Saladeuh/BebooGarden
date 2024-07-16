@@ -61,6 +61,7 @@ internal class Game : IGlobalActions
 
   private void Call(object? sender, EventArgs e)
   {
+    if(Beboo.Sleeping) return;
     SoundSystem.System.Get3DListenerAttributes(0, out Vector3 currentPosition, out _, out _, out _);
     Task.Run(async () =>
     {
