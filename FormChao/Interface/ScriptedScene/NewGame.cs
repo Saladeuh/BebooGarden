@@ -22,7 +22,6 @@ internal class NewGame : IScriptedScene
       parameters.FavoredColor=color;
       parameters.PlayerName = playerName;
       parameters.BebooName = bebooName;
-      parameters.Flags.NewGame = false;
     }
   }
 }

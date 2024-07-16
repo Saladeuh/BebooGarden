@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System.Globalization;
+using System.Numerics;
 using BebooGarden.GameCore.Pet;
 using BebooGarden.GameCore.World;
 using BebooGarden.Interface;
@@ -28,10 +29,11 @@ internal class Game : IGlobalActions
   {
     GameWindow = form;
     var parameters = SaveManager.LoadSave();
-    Flags=parameters.Flags;
-    Map = new(40, 40,
+    Flags = parameters.Flags;
+    Map = new("garden", 40, 40,
     [new TreeLine(new Vector2(20, 20), new Vector2(20, -20))],
     new Vector3(-15, 0, 0));
+    if(!Flags.NewGame) Map.TreeLines[0].SetFruitsAfterAWhile(parameters.LastPlayed, parameters.RemainingFruits);
     SoundSystem.Volume = parameters.Volume;
     SoundSystem.LoadMainScreen();
     SoundSystem.LoadMap(Map);
@@ -39,11 +41,11 @@ internal class Game : IGlobalActions
     TickTimer.Tick += Tick;
     TickTimer.Enabled = true;
     PlayerPosition = new Vector3(0, 0, 0);
-    Beboo = new(parameters.BebooName, parameters.Age, parameters.LastPayed, parameters.Energy);
+    Beboo = new(parameters.BebooName, parameters.Age, parameters.LastPlayed, parameters.Energy);
     BebooSpeechRecognition = new(Beboo.Name);
     BebooSpeechRecognition.BebooCalled += Call;
-    FruitsBasket =parameters.FruitsBasket;
-    if (FruitsBasket==null || FruitsBasket.Count == 0)
+    FruitsBasket = parameters.FruitsBasket;
+    if (FruitsBasket == null || FruitsBasket.Count == 0)
     {
       FruitsBasket = [];
       foreach (FruitSpecies fruitSpecies in Enum.GetValues(typeof(FruitSpecies)))
@@ -61,7 +63,7 @@ internal class Game : IGlobalActions
 
   private void Call(object? sender, EventArgs e)
   {
-    if(Beboo.Sleeping) return;
+    if (Beboo.Sleeping) return;
     SoundSystem.System.Get3DListenerAttributes(0, out Vector3 currentPosition, out _, out _, out _);
     Task.Run(async () =>
     {
@@ -116,7 +118,7 @@ internal class Game : IGlobalActions
         //ScreenReader.Output($"{channel} {real}");
         break;
       case Keys.Enter:
-        var textmenu = new TextForm("titre", 12,true);
+        var textmenu = new TextForm("titre", 12, true);
         //GameWindow.Hide();
         //textmenu.Show();
         textmenu.ShowDialog(GameWindow);
@@ -221,5 +223,21 @@ internal class Game : IGlobalActions
   internal void KeyUpMapper(object? sender, KeyEventArgs e)
   {
     KeyState[e.KeyCode] = false;
+  }
+
+  internal void Close(object? sender, FormClosingEventArgs e)
+  {
+    var parameters = new SaveParameters(language: (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName ?? "en"),
+  volume: SoundSystem.Volume,
+  bebooName: Beboo.Name,
+  energy: Beboo.Energy,
+  age: Beboo.Age,
+  lastPayed: DateTime.Now,
+  flags: Flags,
+  playerName: PlayerName,
+  fruitsBasket: FruitsBasket,
+  remainingFruits: Map.TreeLines[0].Fruits
+  );
+    SaveManager.WriteJson(parameters);
   }
 }

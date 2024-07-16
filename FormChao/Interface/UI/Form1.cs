@@ -18,5 +18,6 @@ public partial class Form1 : Form
     Game = new Game(this);
     this.KeyDown += Game.KeyDownMapper;
     this.KeyUp += Game.KeyUpMapper;
+    this.FormClosing += Game.Close;
   }
 }

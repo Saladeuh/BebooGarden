@@ -20,17 +20,6 @@ internal class Program
 #endif
     var mainWindow = new Form1();
     Application.Run(mainWindow);
-    var parameters = new SaveParameters(language: (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName ?? "en"),
-      volume: Game.SoundSystem.Volume,
-      bebooName: mainWindow.Game.Beboo.Name,
-      energy: mainWindow.Game.Beboo.Energy,
-      age: mainWindow.Game.Beboo.Age,
-      lastPayed: DateTime.Now,
-      flags: mainWindow.Game.Flags,
-      playerName: mainWindow.Game.PlayerName,
-      fruitsBasket: mainWindow.Game.FruitsBasket
-      );
-    SaveManager.WriteJson(parameters);
   }
 
   private static void AutoUpdate()

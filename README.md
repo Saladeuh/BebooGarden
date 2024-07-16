@@ -1,5 +1,6 @@
 # todo
-save sleep/happy/trees, effets fatigue, survitaminé, eau
+save sleep/happy, effets fatigue, survitaminé, eau
+music level/mute
 saleté
 jouets: boitasik, bulles
 online

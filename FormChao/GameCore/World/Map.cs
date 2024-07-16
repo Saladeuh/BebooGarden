@@ -2,8 +2,9 @@
 
 namespace BebooGarden.GameCore.World;
 
-internal class Map(int sizeX, int sizeY, List<TreeLine> treeLines, Vector3 waterPoint)
+public class Map(string name, int sizeX, int sizeY, List<TreeLine> treeLines, Vector3 waterPoint)
 {
+  public string Name { get; }=name; 
   public int SizeX { get; set; } = sizeX;
   public int SizeY { get; set; } = sizeY;
   public List<TreeLine> TreeLines { get; } = treeLines;

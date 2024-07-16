@@ -2,20 +2,26 @@
 
 namespace BebooGarden.GameCore.World;
 
-internal class TreeLine
+public class TreeLine
 {
   public Vector2 X { get; }
   public Vector2 Y { get; }
-  public int FruitPerHour { get; set; }
-  private int Fruits { get; set; }
-  public List<FruitSpecies> AvailableFruitSpecies { get; set; }
+  private int FruitPerHour { get; set; }
+  private int _fruits;
+  public int Fruits { 
+    get => _fruits;
+      private set {
+      _fruits = Math.Clamp(value, 0, FruitPerHour);
+    }
+    }
+  private List<FruitSpecies> AvailableFruitSpecies { get; set; }
   private TimedBehaviour<TreeLine> RegenerateBehaviour { get; set; }
   public TreeLine(Vector2 x, Vector2 y, int fruitPerHour = 5, List<FruitSpecies>? availableFruitSpecies = null)
   {
     X = x;
     Y = y;
     FruitPerHour = fruitPerHour;
-    Fruits = fruitPerHour;
+    Fruits=fruitPerHour;
     AvailableFruitSpecies = availableFruitSpecies ?? [FruitSpecies.Normal];
     RegenerateBehaviour = new(this, 3600000 / fruitPerHour, 60 / fruitPerHour, (treeLine) =>
     {
@@ -58,5 +64,9 @@ internal class TreeLine
       return dyl > 0 ?
         X.Y <= point.Y && point.Y <= Y.Y :
         Y.Y <= point.Y && point.Y <= X.Y;
+  }
+  public void SetFruitsAfterAWhile(DateTime elapsedTime, int remainingFruits)
+  {
+    Fruits= (int)(remainingFruits +60/FruitPerHour*(DateTime.Now-elapsedTime).TotalMinutes);
   }
 }
