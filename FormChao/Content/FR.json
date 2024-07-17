@@ -11,6 +11,8 @@
     "trees": "Arbres",
     "beboo.gosleep": "{0} va dormir", // 1=beboo name
     "beboo.wakeup": "{0} se réveille", // 1=beboo name
+    "beboo.sadstart": "{0} fond en larmes. Faites quelque chose !", // 0=beboo name
+    "beboo.happystart": "{0} est heureux!", //0=beboo name
     "ui.empty": "Vous devez écrire quelque chose.",
     "ui.yourname": "Votre nom",
     "ui.bebooname": "Le nom de votre Bébou",

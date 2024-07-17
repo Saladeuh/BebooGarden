@@ -10,6 +10,8 @@
     "trees": "Trees",
     "beboo.gosleep": "{0} go asleep", // 1=beboo name
     "beboo.wakeup": "{0} wakes up", // 1=beboo name
+    "beboo.sadstart": "{0} burst in tears. Do something!", // 0=beboo name
+    "beboo.happystart": "{0} is happy!", //0=beboo name
     "ui.empty": "You must type something.",
     "ui.yourname": "Your name",
     "ui.bebooname": "Your Beboo's cute name",
