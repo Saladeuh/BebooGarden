@@ -54,6 +54,9 @@ internal class IGlobalActions
         GameCore.Game.SoundSystem.Volume += 0.1f;
         Game.SoundSystem.System.PlaySound(Game.SoundSystem.UpSound);
         break;
+        case Keys.F4:
+          Game.SoundSystem.Music.Mute=!Game.SoundSystem.Music.Mute;
+        break;
       case Keys.F1:
       case Keys.H:
         //Console.WriteLine("Aide");

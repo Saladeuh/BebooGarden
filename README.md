@@ -1,8 +1,8 @@
 # todo
-effets fatigue, survitaminé, eau, voix triste, cone treet
+effets fatigue, survitaminé, eau, cone treet
 music lvl/mute
 saleté
-jouets: boitasik, bulles
+jouets: boitasik, bulles, boombox
 online
 maps
 plus commandes vocales

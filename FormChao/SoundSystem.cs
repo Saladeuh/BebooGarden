@@ -77,7 +77,7 @@ internal class SoundSystem
   {
     Sound sound; Channel channel;
     NeutralMusicStream = System.CreateStream(CONTENTFOLDER + "music/neutral.mp3", Mode.Loop_Normal);
-    Music = (Channel?)System.PlaySound(NeutralMusicStream, paused: true);
+    Music = (Channel?)System.PlaySound(NeutralMusicStream, paused: false);
     Music.SetLoopPoints(TimeUnit.MS, 12, TimeUnit.MS, 88369);
     Music.Volume = 0.5f;
     SadMusicStream = System.CreateStream(CONTENTFOLDER + "music/Depressed.mp3", Mode.Loop_Normal);
@@ -256,10 +256,12 @@ internal class SoundSystem
   }
   public void MusicTransition(Sound music, uint startLoop, uint endLoop, TimeUnit timeUnit, float volume = 0.5f)
   {
+    var mute=Music.Mute;
     Music.Stop();
     Music = System.PlaySound(music, paused: false);
     Music.SetLoopPoints(timeUnit, startLoop, timeUnit, endLoop);
     //Music.SetLoopPoints(TimeUnit.PCM, 464375, TimeUnit.PCM, 4471817);
     Music.Volume = volume;
+    Music.Mute = mute;
   }
 }
