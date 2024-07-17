@@ -8,12 +8,14 @@ public class TreeLine
   public Vector2 Y { get; }
   private int FruitPerHour { get; set; }
   private int _fruits;
-  public int Fruits { 
+  public int Fruits
+  {
     get => _fruits;
-      private set {
+    private set
+    {
       _fruits = Math.Clamp(value, 0, FruitPerHour);
     }
-    }
+  }
   private List<FruitSpecies> AvailableFruitSpecies { get; set; }
   private TimedBehaviour<TreeLine> RegenerateBehaviour { get; set; }
   public TreeLine(Vector2 x, Vector2 y, int fruitPerHour = 5, List<FruitSpecies>? availableFruitSpecies = null)
@@ -21,7 +23,7 @@ public class TreeLine
     X = x;
     Y = y;
     FruitPerHour = fruitPerHour;
-    Fruits=fruitPerHour;
+    Fruits = fruitPerHour;
     AvailableFruitSpecies = availableFruitSpecies ?? [FruitSpecies.Normal];
     RegenerateBehaviour = new(this, 3600000 / fruitPerHour, 60 / fruitPerHour, (treeLine) =>
     {
@@ -67,6 +69,6 @@ public class TreeLine
   }
   public void SetFruitsAfterAWhile(DateTime elapsedTime, int remainingFruits)
   {
-    Fruits= (int)(remainingFruits +60/FruitPerHour*(DateTime.Now-elapsedTime).TotalMinutes);
+    Fruits = (int)(remainingFruits + 60 / FruitPerHour * (DateTime.Now - elapsedTime).TotalMinutes);
   }
 }

@@ -47,10 +47,12 @@ internal class IGlobalActions
     switch (keyinfo)
     {
       case Keys.F2:
-        GameCore.Game.SoundSystem.Volume -= 0.1f;
+        Game.SoundSystem.Volume -= 0.1f;
+        Game.SoundSystem.System.PlaySound(Game.SoundSystem.DownSound);
         break;
       case Keys.F3:
         GameCore.Game.SoundSystem.Volume += 0.1f;
+        Game.SoundSystem.System.PlaySound(Game.SoundSystem.UpSound);
         break;
       case Keys.F1:
       case Keys.H:

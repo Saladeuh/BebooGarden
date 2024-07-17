@@ -44,6 +44,8 @@ internal class SoundSystem
   public Sound JingleStar2 { get; private set; }
   public Sound JingleWaw { get; private set; }
   public Sound JingleLittleStar { get; private set; }
+  public Sound UpSound { get; private set; }
+  public Sound DownSound { get; private set; }
 
   private static System.Timers.Timer AmbiTimer;
 
@@ -85,8 +87,10 @@ internal class SoundSystem
     JingleStar = System.CreateStream(CONTENTFOLDER + "music/star.wav");
     JingleStar2 = System.CreateStream(CONTENTFOLDER + "music/star2.wav");
     JingleWaw = System.CreateStream(CONTENTFOLDER + "music/waw.wav");
-    sound = System.CreateStream(CONTENTFOLDER + "sounds/Grass_Shake.wav");
     JingleLittleStar = System.CreateStream(CONTENTFOLDER + "music/LittleStar.wav");
+    UpSound = System.CreateStream(CONTENTFOLDER + "sounds/menu/up.wav");
+    DownSound = System.CreateStream(CONTENTFOLDER + "sounds/menu/down.wav");
+    sound = System.CreateStream(CONTENTFOLDER + "sounds/Grass_Shake.wav");
     channel = (Channel?)System.PlaySound(sound, paused: false);
     channel.SetLoopPoints(TimeUnit.MS, 678, TimeUnit.MS, 6007);
     channel.Volume = 0.5f;
