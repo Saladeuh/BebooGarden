@@ -37,9 +37,43 @@ internal class Beboo
         await Task.Delay(1000);
         BeHappy();
       });
+      if(value >= 8) BeOverexited();
+      else if (value <= 0) BeFloppy();
+      else BeNormal();
       _hapiness = value;
     }
   }
+
+  private void BeNormal()
+  {
+    MoveBehaviour.MinMS = 200;
+    MoveBehaviour.MaxMS = 400;
+    FancyMoveBehaviour.MinMS = 30000;
+    FancyMoveBehaviour.MaxMS = 60000;
+    CuteBehaviour.MinMS = 15000;
+    CuteBehaviour.MaxMS = 25000;
+  }
+
+  private void BeFloppy()
+  {
+    MoveBehaviour.MinMS = 800;
+    MoveBehaviour.MaxMS = 1000;
+    FancyMoveBehaviour.MinMS = 40000;
+    FancyMoveBehaviour.MaxMS = 70000;
+    CuteBehaviour.MinMS = 15000;
+    CuteBehaviour.MaxMS = 25000;
+  }
+
+  private void BeOverexited()
+  {
+    MoveBehaviour.MinMS = 50;
+    MoveBehaviour.MaxMS = 150;
+    FancyMoveBehaviour.MinMS = 5000;
+    FancyMoveBehaviour.MaxMS = 10000;
+    CuteBehaviour.MinMS = 10000;
+    CuteBehaviour.MaxMS = 20000;
+  }
+
   public Vector3 Position { get; private set; }
   public bool Happy { get; private set; } = true;
   public bool Sleeping { get; private set; } = false;
@@ -100,7 +134,7 @@ internal class Beboo
     TimeSpan elapsedTime = DateTime.Now - lastPlayed;
     Happiness = elapsedTime.TotalHours > 4 ? 5 : happiness;
     Age = age;
-    Energy = (float)(elapsedTime.TotalHours > 8 ? 5 : energy + elapsedTime.TotalHours);
+    Energy = (float)(elapsedTime.TotalHours > 8 ? 5 : 10 /*energy + elapsedTime.TotalHours*/);
   }
 
   private void BurstInTearrs()
