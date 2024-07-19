@@ -1,5 +1,7 @@
 ﻿using System.Globalization;
 using System.Numerics;
+using BebooGarden.GameCore.Item;
+using BebooGarden.GameCore.Item.MusicBox;
 using BebooGarden.GameCore.Pet;
 using BebooGarden.GameCore.World;
 using BebooGarden.Interface;
@@ -21,6 +23,7 @@ internal class Game : IGlobalActions
   public static Map Map { get; private set; }
   public Flags Flags { get; }
   public string PlayerName { get; }
+  public static List<IItem> Inventory { get; set; } = new List<IItem>();
   static Game()
   {
     SoundSystem = new SoundSystem();
@@ -33,10 +36,11 @@ internal class Game : IGlobalActions
     Map = new("garden", 40, 40,
     [new TreeLine(new Vector2(20, 20), new Vector2(20, -20))],
     new Vector3(-15, 0, 0));
-    if(!Flags.NewGame) Map.TreeLines[0].SetFruitsAfterAWhile(parameters.LastPlayed, parameters.RemainingFruits);
+    if (!Flags.NewGame) Map.TreeLines[0].SetFruitsAfterAWhile(parameters.LastPlayed, parameters.RemainingFruits);
     SoundSystem.Volume = parameters.Volume;
     SoundSystem.LoadMainScreen();
     SoundSystem.LoadMap(Map);
+    ScreenReader.Output(MusicBox.AllRolls.Length.ToString());
     LastPressedKeyTime = DateTime.Now;
     TickTimer.Tick += Tick;
     TickTimer.Enabled = true;

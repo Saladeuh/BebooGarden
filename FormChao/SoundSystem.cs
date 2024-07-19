@@ -8,7 +8,7 @@ using FmodAudio.Base;
 namespace BebooGarden;
 internal class SoundSystem
 {
-  private const string CONTENTFOLDER = "Content/";
+  public const string CONTENTFOLDER = "Content/";
   public FmodSystem System { get; }
   public List<Sound> AmbiSounds { get; set; }
   public Vector3 Up = new Vector3(0, 0, 1), Forward = new Vector3(0, 1, 0);
