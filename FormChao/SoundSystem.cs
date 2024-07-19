@@ -259,7 +259,7 @@ internal class SoundSystem
     var mute=Music.Mute;
     Music.Stop();
     Music = System.PlaySound(music, paused: false);
-    Music.SetLoopPoints(timeUnit, startLoop, timeUnit, endLoop);
+    if(endLoop!=0) Music.SetLoopPoints(timeUnit, startLoop, timeUnit, endLoop);
     //Music.SetLoopPoints(TimeUnit.PCM, 464375, TimeUnit.PCM, 4471817);
     Music.Volume = volume;
     Music.Mute = mute;

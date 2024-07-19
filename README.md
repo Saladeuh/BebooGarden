@@ -1,5 +1,5 @@
 # todo
-- eau, cone treet
+- eau, cone treet, .content, crossspeak
 - saleté
 - jouets: boitasik, bulles, boombox
 - online

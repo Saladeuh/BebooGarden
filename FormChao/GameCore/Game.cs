@@ -127,14 +127,13 @@ internal class Game : IGlobalActions
         textmenu.ShowDialog(GameWindow);
         break;
       case Keys.Escape:
-        var menu = new ChooseMenu<string>("test", new Dictionary<string, string>
+        Dictionary<string, Roll> rollDictionary = new();
+        foreach(var roll in MusicBox.AllRolls)
         {
-          { "test", "b" },
-          { "waw", "a" }
-        });
+          rollDictionary.Add(roll.Title, roll);
+        }
+        var menu = new ChooseMenu<Roll>("test", rollDictionary);
         menu.FormClosing += EscapeMenuResultHandle;
-        //GameWindow.Hide();
-        //menu.Show();
         menu.ShowDialog(GameWindow);
         break;
       case Keys.Space:
@@ -156,8 +155,9 @@ internal class Game : IGlobalActions
 
   private void EscapeMenuResultHandle(object? sender, FormClosingEventArgs e)
   {
-    ChooseMenu<string> form = sender as ChooseMenu<string>;
-    ScreenReader.Output(form.Result);
+    ChooseMenu<Roll> form = sender as ChooseMenu<Roll>;
+    form.Result.Play();
+    //ScreenReader.Output(form.Result.Title);
   }
 
   private void SayBebooState()
