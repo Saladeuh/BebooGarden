@@ -40,7 +40,6 @@ internal class Game : IGlobalActions
     SoundSystem.Volume = parameters.Volume;
     SoundSystem.LoadMainScreen();
     SoundSystem.LoadMap(Map);
-    ScreenReader.Output(MusicBox.AllRolls.Length.ToString());
     LastPressedKeyTime = DateTime.Now;
     TickTimer.Tick += Tick;
     TickTimer.Enabled = true;
