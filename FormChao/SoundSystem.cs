@@ -81,8 +81,8 @@ internal class SoundSystem
     Music.SetLoopPoints(TimeUnit.MS, 12, TimeUnit.MS, 88369);
     Music.Volume = 0.5f;
     SadMusicStream = System.CreateStream(CONTENTFOLDER + "music/Depressed.mp3", Mode.Loop_Normal);
-    WaterSound = System.CreateStream(CONTENTFOLDER + "sounds/WaterCalmWide.wav", Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff | Mode._3D_WorldRelative);
-    TreeWindSound = System.CreateStream(CONTENTFOLDER + "sounds/Wind_Trees_Cattails_Fienup_001.mp3", Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff | Mode._3D_WorldRelative);
+    WaterSound = System.CreateStream(CONTENTFOLDER + "sounds/WaterCalmWide.wav", Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff);
+    TreeWindSound = System.CreateStream(CONTENTFOLDER + "sounds/Wind_Trees_Cattails_Fienup_001.mp3", Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff);
     JingleComplete = System.CreateStream(CONTENTFOLDER + "music/coplete.wav");
     JingleStar = System.CreateStream(CONTENTFOLDER + "music/star.wav");
     JingleStar2 = System.CreateStream(CONTENTFOLDER + "music/star2.wav");
@@ -138,17 +138,19 @@ internal class SoundSystem
   {
     Channel channel = System.PlaySound(WaterSound, paused: true);
     channel.SetLoopPoints(TimeUnit.MS, 2780, TimeUnit.MS, 17796);
-    channel.Set3DAttributes(map.WaterPoint+new Vector3(0,0,5), default, default);
-    channel.Set3DMinMaxDistance(3f, 30f);
-    channel.Volume = 0.2f;
+    channel.Set3DAttributes(map.WaterPoint+new Vector3(0,0,10), default, default);
+    channel.Set3DMinMaxDistance(30f, 35f);
+    channel.Volume = 0.1f;
     channel.Paused = false;
     channel = System.PlaySound(TreeWindSound, paused: true);
     channel.SetLoopPoints(TimeUnit.PCM, 668725, TimeUnit.PCM, 2961327);
     var treePosVector2 = map.TreeLines[0].X;
-    var treePosVector3 = new Vector3(treePosVector2.X, treePosVector2.Y, 5);
+    var treePosVector3 = new Vector3(treePosVector2.X, treePosVector2.Y, 10);
     channel.Set3DAttributes(treePosVector3, default, default);
-    channel.Set3DMinMaxDistance(3f, 40f);
-    //channel.Volume = 0.1f;
+    channel.Set3DMinMaxDistance(60f, 60f);
+    channel.Set3DConeSettings(200, 2001, 0.3f);
+    channel.Set3DConeOrientation(new Vector3(1, 0, 0));
+    channel.Volume = 0.2f;
     channel.Paused = false;
   }
   public void LoadAmbiSounds()
