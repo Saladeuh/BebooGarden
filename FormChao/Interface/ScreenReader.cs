@@ -1,3 +1,4 @@
+using CrossSpeak;
 using DavyKager;
 using System;
 using System.IO;
@@ -13,11 +14,11 @@ internal class ScreenReader
       return false;
     }
 
-    var success = Tolk.Output(text, interrupt);
+    var success = CrossSpeakManager.Instance.Output(text, interrupt);
     return success;
   }
 
-  internal static void Load(string name, string version)
+  internal static void Load()
   {
     // Append accessibility deps (e.g. Tolk, NVDA drivers, etc.) to PATH
     var path = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Process);
@@ -25,10 +26,9 @@ internal class ScreenReader
     var accessibilityAssembliesDir = Path.Combine("Libs");
     path += $";{accessibilityAssembliesDir}";
     Environment.SetEnvironmentVariable("PATH", path, EnvironmentVariableTarget.Process);
-    // Load Tolk
-    Tolk.TrySAPI(true);
-    Tolk.Load();
+    CrossSpeakManager.Instance.Initialize();
   }
+
 
   internal static void Unload()
   {

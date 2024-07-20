@@ -13,7 +13,7 @@ internal class Program
   [STAThread]
   static void Main()
 {
-    ScreenReader.Load("wsh", "2");
+    ScreenReader.Load();
     AutoUpdater.InstalledVersion = new Version(version);
 #if !DEBUG
     AutoUpdate();

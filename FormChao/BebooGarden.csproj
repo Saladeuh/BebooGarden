@@ -24,13 +24,11 @@
 		<PackageReference Include="LocalizationCultureCore" Version="1.1.2" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="System.Speech" Version="8.0.0" />
+		<PackageReference Include="TOWK.Utility.CrossSpeak" Version="1.0.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<Reference Include="FmodAudio">
 			<HintPath>Libs\FmodAudio.dll</HintPath>
-		</Reference>
-		<Reference Include="TolkDotNet">
-			<HintPath>Libs\TolkDotNet.dll</HintPath>
 		</Reference>
 	</ItemGroup>
 
