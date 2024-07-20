@@ -175,7 +175,16 @@ internal class Game : IGlobalActions
 
   private void SayBebooState()
   {
-    ScreenReader.Output($"Energy {Beboo.Energy}, hapiness {Beboo.Happiness}");
+    var sentence="";
+    if (Beboo.Sleeping) sentence = "beboo.sleep";
+    else if (Beboo.Energy < 0) sentence = "beboo.verytired";
+    else if (Beboo.Happiness < 0) sentence = "beboo.verysad";
+    else if (Beboo.Energy < 5) sentence = "beboo.littletired";
+    else if (Beboo.Happiness < 4) sentence = "beboo.littlesad";
+    else if (Beboo.Energy < 8) sentence = "beboo.good";
+    else sentence = "beboo.verygood";
+    SayLocalizedString(sentence, Beboo.Name);
+    //ScreenReader.Output($"Energy {Beboo.Energy}, hapiness {Beboo.Happiness}");
   }
 
   private void ShakeOrPetAtPlayerPosition()

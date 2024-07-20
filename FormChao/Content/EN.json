@@ -12,6 +12,13 @@
     "beboo.wakeup": "{0} wakes up", // 1=beboo name
     "beboo.sadstart": "{0} burst in tears. Do something!", // 0=beboo name
     "beboo.happystart": "{0} is happy!", //0=beboo name
+    "beboo.sleep": "{0} is sleeping", //0=beboo name
+    "beboo.verytired": "{0} is very tired", // 0=beboo name
+    "beboo.verysad": "{0} is very sad.. Do something!", //0=beboo name
+    "beboo.littlesad": "{0} is a little bit sad", //0=beboo name
+    "beboo.littletired": "{0} is a litttle bit tired", //0=beboo name
+    "beboo.good": "{0} is fine", //0=beboo name
+    "beboo.verygood": "{0} is doing very well", //0=beboo name
     "musicbox.name": "Music box",
     "ui.empty": "You must type something.",
     "ui.yourname": "Your name",
