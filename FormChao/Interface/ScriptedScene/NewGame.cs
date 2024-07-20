@@ -4,15 +4,15 @@ using BebooGarden.Save;
 
 namespace BebooGarden.Interface.ScriptedScene;
 
-internal class NewGame : IScriptedScene
+internal class NewGame : IWindowManager
 {
   public static void Run(SaveParameters parameters)
   {
-    IScriptedScene.ShowTalk("ui.welcome");
-    var playerName = IScriptedScene.ShowTextBox("ui.yourname", 12, true);
-    IScriptedScene.ShowTalk("ui.aboutyou", playerName);
-    var color = IScriptedScene.ShowChoice("ui.color", Util.Colors);
-    var bebooName = IScriptedScene.ShowTextBox("ui.bebooname", 12, true);
+    IWindowManager.ShowTalk("ui.welcome");
+    var playerName = IWindowManager.ShowTextBox("ui.yourname", 12, true);
+    IWindowManager.ShowTalk("ui.aboutyou", playerName);
+    var color = IWindowManager.ShowChoice("ui.color", Util.Colors);
+    var bebooName = IWindowManager.ShowTextBox("ui.bebooname", 12, true);
     if (string.IsNullOrEmpty(playerName) || string.IsNullOrEmpty(bebooName) || string.IsNullOrEmpty(color))
     {
       Game.GameWindow.Close();

@@ -14,5 +14,7 @@ internal class Roll(string title, string source, uint startPCM, uint endPCM, Sou
   public void Play()
   {
     Game.SoundSystem.MusicTransition(Music, StartPCM, EndPCM, TimeUnit.PCM);
+    Game.Map.IsLullabyPlaying=Lullaby;
+    Game.Map.IsDansePlaying=Danse;
   }
 }

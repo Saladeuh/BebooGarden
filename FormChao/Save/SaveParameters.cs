@@ -1,4 +1,5 @@
 ﻿
+using BebooGarden.GameCore.Item;
 using BebooGarden.GameCore.Pet;
 using BebooGarden.GameCore.World;
 
@@ -18,7 +19,9 @@ public class SaveParameters
   public string FavoredColor { get; internal set; }
   public SortedDictionary<FruitSpecies, int> FruitsBasket { get; set; }
   public int RemainingFruits {  get; set; }
-  public SaveParameters(string? language, float volume, string bebooName, int age, float energy, int happiness, DateTime lastPayed, Flags flags, string playerName, SortedDictionary<FruitSpecies,int> fruitsBasket, int remainingFruits)
+  public List<IItem> Inventory { get; set; } =new List<IItem>();
+  public List<IItem> MapItems { get; set; } = new();
+  public SaveParameters(string? language, float volume, string bebooName, int age, float energy, int happiness, DateTime lastPayed, Flags flags, string playerName, SortedDictionary<FruitSpecies,int> fruitsBasket, int remainingFruits, List<IItem> inventory, List<IItem> mapItems)
   {
     Volume = volume;
     Language = language;
@@ -31,7 +34,10 @@ public class SaveParameters
     PlayerName = playerName;
     FruitsBasket = fruitsBasket;
     RemainingFruits = remainingFruits;
-  }
+    Inventory = inventory;
+    MapItems = mapItems;
+ }
+
 
   public SaveParameters()
   {

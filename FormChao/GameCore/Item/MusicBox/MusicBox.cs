@@ -1,12 +1,18 @@
-﻿
+﻿using System.Numerics;
+using System.Security.Cryptography.X509Certificates;
+using BebooGarden.Interface.ScriptedScene;
 using FmodAudio;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace BebooGarden.GameCore.Item.MusicBox;
 
 internal class MusicBox : IItem
 {
+  public string TranslateKeyName { get; set; } = "musicbox.name";
+  public string TranslateKeyDescription { get; set; } = "musicbox.description";
+  public Vector3? Position { get; set; } =null;
   public static Roll[] AllRolls { get; private set; }
-  private uint[] AvailableRolls { get; set; }
+  private static uint[] AvailableRolls { get; set; }
   static MusicBox()
   {
     var files = Directory.GetFiles(SoundSystem.CONTENTFOLDER + "music/musicbox/", "*.mp3", SearchOption.AllDirectories);
@@ -22,8 +28,9 @@ internal class MusicBox : IItem
 
         var title = splittedName[0];
         var source = splittedName[1];
-        var isDanse = fileInfo.DirectoryName == "danse";
-        var isLullaby = fileInfo.DirectoryName == "lullaby";
+        var lastDirectoryName= new Uri(fileInfo.DirectoryName).Segments.Last(); 
+        var isDanse = lastDirectoryName== "danse";
+        var isLullaby = lastDirectoryName == "lullaby";
         GetLoopValues(fileInfo.FullName.Replace(".mp3", ".txt"), out uint startLoop, out uint endLoop);
         var roll = new Roll(title, source, startLoop, endLoop, musicStream, isDanse, isLullaby);
         AllRolls[i] = roll;
@@ -53,5 +60,14 @@ internal class MusicBox : IItem
       }
       catch { }
     }
+  }
+  public void Action() { 
+    Dictionary<string, Roll> rollDictionary = new();
+    foreach (var roll in MusicBox.AllRolls)
+    {
+      rollDictionary.Add(roll.Title, roll);
+    }
+    var choosedRoll= IWindowManager.ShowChoice<Roll>("test", rollDictionary);
+    choosedRoll.Play();
   }
 }

@@ -44,36 +44,6 @@ internal class Beboo
     }
   }
 
-  private void BeNormal()
-  {
-    MoveBehaviour.MinMS = 200;
-    MoveBehaviour.MaxMS = 400;
-    FancyMoveBehaviour.MinMS = 30000;
-    FancyMoveBehaviour.MaxMS = 60000;
-    CuteBehaviour.MinMS = 15000;
-    CuteBehaviour.MaxMS = 25000;
-  }
-
-  private void BeFloppy()
-  {
-    MoveBehaviour.MinMS = 800;
-    MoveBehaviour.MaxMS = 1000;
-    FancyMoveBehaviour.MinMS = 40000;
-    FancyMoveBehaviour.MaxMS = 70000;
-    CuteBehaviour.MinMS = 15000;
-    CuteBehaviour.MaxMS = 25000;
-  }
-
-  private void BeOverexited()
-  {
-    MoveBehaviour.MinMS = 50;
-    MoveBehaviour.MaxMS = 150;
-    FancyMoveBehaviour.MinMS = 5000;
-    FancyMoveBehaviour.MaxMS = 10000;
-    CuteBehaviour.MinMS = 10000;
-    CuteBehaviour.MaxMS = 20000;
-  }
-
   public Vector3 Position { get; private set; }
   public bool Happy { get; private set; } = true;
   public bool Sleeping { get; private set; } = false;
@@ -162,7 +132,7 @@ internal class Beboo
   }
   private bool MoveTowardGoal()
   {
-    if (GoalPosition == null || GoalPosition == Position) return false;
+    if (GoalPosition == null || GoalPosition == Position || Sleeping) return false;
     Vector3 direction = (Vector3)GoalPosition - Position;
     Vector3 directionNormalized = Vector3.Normalize(direction);
     directionNormalized.X = Math.Sign(directionNormalized.X);
@@ -186,7 +156,7 @@ internal class Beboo
     GoalPosition = Position + randomMove;
   }
 
-  private void GoAsleep()
+  public void GoAsleep()
   {
     if (Sleeping) return;
     IGlobalActions.SayLocalizedString("beboo.gosleep", this.Name);
@@ -202,7 +172,7 @@ internal class Beboo
   }
   public void WakeUp()
   {
-    if (!Sleeping) return;
+    if (!Sleeping || Game.Map.IsLullabyPlaying) return;
     Game.SayLocalizedString("beboo.wakeup", this.Name);
     SleepingBehaviour.Stop();
     GoingTiredBehaviour.Start();
@@ -246,5 +216,34 @@ internal class Beboo
       }
       _petCount = 0;
     }
+  }
+  private void BeNormal()
+  {
+    MoveBehaviour.MinMS = 200;
+    MoveBehaviour.MaxMS = 400;
+    FancyMoveBehaviour.MinMS = 30000;
+    FancyMoveBehaviour.MaxMS = 60000;
+    CuteBehaviour.MinMS = 15000;
+    CuteBehaviour.MaxMS = 25000;
+  }
+
+  private void BeFloppy()
+  {
+    MoveBehaviour.MinMS = 800;
+    MoveBehaviour.MaxMS = 1000;
+    FancyMoveBehaviour.MinMS = 40000;
+    FancyMoveBehaviour.MaxMS = 70000;
+    CuteBehaviour.MinMS = 15000;
+    CuteBehaviour.MaxMS = 25000;
+  }
+
+  private void BeOverexited()
+  {
+    MoveBehaviour.MinMS = 50;
+    MoveBehaviour.MaxMS = 150;
+    FancyMoveBehaviour.MinMS = 5000;
+    FancyMoveBehaviour.MaxMS = 10000;
+    CuteBehaviour.MinMS = 10000;
+    CuteBehaviour.MaxMS = 20000;
   }
 }

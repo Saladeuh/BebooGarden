@@ -5,6 +5,7 @@ using BebooGarden.GameCore.Item.MusicBox;
 using BebooGarden.GameCore.Pet;
 using BebooGarden.GameCore.World;
 using BebooGarden.Interface;
+using BebooGarden.Interface.ScriptedScene;
 using BebooGarden.Interface.UI;
 using BebooGarden.Save;
 namespace BebooGarden.GameCore;
@@ -19,11 +20,13 @@ internal class Game : IGlobalActions
   public Beboo Beboo { get; set; }
   private Vector3 PlayerPosition { get; set; }
   public SortedDictionary<FruitSpecies, int> FruitsBasket { get; set; }
-  public static Form GameWindow { get; set; }
+  public static Form GameWindow { get; private set; }
   public static Map Map { get; private set; }
   public Flags Flags { get; }
   public string PlayerName { get; }
   public static List<IItem> Inventory { get; set; } = new List<IItem>();
+  public IItem? ItemInHand { get; private set; }
+
   static Game()
   {
     SoundSystem = new SoundSystem();
@@ -36,6 +39,7 @@ internal class Game : IGlobalActions
     Map = new("garden", 40, 40,
     [new TreeLine(new Vector2(20, 20), new Vector2(20, -20))],
     new Vector3(-15, 0, 0));
+    Map.Items=parameters.MapItems ?? new();
     if (!Flags.NewGame) Map.TreeLines[0].SetFruitsAfterAWhile(parameters.LastPlayed, parameters.RemainingFruits);
     SoundSystem.Volume = parameters.Volume;
     SoundSystem.LoadMainScreen();
@@ -62,6 +66,8 @@ internal class Game : IGlobalActions
       KeyState[key] = false;
     }
     PlayerName = parameters.PlayerName;
+    Inventory=parameters.Inventory;
+    //Inventory.Add(new MusicBox());
   }
 
   private void Call(object? sender, EventArgs e)
@@ -117,34 +123,38 @@ internal class Game : IGlobalActions
         break;
       case Keys.F:
         SayBebooState();
-        SoundSystem.System.GetChannelsPlaying(out int channel, out int real);
-        //ScreenReader.Output($"{channel} {real}");
         break;
       case Keys.Enter:
         var textmenu = new TextForm("titre", 12, true);
-        //GameWindow.Hide();
-        //textmenu.Show();
         textmenu.ShowDialog(GameWindow);
         break;
       case Keys.Escape:
-        Dictionary<string, Roll> rollDictionary = new();
-        foreach(var roll in MusicBox.AllRolls)
+        Dictionary<string, IItem> options = new();
+        if (Inventory.Count > 0)
         {
-          rollDictionary.Add(roll.Title, roll);
+          foreach (var item in Inventory)
+          {
+            options.Add(GetLocalizedString(item.TranslateKeyName), item);
+          }
+          ItemInHand=IWindowManager.ShowChoice<IItem>("ui.chooseitem", options);
         }
-        var menu = new ChooseMenu<Roll>("test", rollDictionary);
-        menu.FormClosing += EscapeMenuResultHandle;
-        menu.ShowDialog(GameWindow);
+        else SayLocalizedString("ui.emptyinventory");
         break;
       case Keys.Space:
-        if (KeyState[Keys.Space]) break;
-        if (Util.IsInSquare(Beboo.Position, PlayerPosition, 1))
+        if (ItemInHand != null) PutItemInHand();
+        else
         {
-          if (Beboo.Sleeping) Whistle();
-          else FeedBeboo();
+          if (KeyState[Keys.Space]) break;
+          IItem? itemUnderCursor = Map.GetItemArroundPosition(PlayerPosition);
+          if (Util.IsInSquare(Beboo.Position, PlayerPosition, 1))
+          {
+            if (Beboo.Sleeping) Whistle();
+            else FeedBeboo();
+          }
+          else if (Map.GetTreeLineAtPosition(PlayerPosition) != null) break;
+          else if (itemUnderCursor != null) itemUnderCursor.Action();
+          else Whistle();
         }
-        else if (Map.GetTreeLineAtPosition(PlayerPosition) != null) break;
-        else Whistle();
         break;
       default:
         CheckGlobalActions(e.KeyCode);
@@ -153,11 +163,14 @@ internal class Game : IGlobalActions
     KeyState[e.KeyCode] = true;
   }
 
-  private void EscapeMenuResultHandle(object? sender, FormClosingEventArgs e)
+  private void PutItemInHand()
   {
-    ChooseMenu<Roll> form = sender as ChooseMenu<Roll>;
-    form.Result.Play();
-    //ScreenReader.Output(form.Result.Title);
+    if (ItemInHand == null) return;
+    Map.AddItem(ItemInHand, PlayerPosition);
+    SayLocalizedString("ui.itemput",GetLocalizedString( ItemInHand.TranslateKeyName));
+    SoundSystem.System.PlaySound(SoundSystem.MenuOkSound);
+    Inventory.Remove(ItemInHand);
+    ItemInHand = null;
   }
 
   private void SayBebooState()
@@ -208,18 +221,25 @@ internal class Game : IGlobalActions
 
   private void SpeakObjectUnderCursor()
   {
+    TreeLine? treeLine = Map.GetTreeLineAtPosition(PlayerPosition);
+    IItem? item = Map.GetItemArroundPosition(PlayerPosition);
     if (Util.IsInSquare(Beboo.Position, PlayerPosition, 1))
     {
       ScreenReader.Output(Beboo.Name);
     }
-    else if (Map.GetTreeLineAtPosition(PlayerPosition) != null)
+    else if (treeLine != null)
     {
       SayLocalizedString("trees");
+    }
+    else if (item != null)
+    {
+      SayLocalizedString(item.TranslateKeyName);
     }
   }
 
   private void Tick(object? _, EventArgs __)
   {
+    if(Map.IsLullabyPlaying) Beboo.GoAsleep();
     SoundSystem.System.Update();
   }
 
@@ -230,7 +250,7 @@ internal class Game : IGlobalActions
 
   internal void Close(object? sender, FormClosingEventArgs e)
   {
-    var parameters = new SaveParameters(language: (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName ?? "en"),
+    var parameters = new SaveParameters(language: (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName),
   volume: SoundSystem.Volume,
   bebooName: Beboo.Name,
   energy: Beboo.Energy,
@@ -240,7 +260,9 @@ internal class Game : IGlobalActions
   flags: Flags,
   playerName: PlayerName,
   fruitsBasket: FruitsBasket,
-  remainingFruits: Map.TreeLines[0].Fruits
+  remainingFruits: Map.TreeLines[0].Fruits,
+  inventory: Inventory,
+  mapItems: Map.Items
   );
     SaveManager.WriteJson(parameters);
   }

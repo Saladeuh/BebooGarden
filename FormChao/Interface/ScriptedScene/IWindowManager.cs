@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 
 namespace BebooGarden.Interface.ScriptedScene;
 
-internal interface IScriptedScene
+public interface IWindowManager
 {
   protected static void ShowTalk(string translateKey)
   {
@@ -27,11 +27,11 @@ internal interface IScriptedScene
   protected static string ShowChoice(string title, string[] choices)
   {
     var localizedChoices = new Dictionary<string, string>(choices.Select(value => new KeyValuePair<string, string>(Game.GetLocalizedString(value), value)));
-    var choiceMenu = new ChooseMenu<string>(Game.GetLocalizedString(title), localizedChoices);
-    choiceMenu.ShowDialog(Game.GameWindow);
+    var choiceMenu = new ChooseMenu<string>(title, localizedChoices);
+     choiceMenu.ShowDialog(Game.GameWindow);
     return choiceMenu.Result;
   }
-  protected static T ShowChoice<T>(string title, Dictionary<string, T> choices)
+  public static T ShowChoice<T>(string title, Dictionary<string, T> choices)
   {
     var choiceMenu = new ChooseMenu<T>(Game.GetLocalizedString(title), choices);
     choiceMenu.ShowDialog(Game.GameWindow);

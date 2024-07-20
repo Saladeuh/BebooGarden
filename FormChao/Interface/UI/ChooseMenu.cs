@@ -11,8 +11,8 @@ public partial class ChooseMenu<T> : Form
     WindowState = FormWindowState.Maximized;
     Choices = choices;
     var lblTitle = new Label();
-    Text = title;
-    lblTitle.Text = title;
+    Text = Game.GetLocalizedString(title);
+    lblTitle.Text =Game.GetLocalizedString( title);
     lblTitle.AutoSize = true;
     Controls.Add(lblTitle);
 

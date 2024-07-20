@@ -9,7 +9,14 @@ namespace BebooGarden.Save;
 internal class SaveManager
 {
   private const string DATAFILEPATH = "save.dat";
-  internal static SaveParameters LoadSave()
+  private static readonly JsonSerializerSettings Settings = new()
+  {
+          ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
+          NullValueHandling = NullValueHandling.Ignore,
+          DefaultValueHandling = DefaultValueHandling.Populate,
+          TypeNameHandling = TypeNameHandling.All
+};
+internal static SaveParameters LoadSave()
   {
     Game.SoundSystem.LoadMenuSounds();
     var parameters = (SaveManager.LoadJson() ?? new SaveParameters());
@@ -35,12 +42,8 @@ internal class SaveManager
         catch (FormatException)
         {
         }
-        var parameters = JsonConvert.DeserializeObject<SaveParameters>(json, new JsonSerializerSettings
-        {
-          ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
-          NullValueHandling = NullValueHandling.Ignore,
-          DefaultValueHandling = DefaultValueHandling.Populate
-        });
+
+        var parameters = JsonConvert.DeserializeObject<SaveParameters>(json, Settings);
         return parameters;
       }
     }
@@ -57,7 +60,7 @@ internal class SaveManager
   public static void WriteJson(SaveParameters parameters)
   {
     parameters.Flags.NewGame = false;
-    var json = JsonConvert.SerializeObject(parameters);
+    var json = JsonConvert.SerializeObject(parameters, Settings);
 #if !DEBUG
     json = StringCipher.Encrypt(json, Secrets.SAVEKEY);
 #endif

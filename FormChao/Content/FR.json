@@ -13,10 +13,14 @@
     "beboo.wakeup": "{0} se réveille", // 1=beboo name
     "beboo.sadstart": "{0} fond en larmes. Faites quelque chose !", // 0=beboo name
     "beboo.happystart": "{0} est heureux!", //0=beboo name
+    "musicbox.name": "Boîte à musique",
     "ui.empty": "Vous devez écrire quelque chose.",
     "ui.yourname": "Votre nom",
     "ui.bebooname": "Le nom de votre Bébou",
     "ui.welcome": "Bienvenue dans le Jardin Bébou!\nPour commencer, comment dois-je vous appeler ?",
     "ui.aboutyou": "Super ! Maintenant, {0}, peux-tu m'en dire plus sur toi ?\nCommençons simplement.", // 0=player name
-    "ui.color": "Quelle est ta couleur préférée ?"
+    "ui.color": "Quelle est ta couleur préférée ?",
+    "ui.emptyinventory": "Aucun objets dans le sac",
+    "ui.chooseitem": "Choisissez un objet",
+    "ui.itemput": "{0} déposé" // 0=item name
 }
