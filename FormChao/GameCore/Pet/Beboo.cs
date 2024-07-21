@@ -4,7 +4,7 @@ using BebooGarden.Interface;
 
 namespace BebooGarden.GameCore.Pet;
 
-internal class Beboo
+public class Beboo
 {
   public string Name { get; set; }
   public int Age { get; set; }
@@ -66,7 +66,7 @@ internal class Beboo
   private TimedBehaviour<Beboo> SadBehaviour { get; }
   private TimedBehaviour<Beboo> SleepingBehaviour { get; }
 
-  public Beboo(string name, int age, DateTime lastPlayed, float energy, int happiness)
+  public Beboo(string name, int age, DateTime lastPlayed, float energy=5, int happiness=5)
   {
     Position = new Vector3(0, 0, 0);
     Name = name == string.Empty ? "boby" : name;

@@ -1,7 +1,7 @@
 ﻿using System.Timers;
 
 namespace BebooGarden.GameCore;
-internal class TimedBehaviour<T>
+public class TimedBehaviour<T>
 {
   private T ActionParameter { get; set; }
   public int MinMS { get; set; }

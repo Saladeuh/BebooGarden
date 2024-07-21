@@ -16,11 +16,12 @@ internal class Game : IGlobalActions
   private Dictionary<Keys, bool> KeyState { get; set; }
   private DateTime LastPressedKeyTime { get; set; }
   static readonly System.Windows.Forms.Timer TickTimer = new();
-  private BebooSpeechRecognition BebooSpeechRecognition { get; }
-  public Beboo Beboo { get; set; }
+  public BebooSpeechRecognition BebooSpeechRecognition { get; }
+  public static Beboo Beboo { get; set; }
   private Vector3 PlayerPosition { get; set; }
   public SortedDictionary<FruitSpecies, int> FruitsBasket { get; set; }
   public static Form GameWindow { get; private set; }
+  public SaveParameters Parameters { get; }
   public static Map Map { get; private set; }
   public Flags Flags { get; }
   public string PlayerName { get; }
@@ -34,25 +35,26 @@ internal class Game : IGlobalActions
   public Game(Form form)
   {
     GameWindow = form;
-    var parameters = SaveManager.LoadSave();
-    Flags = parameters.Flags;
+    Parameters = SaveManager.LoadSave();
+    Flags = Parameters.Flags;
     Map = new("garden", 40, 40,
     [new TreeLine(new Vector2(20, 20), new Vector2(20, -20))],
     new Vector3(-15, 0, 0));
-    Map.Items=parameters.MapItems ?? new();
-    MusicBox.AvailableRolls=parameters.UnlockedRolls ?? new();
-    if (!Flags.NewGame) Map.TreeLines[0].SetFruitsAfterAWhile(parameters.LastPlayed, parameters.RemainingFruits);
-    SoundSystem.Volume = parameters.Volume;
+    Map.Items=Parameters.MapItems ?? new();
+    MusicBox.AvailableRolls=Parameters.UnlockedRolls ?? new();
+    if (!Flags.NewGame) Map.TreeLines[0].SetFruitsAfterAWhile(Parameters.LastPlayed, Parameters.RemainingFruits);
+    else Map.AddItem(new Egg(Parameters.FavoredColor), PlayerPosition);
+    SoundSystem.Volume = Parameters.Volume;
     SoundSystem.LoadMainScreen();
     SoundSystem.LoadMap(Map);
     LastPressedKeyTime = DateTime.Now;
     TickTimer.Tick += Tick;
     TickTimer.Enabled = true;
     PlayerPosition = new Vector3(0, 0, 0);
-    Beboo = new(parameters.BebooName, parameters.Age, parameters.LastPlayed, parameters.Energy, parameters.Happiness);
+    Beboo = new(Parameters.BebooName, Parameters.Age, Parameters.LastPlayed, Parameters.Energy, Parameters.Happiness);
     BebooSpeechRecognition = new(Beboo.Name);
     BebooSpeechRecognition.BebooCalled += Call;
-    FruitsBasket = parameters.FruitsBasket;
+    FruitsBasket = Parameters.FruitsBasket;
     if (FruitsBasket == null || FruitsBasket.Count == 0)
     {
       FruitsBasket = [];
@@ -66,10 +68,10 @@ internal class Game : IGlobalActions
     {
       KeyState[key] = false;
     }
-    PlayerName = parameters.PlayerName;
-    Inventory=parameters.Inventory;
+    PlayerName = Parameters.PlayerName;
+    Inventory=Parameters.Inventory;
     //Inventory.Add(new MusicBox());
-    Map.AddItem(MusicBox.AllRolls[5], new Vector3(0,5,0));
+    Map.AddItem(MusicBox.AllRolls[6], new Vector3(0,5,0));
   }
 
   private void Call(object? sender, EventArgs e)
@@ -260,6 +262,7 @@ internal class Game : IGlobalActions
 
   internal void Close(object? sender, FormClosingEventArgs e)
   {
+    Map.Items.RemoveAll(item => typeof(Roll) ==item.GetType() );
     var parameters = new SaveParameters(language: (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName),
     volume: SoundSystem.Volume,
     bebooName: Beboo.Name,
@@ -273,7 +276,8 @@ internal class Game : IGlobalActions
     remainingFruits: Map.TreeLines[0].Fruits,
     inventory: Inventory,
     mapItems: Map.Items,
-    unlockedRolls: MusicBox.AvailableRolls
+    unlockedRolls: MusicBox.AvailableRolls,
+    favoredColor: Parameters.FavoredColor
   );
     SaveManager.WriteJson(parameters);
   }

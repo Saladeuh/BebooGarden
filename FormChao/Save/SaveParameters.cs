@@ -22,7 +22,7 @@ public class SaveParameters
   public List<IItem> Inventory { get; set; } = new List<IItem>();
   public List<IItem> MapItems { get; set; } = new();
   public List<string> UnlockedRolls { get; set; } = new();
-  public SaveParameters(string? language, float volume, string bebooName, int age, float energy, int happiness, DateTime lastPayed, Flags flags, string playerName, SortedDictionary<FruitSpecies, int> fruitsBasket, int remainingFruits, List<IItem> inventory, List<IItem> mapItems, List<string> unlockedRolls)
+  public SaveParameters(string? language, float volume, string bebooName, int age, float energy, int happiness, DateTime lastPayed, Flags flags, string playerName, SortedDictionary<FruitSpecies, int> fruitsBasket, int remainingFruits, List<IItem> inventory, List<IItem> mapItems, List<string> unlockedRolls, string favoredColor)
   {
     Volume = volume;
     Language = language;
@@ -38,6 +38,7 @@ public class SaveParameters
     Inventory = inventory;
     MapItems = mapItems;
     UnlockedRolls = unlockedRolls;
+    FavoredColor = favoredColor;
   }
 
   public SaveParameters()

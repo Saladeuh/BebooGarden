@@ -28,7 +28,7 @@ internal class Roll(string title, string source, uint startPCM, uint endPCM, Sou
     if (!MusicBox.AvailableRolls.Contains(Title + Source))
     {
       Game.SayLocalizedString("ui.rolltake", Title, Source);
-      Game.SoundSystem.System.PlaySound(Game.SoundSystem.ItemTakeSound);
+      Game.SoundSystem.System.PlaySound(Game.SoundSystem.JingleStar2);
       MusicBox.AvailableRolls.Add(Title + Source);
     }
   }
