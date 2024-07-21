@@ -68,6 +68,7 @@ internal class Game : IGlobalActions
     PlayerName = parameters.PlayerName;
     Inventory=parameters.Inventory;
     //Inventory.Add(new MusicBox());
+    Map.AddItem(MusicBox.AllRolls[5], new Vector3(0,5,0));
   }
 
   private void Call(object? sender, EventArgs e)

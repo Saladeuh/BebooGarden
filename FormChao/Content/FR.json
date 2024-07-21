@@ -21,6 +21,8 @@
     "beboo.good": "{0} va bien", //0=beboo name
     "beboo.verygood": "{0} est en pleine forme!", //0=beboo name
     "musicbox.name": "Boîte à musique",
+    "musicbox.noroll": "Vous n'avez pas encore de rouleau a y mettre",
+    "roll.name": "Rouleau de boîte à musique",
     "ui.empty": "Vous devez écrire quelque chose.",
     "ui.yourname": "Votre nom",
     "ui.bebooname": "Le nom de votre Bébou",
@@ -30,5 +32,7 @@
     "ui.emptyinventory": "Aucun objets dans le sac",
     "ui.chooseitem": "Choisissez un objet",
     "ui.itemput": "{0} déposé", // 0=item name
+    "ui.rolltake": "Vous avez récupéré le rouleau de boîte à musique {0}, de {1}", //0=title 1=source (composer or piece)
+    "ui.chooseroll": "Choisissez un rouleau à insérer",
     "ui.itemtake": "{0} rangé dans le sac"
 }

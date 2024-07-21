@@ -8,9 +8,9 @@ internal class MusicBox : IItem
 {
   public string TranslateKeyName { get; set; } = "musicbox.name";
   public string TranslateKeyDescription { get; set; } = "musicbox.description";
-  public Vector3? Position { get; set; } =null;
+  public Vector3? Position { get; set; } = null;
   public static Roll[] AllRolls { get; private set; }
-  private static uint[] AvailableRolls { get; set; }
+  public static List<string> AvailableRolls { get; set; } = new();
   static MusicBox()
   {
     var files = Directory.GetFiles(SoundSystem.CONTENTFOLDER + "music/musicbox/", "*.mp3", SearchOption.AllDirectories);
@@ -24,10 +24,10 @@ internal class MusicBox : IItem
         FileInfo fileInfo = new FileInfo(file);
         var splittedName = fileInfo.Name.Split('-');
 
-        var title = splittedName[0];
-        var source = splittedName[1];
-        var lastDirectoryName= new Uri(fileInfo.DirectoryName).Segments.Last(); 
-        var isDanse = lastDirectoryName== "danse";
+        var title = splittedName[0].Trim();
+        var source = splittedName[1].Trim().Replace(".mp3", "");
+        var lastDirectoryName = new Uri(fileInfo.DirectoryName).Segments.Last();
+        var isDanse = lastDirectoryName == "danse";
         var isLullaby = lastDirectoryName == "lullaby";
         GetLoopValues(fileInfo.FullName.Replace(".mp3", ".txt"), out uint startLoop, out uint endLoop);
         var roll = new Roll(title, source, startLoop, endLoop, musicStream, isDanse, isLullaby);
@@ -59,13 +59,22 @@ internal class MusicBox : IItem
       catch { }
     }
   }
-  public void Action() { 
-    Dictionary<string, Roll> rollDictionary = new();
-    foreach (var roll in MusicBox.AllRolls)
+  public void Action()
+  {
+    if (AvailableRolls.Count > 0)
     {
-      rollDictionary.Add(roll.Title, roll);
+      Dictionary<string, Roll> rollDictionary = new();
+      foreach (var rollName in MusicBox.AvailableRolls)
+      {
+        var roll = Array.Find<Roll>(AllRolls, roll => roll.Title + roll.Source == rollName);
+        rollDictionary.Add(roll.Title, roll);
+      }
+      var choosedRoll = IWindowManager.ShowChoice<Roll>(Game.GetLocalizedString("ui.chooseroll"), rollDictionary);
+      choosedRoll.Play();
     }
-    var choosedRoll= IWindowManager.ShowChoice<Roll>("test", rollDictionary);
-    choosedRoll.Play();
+    else
+    {
+      Game.SayLocalizedString("musicbox.noroll");
+    }
   }
 }

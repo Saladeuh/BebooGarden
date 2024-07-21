@@ -12,7 +12,7 @@ internal class Program
   private const string version = "0.5";
   [STAThread]
   static void Main()
-{
+  {
     ScreenReader.Load();
     AutoUpdater.InstalledVersion = new Version(version);
 #if !DEBUG

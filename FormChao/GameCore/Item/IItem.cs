@@ -8,7 +8,7 @@ public interface IItem
   public string TranslateKeyName { get; set; }
   public string TranslateKeyDescription { get; set; }
   public Vector3? Position { get; set; } // position null=in inventory
-  public abstract void Action();
+  public virtual void Action() { }
   public virtual void Take()
   {
     Game.Map.Items.Remove(this);
