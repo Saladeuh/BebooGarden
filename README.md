@@ -1,6 +1,6 @@
 # todo
 - œuf, début, tooltip
-- say panier, lac
+- say panier, lac, plusieurs même objets bag
 - miam caresse, danse
 - saleté
 - jouets: bulles, boombox, race, boing

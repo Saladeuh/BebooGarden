@@ -40,8 +40,8 @@ internal class Game : IGlobalActions
     Map = new("garden", 40, 40,
     [new TreeLine(new Vector2(20, 20), new Vector2(20, -20))],
     new Vector3(-15, 0, 0));
-    Map.Items=Parameters.MapItems ?? new();
-    MusicBox.AvailableRolls=Parameters.UnlockedRolls ?? new();
+    Map.Items = Parameters.MapItems ?? new();
+    MusicBox.AvailableRolls = Parameters.UnlockedRolls ?? new();
     if (!Flags.NewGame) Map.TreeLines[0].SetFruitsAfterAWhile(Parameters.LastPlayed, Parameters.RemainingFruits);
     else Map.AddItem(new Egg(Parameters.FavoredColor), PlayerPosition);
     SoundSystem.Volume = Parameters.Volume;
@@ -69,9 +69,9 @@ internal class Game : IGlobalActions
       KeyState[key] = false;
     }
     PlayerName = Parameters.PlayerName;
-    Inventory=Parameters.Inventory;
+    Inventory = Parameters.Inventory;
     //Inventory.Add(new MusicBox());
-    Map.AddItem(MusicBox.AllRolls[6], new Vector3(0,5,0));
+    Map.AddItem(MusicBox.AllRolls[6], new Vector3(0, 5, 0));
   }
 
   private void Call(object? sender, EventArgs e)
@@ -130,7 +130,7 @@ internal class Game : IGlobalActions
         SayBebooState();
         break;
       case Keys.Enter:
-        itemUnderCursor?.Take();
+        if(itemUnderCursor!=null && itemUnderCursor.IsTakable) itemUnderCursor.Take();
         break;
       case Keys.Escape:
         Dictionary<string, IItem> options = new();
@@ -138,9 +138,10 @@ internal class Game : IGlobalActions
         {
           foreach (var item in Inventory)
           {
+
             options.Add(GetLocalizedString(item.TranslateKeyName), item);
           }
-          ItemInHand=IWindowManager.ShowChoice<IItem>("ui.chooseitem", options);
+          ItemInHand = IWindowManager.ShowChoice<IItem>("ui.chooseitem", options);
         }
         else SayLocalizedString("ui.emptyinventory");
         break;
@@ -170,7 +171,7 @@ internal class Game : IGlobalActions
   {
     if (ItemInHand == null) return;
     Map.AddItem(ItemInHand, PlayerPosition);
-    SayLocalizedString("ui.itemput",GetLocalizedString( ItemInHand.TranslateKeyName));
+    SayLocalizedString("ui.itemput", GetLocalizedString(ItemInHand.TranslateKeyName));
     SoundSystem.System.PlaySound(SoundSystem.ItemPutSound);
     Inventory.Remove(ItemInHand);
     ItemInHand = null;
@@ -178,7 +179,7 @@ internal class Game : IGlobalActions
 
   private void SayBebooState()
   {
-    var sentence="";
+    var sentence = "";
     if (Beboo.Sleeping) sentence = "beboo.sleep";
     else if (Beboo.Energy < 0) sentence = "beboo.verytired";
     else if (Beboo.Happiness < 0) sentence = "beboo.verysad";
@@ -251,7 +252,7 @@ internal class Game : IGlobalActions
 
   private void Tick(object? _, EventArgs __)
   {
-    if(Map.IsLullabyPlaying) Beboo.GoAsleep();
+    if (Map.IsLullabyPlaying) Beboo.GoAsleep();
     SoundSystem.System.Update();
   }
 
@@ -262,7 +263,7 @@ internal class Game : IGlobalActions
 
   internal void Close(object? sender, FormClosingEventArgs e)
   {
-    Map.Items.RemoveAll(item => typeof(Roll) ==item.GetType() );
+    Map.Items.RemoveAll(item => typeof(Roll) == item.GetType());
     var parameters = new SaveParameters(language: (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName),
     volume: SoundSystem.Volume,
     bebooName: Beboo.Name,

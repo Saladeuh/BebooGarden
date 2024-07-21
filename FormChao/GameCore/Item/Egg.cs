@@ -8,6 +8,7 @@ public class Egg(string color) : IItem
   public string TranslateKeyName { get; set; } = "egg.name";
   public string TranslateKeyDescription { get; set; } = "egg.description";
   public Vector3? Position { get; set; } // position null=in inventory
+  public bool IsTakable {  get; set; }=false;
   private string Color {  get; set; }=color;
 
   public void Action() {

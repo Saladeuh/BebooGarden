@@ -8,6 +8,7 @@ internal class Roll(string title, string source, uint startPCM, uint endPCM, Sou
   public string TranslateKeyName { get; set; } = "roll.name";
   public string TranslateKeyDescription { get; set; } = "roll.description";
   public Vector3? Position { get; set; } // position null=in inventory
+  public bool IsTakable { get; set; } = true;
   public string Title { get; private set; } = title;
   public string Source { get; set; } = source;
   private uint StartPCM { get; set; } = startPCM;

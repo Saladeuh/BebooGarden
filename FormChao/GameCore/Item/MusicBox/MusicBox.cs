@@ -9,6 +9,7 @@ internal class MusicBox : IItem
   public string TranslateKeyName { get; set; } = "musicbox.name";
   public string TranslateKeyDescription { get; set; } = "musicbox.description";
   public Vector3? Position { get; set; } = null;
+  public bool IsTakable { get; set; } = true;
   public static Roll[] AllRolls { get; private set; }
   public static List<string> AvailableRolls { get; set; } = new();
   static MusicBox()
