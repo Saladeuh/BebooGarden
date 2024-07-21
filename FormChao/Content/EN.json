@@ -28,5 +28,6 @@
     "ui.color": "What is your favorite color?",
     "ui.emptyinventory": "Nothing in the bag",
     "ui.chooseitem": "Choose an item",
-    "ui.itemput": "{0} dropped" // 0=item name
+    "ui.itemput": "{0} dropped", // 0=item name
+    "ui.itemtake": "{0} stored in the bag"
 }

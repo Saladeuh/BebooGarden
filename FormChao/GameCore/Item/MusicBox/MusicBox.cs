@@ -1,8 +1,6 @@
 ﻿using System.Numerics;
-using System.Security.Cryptography.X509Certificates;
 using BebooGarden.Interface.ScriptedScene;
 using FmodAudio;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace BebooGarden.GameCore.Item.MusicBox;
 

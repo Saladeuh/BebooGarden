@@ -19,7 +19,7 @@
     "beboo.littlesad": "{0} est un peu fatigué", //0=beboo name
     "beboo.littletired": "{0} est un peu fatigué", //0=beboo name
     "beboo.good": "{0} va bien", //0=beboo name
-    "beboo.verygood": "{0} va très bien", //0=beboo name
+    "beboo.verygood": "{0} est en pleine forme!", //0=beboo name
     "musicbox.name": "Boîte à musique",
     "ui.empty": "Vous devez écrire quelque chose.",
     "ui.yourname": "Votre nom",
@@ -29,5 +29,6 @@
     "ui.color": "Quelle est ta couleur préférée ?",
     "ui.emptyinventory": "Aucun objets dans le sac",
     "ui.chooseitem": "Choisissez un objet",
-    "ui.itemput": "{0} déposé" // 0=item name
+    "ui.itemput": "{0} déposé", // 0=item name
+    "ui.itemtake": "{0} rangé dans le sac"
 }

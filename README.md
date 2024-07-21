@@ -1,7 +1,9 @@
 # todo
-- eau, cone treet, .content, crossspeak, miam caresse
+- œuf, début, tooltip
+- say panier, lac
+- miam caresse, danse
 - saleté
-- jouets: boitasik, bulles, boombox
+- jouets: bulles, boombox, race, boing
 - online
 - maps
 - plus commandes vocales

@@ -87,6 +87,7 @@ internal class Game : IGlobalActions
   {
     if ((DateTime.Now - LastPressedKeyTime).TotalMilliseconds < 150) return;
     else LastPressedKeyTime = DateTime.Now;
+    IItem? itemUnderCursor = Map.GetItemArroundPosition(PlayerPosition);
     switch (e.KeyCode)
     {
       case Keys.Left:
@@ -125,8 +126,7 @@ internal class Game : IGlobalActions
         SayBebooState();
         break;
       case Keys.Enter:
-        var textmenu = new TextForm("titre", 12, true);
-        textmenu.ShowDialog(GameWindow);
+        itemUnderCursor?.Take();
         break;
       case Keys.Escape:
         Dictionary<string, IItem> options = new();
@@ -145,7 +145,6 @@ internal class Game : IGlobalActions
         else
         {
           if (KeyState[Keys.Space]) break;
-          IItem? itemUnderCursor = Map.GetItemArroundPosition(PlayerPosition);
           if (Util.IsInSquare(Beboo.Position, PlayerPosition, 1))
           {
             if (Beboo.Sleeping) Whistle();
@@ -168,7 +167,7 @@ internal class Game : IGlobalActions
     if (ItemInHand == null) return;
     Map.AddItem(ItemInHand, PlayerPosition);
     SayLocalizedString("ui.itemput",GetLocalizedString( ItemInHand.TranslateKeyName));
-    SoundSystem.System.PlaySound(SoundSystem.MenuOkSound);
+    SoundSystem.System.PlaySound(SoundSystem.ItemPutSound);
     Inventory.Remove(ItemInHand);
     ItemInHand = null;
   }

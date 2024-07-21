@@ -22,6 +22,8 @@ internal class SoundSystem
   public Sound WallSound { get; private set; }
   public List<Sound> BebooSleepingSounds { get; private set; }
   public Sound BebooStepSound { get; private set; }
+  public Sound ItemPutSound { get; private set; }
+  public Sound ItemTakeSound { get; private set; }
   public Sound GrassSound { get; private set; }
   public Sound MenuBipSound { get; private set; }
   public Sound MenuKeySound { get; private set; }
@@ -118,6 +120,9 @@ internal class SoundSystem
     FruitsSounds[FruitSpecies.Normal] = System.CreateSound(CONTENTFOLDER + "sounds/character/fruit.wav", Mode.Unique);
     WallSound = System.CreateSound(CONTENTFOLDER + "sounds/wall.wav", Mode.Unique);
     BebooStepSound = System.CreateSound(CONTENTFOLDER + "sounds/beboo/step.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
+    ItemPutSound = System.CreateSound(CONTENTFOLDER + "sounds/character/item.wav", Mode.Unique);
+    ItemTakeSound = System.CreateSound(CONTENTFOLDER + "sounds/pwik.wav", Mode.Unique);
+
     GrassSound = System.CreateSound(CONTENTFOLDER + "sounds/grass_rustle.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     LoadMenuSounds(); 
     Reverb3D reverb = System.CreateReverb3D();
