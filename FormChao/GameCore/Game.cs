@@ -40,6 +40,7 @@ internal class Game : IGlobalActions
     [new TreeLine(new Vector2(20, 20), new Vector2(20, -20))],
     new Vector3(-15, 0, 0));
     Map.Items=parameters.MapItems ?? new();
+    MusicBox.AvailableRolls=parameters.UnlockedRolls ?? new();
     if (!Flags.NewGame) Map.TreeLines[0].SetFruitsAfterAWhile(parameters.LastPlayed, parameters.RemainingFruits);
     SoundSystem.Volume = parameters.Volume;
     SoundSystem.LoadMainScreen();
@@ -260,18 +261,19 @@ internal class Game : IGlobalActions
   internal void Close(object? sender, FormClosingEventArgs e)
   {
     var parameters = new SaveParameters(language: (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName),
-  volume: SoundSystem.Volume,
-  bebooName: Beboo.Name,
-  energy: Beboo.Energy,
-  happiness: Beboo.Happiness,
-  age: Beboo.Age,
-  lastPayed: DateTime.Now,
-  flags: Flags,
-  playerName: PlayerName,
-  fruitsBasket: FruitsBasket,
-  remainingFruits: Map.TreeLines[0].Fruits,
-  inventory: Inventory,
-  mapItems: Map.Items
+    volume: SoundSystem.Volume,
+    bebooName: Beboo.Name,
+    energy: Beboo.Energy,
+    happiness: Beboo.Happiness,
+    age: Beboo.Age,
+    lastPayed: DateTime.Now,
+    flags: Flags,
+    playerName: PlayerName,
+    fruitsBasket: FruitsBasket,
+    remainingFruits: Map.TreeLines[0].Fruits,
+    inventory: Inventory,
+    mapItems: Map.Items,
+    unlockedRolls: MusicBox.AvailableRolls
   );
     SaveManager.WriteJson(parameters);
   }
