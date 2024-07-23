@@ -1,38 +1,52 @@
 {
-    "pink": "Rose",
-    "red": "Rouge",
-    "orange": "Orange",
-    "yellow": "Jaune",
-    "green": "Vert",
-    "blue": "Bleu",
-    "indigo": "Indigo",
-    "violet": "Violet",
-    "none": "Aucune",
-    "trees": "Arbres",
-    "beboo.gosleep": "{0} va dormir", // 1=beboo name
-    "beboo.wakeup": "{0} se réveille", // 1=beboo name
-    "beboo.sadstart": "{0} fond en larmes. Faites quelque chose !", // 0=beboo name
-    "beboo.happystart": "{0} est heureux!", //0=beboo name
-    "beboo.sleep": "{0} dort", //0=beboo name
-    "beboo.verytired": "{0} est très fatigué", // 0=beboo name
-    "beboo.verysad": "{0} est très triste. Faites quelque chose!", //0=beboo name
-    "beboo.littlesad": "{0} est un peu fatigué", //0=beboo name
-    "beboo.littletired": "{0} est un peu fatigué", //0=beboo name
-    "beboo.good": "{0} va bien", //0=beboo name
-    "beboo.verygood": "{0} est en pleine forme!", //0=beboo name
-    "musicbox.name": "Boîte à musique",
-    "musicbox.noroll": "Vous n'avez pas encore de rouleau a y mettre",
-    "roll.name": "Rouleau de boîte à musique",
-    "ui.empty": "Vous devez écrire quelque chose.",
-    "ui.yourname": "Votre nom",
-    "ui.bebooname": "Le nom de votre Bébou",
-    "ui.welcome": "Bienvenue dans le Jardin Bébou!\nPour commencer, comment dois-je vous appeler ?",
-    "ui.aboutyou": "Super ! Maintenant, {0}, peux-tu m'en dire plus sur toi ?\nCommençons simplement.", // 0=player name
-    "ui.color": "Quelle est ta couleur préférée ?",
-    "ui.emptyinventory": "Aucun objets dans le sac",
-    "ui.chooseitem": "Choisissez un objet",
-    "ui.itemput": "{0} déposé", // 0=item name
-    "ui.rolltake": "Vous avez récupéré le rouleau de boîte à musique {0}, de {1}", //0=title 1=source (composer or piece)
-    "ui.chooseroll": "Choisissez un rouleau à insérer",
-    "ui.itemtake": "{0} rangé dans le sac"
+  "pink": "Rose",
+  "red": "Rouge",
+  "orange": "Orange",
+  "yellow": "Jaune",
+  "green": "Vert",
+  "blue": "Bleu",
+  "indigo": "Indigo",
+  "violet": "Violet",
+  "none": "Aucune",
+  "trees": "Arbres",
+  "beboo.gosleep": "{0} va dormir",
+  // 1=beboo name
+  "beboo.wakeup": "{0} se réveille",
+  // 1=beboo name
+  "beboo.sadstart": "{0} fond en larmes. Faites quelque chose !",
+  // 0=beboo name
+  "beboo.happystart": "{0} est heureux!",
+  //0=beboo name
+  "beboo.sleep": "{0} dort",
+  //0=beboo name
+  "beboo.verytired": "{0} est très fatigué",
+  // 0=beboo name
+  "beboo.verysad": "{0} est très triste. Faites quelque chose!",
+  //0=beboo name
+  "beboo.littlesad": "{0} est un peu fatigué",
+  //0=beboo name
+  "beboo.littletired": "{0} est un peu fatigué",
+  //0=beboo name
+  "beboo.good": "{0} va bien",
+  //0=beboo name
+  "beboo.verygood": "{0} est en pleine forme!",
+  //0=beboo name
+  "musicbox.name": "Boîte à musique",
+  "musicbox.noroll": "Vous n'avez pas encore de rouleau a y mettre",
+  "roll.name": "Rouleau de boîte à musique",
+  "ui.empty": "Vous devez écrire quelque chose.",
+  "ui.yourname": "Votre nom",
+  "ui.bebooname": "Le nom de votre Bébou",
+  "ui.welcome": "Bienvenue dans le Jardin Bébou!\nPour commencer, comment dois-je vous appeler ?",
+  "ui.aboutyou": "Super ! Maintenant, {0}, peux-tu m'en dire plus sur toi ?\nCommençons simplement.",
+  // 0=player name
+  "ui.color": "Quelle est ta couleur préférée ?",
+  "ui.emptyinventory": "Aucun objets dans le sac",
+  "ui.chooseitem": "Choisissez un objet",
+  "ui.itemput": "{0} déposé",
+  // 0=item name
+  "ui.rolltake": "Vous avez récupéré le rouleau de boîte à musique {0}, de {1}",
+  //0=title 1=source (composer or piece)
+  "ui.chooseroll": "Choisissez un rouleau à insérer",
+  "ui.itemtake": "{0} rangé dans le sac"
 }

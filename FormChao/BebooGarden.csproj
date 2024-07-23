@@ -1,35 +1,35 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<OutputType>WinExe</OutputType>
-		<TargetFramework>net8.0-windows</TargetFramework>
-		<PublishSingleFile>true</PublishSingleFile>
-		<Nullable>enable</Nullable>
-		<UseWindowsForms>true</UseWindowsForms>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<DebugType>embedded</DebugType>
-		<EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
-	  <UserSecretsId>10abba7d-019b-44f9-aab8-54fc3fe3d76f</UserSecretsId>
-	  <AssemblyVersion>0.0.0.0</AssemblyVersion>
-  </PropertyGroup>
-	<ItemGroup>
-		<Content Include="Content\**">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="lib\**">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="Autoupdater.NET.Official" Version="1.9.1" />
-		<PackageReference Include="LocalizationCultureCore" Version="1.1.2" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageReference Include="System.Speech" Version="8.0.0" />
-		<PackageReference Include="TOWK.Utility.CrossSpeak" Version="1.0.0" />
-	</ItemGroup>
-	<ItemGroup>
-		<Reference Include="FmodAudio">
-			<HintPath>Libs\FmodAudio.dll</HintPath>
-		</Reference>
-	</ItemGroup>
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net8.0-windows</TargetFramework>
+        <PublishSingleFile>true</PublishSingleFile>
+        <Nullable>enable</Nullable>
+        <UseWindowsForms>true</UseWindowsForms>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <DebugType>embedded</DebugType>
+        <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+        <UserSecretsId>10abba7d-019b-44f9-aab8-54fc3fe3d76f</UserSecretsId>
+        <AssemblyVersion>0.0.0.0</AssemblyVersion>
+    </PropertyGroup>
+    <ItemGroup>
+        <Content Include="Content\**">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="lib\**">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Autoupdater.NET.Official" Version="1.9.1"/>
+        <PackageReference Include="LocalizationCultureCore" Version="1.1.2"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+        <PackageReference Include="System.Speech" Version="8.0.0"/>
+        <PackageReference Include="TOWK.Utility.CrossSpeak" Version="1.0.0"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Reference Include="FmodAudio">
+            <HintPath>Libs\FmodAudio.dll</HintPath>
+        </Reference>
+    </ItemGroup>
 
 </Project>

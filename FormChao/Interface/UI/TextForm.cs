@@ -1,59 +1,72 @@
-﻿using BebooGarden.GameCore;
+﻿using System.Text.RegularExpressions;
+using BebooGarden.GameCore;
 
 namespace BebooGarden.Interface.UI;
 
 public partial class TextForm : Form
 {
-  private TextBox TextBox { get; set; }
-  private int MaxLength { get; }
-  private bool NameFormat { get; }
-  public string Result;
-  private string _lastText = "";
-  private bool _lastWasIncorrect=false;
+    private string _lastText = "";
+    private bool _lastWasIncorrect;
+    public string Result;
 
-  public TextForm(string title, int maxLength, bool nameFormat)
-  {
-    WindowState = FormWindowState.Maximized;
-    Text = title;
-    TextBox = new();
-    MaxLength = maxLength;
-    NameFormat = nameFormat;
-    TextBox.TextChanged += TextBox_modified;
-    TextBox.KeyDown += TextBox_keydown;
-    Controls.Add(TextBox);
-  }
-
-  private void TextBox_keydown(object? sender, KeyEventArgs e)
-  {
-    if (e.KeyCode == Keys.Enter)
+    public TextForm(string title, int maxLength, bool nameFormat)
     {
-      if (TextBox.Text.Length == 0) {
-        Game.SayLocalizedString("ui.empty");
-        return;
-      }
-      Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuOkSound);
-      Result = Char.ToUpper(TextBox.Text[0]) + TextBox.Text[1..];
-      Close();
+        WindowState = FormWindowState.Maximized;
+        Text = title;
+        TextBox = new TextBox();
+        MaxLength = maxLength;
+        NameFormat = nameFormat;
+        TextBox.TextChanged += TextBox_modified;
+        TextBox.KeyDown += TextBox_keydown;
+        Controls.Add(TextBox);
     }
-  }
 
-  private void TextBox_modified(object? sender, EventArgs e)
-  {
-    var lastSelectorPosition=TextBox.SelectionStart;
-    if (_lastText.Length == TextBox.TextLength + 1) // letter deleted
-      Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuKeyDeleteSound);
-    else if (TextBox.TextLength > MaxLength || 
-      (NameFormat && !System.Text.RegularExpressions.Regex.IsMatch(TextBox.Text, @"^[a-zA-Z0-9\p{L}\p{M}_-]+$") && TextBox.Text != string.Empty) )
+    private TextBox TextBox { get; }
+    private int MaxLength { get; }
+    private bool NameFormat { get; }
+
+    private void TextBox_keydown(object? sender, KeyEventArgs e)
     {
-      _lastWasIncorrect = true;
-      Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuKeyFullSound);
-      TextBox.Text = _lastText;
-      if (lastSelectorPosition != 0) lastSelectorPosition--;
-      TextBox.SelectionStart = lastSelectorPosition;
+        if (e.KeyCode == Keys.Enter)
+        {
+            if (TextBox.Text.Length == 0)
+            {
+                IGlobalActions.SayLocalizedString("ui.empty");
+                return;
+            }
+
+            Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuOkSound);
+            Result = char.ToUpper(TextBox.Text[0]) + TextBox.Text[1..];
+            Close();
+        }
     }
-    else if (!_lastWasIncorrect) { Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuKeySound);
+
+    private void TextBox_modified(object? sender, EventArgs e)
+    {
+        var lastSelectorPosition = TextBox.SelectionStart;
+        if (_lastText.Length == TextBox.TextLength + 1) // letter deleted
+        {
+            Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuKeyDeleteSound);
+        }
+        else if (TextBox.TextLength > MaxLength ||
+                 (NameFormat && !Regex.IsMatch(TextBox.Text, @"^[a-zA-Z0-9\p{L}\p{M}_-]+$") &&
+                  TextBox.Text != string.Empty))
+        {
+            _lastWasIncorrect = true;
+            Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuKeyFullSound);
+            TextBox.Text = _lastText;
+            if (lastSelectorPosition != 0) lastSelectorPosition--;
+            TextBox.SelectionStart = lastSelectorPosition;
+        }
+        else if (!_lastWasIncorrect)
+        {
+            Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuKeySound);
+        }
+        else
+        {
+            _lastWasIncorrect = false;
+        }
+
+        _lastText = TextBox.Text;
     }
-    else _lastWasIncorrect = false;
-    _lastText = TextBox.Text;
-  }
 }

@@ -1,42 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Globalization;
 using System.Speech.Recognition;
-using System.Text;
-using System.Threading.Tasks;
-using BebooGarden.GameCore;
 
 namespace BebooGarden.Interface;
 
-internal class BebooSpeechRecognition
+public class BebooSpeechRecognition
 {
-  private string BebooName { get; set; }
-  public event EventHandler BebooCalled;
-  public BebooSpeechRecognition(string bebooName)
-  {
-    BebooName = bebooName;
-    SpeechRecognitionEngine recognizer = new SpeechRecognitionEngine(System.Globalization.CultureInfo.CurrentCulture);
-    recognizer.SetInputToDefaultAudioDevice();
-
-    Choices choices = new Choices();
-    choices.Add(bebooName);
-    GrammarBuilder builder = new GrammarBuilder();
-    builder.Append(choices);
-    builder.Culture = System.Globalization.CultureInfo.CurrentCulture;
-    Grammar grammar = new Grammar(builder);
-    recognizer.LoadGrammar(grammar);
-
-    recognizer.SpeechRecognized += SpeechRecognized;
-
-    // Démarrer la reconnaissance vocale
-    recognizer.RecognizeAsync(RecognizeMode.Multiple);
-  }
-
-  void SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
-  {
-    if (e.Result.Text == BebooName)
+    public BebooSpeechRecognition(string bebooName)
     {
-      BebooCalled.Invoke(this, new EventArgs());
+        BebooName = bebooName;
+        var recognizer = new SpeechRecognitionEngine(CultureInfo.CurrentCulture);
+        recognizer.SetInputToDefaultAudioDevice();
+
+        var choices = new Choices();
+        choices.Add(bebooName);
+        var builder = new GrammarBuilder();
+        builder.Append(choices);
+        builder.Culture = CultureInfo.CurrentCulture;
+        var grammar = new Grammar(builder);
+        recognizer.LoadGrammar(grammar);
+
+        recognizer.SpeechRecognized += SpeechRecognized;
+
+        // Démarrer la reconnaissance vocale
+        recognizer.RecognizeAsync(RecognizeMode.Multiple);
     }
-  }
+
+    private string BebooName { get; }
+    public event EventHandler BebooCalled;
+
+    private void SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+    {
+        if (e.Result.Text == BebooName) BebooCalled.Invoke(this, new EventArgs());
+    }
 }
