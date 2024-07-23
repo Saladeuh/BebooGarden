@@ -1,5 +1,5 @@
 # todo
-- œuf, début, tooltip
+- œuf, début, tooltip, caresse zarbi
 - say panier, lac, plusieurs même objets bag
 - miam caresse, danse
 - saleté

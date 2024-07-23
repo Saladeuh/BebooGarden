@@ -24,6 +24,7 @@ internal class SoundSystem
   public Sound BebooStepSound { get; private set; }
   public Sound ItemPutSound { get; private set; }
   public Sound ItemTakeSound { get; private set; }
+  public List<Sound> EggKrakSounds { get; private set; }
   public Sound GrassSound { get; private set; }
   public Sound MenuBipSound { get; private set; }
   public Sound MenuKeySound { get; private set; }
@@ -110,7 +111,7 @@ internal class SoundSystem
     LoadSoundsInList(["miam.wav", "miam2.wav", "miam3.wav"], BebooYumySounds, "sounds/beboo/");
     BebooDelightSounds = new();
     LoadSoundsInList(["rourou.wav", "rourou2.wav", "rourou3.wav"], BebooDelightSounds, "sounds/beboo/");
-    BebooPetSound=new();
+    BebooPetSound = new();
     LoadSoundsInList(["pet.wav", "pet2.wav"], BebooPetSound, "sounds/character/");
     BebooCrySounds = new();
     LoadSoundsInList(["trist.wav", "trist2.wav"], BebooCrySounds, "sounds/beboo/");
@@ -120,14 +121,20 @@ internal class SoundSystem
     FruitsSounds[FruitSpecies.Normal] = System.CreateSound(CONTENTFOLDER + "sounds/character/fruit.wav", Mode.Unique);
     WallSound = System.CreateSound(CONTENTFOLDER + "sounds/wall.wav", Mode.Unique);
     BebooStepSound = System.CreateSound(CONTENTFOLDER + "sounds/beboo/step.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
-    ItemPutSound = System.CreateSound(CONTENTFOLDER + "sounds/character/item.wav", Mode.Unique);
-    ItemTakeSound = System.CreateSound(CONTENTFOLDER + "sounds/pwik.wav", Mode.Unique);
-
+    LoadItemSound();
     GrassSound = System.CreateSound(CONTENTFOLDER + "sounds/grass_rustle.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
-    LoadMenuSounds(); 
+    LoadMenuSounds();
     Reverb3D reverb = System.CreateReverb3D();
     reverb.SetProperties(Preset.Plain);
     reverb.Set3DAttributes(new Vector3(0, 0, 0), 0f, 500f);
+  }
+
+  private void LoadItemSound()
+  {
+    ItemPutSound = System.CreateSound(CONTENTFOLDER + "sounds/character/item.wav", Mode.Unique);
+    ItemTakeSound = System.CreateSound(CONTENTFOLDER + "sounds/pwik.wav", Mode.Unique);
+    EggKrakSounds = new();
+    LoadSoundsInList(["krak.wav", "krak2.wav"], EggKrakSounds, "sounds/egg/");
   }
 
   public void LoadMenuSounds()
@@ -157,6 +164,7 @@ internal class SoundSystem
     channel.Set3DConeOrientation(new Vector3(1, 0, 0));
     channel.Volume = 0.2f;
     channel.Paused = false;
+    //foreach (var item in map.Items) item.PlaySound();
   }
   public void LoadAmbiSounds()
   {
@@ -223,26 +231,27 @@ internal class SoundSystem
   {
     System.Set3DListenerAttributes(0, newPos, default, in Forward, in Up);
   }
-  public void PlayBebooSound(Sound sound, Beboo beboo, bool stopOthers=true)
+  public void PlayBebooSound(Sound sound, Vector3 position, bool stopOthers=true)
   {
     if (BebooChannel != null && stopOthers && BebooChannel.IsPlaying) BebooChannel.Stop();
-    BebooChannel = System.PlaySound(sound, paused: true);
-    BebooChannel.Set3DMinMaxDistance(0f, 30f);
-    BebooChannel.Set3DAttributes(beboo.Position + new Vector3(0, 0, -2), default, default);
-    BebooChannel.Paused = false;
-  }
-  public void PlayBebooSound(List<Sound> sounds, Beboo beboo, bool stopOthers=true, float volume = -1)
+    BebooChannel = PlaySoundAtPosition(sound, position);  }
+  public void PlayBebooSound(List<Sound> sounds, Vector3 position, bool stopOthers=true, float volume = -1)
   {
     var rand = new Random();
     var sound = sounds[rand.Next(sounds.Count())];
     if (BebooChannel != null && stopOthers && BebooChannel.IsPlaying) BebooChannel.Stop();
-    BebooChannel = System.PlaySound(sound, paused: true);
-    BebooChannel.Set3DMinMaxDistance(0f, 30f);
-    BebooChannel.Set3DAttributes(beboo.Position + new Vector3(0, 0, -2), default, default);
+    BebooChannel = PlaySoundAtPosition(sound, position);
     if (volume != -1) BebooChannel.Volume = volume;
-    BebooChannel.Paused = false;
   }
 
+  public Channel PlaySoundAtPosition(Sound sound, Vector3 position)
+  {
+    Channel channel= System.PlaySound(sound, paused: true);
+    channel.Set3DMinMaxDistance(0f, 30f);
+    channel.Set3DAttributes(position + new Vector3(0, 0, -2), default, default);
+    channel.Paused = false;
+    return channel;
+  }
   public void Whistle()
   {
     System.PlaySound(WhistleSound);
@@ -270,5 +279,13 @@ internal class SoundSystem
     //Music.SetLoopPoints(TimeUnit.PCM, 464375, TimeUnit.PCM, 4471817);
     Music.Volume = volume;
     Music.Mute = mute;
+  }
+
+  internal Channel PlaySoundAtPosition(List<Sound> sounds, Vector3 position)
+  {
+    var rand = new Random();
+    var sound = sounds[rand.Next(sounds.Count())];
+    var channel = PlaySoundAtPosition(sound, position);
+    return channel;
   }
 }

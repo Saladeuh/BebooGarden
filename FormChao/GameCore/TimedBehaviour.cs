@@ -31,14 +31,16 @@ public class TimedBehaviour<T>
       ms = rnd.Next(MinMS, MaxMS);
     }
     else ms = MinMS;
-   ActionTimer = new(ms);
+    ActionTimer = new(ms);
     ActionTimer.Elapsed += onTimer;
     ActionTimer.Enabled = Enabled;
   }
   public void Start(float delayMS = 0)
   {
-    if(Enabled) return;
-    if (delayMS == 0) { ActionTimer.Enabled = true;
+    if (Enabled) return;
+    if (delayMS == 0)
+    {
+      ActionTimer.Enabled = true;
       Enabled = true;
     }
     else
@@ -51,7 +53,7 @@ public class TimedBehaviour<T>
   }
   public void Stop()
   {
-    if(!Enabled) return;
+    if (!Enabled) return;
     ActionTimer.Stop();
     Enabled = false;
   }

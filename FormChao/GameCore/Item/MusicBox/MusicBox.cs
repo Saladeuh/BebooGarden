@@ -6,12 +6,13 @@ namespace BebooGarden.GameCore.Item.MusicBox;
 
 internal class MusicBox : IItem
 {
-  public string TranslateKeyName { get; set; } = "musicbox.name";
-  public string TranslateKeyDescription { get; set; } = "musicbox.description";
-  public Vector3? Position { get; set; } = null;
-  public bool IsTakable { get; set; } = true;
+  public override string TranslateKeyName { get; set; } = "musicbox.name";
+  public override string TranslateKeyDescription { get; set; } = "musicbox.description";
+  public override Vector3? Position { get; set; } = null;
+  public override Channel? Channel { get; set; }
+  public override bool IsTakable { get; set; } = true;
   public static Roll[] AllRolls { get; private set; }
-  public static List<string> AvailableRolls { get; set; } = new();
+  public static List<string> AvailableRolls { get; set; } = [];
   static MusicBox()
   {
     var files = Directory.GetFiles(SoundSystem.CONTENTFOLDER + "music/musicbox/", "*.mp3", SearchOption.AllDirectories);
@@ -60,11 +61,11 @@ internal class MusicBox : IItem
       catch { }
     }
   }
-  public void Action()
+  public override void Action()
   {
     if (AvailableRolls.Count > 0)
     {
-      Dictionary<string, Roll> rollDictionary = new();
+      Dictionary<string, Roll> rollDictionary = [];
       foreach (var rollName in MusicBox.AvailableRolls)
       {
         var roll = Array.Find<Roll>(AllRolls, roll => roll.Title + roll.Source == rollName);
@@ -78,4 +79,5 @@ internal class MusicBox : IItem
       Game.SayLocalizedString("musicbox.noroll");
     }
   }
+  public override void PlaySound() { }
 }
