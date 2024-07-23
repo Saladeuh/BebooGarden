@@ -1,5 +1,6 @@
 using System.Numerics;
 using System.Timers;
+using BebooGarden.GameCore;
 using BebooGarden.GameCore.Pet;
 using BebooGarden.GameCore.World;
 using FmodAudio;
@@ -49,10 +50,11 @@ internal class SoundSystem
   public Sound JingleLittleStar { get; private set; }
   public Sound UpSound { get; private set; }
   public Sound DownSound { get; private set; }
+  public Sound CinematicHatch { get; private set; }
 
   private static System.Timers.Timer AmbiTimer;
 
-  public SoundSystem(float initialVolume=0.5f)
+  public SoundSystem(float initialVolume = 0.5f)
   {
     //Creates the FmodSystem object
     System = FmodAudio.Fmod.CreateSystem();
@@ -121,6 +123,7 @@ internal class SoundSystem
     FruitsSounds[FruitSpecies.Normal] = System.CreateSound(CONTENTFOLDER + "sounds/character/fruit.wav", Mode.Unique);
     WallSound = System.CreateSound(CONTENTFOLDER + "sounds/wall.wav", Mode.Unique);
     BebooStepSound = System.CreateSound(CONTENTFOLDER + "sounds/beboo/step.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
+    CinematicHatch = System.CreateStream(CONTENTFOLDER + "cinematic/hatch.wav");
     LoadItemSound();
     GrassSound = System.CreateSound(CONTENTFOLDER + "sounds/grass_rustle.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     LoadMenuSounds();
@@ -150,7 +153,7 @@ internal class SoundSystem
   {
     Channel channel = System.PlaySound(WaterSound, paused: true);
     channel.SetLoopPoints(TimeUnit.MS, 2780, TimeUnit.MS, 17796);
-    channel.Set3DAttributes(map.WaterPoint+new Vector3(0,0,10), default, default);
+    channel.Set3DAttributes(map.WaterPoint + new Vector3(0, 0, 10), default, default);
     channel.Set3DMinMaxDistance(30f, 35f);
     channel.Volume = 0.1f;
     channel.Paused = false;
@@ -231,11 +234,12 @@ internal class SoundSystem
   {
     System.Set3DListenerAttributes(0, newPos, default, in Forward, in Up);
   }
-  public void PlayBebooSound(Sound sound, Vector3 position, bool stopOthers=true)
+  public void PlayBebooSound(Sound sound, Vector3 position, bool stopOthers = true)
   {
     if (BebooChannel != null && stopOthers && BebooChannel.IsPlaying) BebooChannel.Stop();
-    BebooChannel = PlaySoundAtPosition(sound, position);  }
-  public void PlayBebooSound(List<Sound> sounds, Vector3 position, bool stopOthers=true, float volume = -1)
+    BebooChannel = PlaySoundAtPosition(sound, position);
+  }
+  public void PlayBebooSound(List<Sound> sounds, Vector3 position, bool stopOthers = true, float volume = -1)
   {
     var rand = new Random();
     var sound = sounds[rand.Next(sounds.Count())];
@@ -246,7 +250,7 @@ internal class SoundSystem
 
   public Channel PlaySoundAtPosition(Sound sound, Vector3 position)
   {
-    Channel channel= System.PlaySound(sound, paused: true);
+    Channel channel = System.PlaySound(sound, paused: true);
     channel.Set3DMinMaxDistance(0f, 30f);
     channel.Set3DAttributes(position + new Vector3(0, 0, -2), default, default);
     channel.Paused = false;
@@ -272,10 +276,10 @@ internal class SoundSystem
   }
   public void MusicTransition(Sound music, uint startLoop, uint endLoop, TimeUnit timeUnit, float volume = 0.5f)
   {
-    var mute=Music.Mute;
+    var mute = Music.Mute;
     Music.Stop();
     Music = System.PlaySound(music, paused: false);
-    if(endLoop!=0) Music.SetLoopPoints(timeUnit, startLoop, timeUnit, endLoop);
+    if (endLoop != 0) Music.SetLoopPoints(timeUnit, startLoop, timeUnit, endLoop);
     //Music.SetLoopPoints(TimeUnit.PCM, 464375, TimeUnit.PCM, 4471817);
     Music.Volume = volume;
     Music.Mute = mute;
@@ -287,5 +291,14 @@ internal class SoundSystem
     var sound = sounds[rand.Next(sounds.Count())];
     var channel = PlaySoundAtPosition(sound, position);
     return channel;
+  }
+  public void PlayCinematic(Sound sound)
+  {
+    Game.GameWindow.DisableInput();
+    Music.Paused = true;
+    Channel channel = System.PlaySound(Game.SoundSystem.CinematicHatch);
+    while (channel.IsPlaying) { }
+    Music.Paused = false;
+    Game.GameWindow.EnableInput();
   }
 }
