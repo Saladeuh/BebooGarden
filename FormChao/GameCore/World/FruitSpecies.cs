@@ -2,6 +2,6 @@
 
 public enum FruitSpecies
 {
-    Normal,
-    Energetic
+  Normal,
+  Energetic
 }
