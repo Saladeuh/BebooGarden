@@ -32,7 +32,8 @@
   //0=beboo name
   "musicbox.name": "Music box",
   "musicbox.noroll": "You don't have any roll to put in it yet",
-  "roll.name": "Music box's roll'"
+    "roll.name": "Music box's roll",
+  "egg.name": "Beboo's egg",
   "ui.empty": "You must type something.",
   "ui.yourname": "Your name",
   "ui.bebooname": "Your Beboo's cute name",

@@ -100,6 +100,9 @@ internal class SoundSystem
     Music = System.PlaySound(NeutralMusicStream, paused: Game.Beboo==null)!;
     Music.SetLoopPoints(TimeUnit.MS, 12, TimeUnit.MS, 88369);
     Music.Volume = 0.5f;
+    
+    
+    
     SadMusicStream = System.CreateStream(CONTENTFOLDER + "music/Depressed.mp3", Mode.Loop_Normal);
     WaterSound = System.CreateStream(CONTENTFOLDER + "sounds/WaterCalmWide.wav",
         Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff);

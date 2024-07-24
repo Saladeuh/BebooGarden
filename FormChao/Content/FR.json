@@ -32,7 +32,8 @@
   "beboo.verygood": "{0} est en pleine forme!",
   //0=beboo name
   "musicbox.name": "Boîte à musique",
-  "musicbox.noroll": "Vous n'avez pas encore de rouleau a y mettre",
+    "musicbox.noroll": "Vous n'avez pas encore de rouleau a y mettre",
+  "egg.name": "œuf de bébou",
   "roll.name": "Rouleau de boîte à musique",
   "ui.empty": "Vous devez écrire quelque chose.",
   "ui.yourname": "Votre nom",
