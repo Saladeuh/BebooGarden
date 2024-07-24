@@ -52,7 +52,6 @@ internal class SaveManager
 
   public static void WriteJson(SaveParameters parameters)
   {
-    parameters.Flags.NewGame = false;
     var json = JsonConvert.SerializeObject(parameters, Settings);
 #if !DEBUG
     json = StringCipher.Encrypt(json, Secrets.SAVEKEY);

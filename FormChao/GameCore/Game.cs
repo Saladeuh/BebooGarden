@@ -36,6 +36,7 @@ internal class Game : IGlobalActions
       Items = Parameters.MapItems ?? []
     };
     MusicBox.AvailableRolls = Parameters.UnlockedRolls ?? [];
+    SoundSystem.Volume = Parameters.Volume;
     if (!Flags.NewGame)
     {
       Map.TreeLines[0].SetFruitsAfterAWhile(Parameters.LastPlayed, Parameters.RemainingFruits);
@@ -46,7 +47,6 @@ internal class Game : IGlobalActions
       Map.AddItem(new Egg(Parameters.FavoredColor), PlayerPosition);
     }
 
-    SoundSystem.Volume = Parameters.Volume;
     SoundSystem.LoadMainScreen();
     SoundSystem.LoadMap(Map);
     LastPressedKeyTime = DateTime.Now;
@@ -307,6 +307,7 @@ internal class Game : IGlobalActions
         unlockedRolls: MusicBox.AvailableRolls,
         favoredColor: Parameters.FavoredColor
     );
+    parameters.Flags.NewGame = Game.Beboo == null;
     SaveManager.WriteJson(parameters);
   }
 }
