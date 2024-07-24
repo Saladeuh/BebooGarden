@@ -43,7 +43,24 @@ public class TimedBehaviour<T>
     ActionTimer.Elapsed += onTimer;
     ActionTimer.Enabled = Enabled;
   }
+  public void Restart()
+  {
+    ActionTimer.Dispose();
+    int ms;
+    if (MinMS != MaxMS)
+    {
+      var rnd = new Random();
+      ms = rnd.Next(MinMS, MaxMS);
+    }
+    else
+    {
+      ms = MinMS;
+    }
 
+    ActionTimer = new Timer(ms);
+    ActionTimer.Elapsed += onTimer;
+    ActionTimer.Enabled = Enabled;
+  }
   public void Start(float delayMS = 0)
   {
     if (Enabled) return;

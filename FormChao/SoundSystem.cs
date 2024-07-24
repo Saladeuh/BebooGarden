@@ -53,6 +53,7 @@ internal class SoundSystem
   public Sound WallSound { get; private set; }
   public List<Sound> BebooSleepingSounds { get; private set; }
   public Sound BebooStepSound { get; private set; }
+  public Sound BebooStepWaterSound { get; private set; }
   public Sound ItemPutSound { get; private set; }
   public Sound ItemTakeSound { get; private set; }
   public List<Sound> EggKrakSounds { get; private set; }
@@ -146,6 +147,8 @@ internal class SoundSystem
     };
     WallSound = System.CreateSound(CONTENTFOLDER + "sounds/wall.wav", Mode.Unique);
     BebooStepSound = System.CreateSound(CONTENTFOLDER + "sounds/beboo/step.wav",
+        Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
+    BebooStepWaterSound = System.CreateSound(CONTENTFOLDER + "sounds/buble4.wav",
         Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     CinematicHatch = System.CreateStream(CONTENTFOLDER + "cinematic/hatch.wav");
     LoadItemSound();

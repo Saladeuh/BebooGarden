@@ -25,7 +25,7 @@ public class Beboo
     MoveBehaviour =
         new TimedBehaviour<Beboo>(this, 200, 400, beboo => { beboo.MoveTowardGoal(); }, !isSleepingAtStart);
     FancyMoveBehaviour =
-        new TimedBehaviour<Beboo>(this, 30000, 60000, beboo => { beboo.WannaGoToRandomPlace(); }, true);
+        new TimedBehaviour<Beboo>(this, 20000, 40000, beboo => { beboo.WannaGoToRandomPlace(); }, true);
     GoingTiredBehaviour =
         new TimedBehaviour<Beboo>(this, 50000, 70000, beboo => { beboo.Energy--; }, !isSleepingAtStart);
     GoingDepressedBehaviour =
@@ -88,6 +88,7 @@ public class Beboo
   public Vector3 Position { get; private set; }
   public bool Happy { get; private set; } = true;
   public bool Sleeping { get; private set; }
+  public bool Panik { get; private set; } = false;
   private TimedBehaviour<Beboo> CuteBehaviour { get; }
 
   public Vector3? GoalPosition
@@ -136,10 +137,40 @@ public class Beboo
     directionNormalized.X = Math.Sign(directionNormalized.X);
     directionNormalized.Y = Math.Sign(directionNormalized.Y);
     Position += directionNormalized;
-    var moved = Position != GoalPosition;
     Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooStepSound, Position, false);
+    if (Game.Map?.isInLake(Position) ?? false)
+    {
+      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooStepWaterSound, Position, false);
+      StartPanik();
+    }
+    else EndPanik();
+    var moved = Position != GoalPosition;
     if (!moved) GoalPosition = null;
     return moved;
+  }
+
+  private void EndPanik()
+  {
+    if (!Panik) return;
+    Panik = false;
+    FancyMoveBehaviour.MinMS = 2000;
+    FancyMoveBehaviour.MaxMS = 40000;
+    MoveBehaviour.MinMS = 200;
+    MoveBehaviour.MaxMS = 400;
+    MoveBehaviour.Restart();
+    FancyMoveBehaviour.Restart();
+  }
+
+  private void StartPanik()
+  {
+    if (Panik) return;
+    Panik = true;
+    FancyMoveBehaviour.MinMS = 400;
+    FancyMoveBehaviour.MaxMS = 400;
+    MoveBehaviour.MinMS = 100;
+    MoveBehaviour.MaxMS = 100;
+    MoveBehaviour.Restart();
+    FancyMoveBehaviour.Restart();
   }
 
   private void DoCuteThing()

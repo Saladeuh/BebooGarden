@@ -63,7 +63,7 @@ internal class Game : IGlobalActions
     PlayerName = Parameters.PlayerName;
     Inventory = Parameters.Inventory;
     //Inventory.Add(new MusicBox());
-    Map.AddItem(MusicBox.AllRolls[6], new Vector3(0, 5, 0));
+    //Map.AddItem(MusicBox.AllRolls[6], new Vector3(0, 5, 0));
   }
 
   public static SoundSystem SoundSystem { get; }
