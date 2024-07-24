@@ -38,7 +38,7 @@ internal class Roll(
 
   public override void Take()
   {
-    Game.Map.Items.Remove(this);
+    Game.Map?.Items.Remove(this);
     if (!MusicBox.AvailableRolls.Contains(Title + Source))
     {
       IGlobalActions.SayLocalizedString("ui.rolltake", Title, Source);
