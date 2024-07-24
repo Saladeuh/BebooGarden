@@ -41,7 +41,7 @@ internal class MusicBox : Item
   public override Vector3? Position { get; set; } = null;
   public override Channel? Channel { get; set; }
   public override bool IsTakable { get; set; } = true;
-  private static Roll[] AllRolls { get; }
+  public static Roll[] AllRolls { get; }
   public static List<string> AvailableRolls { get; set; } = [];
 
   private static void GetLoopValues(string filePath, out uint loopStart, out uint loopEnd)
@@ -78,6 +78,7 @@ internal class MusicBox : Item
     }
     else
     {
+      Game.SoundSystem.System.PlaySound(Game.SoundSystem.WarningSound);
       IGlobalActions.SayLocalizedString("musicbox.noroll");
     }
   }

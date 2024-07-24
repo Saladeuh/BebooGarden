@@ -63,7 +63,7 @@ internal class Game : IGlobalActions
     PlayerName = Parameters.PlayerName;
     Inventory = Parameters.Inventory;
     //Inventory.Add(new MusicBox());
-    //Map.AddItem(MusicBox.AllRolls[6], new Vector3(0, 5, 0));
+    Map.AddItem(MusicBox.AllRolls[6], new Vector3(0, 5, 0));
   }
 
   public static SoundSystem SoundSystem { get; }
@@ -97,6 +97,7 @@ internal class Game : IGlobalActions
     if ((DateTime.Now - LastPressedKeyTime).TotalMilliseconds < 150) return;
     LastPressedKeyTime = DateTime.Now;
     var itemUnderCursor = Map?.GetItemArroundPosition(PlayerPosition);
+    var isInLake = Map?.isInLake(PlayerPosition);
     switch (e.KeyCode)
     {
       case Keys.Left:
@@ -121,7 +122,6 @@ internal class Game : IGlobalActions
         {
           MoveOf(new Vector3(0, 1, 0));
         }
-
         break;
       case Keys.Down:
       case Keys.S:
@@ -159,12 +159,11 @@ internal class Game : IGlobalActions
         {
           SayLocalizedString("ui.emptyinventory");
         }
-
         break;
       case Keys.Space:
         if (ItemInHand != null)
         {
-          PutItemInHand();
+          TryPutItemInHand();
         }
         else
         {
@@ -186,7 +185,6 @@ internal class Game : IGlobalActions
             Whistle();
           }
         }
-
         break;
       default:
         CheckGlobalActions(e.KeyCode);
@@ -196,14 +194,22 @@ internal class Game : IGlobalActions
     KeyState[e.KeyCode] = true;
   }
 
-  private void PutItemInHand()
+  private void TryPutItemInHand()
   {
     if (ItemInHand == null) return;
-    Map?.AddItem(ItemInHand, PlayerPosition);
-    SayLocalizedString("ui.itemput", GetLocalizedString(ItemInHand.TranslateKeyName));
-    SoundSystem.System.PlaySound(SoundSystem.ItemPutSound);
-    Inventory.Remove(ItemInHand);
-    ItemInHand = null;
+    if (Map?.isInLake(PlayerPosition)??false)
+    {
+      SoundSystem.System.PlaySound(SoundSystem.WarningSound);
+      SayLocalizedString("ui.warningwater");
+    }
+    else
+    {
+      Map?.AddItem(ItemInHand, PlayerPosition);
+      SayLocalizedString("ui.itemput", GetLocalizedString(ItemInHand.TranslateKeyName));
+      SoundSystem.System.PlaySound(SoundSystem.ItemPutSound);
+      Inventory.Remove(ItemInHand);
+      ItemInHand = null;
+    }
   }
 
   private static void SayBebooState()
@@ -271,6 +277,7 @@ internal class Game : IGlobalActions
     if (newPos != PlayerPosition + movement) SoundSystem.WallBouncing();
     PlayerPosition = newPos;
     SoundSystem.MovePlayerTo(newPos);
+    if (Map.isInLake(newPos)) SayLocalizedString("water");
     SpeakObjectUnderCursor();
   }
 

@@ -18,9 +18,10 @@ public class Map(string name, int sizeX, int sizeY, List<TreeLine> treeLines, Ve
     var x = Math.Clamp(value.X, SizeX / 2 * -1, SizeX / 2);
     var y = Math.Clamp(value.Y, SizeY / 2 * -1, SizeY / 2);
     var z = value.Z;
-    return new Vector3(x, y, z);
+    var newPos = new Vector3(x, y, z);
+    return newPos;
   }
-
+  public bool isInLake(Vector3 position) => Util.IsInSquare(position, WaterPoint, 5);
   public TreeLine? GetTreeLineAtPosition(Vector3 position)
   {
     return TreeLines.FirstOrDefault(
