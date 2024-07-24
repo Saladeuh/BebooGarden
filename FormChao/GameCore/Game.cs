@@ -142,6 +142,9 @@ internal class Game : IGlobalActions
       case Keys.F:
         SayBebooState();
         break;
+      case Keys.G:
+        SayBasketState();
+        break;
       case Keys.Enter:
         if (itemUnderCursor != null && itemUnderCursor.IsTakable) itemUnderCursor.Take();
         break;
@@ -216,6 +219,11 @@ internal class Game : IGlobalActions
     else sentence = "beboo.verygood";
     SayLocalizedString(sentence, Beboo.Name);
     //ScreenReader.Output($"Energy {Beboo.Energy}, hapiness {Beboo.Happiness}");
+  }
+
+  private void SayBasketState()
+  {
+    SayLocalizedString("ui.basket", FruitsBasket[FruitSpecies.Normal]);
   }
 
   private void ShakeOrPetAtPlayerPosition()

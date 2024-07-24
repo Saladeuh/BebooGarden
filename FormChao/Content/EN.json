@@ -48,5 +48,6 @@
   "ui.rolltake": "You have taken the music box's roll  {0}, from {1}",
   //0=title 1=source (composer or piece)
   "ui.chooseroll": "Please choose a roll to insert",
-  "ui.itemtake": "{0} stored in the bag"
+    "ui.itemtake": "{0} stored in the bag",
+    "ui.basket": "There are {0} fruits in the basket"
 }
