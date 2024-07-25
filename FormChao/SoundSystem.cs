@@ -57,6 +57,7 @@ internal class SoundSystem
   public Sound BebooScreamSound { get; private set; }
   public Sound ItemPutSound { get; private set; }
   public Sound ItemTakeSound { get; private set; }
+  public Sound ItemDuckSound { get; private set; }
   public List<Sound> EggKrakSounds { get; private set; }
   public Sound GrassSound { get; private set; }
   public Sound MenuBipSound { get; private set; }
@@ -72,7 +73,7 @@ internal class SoundSystem
   public List<Sound> BebooYumySounds { get; private set; }
   private SortedDictionary<FruitSpecies, Sound> FruitsSounds { get; set; }
   public Sound NeutralMusicStream { get; private set; }
-  public Channel Music { get; private set; }
+  public Channel? Music { get; private set; }
   public Sound SadMusicStream { get; private set; }
   public List<Sound> BebooPetSound { get; private set; }
   public List<Sound> BebooCrySounds { get; private set; }
@@ -103,9 +104,6 @@ internal class SoundSystem
     Music = System.PlaySound(NeutralMusicStream, paused: Game.Beboo==null)!;
     Music.SetLoopPoints(TimeUnit.MS, 12, TimeUnit.MS, 88369);
     Music.Volume = 0.5f;
-    
-    
-    
     SadMusicStream = System.CreateStream(CONTENTFOLDER + "music/Depressed.mp3", Mode.Loop_Normal);
     WaterSound = System.CreateStream(CONTENTFOLDER + "sounds/WaterCalmWide.wav",
         Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff);
@@ -167,6 +165,7 @@ internal class SoundSystem
   {
     ItemPutSound = System.CreateSound(CONTENTFOLDER + "sounds/character/item.wav", Mode.Unique);
     ItemTakeSound = System.CreateSound(CONTENTFOLDER + "sounds/pwik.wav", Mode.Unique);
+    ItemDuckSound = System.CreateSound(CONTENTFOLDER + "sounds/kwak.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     EggKrakSounds = new List<Sound>();
     LoadSoundsInList(["krak.wav", "krak2.wav"], EggKrakSounds, "sounds/egg/");
   }
@@ -314,10 +313,10 @@ internal class SoundSystem
 
   public void MusicTransition(Sound music, uint startLoop, uint endLoop, TimeUnit timeUnit, float volume = 0.5f)
   {
-    var mute = Music.Mute;
-    Music.Stop();
+    var mute = Music?.Mute??true;
+    Music?.Stop();
     Music = System.PlaySound(music, paused: false)!;
-    if (endLoop != 0) Music.SetLoopPoints(timeUnit, startLoop, timeUnit, endLoop);
+    if (endLoop != 0) Music?.SetLoopPoints(timeUnit, startLoop, timeUnit, endLoop);
     //Music.SetLoopPoints(TimeUnit.PCM, 464375, TimeUnit.PCM, 4471817);
     Music.Volume = volume;
     Music.Mute = mute;

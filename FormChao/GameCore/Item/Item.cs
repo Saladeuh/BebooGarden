@@ -14,11 +14,10 @@ public abstract class Item
 
   public abstract string TranslateKeyName { get; set; }
   public abstract string TranslateKeyDescription { get; set; }
-  public abstract Vector3? Position { get; set; } // position null=in inventory
-  public abstract bool IsTakable { get; set; }
-
+  public virtual Vector3? Position { get; set; } // position null=in inventory
+  public virtual bool IsTakable { get; set; } = true;
+  public virtual bool IsWaterProof { get; set; } = false;
   [JsonIgnore] public abstract Channel? Channel { get; set; }
-
   protected TimedBehaviour<Item> SoundLoopTimer { get; set; }
 
   public virtual void Action()

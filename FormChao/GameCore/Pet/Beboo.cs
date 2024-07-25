@@ -146,7 +146,7 @@ public class Beboo
     {
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooStepSound, Position, false);
       EndPanik();
-    }a
+    }
     var moved = Position != GoalPosition;
     if (!moved) GoalPosition = null;
     return moved;

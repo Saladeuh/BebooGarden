@@ -37,6 +37,7 @@ internal class Game : IGlobalActions
     };
     MusicBox.AvailableRolls = Parameters.UnlockedRolls ?? [];
     SoundSystem.Volume = Parameters.Volume;
+    SoundSystem.LoadMainScreen();
     if (!Flags.NewGame)
     {
       Map.TreeLines[0].SetFruitsAfterAWhile(Parameters.LastPlayed, Parameters.RemainingFruits);
@@ -47,7 +48,6 @@ internal class Game : IGlobalActions
       Map.AddItem(new Egg(Parameters.FavoredColor), PlayerPosition);
     }
 
-    SoundSystem.LoadMainScreen();
     SoundSystem.LoadMap(Map);
     LastPressedKeyTime = DateTime.Now;
     TickTimer.Tick += Tick;
@@ -62,7 +62,9 @@ internal class Game : IGlobalActions
 
     PlayerName = Parameters.PlayerName;
     Inventory = Parameters.Inventory;
-    //Inventory.Add(new MusicBox());
+    Inventory.Clear();
+    Inventory.Add(new MusicBox());
+    Inventory.Add(new Duck());
     //Map.AddItem(MusicBox.AllRolls[6], new Vector3(0, 5, 0));
   }
 
@@ -97,7 +99,7 @@ internal class Game : IGlobalActions
     if ((DateTime.Now - LastPressedKeyTime).TotalMilliseconds < 150) return;
     LastPressedKeyTime = DateTime.Now;
     var itemUnderCursor = Map?.GetItemArroundPosition(PlayerPosition);
-    var isInLake = Map?.isInLake(PlayerPosition);
+    Map?.isInLake(PlayerPosition);
     switch (e.KeyCode)
     {
       case Keys.Left:
@@ -197,7 +199,7 @@ internal class Game : IGlobalActions
   private void TryPutItemInHand()
   {
     if (ItemInHand == null) return;
-    if (Map?.isInLake(PlayerPosition)??false)
+    if ((Map?.isInLake(PlayerPosition)??false) && !(ItemInHand?.IsWaterProof??false))
     {
       SoundSystem.System.PlaySound(SoundSystem.WarningSound);
       SayLocalizedString("ui.warningwater");
@@ -229,7 +231,7 @@ internal class Game : IGlobalActions
 
   private void SayBasketState()
   {
-    SayLocalizedString("ui.basket", FruitsBasket[FruitSpecies.Normal]);
+    if (FruitsBasket != null) SayLocalizedString("ui.basket", FruitsBasket[FruitSpecies.Normal]);
   }
 
   private void ShakeOrPetAtPlayerPosition()

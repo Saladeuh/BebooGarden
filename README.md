@@ -1,8 +1,8 @@
 # todo
 - début, tooltip,
-- lac, niveaux, plusieurs même objets bag
+- niveaux, plusieurs même objets bag
 - miam caresse, danse, œuf couleur, saleté?
-- jouets: bulles, boombox, race, boing, canard eau
+- jouets: bulles, boombox, race, boing
 - online
 - maps
 - plus commandes vocales
