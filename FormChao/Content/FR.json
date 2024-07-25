@@ -9,6 +9,7 @@
     "violet": "Violet",
     "none": "Aucune",
     "trees": "Arbres",
+    "water": "lagon",
     "beboo.gosleep": "{0} va dormir",
     // 1=beboo name
     "beboo.wakeup": "{0} se réveille",
@@ -46,6 +47,7 @@
     "ui.chooseitem": "Choisissez un objet",
     "ui.itemput": "{0} déposé",
     // 0=item name
+    "ui.warningwater": "Ne mettez pas ça dans l'eau !",
     "ui.rolltake": "Vous avez récupéré le rouleau de boîte à musique {0}, de {1}",
     //0=title 1=source (composer or piece)
     "ui.chooseroll": "Choisissez un rouleau à insérer",

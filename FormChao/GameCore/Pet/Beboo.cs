@@ -137,13 +137,16 @@ public class Beboo
     directionNormalized.X = Math.Sign(directionNormalized.X);
     directionNormalized.Y = Math.Sign(directionNormalized.Y);
     Position += directionNormalized;
-    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooStepSound, Position, false);
     if (Game.Map?.isInLake(Position) ?? false)
     {
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooStepWaterSound, Position, false);
       StartPanik();
     }
-    else EndPanik();
+    else
+    {
+      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooStepSound, Position, false);
+      EndPanik();
+    }a
     var moved = Position != GoalPosition;
     if (!moved) GoalPosition = null;
     return moved;
@@ -165,6 +168,9 @@ public class Beboo
   {
     if (Panik) return;
     Panik = true;
+    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooScreamSound, Position);
+    Happiness -= 2;
+    Energy -= 2;
     FancyMoveBehaviour.MinMS = 400;
     FancyMoveBehaviour.MaxMS = 400;
     MoveBehaviour.MinMS = 100;
@@ -238,7 +244,7 @@ public class Beboo
     if (_petCount + rnd.Next(2) >= 6)
     {
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooDelightSounds, Position);
-      if (Happiness <= 5 && rnd.Next(4) == 3)
+      if (Happiness <= 7 && rnd.Next(2) == 1)
       {
         Happiness++;
         Game.SoundSystem.System.PlaySound(Game.SoundSystem.JingleComplete);

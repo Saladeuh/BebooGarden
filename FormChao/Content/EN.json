@@ -1,53 +1,55 @@
 {
-  "red": "Red",
-  "orange": "Orange",
-  "yellow": "Yellow",
-  "green": "Green",
-  "blue": "Blue",
-  "indigo": "Indigo",
-  "violet": "Violet",
-  "none": "None",
-  "trees": "Trees",
-  "beboo.gosleep": "{0} go asleep",
-  // 1=beboo name
-  "beboo.wakeup": "{0} wakes up",
-  // 1=beboo name
-  "beboo.sadstart": "{0} burst in tears. Do something!",
-  // 0=beboo name
-  "beboo.happystart": "{0} is happy!",
-  //0=beboo name
-  "beboo.sleep": "{0} is sleeping",
-  //0=beboo name
-  "beboo.verytired": "{0} is very tired",
-  // 0=beboo name
-  "beboo.verysad": "{0} is very sad.. Do something!",
-  //0=beboo name
-  "beboo.littlesad": "{0} is a little bit sad",
-  //0=beboo name
-  "beboo.littletired": "{0} is a litttle bit tired",
-  //0=beboo name
-  "beboo.good": "{0} is fine",
-  //0=beboo name
-  "beboo.verygood": "{0} is doing very well",
-  //0=beboo name
-  "musicbox.name": "Music box",
-  "musicbox.noroll": "You don't have any roll to put in it yet",
+    "red": "Red",
+    "orange": "Orange",
+    "yellow": "Yellow",
+    "green": "Green",
+    "blue": "Blue",
+    "indigo": "Indigo",
+    "violet": "Violet",
+    "none": "None",
+    "trees": "Trees",
+    "water": "lagoon",
+    "beboo.gosleep": "{0} go asleep",
+    // 1=beboo name
+    "beboo.wakeup": "{0} wakes up",
+    // 1=beboo name
+    "beboo.sadstart": "{0} burst in tears. Do something!",
+    // 0=beboo name
+    "beboo.happystart": "{0} is happy!",
+    //0=beboo name
+    "beboo.sleep": "{0} is sleeping",
+    //0=beboo name
+    "beboo.verytired": "{0} is very tired",
+    // 0=beboo name
+    "beboo.verysad": "{0} is very sad.. Do something!",
+    //0=beboo name
+    "beboo.littlesad": "{0} is a little bit sad",
+    //0=beboo name
+    "beboo.littletired": "{0} is a litttle bit tired",
+    //0=beboo name
+    "beboo.good": "{0} is fine",
+    //0=beboo name
+    "beboo.verygood": "{0} is doing very well",
+    //0=beboo name
+    "musicbox.name": "Music box",
+    "musicbox.noroll": "You don't have any roll to put in it yet",
     "roll.name": "Music box's roll",
-  "egg.name": "Beboo's egg",
-  "ui.empty": "You must type something.",
-  "ui.yourname": "Your name",
-  "ui.bebooname": "Your Beboo's cute name",
-  "ui.welcome": "Welcome to the Beboo Garden !\nTo begin with, what should I call you?",
-  "ui.aboutyou": "Great! Now, {0}, can you tell me a little about you ?\nCommençons simplement.",
-  // 0=player name
-  "ui.color": "What is your favorite color?",
-  "ui.emptyinventory": "Nothing in the bag",
-  "ui.chooseitem": "Choose an item",
-  "ui.itemput": "{0} dropped",
-  // 0=item name
-  "ui.rolltake": "You have taken the music box's roll  {0}, from {1}",
-  //0=title 1=source (composer or piece)
-  "ui.chooseroll": "Please choose a roll to insert",
+    "egg.name": "Beboo's egg",
+    "ui.empty": "You must type something.",
+    "ui.yourname": "Your name",
+    "ui.bebooname": "Your Beboo's cute name",
+    "ui.welcome": "Welcome to the Beboo Garden !\nTo begin with, what should I call you?",
+    "ui.aboutyou": "Great! Now, {0}, can you tell me a little about you ?\nCommençons simplement.",
+    // 0=player name
+    "ui.color": "What is your favorite color?",
+    "ui.emptyinventory": "Nothing in the bag",
+    "ui.chooseitem": "Choose an item",
+    "ui.itemput": "{0} dropped",
+    // 0=item name
+    "ui.warningwater": "Don't put this in water!",
+    "ui.rolltake": "You have taken the music box's roll  {0}, from {1}",
+    //0=title 1=source (composer or piece)
+    "ui.chooseroll": "Please choose a roll to insert",
     "ui.itemtake": "{0} stored in the bag",
     "ui.basket": "There are {0} fruits in the basket"
 }
