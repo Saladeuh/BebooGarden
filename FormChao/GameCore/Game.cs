@@ -199,7 +199,9 @@ internal class Game : IGlobalActions
   private void TryPutItemInHand()
   {
     if (ItemInHand == null) return;
-    if ((Map?.isInLake(PlayerPosition)??false) && !(ItemInHand?.IsWaterProof??false))
+    var waterProof = (ItemInHand?.IsWaterProof ?? false);
+    bool inWater = (Map?.isInLake(PlayerPosition) ?? false);
+    if (inWater && !waterProof)
     {
       SoundSystem.System.PlaySound(SoundSystem.WarningSound);
       SayLocalizedString("ui.warningwater");
@@ -208,7 +210,8 @@ internal class Game : IGlobalActions
     {
       Map?.AddItem(ItemInHand, PlayerPosition);
       SayLocalizedString("ui.itemput", GetLocalizedString(ItemInHand.TranslateKeyName));
-      SoundSystem.System.PlaySound(SoundSystem.ItemPutSound);
+      if(inWater) SoundSystem.System.PlaySound(SoundSystem.ItemPutWaterSound);
+      else SoundSystem.System.PlaySound(SoundSystem.ItemPutSound);
       Inventory.Remove(ItemInHand);
       ItemInHand = null;
     }
