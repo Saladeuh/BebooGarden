@@ -43,7 +43,7 @@ internal class MusicBox : Item
   public override bool IsTakable { get; set; } = true;
   public override int Cost { get; set; } = 3;
   public static Roll[] AllRolls { get; }
-  public static List<string> AvailableRolls { get; set; } = [];
+  public static List<string> AvailableRolls { get; set; } = []; //title+source
 
   private static void GetLoopValues(string filePath, out uint loopStart, out uint loopEnd)
   {

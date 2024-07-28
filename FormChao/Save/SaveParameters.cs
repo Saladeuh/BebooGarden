@@ -7,7 +7,7 @@ public class SaveParameters
 {
   public SaveParameters(string? language, float volume, string bebooName, int age, float energy, int happiness,
       DateTime lastPayed, Flags flags, string playerName, SortedDictionary<FruitSpecies, int> fruitsBasket,
-      int remainingFruits, List<Item> inventory, List<Item> mapItems, List<string> unlockedRolls, string favoredColor)
+      int remainingFruits, List<Item> inventory, int tickets, List<Item> mapItems, List<string> unlockedRolls, string favoredColor)
   {
     Volume = volume;
     Language = language;
@@ -21,6 +21,7 @@ public class SaveParameters
     FruitsBasket = fruitsBasket;
     RemainingFruits = remainingFruits;
     Inventory = inventory;
+    Tickets = tickets;
     MapItems = mapItems;
     UnlockedRolls = unlockedRolls;
     FavoredColor = favoredColor;
@@ -52,6 +53,7 @@ public class SaveParameters
   public string FavoredColor { get; internal set; }
   public SortedDictionary<FruitSpecies, int> FruitsBasket { get; set; }
   public int RemainingFruits { get; set; }
+  public int Tickets { get; set; }
   public List<Item> Inventory { get; set; } = new();
   public List<Item> MapItems { get; set; } = new();
   public List<string> UnlockedRolls { get; set; } = new();

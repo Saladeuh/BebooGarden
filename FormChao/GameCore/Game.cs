@@ -62,6 +62,7 @@ internal class Game : IGlobalActions
     }
 
     PlayerName = Parameters.PlayerName;
+    Tickets= Parameters.Tickets;
     Inventory = Parameters.Inventory;
     Inventory.Clear();
     Inventory.Add(new MusicBox());
@@ -81,6 +82,7 @@ internal class Game : IGlobalActions
   public Flags Flags { get; }
   public string PlayerName { get; }
   public static List<Item.Item> Inventory { get; set; } = [];
+  public static int Tickets { get; set; } = 0;
   public Item.Item? ItemInHand { get; private set; }
 
   public static void Call(object? sender, EventArgs eventArgs)
@@ -148,6 +150,9 @@ internal class Game : IGlobalActions
       case Keys.G:
         SayBasketState();
         break;
+      case Keys.T:
+        SayTickets();
+        break;
       case Keys.Enter:
         if (itemUnderCursor != null && itemUnderCursor.IsTakable) itemUnderCursor.Take();
         break;
@@ -198,6 +203,11 @@ internal class Game : IGlobalActions
     }
 
     KeyState[e.KeyCode] = true;
+  }
+
+  private void SayTickets()
+  {
+    SayLocalizedString(Tickets.ToString());
   }
 
   private void TryPutItemInHand()
@@ -327,6 +337,7 @@ internal class Game : IGlobalActions
         fruitsBasket: FruitsBasket ?? [],
         remainingFruits: Map?.TreeLines[0].Fruits ?? 0,
         inventory: Inventory,
+        tickets: Tickets,
         mapItems: Map?.Items ?? [],
         unlockedRolls: MusicBox.AvailableRolls,
         favoredColor: Parameters.FavoredColor
