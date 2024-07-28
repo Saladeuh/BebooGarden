@@ -52,5 +52,6 @@
     //0=title 1=source (composer or piece)
     "ui.chooseroll": "Choisissez un rouleau à insérer",
     "ui.itemtake": "{0} rangé dans le sac",
-    "ui.basket": "Il y a {0} fruits dans le panier"
+    "ui.basket": "Il y a {0} fruits dans le panier",
+    "shop.item":  "{0}, {1} tickets" // 0=item name, 1=cost
 }

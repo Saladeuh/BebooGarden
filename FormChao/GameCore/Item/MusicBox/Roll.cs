@@ -13,8 +13,8 @@ internal class Roll(
     bool danse = false,
     bool lullaby = false) : Item
 {
-  public override string TranslateKeyName { get; set; } = "roll.name";
-  public override string TranslateKeyDescription { get; set; } = "roll.description";
+  protected override string _translateKeyName { get; set; } = title;
+  protected override string _translateKeyDescription { get; set; } = "roll.description";
   public override Vector3? Position { get; set; } // position null=in inventory
   public override Channel? Channel { get; set; }
   public override bool IsTakable { get; set; } = true;

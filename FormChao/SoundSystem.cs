@@ -3,6 +3,7 @@ using System.Timers;
 using BebooGarden.GameCore;
 using BebooGarden.GameCore.World;
 using FmodAudio;
+using FmodAudio.Base;
 using Timer = System.Timers.Timer;
 
 namespace BebooGarden;
@@ -76,6 +77,7 @@ internal class SoundSystem
   public Sound NeutralMusicStream { get; private set; }
   public Channel? Music { get; private set; }
   public Sound SadMusicStream { get; private set; }
+  public Sound ShopMusicStream { get; private set; }
   public List<Sound> BebooPetSound { get; private set; }
   public List<Sound> BebooCrySounds { get; private set; }
   public Channel BebooChannel { get; private set; }
@@ -102,10 +104,11 @@ internal class SoundSystem
     Sound sound;
     Channel channel;
     NeutralMusicStream = System.CreateStream(CONTENTFOLDER + "music/neutral.mp3", Mode.Loop_Normal);
-    Music = System.PlaySound(NeutralMusicStream, paused: Game.Beboo==null)!;
+    Music = System.PlaySound(NeutralMusicStream/*, paused: Game.Beboo==null*/)!;
     Music.SetLoopPoints(TimeUnit.MS, 12, TimeUnit.MS, 88369);
     Music.Volume = 0.5f;
     SadMusicStream = System.CreateStream(CONTENTFOLDER + "music/Depressed.mp3", Mode.Loop_Normal);
+    ShopMusicStream = System.CreateStream(CONTENTFOLDER + "music/Boutique.mp3", Mode.Loop_Normal);
     WaterSound = System.CreateStream(CONTENTFOLDER + "sounds/WaterCalmWide.wav",
         Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff);
     TreeWindSound = System.CreateStream(CONTENTFOLDER + "sounds/Wind_Trees_Cattails_Fienup_001.mp3",

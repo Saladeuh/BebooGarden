@@ -20,11 +20,11 @@
         </Content>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Autoupdater.NET.Official" Version="1.9.1"/>
-        <PackageReference Include="LocalizationCultureCore" Version="1.1.2"/>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
-        <PackageReference Include="System.Speech" Version="8.0.0"/>
-        <PackageReference Include="TOWK.Utility.CrossSpeak" Version="1.0.0"/>
+        <PackageReference Include="Autoupdater.NET.Official" Version="1.9.1" />
+        <PackageReference Include="LocalizationCultureCore" Version="1.1.2" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+        <PackageReference Include="System.Speech" Version="8.0.0" />
+        <PackageReference Include="TOWK.Utility.CrossSpeak" Version="1.0.0" />
     </ItemGroup>
     <ItemGroup>
         <Reference Include="FmodAudio">

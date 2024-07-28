@@ -51,5 +51,6 @@
     //0=title 1=source (composer or piece)
     "ui.chooseroll": "Please choose a roll to insert",
     "ui.itemtake": "{0} stored in the bag",
-    "ui.basket": "There are {0} fruits in the basket"
+    "ui.basket": "There are {0} fruits in the basket",
+    "shop.item": "{0}, {1} tickets" // 0=item name, 1=cost
 }

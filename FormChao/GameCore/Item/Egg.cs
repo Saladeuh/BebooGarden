@@ -7,8 +7,8 @@ namespace BebooGarden.GameCore.Item;
 
 public class Egg(string color) : Item
 {
-  public override string TranslateKeyName { get; set; } = "egg.name";
-  public override string TranslateKeyDescription { get; set; } = "egg.description";
+  protected override string _translateKeyName { get; set; } = "egg.name";
+  protected override string _translateKeyDescription { get; set; } = "egg.description";
   public override Vector3? Position { get; set; } // position null=in inventory
   public override bool IsTakable { get; set; } = false;
   public override Channel? Channel { get; set; }

@@ -6,6 +6,7 @@ using BebooGarden.GameCore.Pet;
 using BebooGarden.GameCore.World;
 using BebooGarden.Interface;
 using BebooGarden.Interface.ScriptedScene;
+using BebooGarden.Interface.Shop;
 using BebooGarden.Save;
 using Timer = System.Windows.Forms.Timer;
 
@@ -154,13 +155,16 @@ internal class Game : IGlobalActions
         Dictionary<string, Item.Item> options = [];
         if (Inventory.Count > 0)
         {
-          foreach (var item in Inventory) options.Add(GetLocalizedString(item.TranslateKeyName), item);
+          foreach (var item in Inventory) options.Add(GetLocalizedString(item.Name), item);
           ItemInHand = IWindowManager.ShowChoice("ui.chooseitem", options);
         }
         else
         {
           SayLocalizedString("ui.emptyinventory");
         }
+        break;
+        case Keys.F1:
+        new Shop().Show();
         break;
       case Keys.Space:
         if (ItemInHand != null)
@@ -209,7 +213,7 @@ internal class Game : IGlobalActions
     else
     {
       Map?.AddItem(ItemInHand, PlayerPosition);
-      SayLocalizedString("ui.itemput", GetLocalizedString(ItemInHand.TranslateKeyName));
+      SayLocalizedString("ui.itemput", ItemInHand.Name);
       if(inWater) SoundSystem.System.PlaySound(SoundSystem.ItemPutWaterSound);
       else SoundSystem.System.PlaySound(SoundSystem.ItemPutSound);
       Inventory.Remove(ItemInHand);
@@ -294,7 +298,7 @@ internal class Game : IGlobalActions
       ScreenReader.Output(Beboo.Name);
     else if (treeLine != null)
       SayLocalizedString("trees");
-    else if (item != null) SayLocalizedString(item.TranslateKeyName);
+    else if (item != null) SayLocalizedString(item.Name);
   }
 
   private void Tick(object? _, EventArgs __)

@@ -36,11 +36,12 @@ internal class MusicBox : Item
       }
   }
 
-  public override string TranslateKeyName { get; set; } = "musicbox.name";
-  public override string TranslateKeyDescription { get; set; } = "musicbox.description";
+  protected override string _translateKeyName { get; set; } = "musicbox.name";
+  protected override string _translateKeyDescription { get; set; } = "musicbox.description";
   public override Vector3? Position { get; set; } = null;
   public override Channel? Channel { get; set; }
   public override bool IsTakable { get; set; } = true;
+  public override int Cost { get; set; } = 3;
   public static Roll[] AllRolls { get; }
   public static List<string> AvailableRolls { get; set; } = [];
 
