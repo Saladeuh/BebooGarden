@@ -1,21 +1,17 @@
-﻿
-using BebooGarden.GameCore.Item.MusicBox;
+﻿using BebooGarden.GameCore;
 using BebooGarden.GameCore.Item;
 using BebooGarden.Interface.UI;
 
 namespace BebooGarden.Interface.Shop;
 
-public partial class ItemsMenu : Form
+public class ItemsMenu(string title, Dictionary<string, Item> choices, bool closeWhenSelect = false)
+  : ChooseMenu<Item>(title, choices, closeWhenSelect)
 {
-  public ItemsMenu()
+  protected override void btn_Click(object sender, EventArgs e)
   {
-    var itemsList = new List<Item> { new Duck(), new MusicBox() };
-
-    var itemsDictionary = itemsList.ToDictionary(
-        item => IGlobalActions.GetLocalizedString("shop.item", item.Name, item.Cost),
-        item => item
-    );
-    var itemsMenu = new ChooseMenu<Item>("shop.items", itemsDictionary);
-    Controls.Add(itemsMenu);
+    Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuOkSound);
+    var clickedButton = (Button)sender;
+    Result = Choices[clickedButton.Text];
+    Result?.Take();
   }
 }

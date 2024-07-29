@@ -1,14 +1,18 @@
-﻿using System.Windows.Forms;
+﻿using BebooGarden.GameCore;
+using BebooGarden.GameCore.Item;
 using BebooGarden.GameCore.Item.MusicBox;
 using BebooGarden.Interface.UI;
 
 namespace BebooGarden.Interface.Shop;
 
-public partial class RollsMenu : Form
+internal class RollsMenu(string title, Dictionary<string, Roll> choices, bool closeWhenSelect = false)
+  : ChooseMenu<Roll>(title, choices, closeWhenSelect)
 {
-  public RollsMenu()
+  protected override void btn_Click(object sender, EventArgs e)
   {
-    var rollsMenu = new ChooseMenu<Roll> ("shop.rolls", MusicBox.AllRolls.ToDictionary(roll => roll.Title, roll => roll));
-    Controls.Add(rollsMenu);
+    Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuOkSound);
+    var clickedButton = (Button)sender;
+    Result = Choices[clickedButton.Text];
+    Result?.Take();
   }
 }
