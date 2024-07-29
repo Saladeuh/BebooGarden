@@ -88,6 +88,7 @@ internal class SoundSystem
   public Sound UpSound { get; private set; }
   public Sound DownSound { get; private set; }
   public Sound CinematicHatch { get; private set; }
+  public Sound CinematicElevator { get; private set; }
 
   private void LoadSoundsInList(string[] files, List<Sound> sounds, string prefixe = "")
   {
@@ -156,6 +157,7 @@ internal class SoundSystem
     BebooScreamSound = System.CreateSound(CONTENTFOLDER + "sounds/beboo/cri.wav",
         Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     CinematicHatch = System.CreateStream(CONTENTFOLDER + "cinematic/hatch.wav");
+    CinematicElevator = System.CreateStream(CONTENTFOLDER + "cinematic/elevator.mp3");
     LoadItemSound();
     GrassSound = System.CreateSound(CONTENTFOLDER + "sounds/grass_rustle.wav",
         Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
@@ -335,11 +337,11 @@ internal class SoundSystem
     return channel;
   }
 
-  public void PlayCinematic(Sound sound)
+  public void PlayCinematic(Sound sound, bool pauseMusic=true)
   {
     Game.GameWindow?.DisableInput();
-    Music.Paused = true;
-    Channel channel = System.PlaySound(Game.SoundSystem.CinematicHatch)!;
+    Music.Paused = pauseMusic;
+    Channel channel = System.PlaySound(sound)!;
     while (channel.IsPlaying)
     {
     }

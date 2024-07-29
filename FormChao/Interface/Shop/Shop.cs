@@ -30,6 +30,7 @@ public class Shop
   public void Show()
   {
     Game.SoundSystem.MusicTransition(Game.SoundSystem.ShopMusicStream, 459264, 8156722, FmodAudio.TimeUnit.PCM);
+    Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicElevator, false);
     MainShopMenu.ShowDialog(Game.GameWindow);
     if (MainShopMenu.Result != null)
     {
@@ -37,14 +38,15 @@ public class Shop
       switch (MainShopMenu.Result)
       {
         case ChooseMenu<Roll> rollMenu:
-          rollMenu.Result?.Take(); 
+          rollMenu.Result?.Take();
           break;
           break;
         case ChooseMenu<Item> itemMenu:
           itemMenu.Result?.Take();
           break;
       }
-      Game.SoundSystem.MusicTransition(Game.SoundSystem.NeutralMusicStream, 12, 88369, TimeUnit.MS);
     }
+    Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicElevator, false);
+    Game.SoundSystem.MusicTransition(Game.SoundSystem.NeutralMusicStream, 12, 88369, TimeUnit.MS);
   }
 }
