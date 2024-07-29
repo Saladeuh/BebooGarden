@@ -62,11 +62,13 @@ internal class Game : IGlobalActions
     }
 
     PlayerName = Parameters.PlayerName;
-    Tickets= Parameters.Tickets;
+    Tickets = Parameters.Tickets;
     Inventory = Parameters.Inventory;
     Inventory.Clear();
     Inventory.Add(new MusicBox());
+    Inventory.Add(new MusicBox());
     Inventory.Add(new Duck());
+    Inventory.Add(new MusicBox());
     //Map.AddItem(MusicBox.AllRolls[6], new Vector3(0, 5, 0));
   }
 
@@ -158,9 +160,16 @@ internal class Game : IGlobalActions
         break;
       case Keys.Escape:
         Dictionary<string, Item.Item> options = [];
-        if (Inventory.Count > 0)
+        if (Inventory.Count() > 0)
         {
-          foreach (var item in Inventory) options.Add(GetLocalizedString(item.Name), item);
+          foreach (var item in Inventory)
+          {
+            int occurences = Inventory.FindAll(x => x.Name == item.Name).Count();
+            string text = GetLocalizedString("inventory.item", item.Name, occurences);
+            if (options.Keys.ToList().Find(x => x.Contains(item.Name)) == null && occurences==1) options.Add(item.Name, item);
+            else if (options.Keys.ToList().Find(x => x.Contains(text)) == null)
+              options.Add(text, item);
+          }
           ItemInHand = IWindowManager.ShowChoice("ui.chooseitem", options);
         }
         else
@@ -168,7 +177,7 @@ internal class Game : IGlobalActions
           SayLocalizedString("ui.emptyinventory");
         }
         break;
-        case Keys.F1:
+      case Keys.F1:
         new Shop().Show();
         break;
       case Keys.Space:
@@ -224,7 +233,7 @@ internal class Game : IGlobalActions
     {
       Map?.AddItem(ItemInHand, PlayerPosition);
       SayLocalizedString("ui.itemput", ItemInHand.Name);
-      if(inWater) SoundSystem.System.PlaySound(SoundSystem.ItemPutWaterSound);
+      if (inWater) SoundSystem.System.PlaySound(SoundSystem.ItemPutWaterSound);
       else SoundSystem.System.PlaySound(SoundSystem.ItemPutSound);
       Inventory.Remove(ItemInHand);
       ItemInHand = null;

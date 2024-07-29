@@ -53,5 +53,6 @@
     "ui.chooseroll": "Choisissez un rouleau à insérer",
     "ui.itemtake": "{0} rangé dans le sac",
     "ui.basket": "Il y a {0} fruits dans le panier",
-    "shop.item":  "{0}, {1} tickets" // 0=item name, 1=cost
+    "shop.item": "{0}, {1} tickets", // 0=item name, 1=cost
+    "inventory.item": "{0} (×{1})" //0=item name 1=count of item
 }

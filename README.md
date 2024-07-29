@@ -1,6 +1,6 @@
 # todo
 - début, tooltip, shop(retour), stop boîte à sik
-- niveaux, plusieurs même objets bag
+- niveaux
 - miam caresse, danse, œuf couleur, saleté?
 - jouets: bulles, boombox, race, boing
 - online
