@@ -31,5 +31,10 @@
             <HintPath>Libs\FmodAudio.dll</HintPath>
         </Reference>
     </ItemGroup>
+    <ItemGroup>
+      <Compile Update="Interface\Shop\MainMenu.cs">
+        <SubType>Form</SubType>
+      </Compile>
+    </ItemGroup>
 
 </Project>

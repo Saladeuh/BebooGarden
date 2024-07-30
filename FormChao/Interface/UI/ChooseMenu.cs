@@ -6,7 +6,7 @@ public partial class ChooseMenu<T> : Form
 {
   public T? Result;
 
-  public ChooseMenu(string title, Dictionary<string, T> choices, bool closeWhenSelect=false)
+  public ChooseMenu(string title, Dictionary<string, T> choices, bool closeWhenSelect = false)
   {
     WindowState = FormWindowState.Maximized;
     Choices = choices;
@@ -21,14 +21,25 @@ public partial class ChooseMenu<T> : Form
       var choiceText = Choices.Keys.ElementAt(i);
       var btnOption = new Button();
       btnOption.Text = choiceText;
-      btnOption.AccessibleDescription = i + 1 + "/" + Choices.Keys.Count;
+      btnOption.AccessibleDescription = i + 1 + "/" + (Choices.Keys.Count + 1);
       btnOption.Click += btn_Click;
       btnOption.Enter += btn_enter;
       Controls.Add(btnOption);
     }
-    CloseWhenSelect=closeWhenSelect;
+    var bcak = new Button();
+    bcak.Text = IGlobalActions.GetLocalizedString("ui.back");
+    bcak.AccessibleDescription = Choices.Keys.Count + 1 + "/" + (Choices.Keys.Count + 1);
+    bcak.Click += Back;
+    bcak.Enter += btn_enter;
+    Controls.Add(bcak);
     KeyUp += Game.KeyUpMapper;
   }
+
+  protected virtual void Back(object? sender, EventArgs e)
+  {
+    Close();
+  }
+
   protected Dictionary<string, T> Choices { get; }
   public bool CloseWhenSelect { get; }
 

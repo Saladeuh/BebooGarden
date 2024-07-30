@@ -52,6 +52,7 @@
     "ui.chooseroll": "Please choose a roll to insert",
     "ui.itemtake": "{0} stored in the bag",
     "ui.basket": "There are {0} fruits in the basket",
+    "ui.back": "back",
     "shop.item": "{0}, {1} tickets", // 0=item name, 1=cost
     "inventory.item": "{0} (×{1})" //0=item name 1=count of item
 }

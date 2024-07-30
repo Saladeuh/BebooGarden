@@ -8,10 +8,9 @@ namespace BebooGarden.Interface.Shop;
 
 public class Shop
 {
-  
   private ItemsMenu ItemsMenu { get; set; }
   private RollsMenu RollsMenu { get; set; }
-  public ChooseMenu<Form> MainShopMenu { get; }
+  public MainMenu MainShopMenu { get; set; }
 
   public Shop()
   {
@@ -22,21 +21,28 @@ public class Shop
     );
     ItemsMenu = new("shop.items", itemsDictionary);
     RollsMenu = new("shop.rolls", MusicBox.AllRolls.ToDictionary(roll => roll.Title, roll => roll));
-    MainShopMenu = new ChooseMenu<Form>("shop.title", new Dictionary<string, Form>()
+    MainShopMenu = new("shop.title", new Dictionary<string, Form>()
     {
       { "shop.items", ItemsMenu },
       { "shop.rolls", RollsMenu }
-    });
+    });    
+    //MainShopMenu.FormClosed += onClose;
+
   }
-  public void Show()
+
+  private void onClose(object? sender, FormClosedEventArgs e)
   {
-    Game.SoundSystem.MusicTransition(Game.SoundSystem.ShopMusicStream, 459264, 8156722, FmodAudio.TimeUnit.PCM);
-    Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicElevator, false);
-    MainShopMenu.ShowDialog(Game.GameWindow);
     if (MainShopMenu.Result != null)
     {
       MainShopMenu.Result.ShowDialog(Game.GameWindow);
     }
+  }
+
+  public void Show()
+  {
+    Game.SoundSystem.MusicTransition(Game.SoundSystem.ShopMusicStream, 459264, 8156722, FmodAudio.TimeUnit.PCM);
+    //Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicElevator, false);
+    MainShopMenu.ShowDialog(Game.GameWindow);
     Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicElevator, false);
     Game.SoundSystem.MusicTransition(Game.SoundSystem.NeutralMusicStream, 12, 88369, TimeUnit.MS);
   }

@@ -4,19 +4,15 @@ using BebooGarden.Interface.UI;
 
 namespace BebooGarden.Interface.Shop;
 
-public class ItemsMenu(string title, Dictionary<string, Item> choices, bool closeWhenSelect = false)
-  : ChooseMenu<Item>(title, choices, closeWhenSelect)
+public class MainMenu(string title, Dictionary<string, Form> choices, bool closeWhenSelect = false)
+  : ChooseMenu<Form>(title, choices, closeWhenSelect)
 {
+
   protected override void btn_Click(object sender, EventArgs e)
   {
     Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuOkSound);
     var clickedButton = (Button)sender;
     Result = Choices[clickedButton.Text];
-    Result?.Take();
-
-  }
-  protected override void Back(object? sender, EventArgs e)
-  {
-    base.Back(sender, e);
+    Result.ShowDialog(this);
   }
 }

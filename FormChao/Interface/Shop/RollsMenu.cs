@@ -15,4 +15,8 @@ internal class RollsMenu(string title, Dictionary<string, Roll> choices, bool cl
     Result = Choices[clickedButton.Text];
     Result?.Take();
   }
+  protected override void Back(object? sender, EventArgs e)
+  {
+    base.Back(sender, e);
+  }
 }
