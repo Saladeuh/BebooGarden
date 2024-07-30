@@ -330,7 +330,18 @@ internal class Game : IGlobalActions
   {
     KeyState[e.KeyCode] = false;
   }
-
+  public static void Pause()
+  {
+    Beboo.Pause();
+    SoundSystem.DisableAmbiTimer();
+    SoundSystem.Pause(Map);
+  }
+  public static void Unpause()
+  {
+    Beboo.Unpause();
+    SoundSystem.EnableAmbiTimer();
+    SoundSystem.Unpause(Map);
+  }
   internal void Close(object? sender, FormClosingEventArgs e)
   {
     Map?.Items.RemoveAll(item => typeof(Roll) == item.GetType());

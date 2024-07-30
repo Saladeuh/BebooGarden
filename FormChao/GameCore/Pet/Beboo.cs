@@ -283,4 +283,23 @@ public class Beboo
     CuteBehaviour.MinMS = 10000;
     CuteBehaviour.MaxMS = 20000;
   }
+  public void Pause()
+  {
+    CuteBehaviour.Stop();
+    MoveBehaviour.Stop();
+    GoingDepressedBehaviour.Stop();
+    SadBehaviour.Stop();
+    SleepingBehaviour.Stop();
+  }
+  public void Unpause()
+  {
+    if (Sleeping) SleepingBehaviour.Start();
+    else
+    {
+      if (Happy) CuteBehaviour.Start();
+      else SadBehaviour.Start();
+      MoveBehaviour.Start();
+    }
+    GoingDepressedBehaviour.Start();
+  }
 }

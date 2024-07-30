@@ -1,4 +1,6 @@
 ﻿using System.Numerics;
+using FmodAudio;
+using Newtonsoft.Json;
 
 namespace BebooGarden.GameCore.World;
 
@@ -12,7 +14,12 @@ public class Map(string name, int sizeX, int sizeY, List<TreeLine> treeLines, Ve
   public List<Item.Item> Items { get; set; } = new();
   public bool IsLullabyPlaying { get; set; } = false;
   public bool IsDansePlaying { get; set; } = false;
-
+  [JsonIgnore]
+  public List<Channel> WaterChannels { get; set; } = new();
+  [JsonIgnore]
+  public List<Channel> TreesChannels { get; set; } = new();
+  [JsonIgnore]
+  public Channel? BackgroundChannel { get; set; } 
   public Vector3 Clamp(Vector3 value)
   {
     var x = Math.Clamp(value.X, SizeX / 2 * -1, SizeX / 2);

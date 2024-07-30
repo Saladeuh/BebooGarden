@@ -26,24 +26,17 @@ public class Shop
       { "shop.items", ItemsMenu },
       { "shop.rolls", RollsMenu }
     });    
-    //MainShopMenu.FormClosed += onClose;
-
   }
 
-  private void onClose(object? sender, FormClosedEventArgs e)
-  {
-    if (MainShopMenu.Result != null)
-    {
-      MainShopMenu.Result.ShowDialog(Game.GameWindow);
-    }
-  }
 
   public void Show()
   {
+    Game.Pause();
     Game.SoundSystem.MusicTransition(Game.SoundSystem.ShopMusicStream, 459264, 8156722, FmodAudio.TimeUnit.PCM);
-    //Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicElevator, false);
+    Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicElevator, false);
     MainShopMenu.ShowDialog(Game.GameWindow);
     Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicElevator, false);
     Game.SoundSystem.MusicTransition(Game.SoundSystem.NeutralMusicStream, 12, 88369, TimeUnit.MS);
+    Game.Unpause();
   }
 }

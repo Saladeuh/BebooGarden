@@ -21,7 +21,7 @@ public abstract class Item
   public virtual bool IsWaterProof { get; set; } = false;
   public virtual int Cost { get; set; } = -1;
   [JsonIgnore] public abstract Channel? Channel { get; set; }
-  protected TimedBehaviour<Item> SoundLoopTimer { get; set; }
+  public TimedBehaviour<Item> SoundLoopTimer { get; set; }
 
   public virtual void Action()
   {

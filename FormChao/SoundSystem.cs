@@ -1,9 +1,9 @@
+using System.Diagnostics;
 using System.Numerics;
 using System.Timers;
 using BebooGarden.GameCore;
 using BebooGarden.GameCore.World;
 using FmodAudio;
-using FmodAudio.Base;
 using Timer = System.Timers.Timer;
 
 namespace BebooGarden;
@@ -13,7 +13,6 @@ internal class SoundSystem
   public const string CONTENTFOLDER = "Content/";
 
   private static Timer? _ambiTimer;
-
   private readonly List<Task> Tasks = new();
   public Vector3 Up = new(0, 0, 1), Forward = new(0, 1, 0);
 
@@ -37,7 +36,7 @@ internal class SoundSystem
   }
 
   public FmodSystem System { get; }
-  public List<Sound> AmbiSounds { get; set; }
+  public List<Sound> AmbiSounds { get; set; } = new();
 
   public float Volume
   {
@@ -121,12 +120,6 @@ internal class SoundSystem
     JingleLittleStar = System.CreateStream(CONTENTFOLDER + "music/LittleStar.wav");
     UpSound = System.CreateStream(CONTENTFOLDER + "sounds/menu/up.wav");
     DownSound = System.CreateStream(CONTENTFOLDER + "sounds/menu/down.wav");
-    sound = System.CreateStream(CONTENTFOLDER + "sounds/Grass_Shake.wav");
-    channel = System.PlaySound(sound, paused: false)!;
-    channel.SetLoopPoints(TimeUnit.MS, 678, TimeUnit.MS, 6007);
-    channel.Volume = 0.5f;
-    AmbiSounds = new List<Sound>();
-    LoadAmbiSounds();
     BebooCuteSounds = new List<Sound>();
     LoadSoundsInList(["ouou.wav", "ouou2.wav", "agougougou.wav"], BebooCuteSounds, "sounds/beboo/");
     BebooYawningSounds = new List<Sound>();
@@ -189,22 +182,29 @@ internal class SoundSystem
 
   public void LoadMap(Map map)
   {
-    Channel channel = System.PlaySound(WaterSound, paused: true)!;
-    channel.SetLoopPoints(TimeUnit.MS, 2780, TimeUnit.MS, 17796);
-    channel.Set3DAttributes(map.WaterPoint + new Vector3(0, 0, 10), default, default);
-    channel.Set3DMinMaxDistance(30f, 35f);
-    channel.Volume = 0.1f;
-    channel.Paused = false;
-    channel = System.PlaySound(TreeWindSound, paused: true)!;
-    channel.SetLoopPoints(TimeUnit.PCM, 668725, TimeUnit.PCM, 2961327);
+    Channel waterChannel = System.PlaySound(WaterSound, paused: true)!;
+    waterChannel.SetLoopPoints(TimeUnit.MS, 2780, TimeUnit.MS, 17796);
+    waterChannel.Set3DAttributes(map.WaterPoint + new Vector3(0, 0, 10), default, default);
+    waterChannel.Set3DMinMaxDistance(30f, 35f);
+    waterChannel.Volume = 0.1f;
+    waterChannel.Paused = false;
+    map.WaterChannels.Add(waterChannel);
+    Channel treeChannel = System.PlaySound(TreeWindSound, paused: true)!;
+    treeChannel.SetLoopPoints(TimeUnit.PCM, 668725, TimeUnit.PCM, 2961327);
     var treePosVector2 = map.TreeLines[0].X;
     var treePosVector3 = new Vector3(treePosVector2.X, treePosVector2.Y, 10);
-    channel.Set3DAttributes(treePosVector3, default, default);
-    channel.Set3DMinMaxDistance(60f, 60f);
-    channel.Set3DConeSettings(200, 2001, 0.3f);
-    channel.Set3DConeOrientation(new Vector3(1, 0, 0));
-    channel.Volume = 0.2f;
-    channel.Paused = false;
+    treeChannel.Set3DAttributes(treePosVector3, default, default);
+    treeChannel.Set3DMinMaxDistance(60f, 60f);
+    treeChannel.Set3DConeSettings(200, 2001, 0.3f);
+    treeChannel.Set3DConeOrientation(new Vector3(1, 0, 0));
+    treeChannel.Volume = 0.2f;
+    treeChannel.Paused = false;
+    map.TreesChannels.Add(treeChannel);
+    Sound sound = System.CreateStream(CONTENTFOLDER + "sounds/Grass_Shake.wav");
+    map.BackgroundChannel = System.PlaySound(sound, paused: false)!;
+    map.BackgroundChannel.SetLoopPoints(TimeUnit.MS, 678, TimeUnit.MS, 6007);
+    map.BackgroundChannel.Volume = 0.5f;
+    LoadAmbiSounds();
     //foreach (var item in map.Items) item.PlaySound();
   }
 
@@ -320,7 +320,7 @@ internal class SoundSystem
 
   public void MusicTransition(Sound music, uint startLoop, uint endLoop, TimeUnit timeUnit, float volume = 0.5f)
   {
-    var mute = Music?.Mute??true;
+    var mute = Music?.Mute ?? true;
     Music?.Stop();
     Music = System.PlaySound(music, paused: false)!;
     if (endLoop != 0) Music?.SetLoopPoints(timeUnit, startLoop, timeUnit, endLoop);
@@ -337,7 +337,25 @@ internal class SoundSystem
     return channel;
   }
 
-  public void PlayCinematic(Sound sound, bool pauseMusic=true)
+  public void DisableAmbiTimer() => _ambiTimer.Stop();
+  public void EnableAmbiTimer() => _ambiTimer.Start();
+
+  public void Pause(Map map)
+  {
+    foreach(var channel in map.TreesChannels) channel.Paused = true;
+    foreach (var channel in map.WaterChannels) channel.Paused = true;
+    foreach (var item in map.Items) item.SoundLoopTimer?.Stop();
+    //if (map != null) map.BackgroundChannel.Paused = true;
+  }
+
+  public void Unpause(Map map)
+  {
+    foreach (var channel in map.TreesChannels) channel.Paused = false;
+    foreach (var channel in map.WaterChannels) channel.Paused = false;
+    foreach (var item in map.Items) item.SoundLoopTimer?.Start();
+    //if (map.BackgroundChannel != null) map.BackgroundChannel.Paused = false;
+  }
+  public void PlayCinematic(Sound sound, bool pauseMusic = true)
   {
     Game.GameWindow?.DisableInput();
     Music.Paused = pauseMusic;
