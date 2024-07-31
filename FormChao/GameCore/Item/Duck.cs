@@ -5,8 +5,8 @@ namespace BebooGarden.GameCore.Item;
 
 internal class Duck : Item
 {
-  protected override string _translateKeyName { get; set; } = "duck.name";
-  protected override string _translateKeyDescription { get; set; } = "duck.description";
+  protected override string _translateKeyName { get; } = "duck.name";
+  protected override string _translateKeyDescription { get; } = "duck.description";
   public override Vector3? Position { get; set; } // position null=in inventory
   public override bool IsTakable { get; set; } = true;
   public override bool IsWaterProof {  get; set; } = true;
@@ -15,6 +15,10 @@ internal class Duck : Item
   public override void Action()
   {
     PlaySound();
+    if (Game.Random.Next(101) == 1) Game.GainTicket(1);
+#if DEBUG
+    Game.GainTicket(1);
+#endif
   }
   public override void PlaySound()
   {

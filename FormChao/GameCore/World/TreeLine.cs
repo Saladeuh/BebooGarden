@@ -41,13 +41,15 @@ public class TreeLine
     if ((DateTime.Now - _lastShaked).TotalMilliseconds < 500) return null;
     _lastShaked = DateTime.Now;
     Game.SoundSystem.ShakeTrees();
-    var rnd = new Random();
-    if (Fruits > 0 && rnd.Next(6) == 5)
+    if (Fruits > 0 && Game.Random.Next(6) == 5)
     {
       Fruits--;
-      var droppedFruit = AvailableFruitSpecies[rnd.Next(AvailableFruitSpecies.Count)];
+      var droppedFruit = AvailableFruitSpecies[Game.Random.Next(AvailableFruitSpecies.Count)];
       Game.SoundSystem.DropFruitSound(droppedFruit);
       return droppedFruit;
+    } else if (Game.Random.Next(100) == 1)
+    {
+      Game.GainTicket(1);
     }
 
     return null;

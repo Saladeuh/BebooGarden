@@ -62,14 +62,9 @@ internal class Game : IGlobalActions
     }
 
     PlayerName = Parameters.PlayerName;
-    Tickets = Parameters.Tickets+5;
+    Tickets = Parameters.Tickets;
     Inventory = Parameters.Inventory;
-    Inventory.Clear();
-    Inventory.Add(new MusicBox());
-    Inventory.Add(new MusicBox());
-    Inventory.Add(new Duck());
-    Inventory.Add(new MusicBox());
-    //Map.AddItem(MusicBox.AllRolls[6], new Vector3(0, 5, 0));
+    Inventory.Add(new TicketPack(2));
   }
 
   public static SoundSystem SoundSystem { get; }
@@ -79,6 +74,7 @@ internal class Game : IGlobalActions
   private Vector3 PlayerPosition { get; set; }
   public SortedDictionary<FruitSpecies, int>? FruitsBasket { get; set; }
   public static Form1? GameWindow { get; private set; }
+  public static Random Random { get; set; } = new();
   public SaveParameters Parameters { get; }
   public static Map? Map { get; private set; }
   public Flags Flags { get; }
@@ -86,7 +82,15 @@ internal class Game : IGlobalActions
   public static List<Item.Item> Inventory { get; set; } = [];
   public static int Tickets { get; set; } = 0;
   public Item.Item? ItemInHand { get; private set; }
-
+  public static void GainTicket(int amount)
+  {
+    if (Tickets > 0)
+    {
+      Tickets += amount;
+      SayLocalizedString("gainticket", amount);
+      SoundSystem.System.PlaySound(SoundSystem.MenuOk2Sound);
+    }
+  }
   public static void Call(object? sender, EventArgs eventArgs)
   {
     if (Beboo == null || Beboo.Sleeping) return;
@@ -104,7 +108,7 @@ internal class Game : IGlobalActions
     if ((DateTime.Now - LastPressedKeyTime).TotalMilliseconds < 150) return;
     LastPressedKeyTime = DateTime.Now;
     var itemUnderCursor = Map?.GetItemArroundPosition(PlayerPosition);
-    Map?.isInLake(PlayerPosition);
+    Map?.IsInLake(PlayerPosition);
     switch (e.KeyCode)
     {
       case Keys.Left:
@@ -166,7 +170,7 @@ internal class Game : IGlobalActions
           {
             int occurences = Inventory.FindAll(x => x.Name == item.Name).Count();
             string text = GetLocalizedString("inventory.item", item.Name, occurences);
-            if (options.Keys.ToList().Find(x => x.Contains(item.Name)) == null && occurences==1) options.Add(item.Name, item);
+            if (options.Keys.ToList().Find(x => x.Contains(item.Name)) == null && occurences == 1) options.Add(item.Name, item);
             else if (options.Keys.ToList().Find(x => x.Contains(text)) == null)
               options.Add(text, item);
           }
@@ -223,7 +227,7 @@ internal class Game : IGlobalActions
   {
     if (ItemInHand == null) return;
     var waterProof = (ItemInHand?.IsWaterProof ?? false);
-    bool inWater = (Map?.isInLake(PlayerPosition) ?? false);
+    bool inWater = (Map?.IsInLake(PlayerPosition) ?? false);
     if (inWater && !waterProof)
     {
       SoundSystem.System.PlaySound(SoundSystem.WarningSound);
@@ -239,7 +243,6 @@ internal class Game : IGlobalActions
       ItemInHand = null;
     }
   }
-
   private static void SayBebooState()
   {
     if (Beboo == null) return;
@@ -305,7 +308,7 @@ internal class Game : IGlobalActions
     if (newPos != PlayerPosition + movement) SoundSystem.WallBouncing();
     PlayerPosition = newPos;
     SoundSystem.MovePlayerTo(newPos);
-    if (Map.isInLake(newPos)) SayLocalizedString("water");
+    if (Map.IsInLake(newPos)) SayLocalizedString("water");
     SpeakObjectUnderCursor();
   }
 

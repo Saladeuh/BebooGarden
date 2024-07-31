@@ -69,6 +69,7 @@ internal class SoundSystem
   public Sound MenuReturnSound { get; private set; }
   public Sound WarningSound { get; private set; }
   public Sound MenuOkSound { get; private set; }
+  public Sound MenuOk2Sound { get; private set; }
   public Sound WaterSound { get; private set; }
   public Sound TreeWindSound { get; private set; }
   public Sound JingleComplete { get; private set; }
@@ -177,6 +178,7 @@ internal class SoundSystem
   {
     MenuBipSound = System.CreateSound(CONTENTFOLDER + "sounds/menu/boup.wav", Mode.Unique);
     MenuOkSound = System.CreateSound(CONTENTFOLDER + "sounds/menu/ok.wav", Mode.Unique);
+    MenuOk2Sound = System.CreateSound(CONTENTFOLDER + "sounds/menu/ok2.wav", Mode.Unique);
     MenuKeySound = System.CreateSound(CONTENTFOLDER + "sounds/menu/key.wav", Mode.Unique);
     MenuKeyDeleteSound = System.CreateSound(CONTENTFOLDER + "sounds/menu/keydelete.wav", Mode.Unique);
     MenuKeyFullSound = System.CreateSound(CONTENTFOLDER + "sounds/menu/keyfull.wav", Mode.Unique);
@@ -227,13 +229,12 @@ internal class SoundSystem
 
   private void onAmbiTimer(object? sender, ElapsedEventArgs e)
   {
-    var rand = new Random();
-    var sound = AmbiSounds[rand.Next(AmbiSounds.Count())];
+    var sound = AmbiSounds[Game.Random.Next(AmbiSounds.Count())];
     Channel channel = System.PlaySound(sound, paused: false)!;
-    channel.Set3DAttributes(new Vector3(rand.Next(-20, 20), rand.Next(-20, 20), 5f), default, default);
+    channel.Set3DAttributes(new Vector3(Game.Random.Next(-20, 20), Game.Random.Next(-20, 20), 5f), default, default);
     channel.Set3DMinMaxDistance(0, 35);
     _ambiTimer?.Dispose();
-    _ambiTimer = new Timer(rand.Next(4000, 8000));
+    _ambiTimer = new Timer(Game.Random.Next(4000, 8000));
     _ambiTimer.Elapsed += onAmbiTimer;
     _ambiTimer.Enabled = true;
   }
@@ -287,8 +288,7 @@ internal class SoundSystem
 
   public void PlayBebooSound(List<Sound> sounds, Vector3 position, bool stopOthers = true, float volume = -1)
   {
-    var rand = new Random();
-    var sound = sounds[rand.Next(sounds.Count())];
+    var sound = sounds[Game.Random.Next(sounds.Count())];
     if (BebooChannel != null && stopOthers && BebooChannel.IsPlaying) BebooChannel.Stop();
     BebooChannel = PlaySoundAtPosition(sound, position);
     if (volume != -1) BebooChannel.Volume = volume;
@@ -336,8 +336,7 @@ internal class SoundSystem
 
   internal Channel PlaySoundAtPosition(List<Sound> sounds, Vector3 position)
   {
-    var rand = new Random();
-    var sound = sounds[rand.Next(sounds.Count())];
+    var sound = sounds[Game.Random.Next(sounds.Count())];
     var channel = PlaySoundAtPosition(sound, position);
     return channel;
   }

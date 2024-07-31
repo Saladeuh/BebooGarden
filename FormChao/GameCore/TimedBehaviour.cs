@@ -5,13 +5,13 @@ namespace BebooGarden.GameCore;
 
 public class TimedBehaviour<T>
 {
-  public TimedBehaviour(T actionParameter, int minSecond, int maxSecond, Action<T> action, bool startAtInit)
+  public TimedBehaviour(T actionParameter, int minMS, int maxMS, Action<T> action, bool startAtInit)
   {
     ActionParameter = actionParameter;
-    MinMS = minSecond;
-    MaxMS = maxSecond;
+    MinMS = minMS;
+    MaxMS = maxMS;
     Action = action;
-    ActionTimer = new Timer(minSecond);
+    ActionTimer = new Timer(minMS);
     ActionTimer.Elapsed += onTimer;
     ActionTimer.Enabled = startAtInit;
     Enabled = startAtInit;
@@ -31,8 +31,7 @@ public class TimedBehaviour<T>
     int ms;
     if (MinMS != MaxMS)
     {
-      var rnd = new Random();
-      ms = rnd.Next(MinMS, MaxMS);
+      ms = Game.Random.Next(MinMS, MaxMS);
     }
     else
     {
@@ -49,8 +48,7 @@ public class TimedBehaviour<T>
     int ms;
     if (MinMS != MaxMS)
     {
-      var rnd = new Random();
-      ms = rnd.Next(MinMS, MaxMS);
+      ms = Game.Random.Next(MinMS, MaxMS);
     }
     else
     {

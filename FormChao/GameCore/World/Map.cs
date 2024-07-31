@@ -1,17 +1,18 @@
 ﻿using System.Numerics;
+using BebooGarden.GameCore.Item;
 using FmodAudio;
 using Newtonsoft.Json;
 
 namespace BebooGarden.GameCore.World;
 
-public class Map(string name, int sizeX, int sizeY, List<TreeLine> treeLines, Vector3 waterPoint)
+public class Map
 {
-  public string Name { get; } = name;
-  public int SizeX { get; set; } = sizeX;
-  public int SizeY { get; set; } = sizeY;
-  public List<TreeLine> TreeLines { get; } = treeLines;
-  public Vector3 WaterPoint { get; } = waterPoint;
-  public List<Item.Item> Items { get; set; } = new();
+  public string Name { get; }
+  private int SizeX { get; set; }
+  private int SizeY { get; set; }
+  public List<TreeLine> TreeLines { get; }
+  public Vector3 WaterPoint { get; }
+  public List<Item.Item> Items { get; init; } = new();
   public bool IsLullabyPlaying { get; set; } = false;
   public bool IsDansePlaying { get; set; } = false;
   [JsonIgnore]
@@ -19,7 +20,32 @@ public class Map(string name, int sizeX, int sizeY, List<TreeLine> treeLines, Ve
   [JsonIgnore]
   public List<Channel> TreesChannels { get; set; } = new();
   [JsonIgnore]
-  public Channel? BackgroundChannel { get; set; } 
+  public Channel? BackgroundChannel { get; set; }
+
+  public Map(string name, int sizeX, int sizeY, List<TreeLine> treeLines, Vector3 waterPoint)
+  {
+    Name = name;
+    SizeX = sizeX;
+    SizeY = sizeY;
+    TreeLines = treeLines;
+    WaterPoint = waterPoint;
+    TimedBehaviour<Map> ticketPopBehaviour = new(this, 30000 * 60, 60000 * 60, (map) => map.PopTicketPack(), true);
+
+  }
+
+  private void PopTicketPack()
+  {
+    if (!Items.OfType<TicketPack>().Any())
+    {
+      Vector3 randPos;
+      do
+      {
+        randPos = new Vector3(Game.Random.Next(SizeX + 1), Game.Random.Next(SizeY + 1), 0);
+      } while (IsInLake(randPos) || GetTreeLineAtPosition(randPos) != null);
+      AddItem(new TicketPack(Game.Random.Next(4)), randPos);
+    }
+  }
+
   public Vector3 Clamp(Vector3 value)
   {
     var x = Math.Clamp(value.X, SizeX / 2 * -1, SizeX / 2);
@@ -28,7 +54,7 @@ public class Map(string name, int sizeX, int sizeY, List<TreeLine> treeLines, Ve
     var newPos = new Vector3(x, y, z);
     return newPos;
   }
-  public bool isInLake(Vector3 position) => Util.IsInSquare(position, WaterPoint, 5);
+  public bool IsInLake(Vector3 position) => Util.IsInSquare(position, WaterPoint, 5);
   public TreeLine? GetTreeLineAtPosition(Vector3 position)
   {
     return TreeLines.FirstOrDefault(

@@ -36,8 +36,8 @@ internal class MusicBox : Item
       }
   }
 
-  protected override string _translateKeyName { get; set; } = "musicbox.name";
-  protected override string _translateKeyDescription { get; set; } = "musicbox.description";
+  protected override string _translateKeyName { get; } = "musicbox.name";
+  protected override string _translateKeyDescription { get; } = "musicbox.description";
   public override Vector3? Position { get; set; } = null;
   public override Channel? Channel { get; set; }
   public override bool IsTakable { get; set; } = true;

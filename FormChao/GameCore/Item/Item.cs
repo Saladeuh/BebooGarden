@@ -12,15 +12,15 @@ public abstract class Item
     SoundLoopTimer = new TimedBehaviour<Item>(this, 3000, 3000, item => { item.PlaySound(); }, true);
   }
 
-  protected abstract string _translateKeyName { get; set; }
+  protected abstract string _translateKeyName { get; }
   public string Name { get => Game.GetLocalizedString(_translateKeyName); }
-  protected abstract string _translateKeyDescription { get; set; }
+  protected abstract string _translateKeyDescription { get; }
   public string Description { get => Game.GetLocalizedString(_translateKeyDescription); }
   public virtual Vector3? Position { get; set; } // poition null=in inventory
   public virtual bool IsTakable { get; set; } = true;
   public virtual bool IsWaterProof { get; set; } = false;
   public virtual int Cost { get; set; } = 1;
-  [JsonIgnore] public abstract Channel? Channel { get; set; }
+  [JsonIgnore] public virtual Channel? Channel { get; set; }
   public TimedBehaviour<Item> SoundLoopTimer { get; set; }
 
   public virtual void Action()

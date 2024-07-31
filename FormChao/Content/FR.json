@@ -55,5 +55,6 @@
     "ui.basket": "Il y a {0} fruits dans le panier",
     "ui.back": "Retour",
     "shop.item": "{0}, {1} tickets", // 0=item name, 1=cost
-    "inventory.item": "{0} (×{1})" //0=item name 1=count of item
+    "inventory.item": "{0} (×{1})", //0=item name 1=count of item
+    "gainticket": "Vous gagnez {0} ticket"
 }
