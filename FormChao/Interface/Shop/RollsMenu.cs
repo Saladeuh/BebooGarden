@@ -13,7 +13,7 @@ internal class RollsMenu(string title, Dictionary<string, Roll> choices, bool cl
     Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuOkSound);
     var clickedButton = (Button)sender;
     Result = Choices[clickedButton.Text];
-    Result?.Take();
+    Result?.Buy();
   }
   protected override void Back(object? sender, EventArgs e)
   {

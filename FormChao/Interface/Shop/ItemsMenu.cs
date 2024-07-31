@@ -12,8 +12,7 @@ public class ItemsMenu(string title, Dictionary<string, Item> choices, bool clos
     Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuOkSound);
     var clickedButton = (Button)sender;
     Result = Choices[clickedButton.Text];
-    Result?.Take();
-
+    Result?.Buy();
   }
   protected override void Back(object? sender, EventArgs e)
   {

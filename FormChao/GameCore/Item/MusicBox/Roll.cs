@@ -50,4 +50,18 @@ internal class Roll(
   public override void PlaySound()
   {
   }
+  public override void Buy()
+  {
+    if (Game.Tickets - Cost >= 0)
+    {
+      Game.Tickets -= Cost;
+      IGlobalActions.SayLocalizedString("shop.buy");
+      MusicBox.AvailableRolls.Add(Title + Source);
+    }
+    else
+    {
+      Game.SoundSystem.System.PlaySound(Game.SoundSystem.WarningSound);
+      IGlobalActions.SayLocalizedString("shop.notickets");
+    }
+  }
 }

@@ -62,7 +62,7 @@ internal class Game : IGlobalActions
     }
 
     PlayerName = Parameters.PlayerName;
-    Tickets = Parameters.Tickets;
+    Tickets = Parameters.Tickets+5;
     Inventory = Parameters.Inventory;
     Inventory.Clear();
     Inventory.Add(new MusicBox());
