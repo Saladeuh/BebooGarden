@@ -4,6 +4,7 @@ using System.Timers;
 using BebooGarden.GameCore;
 using BebooGarden.GameCore.World;
 using FmodAudio;
+using FmodAudio.Base;
 using Timer = System.Timers.Timer;
 
 namespace BebooGarden;
@@ -65,6 +66,7 @@ internal class SoundSystem
   public Sound MenuKeySound { get; private set; }
   public Sound MenuKeyDeleteSound { get; private set; }
   public Sound MenuKeyFullSound { get; private set; }
+  public Sound MenuReturnSound { get; private set; }
   public Sound WarningSound { get; private set; }
   public Sound MenuOkSound { get; private set; }
   public Sound WaterSound { get; private set; }
@@ -86,6 +88,7 @@ internal class SoundSystem
   public Sound JingleLittleStar { get; private set; }
   public Sound UpSound { get; private set; }
   public Sound DownSound { get; private set; }
+  public SoundHandle ShopSound { get; private set; }
   public Sound CinematicHatch { get; private set; }
   public Sound CinematicElevator { get; private set; }
 
@@ -177,7 +180,9 @@ internal class SoundSystem
     MenuKeySound = System.CreateSound(CONTENTFOLDER + "sounds/menu/key.wav", Mode.Unique);
     MenuKeyDeleteSound = System.CreateSound(CONTENTFOLDER + "sounds/menu/keydelete.wav", Mode.Unique);
     MenuKeyFullSound = System.CreateSound(CONTENTFOLDER + "sounds/menu/keyfull.wav", Mode.Unique);
+    MenuReturnSound= System.CreateSound(CONTENTFOLDER + "sounds/menu/return.wav", Mode.Unique);
     WarningSound = System.CreateSound(CONTENTFOLDER + "sounds/menu/warn.wav", Mode.Unique);
+    ShopSound = System.CreateStream(CONTENTFOLDER + "sounds/menu/shop.wav");
   }
 
   public void LoadMap(Map map)
@@ -342,7 +347,7 @@ internal class SoundSystem
 
   public void Pause(Map map)
   {
-    foreach(var channel in map.TreesChannels) channel.Paused = true;
+    foreach (var channel in map.TreesChannels) channel.Paused = true;
     foreach (var channel in map.WaterChannels) channel.Paused = true;
     foreach (var item in map.Items) item.SoundLoopTimer?.Stop();
     //if (map != null) map.BackgroundChannel.Paused = true;

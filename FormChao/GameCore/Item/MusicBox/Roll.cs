@@ -55,6 +55,7 @@ internal class Roll(
     if (Game.Tickets - Cost >= 0)
     {
       Game.Tickets -= Cost;
+      Game.SoundSystem.System.PlaySound(Game.SoundSystem.ShopSound);
       IGlobalActions.SayLocalizedString("shop.buy");
       MusicBox.AvailableRolls.Add(Title + Source);
     }
