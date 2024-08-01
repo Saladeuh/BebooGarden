@@ -38,7 +38,7 @@
     "duck.description": "It's just a duck",
     "ticketpack.name": "Tickets pack",
     "ticketpack.description": "Jack pot!",
-    
+
     "roll.name": "Music box's roll",
     "egg.name": "Beboo's egg",
     "ui.empty": "You must type something.",
@@ -61,8 +61,11 @@
     "ui.back": "back",
     "shop.item": "{0}, {1} tickets", // 0=item name, 1=cost
     "shop.items": "Items ({0} remaining tickets)", //0=tickets remaining number
+    "shop.itemstitle": "Items",
     "shop.rolls": "Music box rolls ({0} remainsing tickets)", //0=tickets remaining number
+    "shop.rollstitle": "Music Box rolls",
     "shop.title": "Welcome to the boutique! ({0} remainsing tickets)", //0=tickets remaining number    
     "inventory.item": "{0} (×{1})", //0=item name 1=count of item
-    "gainticket": "You gain {0} ticket"
+    "gainticket": "You gain {0} ticket",
+    "shopunlock": "You unlock the boutique!\nGo to the lower right corner of the garden to redeem your tickets!"
 }

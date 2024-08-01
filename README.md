@@ -1,5 +1,5 @@
 # todo
-- début, tooltip, stop boîte à sik
+- début, stop boîte à sik
 - niveaux
 - miam caresse, danse, œuf couleur, saleté?
 - jouets: bulles, boombox, race, boing

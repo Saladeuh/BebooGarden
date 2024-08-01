@@ -78,7 +78,7 @@ internal class Game : IGlobalActions
   public static Random Random { get; set; } = new();
   public SaveParameters Parameters { get; }
   public static Map? Map { get; private set; }
-  public Flags Flags { get; }
+  public static Flags Flags { get; set; }
   public string PlayerName { get; }
   public static List<Item.Item> Inventory { get; set; } = [];
   public static int Tickets { get; set; } = 0;
@@ -90,6 +90,12 @@ internal class Game : IGlobalActions
       Tickets += amount;
       SayLocalizedString("gainticket", amount);
       SoundSystem.System.PlaySound(SoundSystem.MenuOk2Sound);
+      if (!Flags.UnlockShop)
+      {
+        Flags.UnlockShop = true;
+        SoundSystem.System.PlaySound(SoundSystem.JingleComplete);
+        ShopUnlock.Run();
+      }
     }
   }
   public static void Call(object? sender, EventArgs eventArgs)
