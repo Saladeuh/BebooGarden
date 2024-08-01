@@ -67,5 +67,6 @@
     "shop.title": "Bienvenue dans la boutique! ({0} tickets restants)", //0=tickets remaining number    
     "inventory.item": "{0} (×{1})", //0=item name 1=count of item
     "gainticket": "Vous gagnez {0} ticket",
-    "shopunlock": "Vous venez de débloquer l'accès à la boutique!\nRendez-vous dans le coin inférieur droit du jardin pour échanger vos tickets!"
+    "shopunlock": "Vous venez de débloquer l'accès à la boutique!\nRendez-vous dans le coin inférieur droit du jardin pour échanger vos tickets!",
+    "shop": "Boutique"
 }

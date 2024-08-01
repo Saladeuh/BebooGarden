@@ -2,21 +2,21 @@
 
 namespace BebooGarden.GameCore.Item;
 
-internal class TicketPack(int amouot) : Item
+internal class TicketPack(int amount) : Item
 {
   protected override string _translateKeyName { get; } = "ticketpack.name";
   protected override string _translateKeyDescription { get; } = "ticketpack.description";
+  public override bool IsTakable { get; set; } = true;
 
   public override void Action()
   {
     Take();
   }
-  private int Amount { get; set; } = amouot;
+  public int Amount { get; set; } = amount;
   public override void PlaySound()
   {
     if (Position == null) return;
     Channel = Game.SoundSystem.PlaySoundAtPosition(Game.SoundSystem.ItemTicketPackSound, (Vector3)Position);
-
   }
 
   public override Vector3? Position { get; set; } // position null=in inventory

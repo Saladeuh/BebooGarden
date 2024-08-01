@@ -67,5 +67,6 @@
     "shop.title": "Welcome to the boutique! ({0} remainsing tickets)", //0=tickets remaining number    
     "inventory.item": "{0} (×{1})", //0=item name 1=count of item
     "gainticket": "You gain {0} ticket",
-    "shopunlock": "You unlock the boutique!\nGo to the lower right corner of the garden to redeem your tickets!"
+    "shopunlock": "You unlock the boutique!\nGo to the lower right corner of the garden to redeem your tickets!",
+    "shop": "Boutique"
 }
