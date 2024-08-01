@@ -20,6 +20,11 @@ internal class Duck : Item
     Game.GainTicket(1);
 #endif
   }
+  public override void BebooAction()
+  {
+    base.BebooAction();
+    Action();
+  }
   public override void PlaySound()
   {
     if (Position == null) return;

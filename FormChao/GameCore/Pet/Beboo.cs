@@ -147,6 +147,13 @@ public class Beboo
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooStepSound, Position, false);
       EndPanik();
     }
+
+    var proximityItem = Game.Map?.GetItemArroundPosition(Position);
+    if (Happy && proximityItem != null && Game.Random.Next(8) == 1)
+    {
+      proximityItem.BebooAction();
+      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooFunSounds, Position);
+    }
     var moved = Position != GoalPosition;
     if (!moved) GoalPosition = null;
     return moved;

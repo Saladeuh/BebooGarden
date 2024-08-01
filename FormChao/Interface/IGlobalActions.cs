@@ -115,4 +115,5 @@ internal class IGlobalActions
   {
     CultureInfo.CurrentUICulture = new CultureInfo(language);
   }
+
 }

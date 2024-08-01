@@ -83,7 +83,13 @@ internal class MusicBox : Item
       IGlobalActions.SayLocalizedString("musicbox.noroll");
     }
   }
-
+  public override void BebooAction()
+  {
+    base.BebooAction();
+    var rollName = AvailableRolls[Game.Random.Next(AvailableRolls.Count)];
+    var roll = Array.Find(AllRolls, roll => roll.Title + roll.Source == rollName);
+    roll?.Play();
+  }
   public override void PlaySound()
   {
   }

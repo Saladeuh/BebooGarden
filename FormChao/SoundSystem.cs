@@ -93,6 +93,7 @@ internal class SoundSystem
   public SoundHandle ShopSound { get; private set; }
   public Sound CinematicHatch { get; private set; }
   public Sound CinematicElevator { get; private set; }
+  public List<Sound> BebooFunSounds { get; private set; }
 
   private void LoadSoundsInList(string[] files, List<Sound> sounds, string prefixe = "")
   {
@@ -141,6 +142,8 @@ internal class SoundSystem
     LoadSoundsInList(["pet.wav", "pet2.wav"], BebooPetSound, "sounds/character/");
     BebooCrySounds = new List<Sound>();
     LoadSoundsInList(["trist.wav", "trist2.wav"], BebooCrySounds, "sounds/beboo/");
+    BebooFunSounds = new List<Sound>();
+    LoadSoundsInList(["rir.wav", "rir2.wav"], BebooFunSounds, "sounds/beboo/");
     WhistleSound = System.CreateSound(CONTENTFOLDER + "sounds/character/se_sys_whistle_1p.wav", Mode.Unique);
     TreesShakeSound = System.CreateSound(CONTENTFOLDER + "sounds/character/Tree_Shake.wav");
     FruitsSounds = new SortedDictionary<FruitSpecies, Sound>

@@ -53,4 +53,8 @@ public abstract class Item
       IGlobalActions.SayLocalizedString("shop.notickets");
     }
   }
+  public virtual void BebooAction()
+  {
+
+  }
 }
