@@ -60,6 +60,7 @@ internal class SoundSystem
   public Sound ItemTakeSound { get; private set; }
   public Sound ItemPutWaterSound { get; private set; }
   public Sound ItemDuckSound { get; private set; }
+  public Sound ItemTicketPackSound { get; private set; }
   public List<Sound> EggKrakSounds { get; private set; }
   public Sound GrassSound { get; private set; }
   public Sound MenuBipSound { get; private set; }
@@ -170,6 +171,7 @@ internal class SoundSystem
     ItemTakeSound = System.CreateSound(CONTENTFOLDER + "sounds/pwik.wav", Mode.Unique);
     ItemPutWaterSound = System.CreateSound(CONTENTFOLDER + "sounds/character/itemwaterfall.wav", Mode.Unique);
     ItemDuckSound = System.CreateSound(CONTENTFOLDER + "sounds/kwak.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
+    ItemTicketPackSound = System.CreateSound(CONTENTFOLDER + "sounds/ticket.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     EggKrakSounds = new List<Sound>();
     LoadSoundsInList(["krak.wav", "krak2.wav"], EggKrakSounds, "sounds/egg/");
   }

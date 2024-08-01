@@ -65,6 +65,7 @@ internal class Game : IGlobalActions
     Tickets = Parameters.Tickets;
     Inventory = Parameters.Inventory;
     Inventory.Add(new TicketPack(2));
+    Inventory.Add(new Duck());
   }
 
   public static SoundSystem SoundSystem { get; }
@@ -84,7 +85,7 @@ internal class Game : IGlobalActions
   public Item.Item? ItemInHand { get; private set; }
   public static void GainTicket(int amount)
   {
-    if (Tickets > 0)
+    if (amount > 0)
     {
       Tickets += amount;
       SayLocalizedString("gainticket", amount);

@@ -21,6 +21,7 @@ public abstract class Item
   public virtual bool IsWaterProof { get; set; } = false;
   public virtual int Cost { get; set; } = 1;
   [JsonIgnore] public virtual Channel? Channel { get; set; }
+  [JsonIgnore]
   public TimedBehaviour<Item> SoundLoopTimer { get; set; }
 
   public virtual void Action()
@@ -32,6 +33,7 @@ public abstract class Item
   public virtual void Take()
   {
     Game.Map?.Items.Remove(this);
+    Position = null;
     IGlobalActions.SayLocalizedString("ui.itemtake", IGlobalActions.GetLocalizedString(_translateKeyName));
     Game.SoundSystem.System.PlaySound(Game.SoundSystem.ItemTakeSound);
     Game.Inventory.Add(this);

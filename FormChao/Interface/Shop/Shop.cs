@@ -19,9 +19,9 @@ public class Shop
         item => IGlobalActions.GetLocalizedString("shop.item", item.Name, item.Cost),
         item => item
     );
-    ItemsMenu = new("shop.items", itemsDictionary);
-    RollsMenu = new("shop.rolls", MusicBox.AllRolls.ToDictionary(roll => roll.Title, roll => roll));
-    MainShopMenu = new("shop.title", new Dictionary<string, Form>()
+    ItemsMenu = new(IGlobalActions.GetLocalizedString( "shop.items", Game.Tickets), itemsDictionary);
+    RollsMenu = new(IGlobalActions.GetLocalizedString( "shop.rolls", Game.Tickets), MusicBox.AllRolls.ToDictionary(roll => roll.Title, roll => roll));
+    MainShopMenu = new(IGlobalActions.GetLocalizedString("shop.title", Game.Tickets), new Dictionary<string, Form>()
     {
       { "shop.items", ItemsMenu },
       { "shop.rolls", RollsMenu }

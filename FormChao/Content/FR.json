@@ -33,7 +33,12 @@
     "beboo.verygood": "{0} est en pleine forme!",
     //0=beboo name
     "musicbox.name": "Boîte à musique",
+    "musicbox.description": "Un objet ancien qui permet de jouer de la musique en y mettant un rouleau",
     "musicbox.noroll": "Vous n'avez pas encore de rouleau a y mettre",
+    "duck.name": "Canard en caoutchouc",
+    "duck.description": "C'est juste un canard",
+    "ticketpack.name": "Paquet de tickets",
+    "ticketpack.description": "Jack pot!",
     "egg.name": "œuf de bébou",
     "roll.name": "Rouleau de boîte à musique",
     "ui.empty": "Vous devez écrire quelque chose.",
@@ -55,6 +60,9 @@
     "ui.basket": "Il y a {0} fruits dans le panier",
     "ui.back": "Retour",
     "shop.item": "{0}, {1} tickets", // 0=item name, 1=cost
+    "shop.items": "Objets ({0} tickets restants)", //0=tickets remaining number
+    "shop.rolls": "Rouleaux de boîte à musique ({0} tickets restants)", //0=tickets remaining number
+    "shop.title": "Bienvenue dans la boutique! ({0} tickets restants)", //0=tickets remaining number    
     "inventory.item": "{0} (×{1})", //0=item name 1=count of item
     "gainticket": "Vous gagnez {0} ticket"
 }

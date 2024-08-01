@@ -29,8 +29,7 @@ public class Map
     SizeY = sizeY;
     TreeLines = treeLines;
     WaterPoint = waterPoint;
-    TimedBehaviour<Map> ticketPopBehaviour = new(this, 30000 * 60, 60000 * 60, (map) => map.PopTicketPack(), true);
-
+    TimedBehaviour<Map> ticketPopBehaviour = new(this, 30000, 60000, (map) => map.PopTicketPack(), true);
   }
 
   private void PopTicketPack()
@@ -40,7 +39,7 @@ public class Map
       Vector3 randPos;
       do
       {
-        randPos = new Vector3(Game.Random.Next(SizeX + 1), Game.Random.Next(SizeY + 1), 0);
+        randPos = new Vector3(Game.Random.Next(-SizeX/2, SizeX/2), Game.Random.Next(-SizeY /2, SizeY/2), 0);
       } while (IsInLake(randPos) || GetTreeLineAtPosition(randPos) != null);
       AddItem(new TicketPack(Game.Random.Next(4)), randPos);
     }
@@ -69,6 +68,7 @@ public class Map
     item.Position = position;
     return true;
   }
+
 
   public Item.Item? GetItemArroundPosition(Vector3 position)
   {
