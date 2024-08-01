@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Numerics;
 using System.Timers;
 using BebooGarden.GameCore;
+using BebooGarden.GameCore.Pet;
 using BebooGarden.GameCore.World;
 using FmodAudio;
 using FmodAudio.Base;
@@ -83,7 +84,6 @@ internal class SoundSystem
   public Sound ShopMusicStream { get; private set; }
   public List<Sound> BebooPetSound { get; private set; }
   public List<Sound> BebooCrySounds { get; private set; }
-  public Channel BebooChannel { get; private set; }
   public List<Sound> BebooDelightSounds { get; private set; }
   public Sound JingleStar2 { get; private set; }
   public Sound JingleWaw { get; private set; }
@@ -100,7 +100,7 @@ internal class SoundSystem
     foreach (var file in files)
     {
       var sound = System.CreateSound(CONTENTFOLDER + prefixe + file,
-          Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
+          Mode._3D | Mode._3D_LinearSquareRolloff);
       sounds.Add(sound);
     }
   }
@@ -152,11 +152,11 @@ internal class SoundSystem
     };
     WallSound = System.CreateSound(CONTENTFOLDER + "sounds/wall.wav", Mode.Unique);
     BebooStepSound = System.CreateSound(CONTENTFOLDER + "sounds/beboo/step.wav",
-        Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
+        Mode._3D | Mode._3D_LinearSquareRolloff);
     BebooStepWaterSound = System.CreateSound(CONTENTFOLDER + "sounds/buble4.wav",
-        Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
+        Mode._3D | Mode._3D_LinearSquareRolloff);
     BebooScreamSound = System.CreateSound(CONTENTFOLDER + "sounds/beboo/cri.wav",
-        Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
+        Mode._3D | Mode._3D_LinearSquareRolloff);
     CinematicHatch = System.CreateStream(CONTENTFOLDER + "cinematic/hatch.wav");
     CinematicElevator = System.CreateStream(CONTENTFOLDER + "cinematic/elevator.mp3");
     LoadItemSound();
@@ -201,17 +201,20 @@ internal class SoundSystem
     waterChannel.Volume = 0.1f;
     waterChannel.Paused = false;
     map.WaterChannels.Add(waterChannel);
-    Channel treeChannel = System.PlaySound(TreeWindSound, paused: true)!;
-    treeChannel.SetLoopPoints(TimeUnit.PCM, 668725, TimeUnit.PCM, 2961327);
-    var treePosVector2 = map.TreeLines[0].X;
-    var treePosVector3 = new Vector3(treePosVector2.X, treePosVector2.Y, 10);
-    treeChannel.Set3DAttributes(treePosVector3, default, default);
-    treeChannel.Set3DMinMaxDistance(60f, 60f);
-    treeChannel.Set3DConeSettings(200, 2001, 0.3f);
-    treeChannel.Set3DConeOrientation(new Vector3(1, 0, 0));
-    treeChannel.Volume = 0.2f;
-    treeChannel.Paused = false;
-    map.TreesChannels.Add(treeChannel);
+    if (map.TreeLines.Count > 0)
+    {
+      Channel treeChannel = System.PlaySound(TreeWindSound, paused: true)!;
+      treeChannel.SetLoopPoints(TimeUnit.PCM, 668725, TimeUnit.PCM, 2961327);
+      var treePosVector2 = map.TreeLines[0].X;
+      var treePosVector3 = new Vector3(treePosVector2.X, treePosVector2.Y, 10);
+      treeChannel.Set3DAttributes(treePosVector3, default, default);
+      treeChannel.Set3DMinMaxDistance(60f, 60f);
+      treeChannel.Set3DConeSettings(200, 2001, 0.3f);
+      treeChannel.Set3DConeOrientation(new Vector3(1, 0, 0));
+      treeChannel.Volume = 0.2f;
+      treeChannel.Paused = false;
+      map.TreesChannels.Add(treeChannel);
+    }
     Sound sound = System.CreateStream(CONTENTFOLDER + "sounds/Grass_Shake.wav");
     map.BackgroundChannel = System.PlaySound(sound, paused: false)!;
     map.BackgroundChannel.SetLoopPoints(TimeUnit.MS, 678, TimeUnit.MS, 6007);
@@ -285,18 +288,18 @@ internal class SoundSystem
     System.Set3DListenerAttributes(0, newPos, default, in Forward, in Up);
   }
 
-  public void PlayBebooSound(Sound sound, Vector3 position, bool stopOthers = true)
+  public void PlayBebooSound(Sound sound, Beboo beboo, bool stopOthers = true)
   {
-    if (BebooChannel != null && stopOthers && BebooChannel.IsPlaying) BebooChannel.Stop();
-    BebooChannel = PlaySoundAtPosition(sound, position);
+    if (beboo.Channel != null && stopOthers && beboo.Channel.IsPlaying) beboo.Channel.Stop();
+    beboo.Channel = PlaySoundAtPosition(sound, beboo.Position);
   }
 
-  public void PlayBebooSound(List<Sound> sounds, Vector3 position, bool stopOthers = true, float volume = -1)
+  public void PlayBebooSound(List<Sound> sounds, Beboo beboo, bool stopOthers = true, float volume = -1)
   {
     var sound = sounds[Game.Random.Next(sounds.Count())];
-    if (BebooChannel != null && stopOthers && BebooChannel.IsPlaying) BebooChannel.Stop();
-    BebooChannel = PlaySoundAtPosition(sound, position);
-    if (volume != -1) BebooChannel.Volume = volume;
+    if (beboo.Channel != null && stopOthers && beboo.Channel.IsPlaying) beboo.Channel.Stop();
+    beboo.Channel = PlaySoundAtPosition(sound, beboo.Position);
+    if (volume != -1) beboo.Channel.Volume = volume;
   }
 
   public Channel PlaySoundAtPosition(Sound sound, Vector3 position)

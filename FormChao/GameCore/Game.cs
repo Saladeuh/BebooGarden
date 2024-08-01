@@ -1,6 +1,5 @@
 ﻿using System.Globalization;
 using System.Numerics;
-using System.Security.Policy;
 using BebooGarden.GameCore.Item;
 using BebooGarden.GameCore.Item.MusicBox;
 using BebooGarden.GameCore.Pet;
@@ -11,11 +10,13 @@ using BebooGarden.Interface.Shop;
 using BebooGarden.Save;
 using Timer = System.Windows.Forms.Timer;
 
+
 namespace BebooGarden.GameCore;
 
 internal class Game : IGlobalActions
+
 {
-  private static readonly Timer TickTimer = new();
+  public static readonly Timer TickTimer = new();
 
   private bool _lastArrowWasUp;
 
@@ -43,7 +44,7 @@ internal class Game : IGlobalActions
     if (!Flags.NewGame)
     {
       Map.TreeLines[0].SetFruitsAfterAWhile(Parameters.LastPlayed, Parameters.RemainingFruits);
-      Beboo = new Beboo(Parameters.BebooName, Parameters.Age, Parameters.LastPlayed, Parameters.Happiness);
+      Beboos[0] = new Beboo(Parameters.BebooName, Parameters.Age, Parameters.LastPlayed, Parameters.Happiness);
     }
     else
     {
@@ -72,7 +73,7 @@ internal class Game : IGlobalActions
   public static SoundSystem SoundSystem { get; }
   public static Dictionary<Keys, bool> KeyState { get; private set; }
   private DateTime LastPressedKeyTime { get; set; }
-  public static Beboo? Beboo { get; set; }
+  public static Beboo[] Beboos { get; set; } = new Beboo[3];
   private Vector3 PlayerPosition { get; set; }
   public SortedDictionary<FruitSpecies, int>? FruitsBasket { get; set; }
   public static Form1? GameWindow { get; private set; }
@@ -102,14 +103,15 @@ internal class Game : IGlobalActions
   }
   public static void Call(object? sender, EventArgs eventArgs)
   {
-    if (Beboo == null || Beboo.Sleeping) return;
+    if (Beboos[0] == null || Beboos[0].Sleeping) return;
     SoundSystem.System.Get3DListenerAttributes(0, out var currentPosition, out _, out _, out _);
     Task.Run(async () =>
     {
       await Task.Delay(1000);
-      Beboo.WakeUp();
+      Beboos[0]?.WakeUp();
     });
-    Beboo.GoalPosition = currentPosition;
+    var beboo = Beboos[0];
+    if (beboo != null) beboo.GoalPosition = currentPosition;
   }
 
   public void KeyDownMapper(object sender, KeyEventArgs e)
@@ -174,11 +176,11 @@ internal class Game : IGlobalActions
         break;
       case Keys.Escape:
         Dictionary<string, Item.Item> options = [];
-        if (Inventory.Count() > 0)
+        if (Inventory.Count > 0)
         {
           foreach (var item in Inventory)
           {
-            int occurences = Inventory.FindAll(x => x.Name == item.Name).Count();
+            int occurences = Inventory.FindAll(x => x.Name == item.Name).Count;
             string text = GetLocalizedString("inventory.item", item.Name, occurences);
             if (options.Keys.ToList().Find(x => x.Contains(item.Name)) == null && occurences == 1) options.Add(item.Name, item);
             else if (options.Keys.ToList().Find(x => x.Contains(text)) == null)
@@ -192,6 +194,7 @@ internal class Game : IGlobalActions
         }
         break;
       case Keys.F1:
+        new Minigame.Race().Run();
         break;
       case Keys.Space:
         if (ItemInHand != null)
@@ -201,9 +204,9 @@ internal class Game : IGlobalActions
         else
         {
           if (KeyState[Keys.Space]) break;
-          if (Beboo != null && Util.IsInSquare(Beboo.Position, PlayerPosition, 1))
+          if (Beboos[0] != null && Util.IsInSquare(Beboos[0].Position, PlayerPosition, 1))
           {
-            if (Beboo.Sleeping) Whistle();
+            if (Beboos[0].Sleeping) Whistle();
             else FeedBeboo();
           }
           else if (Map?.GetTreeLineAtPosition(PlayerPosition) != null)
@@ -227,7 +230,7 @@ internal class Game : IGlobalActions
     KeyState[e.KeyCode] = true;
   }
 
-  private void SayTickets()
+  private static void SayTickets()
   {
     SayLocalizedString(Tickets.ToString());
   }
@@ -244,26 +247,31 @@ internal class Game : IGlobalActions
     }
     else
     {
-      Map?.AddItem(ItemInHand, PlayerPosition);
-      SayLocalizedString("ui.itemput", ItemInHand.Name);
-      if (inWater) SoundSystem.System.PlaySound(SoundSystem.ItemPutWaterSound);
-      else SoundSystem.System.PlaySound(SoundSystem.ItemPutSound);
-      Inventory.Remove(ItemInHand);
+      if (ItemInHand != null)
+      {
+        Map?.AddItem(ItemInHand, PlayerPosition);
+        SayLocalizedString("ui.itemput", ItemInHand.Name);
+        if (inWater) SoundSystem.System.PlaySound(SoundSystem.ItemPutWaterSound);
+        else SoundSystem.System.PlaySound(SoundSystem.ItemPutSound);
+        Inventory.Remove(ItemInHand);
+      }
+
       ItemInHand = null;
     }
   }
   private static void SayBebooState()
   {
-    if (Beboo == null) return;
+    if (Beboos[0] == null) return;
     string sentence;
-    if (Beboo.Sleeping) sentence = "beboo.sleep";
-    else if (Beboo.Energy < 0) sentence = "beboo.verytired";
-    else if (Beboo.Happiness < 0) sentence = "beboo.verysad";
-    else if (Beboo.Energy < 5) sentence = "beboo.littletired";
-    else if (Beboo.Happiness < 4) sentence = "beboo.littlesad";
-    else if (Beboo.Energy < 8) sentence = "beboo.good";
+    if (Beboos[0].Sleeping) sentence = "beboo.sleep";
+    else if (Beboos[0]?.Energy < 0) sentence = "beboo.verytired";
+    else if (Beboos[0]?.Happiness < 0) sentence = "beboo.verysad";
+    else if (Beboos[0]?.Energy < 5) sentence = "beboo.littletired";
+    else if (Beboos[0]?.Happiness < 4) sentence = "beboo.littlesad";
+    else if (Beboos[0]?.Energy < 8) sentence = "beboo.good";
     else sentence = "beboo.verygood";
-    SayLocalizedString(sentence, Beboo.Name);
+    var name = Beboos[0]?.Name;
+    if (name != null) SayLocalizedString(sentence, name);
     //ScreenReader.Output($"Energy {Beboo.Energy}, hapiness {Beboo.Happiness}");
   }
 
@@ -284,16 +292,16 @@ internal class Game : IGlobalActions
     }
     else
     {
-      Beboo?.GetPetted();
+      Beboos[0]?.GetPetted();
     }
   }
 
   private void FeedBeboo()
   {
-    if (Beboo == null) return;
+    if (Beboos == null) return;
     if (FruitsBasket != null && FruitsBasket[FruitSpecies.Normal] > 0)
     {
-      Beboo.Eat(FruitSpecies.Normal);
+      Beboos[0]?.Eat(FruitSpecies.Normal);
       FruitsBasket[FruitSpecies.Normal]--;
     }
   }
@@ -305,9 +313,9 @@ internal class Game : IGlobalActions
     Task.Run(async () =>
     {
       await Task.Delay(1000);
-      Beboo?.WakeUp();
+      Beboos[0]?.WakeUp();
     });
-    if (Beboo != null) Beboo.GoalPosition = currentPosition;
+    if (Beboos[0] != null) Beboos[0].GoalPosition = currentPosition;
   }
 
   private void MoveOf(Vector3 movement)
@@ -326,16 +334,19 @@ internal class Game : IGlobalActions
   {
     var treeLine = Map?.GetTreeLineAtPosition(PlayerPosition);
     var item = Map?.GetItemArroundPosition(PlayerPosition);
-    if (Beboo != null && Util.IsInSquare(Beboo.Position, PlayerPosition, 1))
-      ScreenReader.Output(Beboo.Name);
-    else if (treeLine != null)
+    foreach (var beboo in Beboos)
+    {
+      if (Util.IsInSquare(beboo.Position, PlayerPosition, 1))
+        ScreenReader.Output(beboo.Name);
+    }
+    if (treeLine != null)
       SayLocalizedString("trees");
     else if (item != null) SayLocalizedString(item.Name);
   }
 
   private void Tick(object? _, EventArgs __)
   {
-    if (Map != null && Map.IsLullabyPlaying) Beboo?.GoAsleep();
+    if (Map != null && Map.IsLullabyPlaying) Beboos[0]?.GoAsleep();
     SoundSystem.System.Update();
   }
 
@@ -351,14 +362,16 @@ internal class Game : IGlobalActions
 
   public static void Pause()
   {
-    Beboo.Pause();
+    Beboos[0].Pause();
     SoundSystem.DisableAmbiTimer();
+    if (Map == null) return;
     SoundSystem.Pause(Map);
   }
   public static void Unpause()
   {
-    Beboo.Unpause();
+    Beboos[0].Unpause();
     SoundSystem.EnableAmbiTimer();
+    if (Map == null) return;
     SoundSystem.Unpause(Map);
   }
   internal void Close(object? sender, FormClosingEventArgs e)
@@ -366,10 +379,10 @@ internal class Game : IGlobalActions
     Map?.Items.RemoveAll(item => typeof(Roll) == item.GetType());
     var parameters = new SaveParameters(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName,
        SoundSystem.Volume,
-       Beboo?.Name ?? "",
-       energy: Beboo?.Energy ?? 5,
-       happiness: Beboo?.Happiness ?? 5,
-       age: Beboo?.Age ?? 0,
+       Beboos[0]?.Name ?? "",
+       energy: Beboos[0]?.Energy ?? 5,
+       happiness: Beboos[0]?.Happiness ?? 5,
+       age: Beboos[0]?.Age ?? 0,
        lastPayed: DateTime.Now,
        flags: Flags,
        playerName: PlayerName,
@@ -381,7 +394,13 @@ internal class Game : IGlobalActions
        unlockedRolls: MusicBox.AvailableRolls,
        favoredColor: Parameters.FavoredColor
    );
-    parameters.Flags.NewGame = Game.Beboo == null;
+    parameters.Flags.NewGame = Game.Beboos == null;
     SaveManager.WriteJson(parameters);
+  }
+
+  internal static void ChangeMap(Map map)
+  {
+    Map= map;
+    SoundSystem.LoadMap(map);
   }
 }

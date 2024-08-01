@@ -13,12 +13,12 @@ public class Beboo
   private DateTime _lastPetted = DateTime.MinValue;
 
   private int _petCount;
-
-  public Beboo(string name, int age, DateTime lastPlayed, int happiness = 5)
+  public Channel? Channel { get; set; }
+  public Beboo(string name, int age, DateTime lastPlayed, int happiness = 5, bool racer=false)
   {
     Position = new Vector3(0, 0, 0);
     Name = name == string.Empty ? "boby" : name;
-    var isSleepingAtStart = DateTime.Now.Hour < 8 || DateTime.Now.Hour > 20;
+    var isSleepingAtStart = !(racer ||( DateTime.Now.Hour < 8 || DateTime.Now.Hour > 20));
     Sleeping = isSleepingAtStart;
     CuteBehaviour =
         new TimedBehaviour<Beboo>(this, 15000, 25000, beboo => { beboo.DoCuteThing(); }, !isSleepingAtStart);
@@ -31,11 +31,11 @@ public class Beboo
     GoingDepressedBehaviour =
         new TimedBehaviour<Beboo>(this, 120000, 150000, beboo => { beboo.Happiness--; }, true);
     SadBehaviour = new TimedBehaviour<Beboo>(this, 5000, 15000,
-        beboo => { Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooCrySounds, Position); }, false);
+        beboo => { Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooCrySounds, this); }, false);
     SleepingBehaviour = new TimedBehaviour<Beboo>(this, 5000, 10000, beboo =>
     {
       beboo.Energy += 0.10f;
-      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooSleepingSounds, Position, true, 0.3f);
+      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooSleepingSounds, this, true, 0.3f);
     }, isSleepingAtStart);
     var elapsedTime = DateTime.Now - lastPlayed;
     Happiness = elapsedTime.TotalHours > 4 ? 5 : happiness;
@@ -85,7 +85,7 @@ public class Beboo
     }
   }
 
-  public Vector3 Position { get; private set; }
+  public Vector3 Position { get; set; }
   public bool Happy { get; private set; } = true;
   public bool Sleeping { get; private set; }
   public bool Panik { get; private set; } = false;
@@ -139,12 +139,12 @@ public class Beboo
     Position += directionNormalized;
     if (Game.Map?.IsInLake(Position) ?? false)
     {
-      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooStepWaterSound, Position, false);
+      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooStepWaterSound, this, false);
       StartPanik();
     }
     else
     {
-      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooStepSound, Position, false);
+      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooStepSound, this, false);
       EndPanik();
     }
 
@@ -152,7 +152,7 @@ public class Beboo
     if (Happy && proximityItem != null && Game.Random.Next(8) == 1)
     {
       proximityItem.BebooAction();
-      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooFunSounds, Position);
+      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooFunSounds, this);
     }
     var moved = Position != GoalPosition;
     if (!moved) GoalPosition = null;
@@ -175,7 +175,7 @@ public class Beboo
   {
     if (Panik) return;
     Panik = true;
-    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooScreamSound, Position);
+    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooScreamSound, this);
     Happiness -= 2;
     Energy -= 2;
     FancyMoveBehaviour.MinMS = 400;
@@ -188,7 +188,7 @@ public class Beboo
 
   private void DoCuteThing()
   {
-    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooCuteSounds, Position);
+    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooCuteSounds, this);
   }
 
   private void WannaGoToRandomPlace()
@@ -207,8 +207,8 @@ public class Beboo
     FancyMoveBehaviour.Stop();
     CuteBehaviour.Stop();
     GoingDepressedBehaviour.Stop();
-    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.GrassSound, Position);
-    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooYawningSounds, Position);
+    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.GrassSound, this);
+    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooYawningSounds, this);
     Sleeping = true;
     SleepingBehaviour.Start();
   }
@@ -223,8 +223,8 @@ public class Beboo
     MoveBehaviour.Start(3000);
     CuteBehaviour.Start();
     GoingDepressedBehaviour.Start();
-    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.GrassSound, Position);
-    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooYawningSounds, Position);
+    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.GrassSound, this);
+    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooYawningSounds, this);
     Sleeping = false;
     BeHappy();
   }
@@ -236,8 +236,8 @@ public class Beboo
     {
       Energy++;
       Happiness++;
-      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooChewSounds, Position, true, 0.5f);
-      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooYumySounds, Position);
+      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooChewSounds, this, true, 0.5f);
+      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooYumySounds, this);
     }
   }
 
@@ -246,10 +246,10 @@ public class Beboo
     if ((DateTime.Now - _lastPetted).TotalMilliseconds < 700) return;
     _petCount++;
     _lastPetted = DateTime.Now;
-    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooPetSound, Position, false);
+    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooPetSound, this, false);
     if (_petCount + Game.Random.Next(2) >= 6)
     {
-      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooDelightSounds, Position);
+      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooDelightSounds, this);
       if (Happiness <= 7 && Game.Random.Next(2) == 1)
       {
         Happiness++;
