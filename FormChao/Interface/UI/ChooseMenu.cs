@@ -32,7 +32,7 @@ public partial class ChooseMenu<T> : Form
     bcak.Click += Back;
     bcak.Enter += btn_enter;
     Controls.Add(bcak);
-    KeyUp += Game.KeyUpMapper;
+    Game.ResetKeyState();
   }
 
   protected virtual void Back(object? sender, EventArgs e)

@@ -1,8 +1,9 @@
 # todo
-- début, stop boîte à sik
-- niveaux
-- miam caresse, danse, œuf couleur, saleté?
+- début
 - jouets: bulles, boombox, race, boing
+- maps
+- credits
+- miam caresse, danse, œuf couleur, stop sik, saleté?
 - online
 - maps shop+cosmétcs
 - plus commandes vocales

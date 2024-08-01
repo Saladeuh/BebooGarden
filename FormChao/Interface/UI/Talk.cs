@@ -12,7 +12,7 @@ public partial class Talk : Form
     ScreenReader.Output(Text);
     CurrentLine++;
     KeyDown += KeyHandle;
-    KeyUp += Game.KeyUpMapper;
+    Game.ResetKeyState();
   }
 
   private int CurrentLine { get; set; }

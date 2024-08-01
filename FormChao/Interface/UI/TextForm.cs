@@ -19,7 +19,7 @@ public partial class TextForm : Form
     TextBox.TextChanged += TextBox_modified;
     TextBox.KeyDown += TextBox_keydown;
     Controls.Add(TextBox);
-    KeyUp += Game.KeyUpMapper;
+    Game.ResetKeyState();
   }
 
   private TextBox TextBox { get; }
