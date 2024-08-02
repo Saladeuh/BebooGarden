@@ -84,6 +84,9 @@ internal class SoundSystem
   public Sound SadMusicStream { get; private set; }
   public Sound ShopMusicStream { get; private set; }
   public Sound RaceMusicStream { get; private set; }
+  public Sound RaceStopSound { get; private set; }
+  public Sound RaceGoodSound { get; private set; }
+  public Sound RaceBadSound { get; private set; }
   public List<Sound> BebooPetSound { get; private set; }
   public List<Sound> BebooCrySounds { get; private set; }
   public List<Sound> BebooDelightSounds { get; private set; }
@@ -120,7 +123,7 @@ internal class SoundSystem
     Music.Volume = 0.5f;
     SadMusicStream = System.CreateStream(CONTENTFOLDER + "music/Depressed.mp3", Mode.Loop_Normal);
     ShopMusicStream = System.CreateStream(CONTENTFOLDER + "music/Boutique.mp3", Mode.Loop_Normal);
-    RaceMusicStream = System.CreateStream(CONTENTFOLDER + "music/race.mp3", Mode.Loop_Normal);
+    LoadRace(); 
     WaterSound = System.CreateStream(CONTENTFOLDER + "sounds/WaterCalmWide.wav",
         Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff);
     TreeWindSound = System.CreateStream(CONTENTFOLDER + "sounds/Wind_Trees_Cattails_Fienup_001.mp3",
@@ -173,6 +176,17 @@ internal class SoundSystem
     Reverb3D reverb = System.CreateReverb3D();
     reverb.SetProperties(Preset.Plain);
     reverb.Set3DAttributes(new Vector3(0, 0, 0), 0f, 500f);
+  }
+
+  private void LoadRace()
+  {
+    RaceMusicStream = System.CreateStream(CONTENTFOLDER + "music/race.mp3", Mode.Loop_Normal);
+    RaceStopSound = System.CreateSound(CONTENTFOLDER + "sounds/race/stop.mp3",
+        Mode._3D | Mode._3D_LinearSquareRolloff);
+    RaceGoodSound = System.CreateSound(CONTENTFOLDER + "sounds/race/good.wav",
+        Mode._3D | Mode._3D_LinearSquareRolloff);
+    RaceBadSound = System.CreateSound(CONTENTFOLDER + "sounds/race/bad.wav",
+        Mode._3D | Mode._3D_LinearSquareRolloff);
   }
 
   private void LoadItemSound()

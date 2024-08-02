@@ -3,13 +3,14 @@ using BebooGarden.GameCore;
 using BebooGarden.GameCore.Pet;
 using BebooGarden.GameCore.World;
 using BebooGarden.Interface;
+using BebooGarden.Interface.ScriptedScene;
 using FmodAudio;
 
 namespace BebooGarden.Minigame;
 
-internal class Race
+internal class Race : IWindowManager
 {
-  public int Length {  get; set; }
+  public int Length { get; set; }
   public Race(int length)
   {
     Length = length;
@@ -18,21 +19,22 @@ internal class Race
   {
     Game.ChangeMap(new Map("garden", Length, 10,
         [],
-        new Vector3(0, -(Length/2)-10, 0))
+        new Vector3(0, -(Length / 2) - 10, 0))
     );
-    var startPos = new Vector3(-Length/2,0, 0);
+    var startPos = new Vector3(-Length / 2, 0, 0);
     Game.Beboos[0].Position = startPos;
-    Game.Beboos[1] = new Beboo("bob", 1, DateTime.Now, 10, true);
+    Game.Beboos[1] = new Beboo("bob", 1, DateTime.Now, Game.Random.Next(10), true, 0.8f);
     Game.Beboos[1].Position = startPos + new Vector3(0, 2, 0);
-    Game.Beboos[2] = new Beboo("boby", 1, DateTime.Now, 0, true);
+    Game.Beboos[2] = new Beboo("boby", 1, DateTime.Now, Game.Random.Next(10), true, 1.2f);
     Game.Beboos[2].Position = startPos + new Vector3(0, -2, 0);
     Game.SoundSystem.MusicTransition(Game.SoundSystem.RaceMusicStream, 0, 0, FmodAudio.TimeUnit.PCM);
     Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicRaceStart, true);
     Game.TickTimer.Tick += Tick;
   }
-  public void End()
+  public void End(int third, int second, int first)
   {
     Game.TickTimer.Tick -= Tick;
+    RaceResult.Run(third, second, first);
     Game.LoadBackedMap();
     Game.Beboos[0].Position = new(0, 0, 0);
     Game.Beboos[0].GoalPosition = new(0, 0, 0);
@@ -42,22 +44,40 @@ internal class Race
     Game.Beboos[2] = null;
     Game.SoundSystem.MusicTransition(Game.SoundSystem.NeutralMusicStream, 12, 88369, TimeUnit.MS);
   }
-
+  int first = -1, second = -1, third = -1;
   private void Tick(object? sender, EventArgs e)
   {
-    foreach (var beboo in Game.Beboos)
+    for (int i = 0; i < Game.Beboos.Length; i++)
     {
+      Beboo? beboo = Game.Beboos[i];
       if (beboo != null)
       {
         var bebooY = beboo.Position.Y;
         beboo.GoalPosition = new Vector3(Length / 2, bebooY, 0);
         if (beboo.Position.X >= Length / 2)
         {
-          ScreenReader.Output($"Bravo {beboo.Name}");
-          End();
+          if (first == -1)
+          {
+            first = i;
+            //Game.SoundSystem.System.PlaySound(Game.SoundSystem.RaceGoodSound);
+          }
+          else if (second == -1)
+          {
+            second = i;
+            //Game.SoundSystem.System.PlaySound(Game.SoundSystem.RaceGoodSound);
+          }
+          else if (third == -1)
+          {
+            third = i;
+            //Game.SoundSystem.System.PlaySound(Game.SoundSystem.RaceGoodSound);
+          }
         }
       }
     }
     Game.SoundSystem.MovePlayerTo(Game.Beboos[0].Position);
+    if (first != -1 && second != -1 && third != -1)
+    {
+      End(third, second, first);
+    }
   }
 }

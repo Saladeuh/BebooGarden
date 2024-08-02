@@ -68,5 +68,8 @@
     "inventory.item": "{0} (×{1})", //0=item name 1=count of item
     "gainticket": "You gain {0} ticket",
     "shopunlock": "You unlock the boutique!\nGo to the lower right corner of the garden to redeem your tickets!",
-    "shop": "Boutique"
+    "shop": "Boutique",
+    "race.first": "{0} is the third ...",
+    "race.second": "{0} is the second.",
+    "srace.third": "{0} is the first !"
 }

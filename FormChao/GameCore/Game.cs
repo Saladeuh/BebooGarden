@@ -194,7 +194,7 @@ internal class Game : IGlobalActions
         }
         break;
       case Keys.F1:
-        new Minigame.Race(52).Start();
+        new Minigame.Race(60).Start();
         break;
       case Keys.Space:
         if (ItemInHand != null)

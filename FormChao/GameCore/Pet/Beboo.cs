@@ -15,10 +15,11 @@ public class Beboo
   private int _petCount;
   public Channel? Channel { get; set; }
   public float VoicePitch { get; set; } = 1.1f;
-  public Beboo(string name, int age, DateTime lastPlayed, int happiness = 5, bool racer=false)
+  public Beboo(string name, int age, DateTime lastPlayed, int happiness = 5, bool racer=false, float voicePitch=1)
   {
     Position = new Vector3(0, 0, 0);
     Name = name == string.Empty ? "boby" : name;
+    VoicePitch = voicePitch;
     var isSleepingAtStart = !(racer ||( DateTime.Now.Hour < 8 || DateTime.Now.Hour > 20));
     Sleeping = isSleepingAtStart;
     CuteBehaviour =
@@ -28,9 +29,9 @@ public class Beboo
     FancyMoveBehaviour =
         new TimedBehaviour<Beboo>(this, 20000, 40000, beboo => { beboo.WannaGoToRandomPlace(); }, true);
     GoingTiredBehaviour =
-        new TimedBehaviour<Beboo>(this, 50000, 70000, beboo => { beboo.Energy--; }, !isSleepingAtStart);
+        new TimedBehaviour<Beboo>(this, 50000, 70000, beboo => { beboo.Energy--; }, !isSleepingAtStart || !racer);
     GoingDepressedBehaviour =
-        new TimedBehaviour<Beboo>(this, 120000, 150000, beboo => { beboo.Happiness--; }, true);
+        new TimedBehaviour<Beboo>(this, 120000, 150000, beboo => { beboo.Happiness--; }, !racer);
     SadBehaviour = new TimedBehaviour<Beboo>(this, 5000, 15000,
         beboo => { Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooCrySounds, this); }, false);
     SleepingBehaviour = new TimedBehaviour<Beboo>(this, 5000, 10000, beboo =>
