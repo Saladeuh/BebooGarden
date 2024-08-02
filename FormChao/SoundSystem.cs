@@ -82,6 +82,7 @@ internal class SoundSystem
   public Channel? Music { get; private set; }
   public Sound SadMusicStream { get; private set; }
   public Sound ShopMusicStream { get; private set; }
+  public Sound RaceMusicStream { get; private set; }
   public List<Sound> BebooPetSound { get; private set; }
   public List<Sound> BebooCrySounds { get; private set; }
   public List<Sound> BebooDelightSounds { get; private set; }
@@ -93,6 +94,7 @@ internal class SoundSystem
   public SoundHandle ShopSound { get; private set; }
   public Sound CinematicHatch { get; private set; }
   public Sound CinematicElevator { get; private set; }
+  public Sound CinematicRaceStart { get; private set; }
   public List<Sound> BebooFunSounds { get; private set; }
 
   private void LoadSoundsInList(string[] files, List<Sound> sounds, string prefixe = "")
@@ -115,6 +117,7 @@ internal class SoundSystem
     Music.Volume = 0.5f;
     SadMusicStream = System.CreateStream(CONTENTFOLDER + "music/Depressed.mp3", Mode.Loop_Normal);
     ShopMusicStream = System.CreateStream(CONTENTFOLDER + "music/Boutique.mp3", Mode.Loop_Normal);
+    RaceMusicStream = System.CreateStream(CONTENTFOLDER + "music/race.mp3", Mode.Loop_Normal);
     WaterSound = System.CreateStream(CONTENTFOLDER + "sounds/WaterCalmWide.wav",
         Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff);
     TreeWindSound = System.CreateStream(CONTENTFOLDER + "sounds/Wind_Trees_Cattails_Fienup_001.mp3",
@@ -159,6 +162,7 @@ internal class SoundSystem
         Mode._3D | Mode._3D_LinearSquareRolloff);
     CinematicHatch = System.CreateStream(CONTENTFOLDER + "cinematic/hatch.wav");
     CinematicElevator = System.CreateStream(CONTENTFOLDER + "cinematic/elevator.mp3");
+    CinematicRaceStart = System.CreateStream(CONTENTFOLDER + "cinematic/race.mp3");
     LoadItemSound();
     GrassSound = System.CreateSound(CONTENTFOLDER + "sounds/grass_rustle.wav",
         Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
@@ -337,7 +341,6 @@ internal class SoundSystem
     Music?.Stop();
     Music = System.PlaySound(music, paused: false)!;
     if (endLoop != 0) Music?.SetLoopPoints(timeUnit, startLoop, timeUnit, endLoop);
-    //Music.SetLoopPoints(TimeUnit.PCM, 464375, TimeUnit.PCM, 4471817);
     Music.Volume = volume;
     Music.Mute = mute;
   }

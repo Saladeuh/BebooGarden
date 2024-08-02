@@ -194,7 +194,7 @@ internal class Game : IGlobalActions
         }
         break;
       case Keys.F1:
-        new Minigame.Race().Run();
+        new Minigame.Race(52).Run();
         break;
       case Keys.Space:
         if (ItemInHand != null)
@@ -336,7 +336,7 @@ internal class Game : IGlobalActions
     var item = Map?.GetItemArroundPosition(PlayerPosition);
     foreach (var beboo in Beboos)
     {
-      if (Util.IsInSquare(beboo.Position, PlayerPosition, 1))
+      if (beboo!=null && Util.IsInSquare(beboo.Position, PlayerPosition, 1))
         ScreenReader.Output(beboo.Name);
     }
     if (treeLine != null)
