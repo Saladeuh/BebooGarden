@@ -6,6 +6,7 @@ using BebooGarden.GameCore.Pet;
 using BebooGarden.GameCore.World;
 using FmodAudio;
 using FmodAudio.Base;
+using FmodAudio.DigitalSignalProcessing;
 using Timer = System.Timers.Timer;
 
 namespace BebooGarden;
@@ -96,6 +97,7 @@ internal class SoundSystem
   public Sound CinematicElevator { get; private set; }
   public Sound CinematicRaceStart { get; private set; }
   public List<Sound> BebooFunSounds { get; private set; }
+  public Dsp PitchDsp { get; private set; }
 
   private void LoadSoundsInList(string[] files, List<Sound> sounds, string prefixe = "")
   {
@@ -111,6 +113,7 @@ internal class SoundSystem
   {
     Sound sound;
     Channel channel;
+    PitchDsp = System.CreateDSPByType(FmodAudio.DigitalSignalProcessing.DSPType.PitchShift);
     NeutralMusicStream = System.CreateStream(CONTENTFOLDER + "music/neutral.mp3", Mode.Loop_Normal);
     Music = System.PlaySound(NeutralMusicStream/*, paused: Game.Beboo==null*/)!;
     Music.SetLoopPoints(TimeUnit.MS, 12, TimeUnit.MS, 88369);
@@ -191,7 +194,7 @@ internal class SoundSystem
     MenuKeySound = System.CreateSound(CONTENTFOLDER + "sounds/menu/key.wav", Mode.Unique);
     MenuKeyDeleteSound = System.CreateSound(CONTENTFOLDER + "sounds/menu/keydelete.wav", Mode.Unique);
     MenuKeyFullSound = System.CreateSound(CONTENTFOLDER + "sounds/menu/keyfull.wav", Mode.Unique);
-    MenuReturnSound= System.CreateSound(CONTENTFOLDER + "sounds/menu/return.wav", Mode.Unique);
+    MenuReturnSound = System.CreateSound(CONTENTFOLDER + "sounds/menu/return.wav", Mode.Unique);
     WarningSound = System.CreateSound(CONTENTFOLDER + "sounds/menu/warn.wav", Mode.Unique);
     ShopSound = System.CreateStream(CONTENTFOLDER + "sounds/menu/shop.wav");
   }
@@ -296,6 +299,8 @@ internal class SoundSystem
   {
     if (beboo.Channel != null && stopOthers && beboo.Channel.IsPlaying) beboo.Channel.Stop();
     beboo.Channel = PlaySoundAtPosition(sound, beboo.Position);
+    PitchDsp.SetParameterFloat(0, beboo.VoicePitch);
+    beboo.Channel.AddDSP(0, PitchDsp);
   }
 
   public void PlayBebooSound(List<Sound> sounds, Beboo beboo, bool stopOthers = true, float volume = -1)
@@ -303,6 +308,8 @@ internal class SoundSystem
     var sound = sounds[Game.Random.Next(sounds.Count())];
     if (beboo.Channel != null && stopOthers && beboo.Channel.IsPlaying) beboo.Channel.Stop();
     beboo.Channel = PlaySoundAtPosition(sound, beboo.Position);
+    PitchDsp.SetParameterFloat(0, beboo.VoicePitch);
+    beboo.Channel.AddDSP(0, PitchDsp);
     if (volume != -1) beboo.Channel.Volume = volume;
   }
 
@@ -371,7 +378,9 @@ internal class SoundSystem
       foreach (var channel in map.WaterChannels) channel.Paused = false;
       foreach (var item in map.Items) item.SoundLoopTimer?.Start();
       //if (map.BackgroundChannel != null) map.BackgroundChannel.Paused = false;
-    } catch{
+    }
+    catch
+    {
       LoadMap(map);
     }
   }

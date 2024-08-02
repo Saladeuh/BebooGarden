@@ -14,6 +14,7 @@ public class Beboo
 
   private int _petCount;
   public Channel? Channel { get; set; }
+  public float VoicePitch { get; set; } = 1.1f;
   public Beboo(string name, int age, DateTime lastPlayed, int happiness = 5, bool racer=false)
   {
     Position = new Vector3(0, 0, 0);
