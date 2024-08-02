@@ -3,6 +3,7 @@ using BebooGarden.GameCore;
 using BebooGarden.GameCore.Pet;
 using BebooGarden.GameCore.World;
 using BebooGarden.Interface;
+using FmodAudio;
 
 namespace BebooGarden.Minigame;
 
@@ -13,9 +14,8 @@ internal class Race
   {
     Length = length;
   }
-  public void Run()
+  public void Start()
   {
-    if (Game.Map != null) Game.SoundSystem.Pause(Game.Map);
     Game.ChangeMap(new Map("garden", Length, 10,
         [],
         new Vector3(0, -(Length/2)-10, 0))
@@ -30,16 +30,32 @@ internal class Race
     Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicRaceStart, true);
     Game.TickTimer.Tick += Tick;
   }
+  public void End()
+  {
+    Game.TickTimer.Tick -= Tick;
+    Game.LoadBackedMap();
+    Game.Beboos[0].Position = new(0, 0, 0);
+    Game.Beboos[0].GoalPosition = new(0, 0, 0);
+    Game.Beboos[1].Pause();
+    Game.Beboos[1] = null;
+    Game.Beboos[2].Pause();
+    Game.Beboos[2] = null;
+    Game.SoundSystem.MusicTransition(Game.SoundSystem.NeutralMusicStream, 12, 88369, TimeUnit.MS);
+  }
 
   private void Tick(object? sender, EventArgs e)
   {
     foreach (var beboo in Game.Beboos)
     {
-      var bebooY= beboo.Position.Y;
-      beboo.GoalPosition = new Vector3(Length/2, bebooY, 0);
-      if (beboo.Position.X >=Length/2)
+      if (beboo != null)
       {
-        ScreenReader.Output($"Bravo {beboo.Name}");
+        var bebooY = beboo.Position.Y;
+        beboo.GoalPosition = new Vector3(Length / 2, bebooY, 0);
+        if (beboo.Position.X >= Length / 2)
+        {
+          ScreenReader.Output($"Bravo {beboo.Name}");
+          End();
+        }
       }
     }
     Game.SoundSystem.MovePlayerTo(Game.Beboos[0].Position);

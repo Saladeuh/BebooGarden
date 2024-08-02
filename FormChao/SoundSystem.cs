@@ -365,10 +365,15 @@ internal class SoundSystem
 
   public void Unpause(Map map)
   {
-    foreach (var channel in map.TreesChannels) channel.Paused = false;
-    foreach (var channel in map.WaterChannels) channel.Paused = false;
-    foreach (var item in map.Items) item.SoundLoopTimer?.Start();
-    //if (map.BackgroundChannel != null) map.BackgroundChannel.Paused = false;
+    try
+    {
+      foreach (var channel in map.TreesChannels) channel.Paused = false;
+      foreach (var channel in map.WaterChannels) channel.Paused = false;
+      foreach (var item in map.Items) item.SoundLoopTimer?.Start();
+      //if (map.BackgroundChannel != null) map.BackgroundChannel.Paused = false;
+    } catch{
+      LoadMap(map);
+    }
   }
   public void PlayCinematic(Sound sound, bool pauseMusic = true)
   {
