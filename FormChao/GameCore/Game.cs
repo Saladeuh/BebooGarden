@@ -8,6 +8,7 @@ using BebooGarden.Interface;
 using BebooGarden.Interface.ScriptedScene;
 using BebooGarden.Interface.Shop;
 using BebooGarden.Save;
+using FmodAudio;
 using Timer = System.Windows.Forms.Timer;
 
 
@@ -34,7 +35,7 @@ internal class Game : IGlobalActions
     Flags = Parameters.Flags;
     Map = new Map("garden", 40, 40,
         [new TreeLine(new Vector2(20, 20), new Vector2(20, -20))],
-        new Vector3(-15, 0, 0))
+        new Vector3(-15, 0, 0), Preset.Plain)
     {
       Items = Parameters.MapItems ?? []
     };

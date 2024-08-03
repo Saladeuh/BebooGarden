@@ -20,7 +20,7 @@ internal class Race : IWindowManager
   {
     Game.ChangeMap(new Map("garden", Length, 10,
         [],
-        new Vector3(0, -(Length / 2) - 10, 0))
+        new Vector3(0, -(Length / 2) - 10, 0), Preset.StoneCorridor)
     );
     var startPos = new Vector3(-Length / 2, 0, 0);
     Game.Beboos[0].Position = startPos;

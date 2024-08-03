@@ -101,6 +101,7 @@ internal class SoundSystem
   public Sound CinematicRaceStart { get; private set; }
   public List<Sound> BebooFunSounds { get; private set; }
   public Dsp PitchDsp { get; private set; }
+  public Reverb3D Reverb { get; private set; }
 
   private void LoadSoundsInList(string[] files, List<Sound> sounds, string prefixe = "")
   {
@@ -173,9 +174,6 @@ internal class SoundSystem
     GrassSound = System.CreateSound(CONTENTFOLDER + "sounds/grass_rustle.wav",
         Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     LoadMenuSounds();
-    Reverb3D reverb = System.CreateReverb3D();
-    reverb.SetProperties(Preset.Plain);
-    reverb.Set3DAttributes(new Vector3(0, 0, 0), 0f, 500f);
   }
 
   private void LoadRace()
@@ -244,6 +242,9 @@ internal class SoundSystem
     map.BackgroundChannel.Volume = 0.5f;
     LoadAmbiSounds();
     foreach (var item in map.Items) item.SoundLoopTimer?.Start();
+    Reverb = System.CreateReverb3D();
+    Reverb.SetProperties(map.ReverbPreset);
+    Reverb.Set3DAttributes(new Vector3(0, 0, 0), 0f, 500f);
   }
 
   public void LoadAmbiSounds()

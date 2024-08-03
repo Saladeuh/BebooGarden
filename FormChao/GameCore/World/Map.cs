@@ -21,8 +21,8 @@ public class Map
   public List<Channel> TreesChannels { get; set; } = new();
   [JsonIgnore]
   public Channel? BackgroundChannel { get; set; }
-
-  public Map(string name, int sizeX, int sizeY, List<TreeLine> treeLines, Vector3 waterPoint)
+  public ReverbProperties ReverbPreset { get; set; }
+  public Map(string name, int sizeX, int sizeY, List<TreeLine> treeLines, Vector3 waterPoint, ReverbProperties reverbPreset)
   {
     Name = name;
     SizeX = sizeX;
@@ -30,6 +30,7 @@ public class Map
     TreeLines = treeLines;
     WaterPoint = waterPoint;
     TimedBehaviour<Map> ticketPopBehaviour = new(this, 30000 * 60, 60000 * 60, (map) => map.PopTicketPack(), true);
+    ReverbPreset = reverbPreset;
   }
 
   private void PopTicketPack()
