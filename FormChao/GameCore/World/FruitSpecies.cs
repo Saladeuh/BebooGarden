@@ -2,6 +2,9 @@
 
 public enum FruitSpecies
 {
+  None,
   Normal,
-  Energetic
+  Energetic,
+  Shrink,
+  Growth
 }

@@ -57,6 +57,7 @@ internal class Game : IGlobalActions
     TickTimer.Enabled = true;
     PlayerPosition = new Vector3(0, 0, 0);
     FruitsBasket = Parameters.FruitsBasket;
+    FruitsBasket[FruitSpecies.Shrink] = 12;
     if (FruitsBasket == null || FruitsBasket.Count == 0)
     {
       FruitsBasket = [];
@@ -298,11 +299,21 @@ internal class Game : IGlobalActions
 
   private void FeedBeboo()
   {
-    if (Beboos == null) return;
-    if (FruitsBasket != null && FruitsBasket[FruitSpecies.Normal] > 0)
+    if (Beboos[0] == null) return;
+    if (FruitsBasket == null) return;
+    Dictionary<string, FruitSpecies> options = [];
+    foreach (var fruit in FruitsBasket)
     {
-      Beboos[0]?.Eat(FruitSpecies.Normal);
-      FruitsBasket[FruitSpecies.Normal]--;
+      if (fruit.Value > 0) options.Add(GetLocalizedString($"{fruit.Key.ToString()} {fruit.Value}"), fruit.Key);
+    }
+    if (options.Count > 0)
+    {
+      var choice = IWindowManager.ShowChoice("ui.chooseitem", options);
+      if (choice != null && choice!=FruitSpecies.None)
+      {
+        Beboos[0]?.Eat(choice);
+        FruitsBasket[choice]--;
+      }
     }
   }
 

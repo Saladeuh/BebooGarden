@@ -15,12 +15,12 @@ public class Beboo
   private int _petCount;
   public Channel? Channel { get; set; }
   public float VoicePitch { get; set; } = 1.1f;
-  public Beboo(string name, int age, DateTime lastPlayed, int happiness = 5, bool racer=false, float voicePitch=1)
+  public Beboo(string name, int age, DateTime lastPlayed, int happiness = 5, bool racer = false, float voicePitch = 1)
   {
     Position = new Vector3(0, 0, 0);
     Name = name == string.Empty ? "boby" : name;
     VoicePitch = voicePitch;
-    var isSleepingAtStart = !(racer ||( DateTime.Now.Hour < 8 || DateTime.Now.Hour > 20));
+    var isSleepingAtStart = !racer && (DateTime.Now.Hour < 8 || DateTime.Now.Hour > 20);
     Sleeping = isSleepingAtStart;
     CuteBehaviour =
         new TimedBehaviour<Beboo>(this, 15000, 25000, beboo => { beboo.DoCuteThing(); }, !isSleepingAtStart);
@@ -238,9 +238,12 @@ public class Beboo
     {
       Energy++;
       Happiness++;
-      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooChewSounds, this, true, 0.5f);
-      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooYumySounds, this);
     }
+    else if (fruitSpecies == FruitSpecies.Shrink) VoicePitch += 0.1f;
+    else if (fruitSpecies == FruitSpecies.Growth) VoicePitch -= 0.1f;
+
+    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooChewSounds, this, true, 0.5f);
+    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooYumySounds, this);
   }
 
   public void GetPetted()

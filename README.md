@@ -1,5 +1,5 @@
 # todo
-- début
+- début, score
 - jouets: bulles, boombox, race, boing
 - maps
 - credits

@@ -38,6 +38,7 @@ public partial class ChooseMenu<T> : Form
   protected virtual void Back(object? sender, EventArgs e)
   {
     Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuReturnSound);
+    Result = default(T);
     Close();
   }
 
