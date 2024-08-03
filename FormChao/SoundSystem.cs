@@ -123,7 +123,7 @@ internal class SoundSystem
     Music.Volume = 0.5f;
     SadMusicStream = System.CreateStream(CONTENTFOLDER + "music/Depressed.mp3", Mode.Loop_Normal);
     ShopMusicStream = System.CreateStream(CONTENTFOLDER + "music/Boutique.mp3", Mode.Loop_Normal);
-    LoadRace(); 
+    LoadRace();
     WaterSound = System.CreateStream(CONTENTFOLDER + "sounds/WaterCalmWide.wav",
         Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff);
     TreeWindSound = System.CreateStream(CONTENTFOLDER + "sounds/Wind_Trees_Cattails_Fienup_001.mp3",
@@ -221,6 +221,7 @@ internal class SoundSystem
     waterChannel.Set3DMinMaxDistance(30f, 35f);
     waterChannel.Volume = 0.1f;
     waterChannel.Paused = false;
+    map.WaterChannels.Clear();
     map.WaterChannels.Add(waterChannel);
     if (map.TreeLines.Count > 0)
     {
@@ -234,6 +235,7 @@ internal class SoundSystem
       treeChannel.Set3DConeOrientation(new Vector3(1, 0, 0));
       treeChannel.Volume = 0.2f;
       treeChannel.Paused = false;
+      map.TreesChannels.Clear();
       map.TreesChannels.Add(treeChannel);
     }
     Sound sound = System.CreateStream(CONTENTFOLDER + "sounds/Grass_Shake.wav");
@@ -241,7 +243,7 @@ internal class SoundSystem
     map.BackgroundChannel.SetLoopPoints(TimeUnit.MS, 678, TimeUnit.MS, 6007);
     map.BackgroundChannel.Volume = 0.5f;
     LoadAmbiSounds();
-    //foreach (var item in map.Items) item.PlaySound();
+    foreach (var item in map.Items) item.SoundLoopTimer?.Start();
   }
 
   public void LoadAmbiSounds()

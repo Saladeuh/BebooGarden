@@ -11,7 +11,8 @@ public class TimedBehaviour<T>
     MinMS = minMS;
     MaxMS = maxMS;
     Action = action;
-    ActionTimer = new Timer(minMS);
+    if(minMS<maxMS) ActionTimer = new Timer(Game.Random.Next(minMS, maxMS));
+    else ActionTimer=new Timer(MinMS);
     ActionTimer.Elapsed += onTimer;
     ActionTimer.Enabled = startAtInit;
     Enabled = startAtInit;

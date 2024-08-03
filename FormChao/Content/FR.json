@@ -69,7 +69,7 @@
     "gainticket": "Vous gagnez {0} ticket",
     "shopunlock": "Vous venez de débloquer l'accès à la boutique!\nRendez-vous dans le coin inférieur droit du jardin pour échanger vos tickets!",
     "shop": "Boutique",
-    "race.first": "{0} est le troisième...",
-    "race.second": "{0} est le deuxième.",
-    "race.third": "{0} est le premier !"
+    "race.third": "{0} est le troisième... ({1}) secondes",
+    "race.second": "{0} est le deuxième. ({1}) secondes",
+    "race.first": "{0} est le premier ! ({1}) secondes"
 }

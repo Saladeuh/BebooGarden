@@ -11,6 +11,8 @@ namespace BebooGarden.Minigame;
 internal class Race : IWindowManager
 {
   public int Length { get; set; }
+  public DateTime _startTime;
+
   public Race(int length)
   {
     Length = length;
@@ -23,15 +25,16 @@ internal class Race : IWindowManager
     );
     var startPos = new Vector3(-Length / 2, 0, 0);
     Game.Beboos[0].Position = startPos;
-    Game.Beboos[1] = new Beboo("bob", 1, DateTime.Now, Game.Random.Next(10), true, 0.8f);
+    Game.Beboos[1] = new Beboo("bob", 1, DateTime.Now, Game.Random.Next(10), true, 1.3f);
     Game.Beboos[1].Position = startPos + new Vector3(0, 2, 0);
     Game.Beboos[2] = new Beboo("boby", 1, DateTime.Now, Game.Random.Next(10), true, 1.2f);
     Game.Beboos[2].Position = startPos + new Vector3(0, -2, 0);
     Game.SoundSystem.MusicTransition(Game.SoundSystem.RaceMusicStream, 0, 0, FmodAudio.TimeUnit.PCM);
     Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicRaceStart, true);
+    _startTime = DateTime.Now;
     Game.TickTimer.Tick += Tick;
   }
-  public void End(int third, int second, int first)
+  public void End((int, double) third, (int, double) second, (int, double) first)
   {
     Game.TickTimer.Tick -= Tick;
     RaceResult.Run(third, second, first);
@@ -44,7 +47,9 @@ internal class Race : IWindowManager
     Game.Beboos[2] = null;
     Game.SoundSystem.MusicTransition(Game.SoundSystem.NeutralMusicStream, 12, 88369, TimeUnit.MS);
   }
-  int first = -1, second = -1, third = -1;
+  (int, double) first = (-1, 0), second = (-1, 0), third = (-1, 0);
+
+
   private void Tick(object? sender, EventArgs e)
   {
     for (int i = 0; i < Game.Beboos.Length; i++)
@@ -56,26 +61,30 @@ internal class Race : IWindowManager
         beboo.GoalPosition = new Vector3(Length / 2, bebooY, 0);
         if (beboo.Position.X >= Length / 2)
         {
-          if (first == -1)
+          var score = Math.Round((DateTime.Now - _startTime).TotalSeconds, 2);
+          if (i != first.Item1 && i != second.Item1 && i != third.Item1)
           {
-            first = i;
-            //Game.SoundSystem.System.PlaySound(Game.SoundSystem.RaceGoodSound);
-          }
-          else if (second == -1)
-          {
-            second = i;
-            //Game.SoundSystem.System.PlaySound(Game.SoundSystem.RaceGoodSound);
-          }
-          else if (third == -1)
-          {
-            third = i;
-            //Game.SoundSystem.System.PlaySound(Game.SoundSystem.RaceGoodSound);
+            if (first.Item1 == -1)
+            {
+              first = (i, score);
+              //Game.SoundSystem.System.PlaySound(Game.SoundSystem.RaceGoodSound);
+            }
+            else if (second.Item1 == -1)
+            {
+              second = (i, score);
+              //Game.SoundSystem.System.PlaySound(Game.SoundSystem.RaceGoodSound);
+            }
+            else if (third.Item1 == -1)
+            {
+              third = (i, score);
+              //Game.SoundSystem.System.PlaySound(Game.SoundSystem.RaceGoodSound);
+            }
           }
         }
       }
     }
     Game.SoundSystem.MovePlayerTo(Game.Beboos[0].Position);
-    if (first != -1 && second != -1 && third != -1)
+    if (first.Item1 != -1 && second.Item1 != -1 && third.Item1 != -1)
     {
       End(third, second, first);
     }
