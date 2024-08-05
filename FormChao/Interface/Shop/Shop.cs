@@ -20,23 +20,23 @@ public class Shop
         item => item
     );
     ItemsMenu = new(IGlobalActions.GetLocalizedString("shop.items", Game.Tickets), itemsDictionary);
-    RollsMenu = new(IGlobalActions.GetLocalizedString( "shop.rolls", Game.Tickets), MusicBox.AllRolls.ToDictionary(roll => roll.Title, roll => roll));
+    RollsMenu = new(IGlobalActions.GetLocalizedString("shop.rolls", Game.Tickets), MusicBox.AllRolls.ToDictionary(roll => roll.Title, roll => roll));
     MainShopMenu = new(IGlobalActions.GetLocalizedString("shop.title", Game.Tickets), new Dictionary<string, Form>()
     {
       {IGlobalActions.GetLocalizedString( "shop.itemstitle"), ItemsMenu },
       { IGlobalActions.GetLocalizedString( "shop.rollstitle"), RollsMenu }
-    });    
+    });
   }
 
 
   public void Show()
   {
     Game.Pause();
-    Game.SoundSystem.MusicTransition(Game.SoundSystem.ShopMusicStream, 459264, 8156722, FmodAudio.TimeUnit.PCM);
+    Game.SoundSystem.PlayShopMusic();
     Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicElevator, false);
     MainShopMenu.ShowDialog(Game.GameWindow);
     Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicElevator, false);
-    Game.SoundSystem.MusicTransition(Game.SoundSystem.NeutralMusicStream, 12, 88369, TimeUnit.MS);
+    Game.SoundSystem.PlayNeutralMusic();
     Game.Unpause();
   }
 }

@@ -112,7 +112,7 @@ public class Beboo
     if (!Happy) return;
     Happy = false;
     IGlobalActions.SayLocalizedString("beboo.sadstart", Name);
-    Game.SoundSystem.MusicTransition(Game.SoundSystem.SadMusicStream, 464375, 4471817, TimeUnit.PCM, 0.1f);
+    Game.SoundSystem.PlaySadMusic();
     CuteBehaviour.Stop();
     SadBehaviour.Start();
     MoveBehaviour.MinMS = 800;
@@ -124,7 +124,7 @@ public class Beboo
     if (Happy) return;
     Happy = true;
     IGlobalActions.SayLocalizedString("beboo.happystart", Name);
-    Game.SoundSystem.MusicTransition(Game.SoundSystem.NeutralMusicStream, 12, 88369, TimeUnit.MS);
+    Game.SoundSystem.PlayNeutralMusic();
     CuteBehaviour.Start();
     SadBehaviour.Stop();
     MoveBehaviour.MinMS = 200;

@@ -416,4 +416,24 @@ internal class SoundSystem
     Music.Paused = false;
     Game.GameWindow?.EnableInput();
   }
+
+  internal void PlaySadMusic()
+  {
+    MusicTransition(Game.SoundSystem.SadMusicStream, 464375, 4471817, TimeUnit.PCM, 0.1f);
+  }
+
+  internal void PlayNeutralMusic()
+  {
+    Game.SoundSystem.MusicTransition(Game.SoundSystem.NeutralMusicStream, 12, 88369, TimeUnit.MS);
+  }
+
+  internal void PlayShopMusic()
+  {
+    Game.SoundSystem.MusicTransition(Game.SoundSystem.ShopMusicStream, 459264, 8156722, FmodAudio.TimeUnit.PCM);
+  }
+
+  internal void PlayRaceMusic()
+  {
+    Game.SoundSystem.MusicTransition(Game.SoundSystem.RaceMusicStream, 0, 0, FmodAudio.TimeUnit.PCM);
+  }
 }

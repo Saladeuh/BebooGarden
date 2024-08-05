@@ -26,7 +26,7 @@ internal class Race : IWindowManager
     Game.Beboos[1].Position = startPos + new Vector3(0, 2, 0);
     Game.Beboos[2] = new Beboo("boby", 1, DateTime.Now, Game.Random.Next(10), true, 1.2f);
     Game.Beboos[2].Position = startPos + new Vector3(0, -2, 0);
-    Game.SoundSystem.MusicTransition(Game.SoundSystem.RaceMusicStream, 0, 0, FmodAudio.TimeUnit.PCM);
+    Game.SoundSystem.PlayRaceMusic();
     Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicRaceStart, true);
     StartTime = DateTime.Now;
     Game.TickTimer.Tick += Tick;
@@ -42,7 +42,7 @@ internal class Race : IWindowManager
     Game.Beboos[1] = null;
     Game.Beboos[2].Pause();
     Game.Beboos[2] = null;
-    Game.SoundSystem.MusicTransition(Game.SoundSystem.NeutralMusicStream, 12, 88369, TimeUnit.MS);
+    Game.SoundSystem.PlayNeutralMusic();
   }
   (int, double) first = (-1, 0), second = (-1, 0), third = (-1, 0);
 
