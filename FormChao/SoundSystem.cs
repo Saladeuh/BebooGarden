@@ -83,6 +83,7 @@ internal class SoundSystem
   public Channel? Music { get; private set; }
   public Sound SadMusicStream { get; private set; }
   public Sound ShopMusicStream { get; private set; }
+  public Sound SnowyMusicStream { get; private set; }
   public Sound RaceMusicStream { get; private set; }
   public Sound RaceStopSound { get; private set; }
   public Sound RaceGoodSound { get; private set; }
@@ -95,7 +96,7 @@ internal class SoundSystem
   public Sound JingleLittleStar { get; private set; }
   public Sound UpSound { get; private set; }
   public Sound DownSound { get; private set; }
-  public SoundHandle ShopSound { get; private set; }
+  public Sound ShopSound { get; private set; }
   public Sound CinematicHatch { get; private set; }
   public Sound CinematicElevator { get; private set; }
   public Sound CinematicRaceStart { get; private set; }
@@ -113,17 +114,18 @@ internal class SoundSystem
     }
   }
 
-  public void LoadMainScreen()
+  public void LoadMainScreen(bool startMusic)
   {
     Sound sound;
     Channel channel;
     PitchDsp = System.CreateDSPByType(FmodAudio.DigitalSignalProcessing.DSPType.PitchShift);
     NeutralMusicStream = System.CreateStream(CONTENTFOLDER + "music/neutral.mp3", Mode.Loop_Normal);
-    Music = System.PlaySound(NeutralMusicStream/*, paused: Game.Beboo==null*/)!;
+    Music = System.PlaySound(NeutralMusicStream, paused: startMusic)!;
     Music.SetLoopPoints(TimeUnit.MS, 12, TimeUnit.MS, 88369);
     Music.Volume = 0.5f;
     SadMusicStream = System.CreateStream(CONTENTFOLDER + "music/Depressed.mp3", Mode.Loop_Normal);
     ShopMusicStream = System.CreateStream(CONTENTFOLDER + "music/Boutique.mp3", Mode.Loop_Normal);
+    SnowyMusicStream = System.CreateStream(CONTENTFOLDER + "music/snowy.mp3", Mode.Loop_Normal);
     LoadRace();
     WaterSound = System.CreateStream(CONTENTFOLDER + "sounds/WaterCalmWide.wav",
         Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff);
@@ -236,6 +238,7 @@ internal class SoundSystem
       map.TreesChannels.Clear();
       map.TreesChannels.Add(treeChannel);
     }
+    //winter: 1922069 6508548
     Sound sound = System.CreateStream(CONTENTFOLDER + "sounds/Grass_Shake.wav");
     map.BackgroundChannel = System.PlaySound(sound, paused: false)!;
     map.BackgroundChannel.SetLoopPoints(TimeUnit.MS, 678, TimeUnit.MS, 6007);

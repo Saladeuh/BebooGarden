@@ -3,9 +3,9 @@ using BebooGarden.Save;
 
 namespace BebooGarden.Interface.ScriptedScene;
 
-internal class NewGame : IWindowManager
+internal class Welcome : IWindowManager
 {
-  public static void Run(SaveParameters parameters)
+  public static void BeforeGarden(SaveParameters parameters)
   {
     IWindowManager.ShowTalk("ui.welcome");
     var playerName = IWindowManager.ShowTextBox("ui.yourname", 12, true);
@@ -20,5 +20,9 @@ internal class NewGame : IWindowManager
       parameters.FavoredColor = color;
       parameters.PlayerName = playerName;
     }
+  }
+  public static void AfterGarden()
+  {
+    IWindowManager.ShowTalk("ui.welcome2");
   }
 }

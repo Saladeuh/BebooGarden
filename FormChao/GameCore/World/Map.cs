@@ -1,5 +1,7 @@
-﻿using System.Numerics;
+﻿using System.Drawing.Printing;
+using System.Numerics;
 using BebooGarden.GameCore.Item;
+using BebooGarden.Minigame;
 using FmodAudio;
 using Newtonsoft.Json;
 
@@ -7,12 +9,20 @@ namespace BebooGarden.GameCore.World;
 
 public class Map
 {
-  public string Name { get; }
+  public static Dictionary<MapPresets, Map> Maps = new()
+  {
+    {MapPresets.garden, new Map(40, 40,
+        [new TreeLine(new Vector2(20, 20), new Vector2(20, -20))],
+       new Vector3(-15, 0, 0), Preset.Plain) },
+    {MapPresets.basicrace,new Map(Race.BASERACELENGTH, 10,
+        [],
+        new Vector3(0, -(Race.BASERACELENGTH / 2) - 10, 0), Preset.StoneCorridor) }
+  };
   private int SizeX { get; set; }
   private int SizeY { get; set; }
   public List<TreeLine> TreeLines { get; }
   public Vector3 WaterPoint { get; }
-  public List<Item.Item> Items { get; init; } = new();
+  public List<Item.Item> Items { get; set; } = new();
   public bool IsLullabyPlaying { get; set; } = false;
   public bool IsDansePlaying { get; set; } = false;
   [JsonIgnore]
@@ -22,9 +32,8 @@ public class Map
   [JsonIgnore]
   public Channel? BackgroundChannel { get; set; }
   public ReverbProperties ReverbPreset { get; set; }
-  public Map(string name, int sizeX, int sizeY, List<TreeLine> treeLines, Vector3 waterPoint, ReverbProperties reverbPreset)
+  public Map(int sizeX, int sizeY, List<TreeLine> treeLines, Vector3 waterPoint, ReverbProperties reverbPreset)
   {
-    Name = name;
     SizeX = sizeX;
     SizeY = sizeY;
     TreeLines = treeLines;

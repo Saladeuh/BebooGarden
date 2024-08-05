@@ -1,5 +1,5 @@
 # todo
-- début, score
+- help inventaire, score, évolution (vocal, plus réserve énergie, eau)
 - jouets: bulles, boombox, race, boing
 - maps
 - credits

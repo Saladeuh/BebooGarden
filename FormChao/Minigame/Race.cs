@@ -9,6 +9,7 @@ namespace BebooGarden.Minigame;
 
 internal class Race : IWindowManager
 {
+  public static readonly int BASERACELENGTH = 60;
   public int Length { get; set; }
   public DateTime StartTime;
 
@@ -18,10 +19,7 @@ internal class Race : IWindowManager
   }
   public void Start()
   {
-    Game.ChangeMap(new Map("garden", Length, 10,
-        [],
-        new Vector3(0, -(Length / 2) - 10, 0), Preset.StoneCorridor)
-    );
+    Game.ChangeMap(Map.Maps[MapPresets.basicrace]);
     var startPos = new Vector3(-Length / 2, 0, 0);
     Game.Beboos[0].Position = startPos;
     Game.Beboos[1] = new Beboo("bob", 1, DateTime.Now, Game.Random.Next(10), true, 1.3f);

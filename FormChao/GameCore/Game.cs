@@ -33,30 +33,28 @@ internal class Game : IGlobalActions
     GameWindow = form;
     Parameters = SaveManager.LoadSave();
     Flags = Parameters.Flags;
-    Map = new Map("garden", 40, 40,
-        [new TreeLine(new Vector2(20, 20), new Vector2(20, -20))],
-        new Vector3(-15, 0, 0), Preset.Plain)
-    {
-      Items = Parameters.MapItems ?? []
-    };
+    Map = Map.Maps[MapPresets.garden];
+    Map.Items = Parameters.MapItems ?? [];
     MusicBox.AvailableRolls = Parameters.UnlockedRolls ?? [];
     SoundSystem.Volume = Parameters.Volume;
-    SoundSystem.LoadMainScreen();
+    SoundSystem.LoadMainScreen(Flags.NewGame);
     if (!Flags.NewGame)
     {
+      PlayerPosition = new Vector3(0, 0, 0);
       Map.TreeLines[0].SetFruitsAfterAWhile(Parameters.LastPlayed, Parameters.RemainingFruits);
       Beboos[0] = new Beboo(Parameters.BebooName, Parameters.Age, Parameters.LastPlayed, Parameters.Happiness);
     }
     else
     {
-      Map.AddItem(new Egg(Parameters.FavoredColor), PlayerPosition);
+      PlayerPosition = new Vector3(-2, 0, 0);
+      Map.AddItem(new Egg(Parameters.FavoredColor), new(2,0,0));
     }
 
     SoundSystem.LoadMap(Map);
+    if(Flags.NewGame) Welcome.AfterGarden();
     LastPressedKeyTime = DateTime.Now;
     TickTimer.Tick += Tick;
     TickTimer.Enabled = true;
-    PlayerPosition = new Vector3(0, 0, 0);
     FruitsBasket = Parameters.FruitsBasket;
     FruitsBasket[FruitSpecies.Shrink] = 12;
     if (FruitsBasket == null || FruitsBasket.Count == 0)
