@@ -7,7 +7,7 @@ public partial class Form1 : Form
   public Form1()
   {
     WindowState = FormWindowState.Maximized;
-    Text = "Jardin Bébous";
+    Text = IGlobalActions.GetLocalizedString("beboogarden");
     Load += onLoad;
   }
 

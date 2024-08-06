@@ -65,8 +65,6 @@ internal class Game : IGlobalActions
     PlayerName = Parameters.PlayerName;
     Tickets = Parameters.Tickets;
     Inventory = Parameters.Inventory;
-    Inventory.Add(new TicketPack(2));
-    Inventory.Add(new Duck());
   }
 
   public static SoundSystem SoundSystem { get; }
