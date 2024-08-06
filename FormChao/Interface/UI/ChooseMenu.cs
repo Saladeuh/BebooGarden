@@ -24,17 +24,32 @@ public partial class ChooseMenu<T> : Form
       btnOption.AccessibleDescription = i + 1 + "/" + (Choices.Keys.Count + 1);
       btnOption.Click += btn_Click;
       btnOption.Enter += btn_enter;
+      btnOption.KeyDown += KeyHandle;
       Controls.Add(btnOption);
     }
-    var bcak = new Button();
-    bcak.Text = IGlobalActions.GetLocalizedString("ui.back");
-    bcak.AccessibleDescription = Choices.Keys.Count + 1 + "/" + (Choices.Keys.Count + 1);
-    bcak.Click += Back;
-    bcak.Enter += btn_enter;
-    Controls.Add(bcak);
+    var back = new Button();
+    back.Text = IGlobalActions.GetLocalizedString("ui.back");
+    back.AccessibleDescription = Choices.Keys.Count + 1 + "/" + (Choices.Keys.Count + 1);
+    back.Click += Back;
+    back.Enter += btn_enter;
+   back.KeyDown += KeyHandle;
+    Controls.Add(back);
     Game.ResetKeyState();
   }
 
+  private void KeyHandle(object? sender, KeyEventArgs e)
+  {
+    switch (e.KeyCode)
+    {
+      case Keys.Escape:
+      case Keys.Back:
+        Back(sender, EventArgs.Empty);
+        break;
+      case Keys.F4:
+        if (e.Modifiers == Keys.Alt) Back(sender, EventArgs.Empty);
+        break;
+    }
+  }
   protected virtual void Back(object? sender, EventArgs e)
   {
     Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuReturnSound);
