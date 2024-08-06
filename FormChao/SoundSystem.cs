@@ -102,7 +102,6 @@ internal class SoundSystem
   public Sound CinematicRaceStart { get; private set; }
   public Sound CinematicRaceEnd { get; private set; }
   public List<Sound> BebooFunSounds { get; private set; }
-  public Dsp PitchDsp { get; private set; }
   public Reverb3D Reverb { get; private set; }
 
   private void LoadSoundsInList(string[] files, List<Sound> sounds, string prefixe = "")
@@ -119,7 +118,6 @@ internal class SoundSystem
   {
     Sound sound;
     Channel channel;
-    PitchDsp = System.CreateDSPByType(FmodAudio.DigitalSignalProcessing.DSPType.PitchShift);
     NeutralMusicStream = System.CreateStream(CONTENTFOLDER + "music/neutral.mp3", Mode.Loop_Normal);
     Music = System.PlaySound(NeutralMusicStream, paused: startMusic)!;
     Music.SetLoopPoints(TimeUnit.MS, 12, TimeUnit.MS, 88369);
@@ -321,8 +319,7 @@ internal class SoundSystem
   {
     if (beboo.Channel != null && stopOthers && beboo.Channel.IsPlaying) beboo.Channel.Stop();
     beboo.Channel = PlaySoundAtPosition(sound, beboo.Position);
-    PitchDsp.SetParameterFloat(0, beboo.VoicePitch);
-    beboo.Channel.AddDSP(0, PitchDsp);
+    beboo.Channel.AddDSP(0, beboo.VoiceDsp);
   }
 
   public void PlayBebooSound(List<Sound> sounds, Beboo beboo, bool stopOthers = true, float volume = -1)
@@ -330,8 +327,7 @@ internal class SoundSystem
     var sound = sounds[Game.Random.Next(sounds.Count())];
     if (beboo.Channel != null && stopOthers && beboo.Channel.IsPlaying) beboo.Channel.Stop();
     beboo.Channel = PlaySoundAtPosition(sound, beboo.Position);
-    PitchDsp.SetParameterFloat(0, beboo.VoicePitch);
-    beboo.Channel.AddDSP(0, PitchDsp);
+    beboo.Channel.AddDSP(0, beboo.VoiceDsp);
     if (volume != -1) beboo.Channel.Volume = volume;
   }
 

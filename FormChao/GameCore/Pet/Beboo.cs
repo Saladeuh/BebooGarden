@@ -2,6 +2,7 @@
 using BebooGarden.GameCore.World;
 using BebooGarden.Interface;
 using FmodAudio;
+using FmodAudio.DigitalSignalProcessing;
 
 namespace BebooGarden.GameCore.Pet;
 
@@ -13,13 +14,24 @@ public class Beboo
   private DateTime _lastPetted = DateTime.MinValue;
 
   private int _petCount;
+  private float voicePitch = 1.1f;
+
   public Channel? Channel { get; set; }
-  public float VoicePitch { get; set; } = 1.1f;
+  public float VoicePitch
+  {
+    get => voicePitch; set
+    {
+      VoiceDsp.SetParameterFloat(0, value);
+      voicePitch = value;
+    }
+  }
+  public Dsp VoiceDsp { get; }
   public Beboo(string name, int age, DateTime lastPlayed, int happiness = 5, bool racer = false, float voicePitch = 1)
   {
     Position = new Vector3(0, 0, 0);
     Name = name == string.Empty ? "boby" : name;
-    VoicePitch = voicePitch;
+    VoiceDsp = Game.SoundSystem.System.CreateDSPByType(FmodAudio.DigitalSignalProcessing.DSPType.PitchShift);
+    VoiceDsp.SetParameterFloat(0, voicePitch);
     var isSleepingAtStart = !racer && (DateTime.Now.Hour < 8 || DateTime.Now.Hour > 20);
     Sleeping = isSleepingAtStart;
     CuteBehaviour =
