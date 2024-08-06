@@ -1,6 +1,7 @@
 ﻿using System.Numerics;
 using BebooGarden.Interface;
 using BebooGarden.Interface.ScriptedScene;
+
 using FmodAudio;
 
 namespace BebooGarden.GameCore.Item.MusicBox;
@@ -75,7 +76,8 @@ internal class MusicBox : Item
 
       var choosedRoll =
           IWindowManager.ShowChoice(IGlobalActions.GetLocalizedString("ui.chooseroll"), rollDictionary);
-      choosedRoll?.Play();
+      if (choosedRoll != null) choosedRoll.Play();
+      else Game.UpdateMapPusic();
     }
     else
     {
