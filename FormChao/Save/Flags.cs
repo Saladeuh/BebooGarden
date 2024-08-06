@@ -6,14 +6,16 @@ public class Flags
   {
   }
 
-  public Flags(bool newGame, bool hasUnlockOnline, bool unlockShop)
+  public Flags(bool newGame, bool hasUnlockOnline, bool unlockShop, bool voiceRecoPopupPrinted)
   {
     NewGame = newGame;
     HasUnlockOnline = hasUnlockOnline;
     UnlockShop = unlockShop;
+    VoiceRecoPopupPrinted = voiceRecoPopupPrinted;
   }
 
   public bool NewGame { get; set; } = true;
   public bool HasUnlockOnline { get; set; }
   public bool UnlockShop { get; set; }
+  public bool VoiceRecoPopupPrinted { get; internal set; } = false;
 }

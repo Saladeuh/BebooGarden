@@ -1,6 +1,7 @@
 ﻿using System.Numerics;
 using BebooGarden.GameCore.World;
 using BebooGarden.Interface;
+using BebooGarden.Interface.ScriptedScene;
 using FmodAudio;
 using FmodAudio.DigitalSignalProcessing;
 
@@ -15,6 +16,7 @@ public class Beboo
 
   private int _petCount;
   private float voicePitch = 1.1f;
+  private float age = 1;
 
   public Channel? Channel { get; set; }
   public float VoicePitch
@@ -26,7 +28,7 @@ public class Beboo
     }
   }
   public Dsp VoiceDsp { get; }
-  public Beboo(string name, int age, DateTime lastPlayed, int happiness = 5, bool racer = false, float voicePitch = 1)
+  public Beboo(string name, float age, DateTime lastPlayed, int happiness = 5, bool racer = false, float voicePitch = 1)
   {
     Position = new Vector3(0, 0, 0);
     Name = name == string.Empty ? "boby" : name;
@@ -46,28 +48,79 @@ public class Beboo
         new TimedBehaviour<Beboo>(this, 120000, 150000, beboo => { beboo.Happiness--; }, !racer);
     SadBehaviour = new TimedBehaviour<Beboo>(this, 5000, 15000,
         beboo => { Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooCrySounds, this); }, false);
-    SleepingBehaviour = new TimedBehaviour<Beboo>(this, 5000, 10000, beboo =>
+    SleepingBehaviour = new(this, 5000, 10000, beboo =>
     {
       beboo.Energy += 0.10f;
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooSleepingSounds, this, true, 0.3f);
     }, isSleepingAtStart);
+    //+0.1 every 3mn=1lvl/30mn
+    GrowthBehaviour = new(this, 3000 * 60, 3000 * 60, beboo =>
+    {
+      if (beboo.Energy >= 2 && beboo.Happiness >= 2)
+      {
+        beboo.Age += 0.1f;
+      }
+    }, !racer);
     var elapsedTime = DateTime.Now - lastPlayed;
     Happiness = elapsedTime.TotalHours > 4 ? 5 : happiness;
     Age = age;
+    Age = 1.9f;
+    KnowItsName = age > 2;
+    switch (age)
+    {
+      case < 2:
+        MaxEnergy = 10;
+        MaxHappinness = 10;
+        break;
+      case < 3:
+        MaxEnergy = 15;
+        MaxHappinness = 15;
+        break;
+      case < 4:
+        MaxEnergy = 20;
+        MaxHappinness = 20;
+        break;
+    }
     Energy = elapsedTime.TotalHours > 8 ? 5 : 10;
     SpeechRecognizer = new BebooSpeechRecognition(name);
     SpeechRecognizer.BebooCalled += Game.Call;
   }
 
-  public string Name { get; set; }
-  public int Age { get; set; }
+  public string Name { get; }
+  public float Age
+  {
+    get => age; set
+    {
+      value = Math.Clamp(value, 1, 10);
+      if (age < value) TestLevelUp(age, value);
+      age = value;
+    }
+  }
+
+  private void TestLevelUp(float preview, float updated)
+  {
+    if (preview >= 1 && preview < 2 && updated >= 2)
+    {
+      KnowItsName = true;
+    }
+    else if (preview > 2 && preview < 3 && updated >= 3)
+    {
+      MaxHappinness = 15;
+      MaxEnergy = 15;
+    }
+    else if (preview > 3 && preview < 4 && updated >= 4)
+    {
+      MaxEnergy = 20;
+      MaxHappinness = 20;
+    }
+  }
 
   public float Energy
   {
     get => _energy;
     private set
     {
-      value = Math.Clamp(value, -10, 10);
+      value = Math.Clamp(value, -10, MaxEnergy);
       if (_energy > value && ((Happy && value <= -2) || (!Happy && value <= -5))) GoAsleep();
       else if (_energy < value && _energy >= 2)
         Task.Run(async () =>
@@ -84,7 +137,7 @@ public class Beboo
     get => _hapiness;
     private set
     {
-      value = Math.Clamp(value, -10, 10);
+      value = Math.Clamp(value, -10, MaxHappinness);
       if (_hapiness > value && value <= 0) BurstInTearrs();
       else if (_hapiness <= 0 && value > 0)
         Task.Run(async () =>
@@ -117,7 +170,11 @@ public class Beboo
   private TimedBehaviour<Beboo> FancyMoveBehaviour { get; }
   private TimedBehaviour<Beboo> SadBehaviour { get; }
   private TimedBehaviour<Beboo> SleepingBehaviour { get; }
+  public TimedBehaviour<Beboo> GrowthBehaviour { get; }
   private BebooSpeechRecognition SpeechRecognizer { get; }
+  public bool KnowItsName { get; internal set; }
+  public int MaxEnergy { get; private set; } = 10;
+  public int MaxHappinness { get; private set; } = 10;
 
   private void BurstInTearrs()
   {
@@ -314,6 +371,7 @@ public class Beboo
     GoingDepressedBehaviour.Stop();
     SadBehaviour.Stop();
     SleepingBehaviour.Stop();
+    GrowthBehaviour.Stop();
   }
   public void Unpause()
   {
@@ -325,5 +383,6 @@ public class Beboo
       MoveBehaviour.Start();
     }
     GoingDepressedBehaviour.Start();
+    GrowthBehaviour.Start();
   }
 }

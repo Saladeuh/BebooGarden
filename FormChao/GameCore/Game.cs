@@ -47,16 +47,15 @@ internal class Game : IGlobalActions
     else
     {
       PlayerPosition = new Vector3(-2, 0, 0);
-      Map.AddItem(new Egg(Parameters.FavoredColor), new(2,0,0));
+      Map.AddItem(new Egg(Parameters.FavoredColor), new(2, 0, 0));
     }
 
     SoundSystem.LoadMap(Map);
-    if(Flags.NewGame) Welcome.AfterGarden();
+    if (Flags.NewGame) Welcome.AfterGarden();
     LastPressedKeyTime = DateTime.Now;
     TickTimer.Tick += Tick;
     TickTimer.Enabled = true;
     FruitsBasket = Parameters.FruitsBasket;
-    FruitsBasket[FruitSpecies.Shrink] = 12;
     if (FruitsBasket == null || FruitsBasket.Count == 0)
     {
       FruitsBasket = [];
@@ -103,7 +102,7 @@ internal class Game : IGlobalActions
   }
   public static void Call(object? sender, EventArgs eventArgs)
   {
-    if (Beboos[0] == null || Beboos[0].Sleeping) return;
+    if (Beboos[0] == null || Beboos[0].Sleeping || !Beboos[0].KnowItsName) return;
     SoundSystem.System.Get3DListenerAttributes(0, out var currentPosition, out _, out _, out _);
     Task.Run(async () =>
     {
@@ -230,6 +229,12 @@ internal class Game : IGlobalActions
     KeyState[e.KeyCode] = true;
   }
 
+  public static void ShowVoiceReco(object? sender, EventArgs e)
+  {
+    //UnlockVoiceRecognition.Run(Name);
+    ShopUnlock.Run();
+  }
+
   private static void SayTickets()
   {
     SayLocalizedString(Tickets.ToString());
@@ -272,7 +277,9 @@ internal class Game : IGlobalActions
     else sentence = "beboo.verygood";
     var name = Beboos[0]?.Name;
     if (name != null) SayLocalizedString(sentence, name);
-    //ScreenReader.Output($"Energy {Beboo.Energy}, hapiness {Beboo.Happiness}");
+#if DEBUG
+    ScreenReader.Output(Beboos[0]?.Age.ToString());
+#endif
   }
 
   private void SayBasketState()
@@ -288,7 +295,8 @@ internal class Game : IGlobalActions
       var dropped = treeLine.Shake();
       if (dropped != null)
         if (FruitsBasket != null)
-          FruitsBasket[dropped.Value]++;
+          if (FruitsBasket.TryGetValue(dropped.Value, out _)) FruitsBasket[dropped.Value]++;
+          else FruitsBasket[dropped.Value] = 1;
     }
     else if (Beboos[0] != null && Util.IsInSquare(Beboos[0].Position, PlayerPosition, 1)) ;
     {
@@ -308,7 +316,7 @@ internal class Game : IGlobalActions
     if (options.Count > 0)
     {
       var choice = IWindowManager.ShowChoice("ui.chooseitem", options);
-      if (choice != null && choice!=FruitSpecies.None)
+      if (choice != null && choice != FruitSpecies.None)
       {
         Beboos[0]?.Eat(choice);
         FruitsBasket[choice]--;
@@ -353,10 +361,11 @@ internal class Game : IGlobalActions
       SayLocalizedString("trees");
     else if (item != null) SayLocalizedString(item.Name);
   }
-
   private void Tick(object? _, EventArgs __)
   {
     if (Map != null && Map.IsLullabyPlaying) Beboos[0]?.GoAsleep();
+    if (Beboos[0]?.Age >= 2 && !Flags.VoiceRecoPopupPrinted) {
+      Flags.VoiceRecoPopupPrinted= true; UnlockVoiceRecognition.Run(Beboos[0].Name); }
     SoundSystem.System.Update();
   }
 
@@ -392,7 +401,7 @@ internal class Game : IGlobalActions
        Beboos[0]?.Name ?? "",
        energy: Beboos[0]?.Energy ?? 5,
        happiness: Beboos[0]?.Happiness ?? 5,
-       age: Beboos[0]?.Age ?? 0,
+       age: Beboos[0]?.Age ?? 1,
        lastPayed: DateTime.Now,
        flags: Flags,
        playerName: PlayerName,

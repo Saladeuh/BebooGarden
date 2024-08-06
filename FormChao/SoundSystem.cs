@@ -116,8 +116,6 @@ internal class SoundSystem
 
   public void LoadMainScreen(bool startMusic)
   {
-    Sound sound;
-    Channel channel;
     NeutralMusicStream = System.CreateStream(CONTENTFOLDER + "music/neutral.mp3", Mode.Loop_Normal);
     Music = System.PlaySound(NeutralMusicStream, paused: startMusic)!;
     Music.SetLoopPoints(TimeUnit.MS, 12, TimeUnit.MS, 88369);

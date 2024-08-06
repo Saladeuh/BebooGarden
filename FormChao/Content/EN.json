@@ -50,8 +50,17 @@
     "ui.aboutyou": "Great! Now, {0}, can you tell me a little about you ?\nCommençons simplement.",
     // 0=player name
     "ui.color": "What is your favorite color?",
-    "ui.quicktips": "Perfect!\nBefore you start taking care of {0}, I need to teach you the basics of the garden.\nTo feed {0}, you'll need to collect fruits from the trees on your right. Shake the trees by holding down the space bar and alternating between the up and down arrow keys.\nTo give a fruit to {0}, press the space bar when you are close, just like you did with the egg earlier.
-\nYou can also press F to check if {0} needs anything.\nFinally, press escape to access the menu.\nHave fun!",
+    "ui.quicktips": "Perfect!\nBefore you start taking care of {0}, I need to teach you the basics of the garden.\nTo feed {0}, you'll need to collect fruits from the trees on your right. Shake the trees by holding down the space bar and alternating between the up and down arrow keys.\nTo give a fruit to {0}, press the space bar when you are close, just like you did with the egg earlier.,
+    "\\nYou" "can",
+    "also" "press",
+    "F" "to",
+    "check" "if",
+    { 0 },
+    "needs" "anything.\\nFinally",
+    "press" "escape",
+    "to" "access",
+    "the" "menu.\\nHave",
+    "fun!\",": null,
     "ui.emptyinventory": "Nothing in the bag",
     "ui.chooseitem": "Choose an item",
     "ui.itemput": "{0} dropped",
@@ -75,5 +84,6 @@
     "shop": "Boutique",
     "race.third": "{0} is the third ... ({1} seconds)",
     "race.second": "{0} is the second. ({1} seconds)",
-    "srace.first": "{0} is the first ! ({1} seconds)"
+    "srace.first": "{0} is the first ! ({1} seconds)",
+    "unlockvoice": "{0} is now old enough to recognize its name\nTry calling its!"
 }

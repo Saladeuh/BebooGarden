@@ -1,5 +1,5 @@
 # todo
-- help inventaire, score, évolution (vocal, plus réserve énergie, eau)
+- help inventaire, score, peur eau
 - jouets: bulles, boing
 - maps
 - credits

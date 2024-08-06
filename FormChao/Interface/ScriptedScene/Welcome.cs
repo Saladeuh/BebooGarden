@@ -9,7 +9,7 @@ internal class Welcome : IWindowManager
   {
     IWindowManager.ShowTalk("ui.welcome");
     var playerName = IWindowManager.ShowTextBox("ui.yourname", 12, true);
-    IWindowManager.ShowTalk("ui.aboutyou", playerName);
+    IWindowManager.ShowTalk("ui.aboutyou", true, true, playerName);
     var color = IWindowManager.ShowChoice("ui.color", Util.Colors);
     if (string.IsNullOrEmpty(playerName) || string.IsNullOrEmpty(color))
     {
