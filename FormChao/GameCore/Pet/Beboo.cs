@@ -193,7 +193,7 @@ public class Beboo
     if (Happy) return;
     Happy = true;
     IGlobalActions.SayLocalizedString("beboo.happystart", Name);
-    Game.SoundSystem.PlayNeutralMusic();
+    Game.UpdateMapPusic();
     CuteBehaviour.Start();
     SadBehaviour.Stop();
     MoveBehaviour.MinMS = 200;

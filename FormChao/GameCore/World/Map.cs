@@ -11,12 +11,12 @@ public class Map
 {
   public static Dictionary<MapPresets, Map> Maps = new()
   {
-    {MapPresets.garden, new Map(40, 40,
+    {MapPresets.garden, new Map(MapPresets.garden, 40, 40,
         [new TreeLine(new Vector2(20, 20), new Vector2(20, -20))],
-       new Vector3(-15, 0, 0), Preset.Plain) },
-    {MapPresets.basicrace,new Map(Race.BASERACELENGTH, 10,
+       new Vector3(-15, 0, 0), FmodAudio.Preset.Plain) },
+    {MapPresets.basicrace,new Map(MapPresets.basicrace, Race.BASERACELENGTH, 10,
         [],
-        new Vector3(0, -(Race.BASERACELENGTH / 2) - 10, 0), Preset.StoneCorridor) }
+        new Vector3(0, -(Race.BASERACELENGTH / 2) - 10, 0), FmodAudio.Preset.StoneCorridor) }
   };
   private int SizeX { get; set; }
   private int SizeY { get; set; }
@@ -32,8 +32,10 @@ public class Map
   [JsonIgnore]
   public Channel? BackgroundChannel { get; set; }
   public ReverbProperties ReverbPreset { get; set; }
-  public Map(int sizeX, int sizeY, List<TreeLine> treeLines, Vector3 waterPoint, ReverbProperties reverbPreset)
+  public MapPresets Preset { get; }
+  public Map(MapPresets preset, int sizeX, int sizeY, List<TreeLine> treeLines, Vector3 waterPoint, ReverbProperties reverbPreset)
   {
+    this.Preset = preset;
     SizeX = sizeX;
     SizeY = sizeY;
     TreeLines = treeLines;

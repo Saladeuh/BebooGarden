@@ -29,8 +29,8 @@ public interface IWindowManager
   {
     var texbox = new TextForm(IGlobalActions.GetLocalizedString(title), maxLength, nameFormat);
     texbox.ShowDialog(Game.GameWindow);
-    return texbox.Result;
     Game.ResetKeyState();
+    return texbox.Result;
   }
 
   protected static string? ShowChoice(string title, string[] choices)
@@ -39,15 +39,15 @@ public interface IWindowManager
         new KeyValuePair<string, string>(IGlobalActions.GetLocalizedString(value), value)));
     var choiceMenu = new ChooseMenu<string>(title, localizedChoices);
     choiceMenu.ShowDialog(Game.GameWindow);
-    return choiceMenu.Result;
     Game.ResetKeyState();
+    return choiceMenu.Result;
   }
 
   public static T? ShowChoice<T>(string title, Dictionary<string, T> choices)
   {
     var choiceMenu = new ChooseMenu<T>(IGlobalActions.GetLocalizedString(title), choices);
     choiceMenu.ShowDialog(Game.GameWindow);
-    return choiceMenu.Result;
     Game.ResetKeyState();
+    return choiceMenu.Result;
   }
 }

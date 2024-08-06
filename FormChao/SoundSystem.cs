@@ -432,4 +432,16 @@ internal class SoundSystem
   {
     Game.SoundSystem.MusicTransition(Game.SoundSystem.RaceMusicStream, 0, 0, FmodAudio.TimeUnit.PCM);
   }
+  public void PlayMapMusic(Map map)
+  {
+    if (Game.Map == null || Game.Beboos[0] == null) return;
+    if (Game.Beboos[0].Happy)
+    {
+      switch (map.Preset)
+      {
+        case MapPresets.garden: PlayNeutralMusic(); break; break;
+        default: PlayNeutralMusic(); break;
+      }
+    } else PlaySadMusic();
+  }
 }

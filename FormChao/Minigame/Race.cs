@@ -43,7 +43,7 @@ internal class Race : IWindowManager
     Game.Beboos[2].Pause();
     Game.Beboos[2] = null;
     Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicRaceEnd);
-    Game.SoundSystem.PlayNeutralMusic();
+    Game.UpdateMapPusic();
   }
   (int, double) first = (-1, 0), second = (-1, 0), third = (-1, 0);
 

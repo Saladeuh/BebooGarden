@@ -36,7 +36,7 @@ public class Shop
     Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicElevator, false);
     MainShopMenu.ShowDialog(Game.GameWindow);
     Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicElevator, false);
-    Game.SoundSystem.PlayNeutralMusic();
+    Game.UpdateMapPusic();
     Game.Unpause();
   }
 }

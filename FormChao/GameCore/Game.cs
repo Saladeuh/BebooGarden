@@ -296,7 +296,7 @@ internal class Game : IGlobalActions
           if (FruitsBasket.TryGetValue(dropped.Value, out _)) FruitsBasket[dropped.Value]++;
           else FruitsBasket[dropped.Value] = 1;
     }
-    else if (Beboos[0] != null && Util.IsInSquare(Beboos[0].Position, PlayerPosition, 1)) ;
+    else if (Beboos[0] != null && Util.IsInSquare(Beboos[0].Position, PlayerPosition, 1))
     {
       Beboos[0]?.GetPetted();
     }
@@ -314,7 +314,7 @@ internal class Game : IGlobalActions
     if (options.Count > 0)
     {
       var choice = IWindowManager.ShowChoice("ui.chooseitem", options);
-      if (choice != null && choice != FruitSpecies.None)
+      if (choice != FruitSpecies.None)
       {
         Beboos[0]?.Eat(choice);
         FruitsBasket[choice]--;
@@ -362,8 +362,10 @@ internal class Game : IGlobalActions
   private void Tick(object? _, EventArgs __)
   {
     if (Map != null && Map.IsLullabyPlaying) Beboos[0]?.GoAsleep();
-    if (Beboos[0]?.Age >= 2 && !Flags.VoiceRecoPopupPrinted) {
-      Flags.VoiceRecoPopupPrinted= true; UnlockVoiceRecognition.Run(Beboos[0].Name); }
+    if (Beboos[0]?.Age >= 2 && !Flags.VoiceRecoPopupPrinted)
+    {
+      Flags.VoiceRecoPopupPrinted = true; UnlockVoiceRecognition.Run(Beboos[0].Name);
+    }
     SoundSystem.System.Update();
   }
 
@@ -429,5 +431,9 @@ internal class Game : IGlobalActions
     Map = _backedMap;
     _backedMap = null;
     SoundSystem.Unpause(Map);
+  }
+  public static void UpdateMapPusic()
+  {
+    SoundSystem.PlayMapMusic(Map);
   }
 }
