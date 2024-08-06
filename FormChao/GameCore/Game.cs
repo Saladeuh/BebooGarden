@@ -290,7 +290,7 @@ internal class Game : IGlobalActions
         if (FruitsBasket != null)
           FruitsBasket[dropped.Value]++;
     }
-    else
+    else if (Beboos[0] != null && Util.IsInSquare(Beboos[0].Position, PlayerPosition, 1)) ;
     {
       Beboos[0]?.GetPetted();
     }
