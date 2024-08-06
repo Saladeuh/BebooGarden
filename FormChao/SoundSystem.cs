@@ -100,6 +100,7 @@ internal class SoundSystem
   public Sound CinematicHatch { get; private set; }
   public Sound CinematicElevator { get; private set; }
   public Sound CinematicRaceStart { get; private set; }
+  public Sound CinematicRaceEnd { get; private set; }
   public List<Sound> BebooFunSounds { get; private set; }
   public Dsp PitchDsp { get; private set; }
   public Reverb3D Reverb { get; private set; }
@@ -172,6 +173,7 @@ internal class SoundSystem
     CinematicHatch = System.CreateStream(CONTENTFOLDER + "cinematic/hatch.wav");
     CinematicElevator = System.CreateStream(CONTENTFOLDER + "cinematic/elevator.mp3");
     CinematicRaceStart = System.CreateStream(CONTENTFOLDER + "cinematic/race.mp3");
+    CinematicRaceEnd = System.CreateStream(CONTENTFOLDER + "cinematic/Return.mp3");
     LoadItemSound();
     GrassSound = System.CreateSound(CONTENTFOLDER + "sounds/grass_rustle.wav",
         Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
