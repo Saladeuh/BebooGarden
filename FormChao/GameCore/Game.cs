@@ -227,12 +227,6 @@ internal class Game : IGlobalActions
     KeyState[e.KeyCode] = true;
   }
 
-  public static void ShowVoiceReco(object? sender, EventArgs e)
-  {
-    //UnlockVoiceRecognition.Run(Name);
-    ShopUnlock.Run();
-  }
-
   private static void SayTickets()
   {
     SayLocalizedString(Tickets.ToString());

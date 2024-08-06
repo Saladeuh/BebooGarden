@@ -17,5 +17,5 @@ public class Flags
   public bool NewGame { get; set; } = true;
   public bool HasUnlockOnline { get; set; }
   public bool UnlockShop { get; set; }
-  public bool VoiceRecoPopupPrinted { get; internal set; } = false;
+  public bool VoiceRecoPopupPrinted { get; set; }
 }

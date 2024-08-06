@@ -64,7 +64,6 @@ public class Beboo
     var elapsedTime = DateTime.Now - lastPlayed;
     Happiness = elapsedTime.TotalHours > 4 ? 5 : happiness;
     Age = age;
-    Age = 1.9f;
     KnowItsName = age > 2;
     switch (age)
     {
