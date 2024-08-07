@@ -4,5 +4,5 @@ public enum MapPresets
 {
   garden,
   basicrace,
-  winter
+  snowy
 }

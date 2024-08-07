@@ -14,6 +14,9 @@ public class Map
     {MapPresets.garden, new Map(MapPresets.garden, 40, 40,
         [new TreeLine(new Vector2(20, 20), new Vector2(20, -20))],
        new Vector3(-15, 0, 0), FmodAudio.Preset.Plain) },
+    {MapPresets.snowy, new Map(MapPresets.snowy, 60, 60,
+        [new TreeLine(new Vector2(-5,30), new Vector2(5, 30))],
+       new Vector3(-100, 0, 0), FmodAudio.Preset.Plain) },
     {MapPresets.basicrace,new Map(MapPresets.basicrace, Race.BASERACELENGTH, 10,
         [],
         new Vector3(0, -(Race.BASERACELENGTH / 2) - 10, 0), FmodAudio.Preset.StoneCorridor) }
@@ -91,5 +94,9 @@ public class Map
   public bool IsArrundShop(Vector3 position)
   {
     return Util.IsInSquare(new Vector3(SizeX / 2, -SizeY / 2, 0), position, 1);
+  }
+  public bool IsArrundMapPath(Vector3 position)
+  {
+    return Util.IsInSquare(new Vector3(-SizeX / 2, -SizeY / 2, 0), position, 1);
   }
 }

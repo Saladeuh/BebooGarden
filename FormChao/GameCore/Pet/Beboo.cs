@@ -192,7 +192,7 @@ public class Beboo
     if (Happy) return;
     Happy = true;
     IGlobalActions.SayLocalizedString("beboo.happystart", Name);
-    Game.UpdateMapPusic();
+    Game.UpdateMapMusic();
     CuteBehaviour.Start();
     SadBehaviour.Stop();
     MoveBehaviour.MinMS = 200;
@@ -212,6 +212,9 @@ public class Beboo
     {
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooStepWaterSound, this, false);
       StartPanik();
+    } else if (Game.Map?.Preset == MapPresets.snowy)
+    {
+      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooStepSnowSound, this, false);
     }
     else
     {

@@ -57,6 +57,7 @@ internal class SoundSystem
   public List<Sound> BebooSleepingSounds { get; private set; }
   public Sound BebooStepSound { get; private set; }
   public Sound BebooStepWaterSound { get; private set; }
+  public Sound BebooStepSnowSound { get; private set; }
   public Sound BebooScreamSound { get; private set; }
   public Sound ItemPutSound { get; private set; }
   public Sound ItemTakeSound { get; private set; }
@@ -65,6 +66,7 @@ internal class SoundSystem
   public Sound ItemTicketPackSound { get; private set; }
   public List<Sound> EggKrakSounds { get; private set; }
   public Sound GrassSound { get; private set; }
+  public Sound ColdWindSound { get; private set; }
   public Sound MenuBipSound { get; private set; }
   public Sound MenuKeySound { get; private set; }
   public Sound MenuKeyDeleteSound { get; private set; }
@@ -165,6 +167,8 @@ internal class SoundSystem
         Mode._3D | Mode._3D_LinearSquareRolloff);
     BebooStepWaterSound = System.CreateSound(CONTENTFOLDER + "sounds/buble4.wav",
         Mode._3D | Mode._3D_LinearSquareRolloff);
+    BebooStepSnowSound = System.CreateSound(CONTENTFOLDER + "sounds/snow/step.wav",
+        Mode._3D | Mode._3D_LinearSquareRolloff);
     BebooScreamSound = System.CreateSound(CONTENTFOLDER + "sounds/beboo/cri.wav",
         Mode._3D | Mode._3D_LinearSquareRolloff);
     CinematicHatch = System.CreateStream(CONTENTFOLDER + "cinematic/hatch.wav");
@@ -174,6 +178,8 @@ internal class SoundSystem
     LoadItemSound();
     GrassSound = System.CreateSound(CONTENTFOLDER + "sounds/grass_rustle.wav",
         Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
+    ColdWindSound = System.CreateSound(CONTENTFOLDER + "sounds/snow/winter_day.wav",
+        Mode.Loop_Normal| Mode.Unique);
     LoadMenuSounds();
   }
 
@@ -239,11 +245,19 @@ internal class SoundSystem
       map.TreesChannels.Clear();
       map.TreesChannels.Add(treeChannel);
     }
-    //winter: 1922069 6508548
-    Sound sound = System.CreateStream(CONTENTFOLDER + "sounds/Grass_Shake.wav");
-    map.BackgroundChannel = System.PlaySound(sound, paused: false)!;
-    map.BackgroundChannel.SetLoopPoints(TimeUnit.MS, 678, TimeUnit.MS, 6007);
-    map.BackgroundChannel.Volume = 0.5f;
+    switch (map.Preset)
+    {
+      case MapPresets.garden:
+        Sound sound = System.CreateStream(CONTENTFOLDER + "sounds/Grass_Shake.wav");
+        map.BackgroundChannel = System.PlaySound(sound, paused: false)!;
+        map.BackgroundChannel.SetLoopPoints(TimeUnit.MS, 678, TimeUnit.MS, 6007);
+        map.BackgroundChannel.Volume = 0.5f;
+        break;
+      case MapPresets.snowy:
+        map.BackgroundChannel = System.PlaySound(ColdWindSound, paused: false)!;
+        map.BackgroundChannel.Volume = 1f;
+        break;
+    }
     LoadAmbiSounds();
     foreach (var item in map.Items) item.SoundLoopTimer?.Start();
     Reverb = System.CreateReverb3D();
@@ -423,18 +437,23 @@ internal class SoundSystem
 
   internal void PlayNeutralMusic()
   {
-    Game.SoundSystem.MusicTransition(Game.SoundSystem.NeutralMusicStream, 12, 88369, TimeUnit.MS);
+    MusicTransition(NeutralMusicStream, 12, 88369, TimeUnit.MS);
   }
 
   internal void PlayShopMusic()
   {
-    Game.SoundSystem.MusicTransition(Game.SoundSystem.ShopMusicStream, 459264, 8156722, FmodAudio.TimeUnit.PCM);
+    MusicTransition(ShopMusicStream, 459264, 8156722, FmodAudio.TimeUnit.PCM);
   }
 
   internal void PlayRaceMusic()
   {
-    Game.SoundSystem.MusicTransition(Game.SoundSystem.RaceMusicStream, 0, 0, FmodAudio.TimeUnit.PCM);
+    MusicTransition(RaceMusicStream, 0, 0, FmodAudio.TimeUnit.PCM);
   }
+  internal void PlaySnowyMusic()
+  {
+    MusicTransition(SnowyMusicStream, 1922069, 6508548, FmodAudio.TimeUnit.PCM);
+  }
+
   public void PlayMapMusic(Map map)
   {
     if (Game.Map == null || Game.Beboos[0] == null) return;
@@ -442,9 +461,11 @@ internal class SoundSystem
     {
       switch (map.Preset)
       {
-        case MapPresets.garden: PlayNeutralMusic(); break; break;
+        case MapPresets.garden: PlayNeutralMusic(); break;
+        case MapPresets.snowy: PlaySnowyMusic(); break;
         default: PlayNeutralMusic(); break;
       }
-    } else PlaySadMusic();
+    }
+    else PlaySadMusic();
   }
 }

@@ -18,4 +18,5 @@ public class Flags
   public bool HasUnlockOnline { get; set; }
   public bool UnlockShop { get; set; }
   public bool VoiceRecoPopupPrinted { get; set; }
+  public bool UnlockSnowyMap { get; set; }
 }

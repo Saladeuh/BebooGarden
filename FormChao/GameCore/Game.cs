@@ -170,6 +170,11 @@ internal class Game : IGlobalActions
       case Keys.Enter:
         if (itemUnderCursor != null && itemUnderCursor.IsTakable) itemUnderCursor.Take();
         else if (Flags.UnlockShop && (Map?.IsArrundShop(PlayerPosition) ?? false)) new Shop().Show();
+        else if (Flags.UnlockSnowyMap && (Map?.IsArrundMapPath(PlayerPosition) ?? false))
+        {
+          ChangeMap(Map.Maps[MapPresets.snowy], false);
+          UpdateMapMusic();
+        }
         break;
       case Keys.Escape:
         Dictionary<string, Item.Item> options = [];
@@ -337,6 +342,7 @@ internal class Game : IGlobalActions
     SoundSystem.MovePlayerTo(newPos);
     if (Map.IsInLake(newPos)) SayLocalizedString("water");
     else if (Flags.UnlockShop && (Map?.IsArrundShop(PlayerPosition) ?? false)) SayLocalizedString("shop");
+    else if (Flags.UnlockSnowyMap && (Map?.IsArrundMapPath(PlayerPosition) ?? false)) SayLocalizedString("snowy");
     SpeakObjectUnderCursor();
   }
 
@@ -359,6 +365,10 @@ internal class Game : IGlobalActions
     if (Beboos[0]?.Age >= 2 && !Flags.VoiceRecoPopupPrinted)
     {
       Flags.VoiceRecoPopupPrinted = true; UnlockVoiceRecognition.Run(Beboos[0].Name);
+    }
+    else if (Beboos[0]?.Age >= 3 && !Flags.UnlockSnowyMap)
+    {
+
     }
     SoundSystem.System.Update();
   }
@@ -411,10 +421,10 @@ internal class Game : IGlobalActions
     SaveManager.WriteJson(parameters);
   }
   private static Map? _backedMap;
-  internal static void ChangeMap(Map map)
+  internal static void ChangeMap(Map map, bool backup = true)
   {
     if (Game.Map != null) Game.SoundSystem.Pause(Game.Map);
-    _backedMap = Map;
+    if (backup) _backedMap = Map;
     Map = map;
     SoundSystem.LoadMap(map);
   }
@@ -426,7 +436,7 @@ internal class Game : IGlobalActions
     _backedMap = null;
     SoundSystem.Unpause(Map);
   }
-  public static void UpdateMapPusic()
+  public static void UpdateMapMusic()
   {
     SoundSystem.PlayMapMusic(Map);
   }
