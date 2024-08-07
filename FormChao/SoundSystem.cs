@@ -1,12 +1,9 @@
-using System.Diagnostics;
 using System.Numerics;
 using System.Timers;
 using BebooGarden.GameCore;
 using BebooGarden.GameCore.Pet;
 using BebooGarden.GameCore.World;
 using FmodAudio;
-using FmodAudio.Base;
-using FmodAudio.DigitalSignalProcessing;
 using Timer = System.Timers.Timer;
 
 namespace BebooGarden;
@@ -397,7 +394,7 @@ internal class SoundSystem
     foreach (var channel in map.TreesChannels) channel.Paused = true;
     foreach (var channel in map.WaterChannels) channel.Paused = true;
     foreach (var item in map.Items) item.SoundLoopTimer?.Stop();
-    //if (map != null) map.BackgroundChannel.Paused = true;
+    try { if (map != null) map.BackgroundChannel.Paused = true; } catch { }
   }
 
   public void Unpause(Map map)
@@ -407,7 +404,7 @@ internal class SoundSystem
       foreach (var channel in map.TreesChannels) channel.Paused = false;
       foreach (var channel in map.WaterChannels) channel.Paused = false;
       foreach (var item in map.Items) item.SoundLoopTimer?.Start();
-      //if (map.BackgroundChannel != null) map.BackgroundChannel.Paused = false;
+      if (map.BackgroundChannel != null) map.BackgroundChannel.Paused = false;
     }
     catch
     {

@@ -8,7 +8,6 @@ using BebooGarden.Interface;
 using BebooGarden.Interface.ScriptedScene;
 using BebooGarden.Interface.Shop;
 using BebooGarden.Save;
-using FmodAudio;
 using Timer = System.Windows.Forms.Timer;
 
 
@@ -43,7 +42,7 @@ internal class Game : IGlobalActions
       PlayerPosition = new Vector3(0, 0, 0);
       foreach (var map in Map.Maps.Values)
       {
-        if (map.TreeLines.Count >0) map.TreeLines[0].SetFruitsAfterAWhile(Parameters.LastPlayed, Parameters.MapInfos[map.Preset].RemainingFruits);
+        if (map.TreeLines.Count > 0) map.TreeLines[0].SetFruitsAfterAWhile(Parameters.LastPlayed, Parameters.MapInfos[map.Preset].RemainingFruits);
         try
         {
           map.Items = Parameters.MapInfos[map.Preset].Items;
@@ -184,9 +183,9 @@ internal class Game : IGlobalActions
         else if (Flags.UnlockShop && (Map?.IsArrundShop(PlayerPosition) ?? false)) new Shop().Show();
         else if (Flags.UnlockSnowyMap && (Map?.IsArrundMapPath(PlayerPosition) ?? false))
         {
-          if(Map?.Preset==MapPreset.snowy) ChangeMap(Map.Maps[MapPreset.garden], false);
+          if (Map.Preset == MapPreset.snowy) ChangeMap(Map.Maps[MapPreset.garden], false);
           else ChangeMap(Map.Maps[MapPreset.snowy], false);
-            UpdateMapMusic();
+          UpdateMapMusic();
           PlayerPosition = new(0, 0, 0);
         }
         break;
@@ -461,6 +460,6 @@ internal class Game : IGlobalActions
   }
   public static void UpdateMapMusic()
   {
-    SoundSystem.PlayMapMusic(Map);
+    if (Map != null) SoundSystem.PlayMapMusic(Map);
   }
 }
