@@ -103,6 +103,7 @@ internal class SoundSystem
   public Sound CinematicRaceEnd { get; private set; }
   public List<Sound> BebooFunSounds { get; private set; }
   public Reverb3D Reverb { get; private set; }
+  public List<Sound> BoingSounds { get; private set; }
 
   private void LoadSoundsInList(string[] files, List<Sound> sounds, string prefixe = "")
   {
@@ -194,8 +195,10 @@ internal class SoundSystem
     ItemPutWaterSound = System.CreateSound(CONTENTFOLDER + "sounds/character/itemwaterfall.wav", Mode.Unique);
     ItemDuckSound = System.CreateSound(CONTENTFOLDER + "sounds/kwak.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     ItemTicketPackSound = System.CreateSound(CONTENTFOLDER + "sounds/ticket.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
-    EggKrakSounds = new List<Sound>();
+    EggKrakSounds = [];
     LoadSoundsInList(["krak.wav", "krak2.wav"], EggKrakSounds, "sounds/egg/");
+    BoingSounds = new List<Sound>();
+    LoadSoundsInList(["boing2.wav", "boing.wav"], BoingSounds, "sounds/");
   }
 
   public void LoadMenuSounds()

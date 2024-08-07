@@ -17,7 +17,7 @@ public class Beboo
   private int _petCount;
   private float voicePitch = 1.1f;
   private float age = 1;
-
+  public bool BootsSlippedOn { get; set; } = false;
   public Channel? Channel { get; set; }
   public float VoicePitch
   {
@@ -207,6 +207,7 @@ public class Beboo
     directionNormalized.X = Math.Sign(directionNormalized.X);
     directionNormalized.Y = Math.Sign(directionNormalized.Y);
     Position += directionNormalized;
+    if (BootsSlippedOn && Game.Random.Next(2) == 1) Position += directionNormalized;
     if (Game.Map?.IsInLake(Position) ?? false)
     {
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooStepWaterSound, this, false);
@@ -214,16 +215,18 @@ public class Beboo
     }
     else
     {
-      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooStepSound, this, false);
+      if (BootsSlippedOn) Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BoingSounds, this, false);
+      else Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooStepSound, this, false);
       EndPanik();
     }
 
     var proximityItem = Game.Map?.GetItemArroundPosition(Position);
-    if (Happy && proximityItem != null && Game.Random.Next(8) == 1)
+    if (Happy && proximityItem != null && Game.Random.Next(6) == 1)
     {
       proximityItem.BebooAction();
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooFunSounds, this);
     }
+    if (Game.Random.Next(20) == 1) BootsSlippedOn = false;
     var moved = Position != GoalPosition;
     if (!moved) GoalPosition = null;
     return moved;

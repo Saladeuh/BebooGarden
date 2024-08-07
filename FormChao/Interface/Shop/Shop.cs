@@ -14,7 +14,7 @@ public class Shop
 
   public Shop()
   {
-    var itemsList = new List<Item> { new Duck(), new MusicBox() };
+    var itemsList = new List<Item> { new Duck(), new MusicBox(), new BouncingBoots() };
     var itemsDictionary = itemsList.ToDictionary(
         item => IGlobalActions.GetLocalizedString("shop.item", item.Name, item.Cost),
         item => item
