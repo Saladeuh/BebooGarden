@@ -6,8 +6,7 @@ namespace BebooGarden.Save;
 public class SaveParameters
 {
   public SaveParameters(string? language, float volume, string bebooName, float age, float energy, int happiness,
-      DateTime lastPayed, Flags flags, string playerName, SortedDictionary<FruitSpecies, int> fruitsBasket,
-      int remainingFruits, List<Item> inventory, int tickets, List<Item> mapItems, List<string> unlockedRolls, string favoredColor)
+      DateTime lastPayed, Flags flags, string playerName, SortedDictionary<FruitSpecies, int> fruitsBasket, List<Item> inventory, int tickets, List<string> unlockedRolls, string favoredColor, Dictionary<MapPreset, MapInfo> mapInfos, MapPreset currentMap)
   {
     Volume = volume;
     Language = language;
@@ -19,12 +18,12 @@ public class SaveParameters
     Flags = flags;
     PlayerName = playerName;
     FruitsBasket = fruitsBasket;
-    RemainingFruits = remainingFruits;
     Inventory = inventory;
     Tickets = tickets;
-    MapItems = mapItems;
     UnlockedRolls = unlockedRolls;
     FavoredColor = favoredColor;
+    MapInfos = mapInfos;
+    CurrentMap = currentMap;
   }
 
   public SaveParameters()
@@ -52,9 +51,9 @@ public class SaveParameters
   public string PlayerName { get; set; }
   public string FavoredColor { get; internal set; }
   public SortedDictionary<FruitSpecies, int> FruitsBasket { get; set; }
-  public int RemainingFruits { get; set; }
   public int Tickets { get; set; }
   public List<Item> Inventory { get; set; } = new();
-  public List<Item> MapItems { get; set; } = new();
+  public Dictionary<MapPreset, MapInfo> MapInfos { get; set; }
   public List<string> UnlockedRolls { get; set; } = new();
+  public MapPreset CurrentMap {  get; set; }
 }

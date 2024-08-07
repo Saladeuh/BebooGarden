@@ -77,7 +77,9 @@ internal class MusicBox : Item
       var choosedRoll =
           IWindowManager.ShowChoice(IGlobalActions.GetLocalizedString("ui.chooseroll"), rollDictionary);
       if (choosedRoll != null) choosedRoll.Play();
-      else { Game.UpdateMapMusic(); }
+      else { Game.UpdateMapMusic();
+       if(Game.Map!=null) Game.Map.IsLullabyPlaying = false;
+      }
     }
     else
     {

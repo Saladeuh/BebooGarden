@@ -212,7 +212,7 @@ public class Beboo
     {
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooStepWaterSound, this, false);
       StartPanik();
-    } else if (Game.Map?.Preset == MapPresets.snowy)
+    } else if (Game.Map?.Preset == MapPreset.snowy)
     {
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooStepSnowSound, this, false);
     }

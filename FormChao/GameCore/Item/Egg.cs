@@ -25,7 +25,7 @@ public class Egg(string color) : Item
     Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicHatch);
     var name = NewBeboo.Run();
     Game.Beboos[0] = new Beboo(name, 1, DateTime.MinValue);
-    Game.SoundSystem.Music.Paused = false;
+    Game.UpdateMapMusic();
   }
 
   public override void PlaySound()

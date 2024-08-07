@@ -27,7 +27,7 @@ internal class Duck : Item
   }
   public override void PlaySound()
   {
-    if (Position == null) return;
+    if (Position == null || !(Game.Map?.Items.Contains(this)??false)) return;
     Channel = Game.SoundSystem.PlaySoundAtPosition(Game.SoundSystem.ItemDuckSound, (Vector3)Position);
   }
 }

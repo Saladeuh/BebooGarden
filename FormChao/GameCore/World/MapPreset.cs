@@ -1,6 +1,6 @@
 ﻿namespace BebooGarden.GameCore.World;
 
-public enum MapPresets
+public enum MapPreset
 {
   garden,
   basicrace,

@@ -120,9 +120,6 @@ internal class SoundSystem
   public void LoadMainScreen(bool startMusic)
   {
     NeutralMusicStream = System.CreateStream(CONTENTFOLDER + "music/neutral.mp3", Mode.Loop_Normal);
-    Music = System.PlaySound(NeutralMusicStream, paused: startMusic)!;
-    Music.SetLoopPoints(TimeUnit.MS, 12, TimeUnit.MS, 88369);
-    Music.Volume = 0.5f;
     SadMusicStream = System.CreateStream(CONTENTFOLDER + "music/Depressed.mp3", Mode.Loop_Normal);
     ShopMusicStream = System.CreateStream(CONTENTFOLDER + "music/Boutique.mp3", Mode.Loop_Normal);
     SnowyMusicStream = System.CreateStream(CONTENTFOLDER + "music/snowy.mp3", Mode.Loop_Normal);
@@ -179,7 +176,7 @@ internal class SoundSystem
     GrassSound = System.CreateSound(CONTENTFOLDER + "sounds/grass_rustle.wav",
         Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     ColdWindSound = System.CreateSound(CONTENTFOLDER + "sounds/snow/winter_day.wav",
-        Mode.Loop_Normal| Mode.Unique);
+        Mode.Loop_Normal | Mode.Unique);
     LoadMenuSounds();
   }
 
@@ -247,13 +244,13 @@ internal class SoundSystem
     }
     switch (map.Preset)
     {
-      case MapPresets.garden:
+      case MapPreset.garden:
         Sound sound = System.CreateStream(CONTENTFOLDER + "sounds/Grass_Shake.wav");
         map.BackgroundChannel = System.PlaySound(sound, paused: false)!;
         map.BackgroundChannel.SetLoopPoints(TimeUnit.MS, 678, TimeUnit.MS, 6007);
         map.BackgroundChannel.Volume = 0.5f;
         break;
-      case MapPresets.snowy:
+      case MapPreset.snowy:
         map.BackgroundChannel = System.PlaySound(ColdWindSound, paused: false)!;
         map.BackgroundChannel.Volume = 1f;
         break;
@@ -377,12 +374,12 @@ internal class SoundSystem
 
   public void MusicTransition(Sound music, uint startLoop, uint endLoop, TimeUnit timeUnit, float volume = 0.5f)
   {
-    var mute = Music?.Mute ?? true;
+    var mute = Music?.Mute ?? false;
     Music?.Stop();
     Music = System.PlaySound(music, paused: false)!;
     if (endLoop != 0) Music?.SetLoopPoints(timeUnit, startLoop, timeUnit, endLoop);
-    Music.Volume = volume;
-    Music.Mute = mute;
+    if (Music != null) Music.Volume = volume;
+    if (Music != null) Music.Mute = mute;
   }
 
   internal Channel PlaySoundAtPosition(List<Sound> sounds, Vector3 position)
@@ -420,13 +417,13 @@ internal class SoundSystem
   public void PlayCinematic(Sound sound, bool pauseMusic = true)
   {
     Game.GameWindow?.DisableInput();
-    Music.Paused = pauseMusic;
+    if (Music != null) Music.Paused = pauseMusic;
     Channel channel = System.PlaySound(sound)!;
     while (channel.IsPlaying)
     {
     }
 
-    Music.Paused = false;
+    if (Music != null) Music.Paused = false;
     Game.GameWindow?.EnableInput();
   }
 
@@ -456,13 +453,13 @@ internal class SoundSystem
 
   public void PlayMapMusic(Map map)
   {
-    if (Game.Map == null || Game.Beboos[0] == null) return;
+    if (Game.Beboos[0] == null) return;
     if (Game.Beboos[0].Happy)
     {
       switch (map.Preset)
       {
-        case MapPresets.garden: PlayNeutralMusic(); break;
-        case MapPresets.snowy: PlaySnowyMusic(); break;
+        case MapPreset.garden: PlayNeutralMusic(); break;
+        case MapPreset.snowy: PlaySnowyMusic(); break;
         default: PlayNeutralMusic(); break;
       }
     }

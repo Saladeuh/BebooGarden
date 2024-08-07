@@ -9,15 +9,15 @@ namespace BebooGarden.GameCore.World;
 
 public class Map
 {
-  public static Dictionary<MapPresets, Map> Maps = new()
+  public static Dictionary<MapPreset, Map> Maps = new()
   {
-    {MapPresets.garden, new Map(MapPresets.garden, 40, 40,
+    {MapPreset.garden, new Map(MapPreset.garden, 40, 40,
         [new TreeLine(new Vector2(20, 20), new Vector2(20, -20))],
        new Vector3(-15, 0, 0), FmodAudio.Preset.Plain) },
-    {MapPresets.snowy, new Map(MapPresets.snowy, 60, 60,
+    {MapPreset.snowy, new Map(MapPreset.snowy, 60, 60,
         [new TreeLine(new Vector2(-5,30), new Vector2(5, 30))],
        new Vector3(-100, 0, 0), FmodAudio.Preset.Plain) },
-    {MapPresets.basicrace,new Map(MapPresets.basicrace, Race.BASERACELENGTH, 10,
+    {MapPreset.basicrace,new Map(MapPreset.basicrace, Race.BASERACELENGTH, 10,
         [],
         new Vector3(0, -(Race.BASERACELENGTH / 2) - 10, 0), FmodAudio.Preset.StoneCorridor) }
   };
@@ -35,8 +35,8 @@ public class Map
   [JsonIgnore]
   public Channel? BackgroundChannel { get; set; }
   public ReverbProperties ReverbPreset { get; set; }
-  public MapPresets Preset { get; }
-  public Map(MapPresets preset, int sizeX, int sizeY, List<TreeLine> treeLines, Vector3 waterPoint, ReverbProperties reverbPreset)
+  public MapPreset Preset { get; }
+  public Map(MapPreset preset, int sizeX, int sizeY, List<TreeLine> treeLines, Vector3 waterPoint, ReverbProperties reverbPreset)
   {
     this.Preset = preset;
     SizeX = sizeX;

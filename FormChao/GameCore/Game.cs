@@ -33,15 +33,26 @@ internal class Game : IGlobalActions
     GameWindow = form;
     Parameters = SaveManager.LoadSave();
     Flags = Parameters.Flags;
-    Map = Map.Maps[MapPresets.garden];
-    Map.Items = Parameters.MapItems ?? [];
+    Flags.UnlockSnowyMap = true;
+    try { Map = Map.Maps[Parameters.CurrentMap]; } catch { Map = Map.Maps[MapPreset.garden]; }
     MusicBox.AvailableRolls = Parameters.UnlockedRolls ?? [];
     SoundSystem.Volume = Parameters.Volume;
     SoundSystem.LoadMainScreen(Flags.NewGame);
     if (!Flags.NewGame)
     {
       PlayerPosition = new Vector3(0, 0, 0);
-      Map.TreeLines[0].SetFruitsAfterAWhile(Parameters.LastPlayed, Parameters.RemainingFruits);
+      foreach (var map in Map.Maps.Values)
+      {
+        if (map.TreeLines.Count >0) map.TreeLines[0].SetFruitsAfterAWhile(Parameters.LastPlayed, Parameters.MapInfos[map.Preset].RemainingFruits);
+        try
+        {
+          map.Items = Parameters.MapInfos[map.Preset].Items;
+        }
+        catch
+        {
+          map.Items = new();
+        }
+      }
       Beboos[0] = new Beboo(Parameters.BebooName, Parameters.Age, Parameters.LastPlayed, Parameters.Happiness);
     }
     else
@@ -49,8 +60,8 @@ internal class Game : IGlobalActions
       PlayerPosition = new Vector3(-2, 0, 0);
       Map.AddItem(new Egg(Parameters.FavoredColor), new(2, 0, 0));
     }
-
     SoundSystem.LoadMap(Map);
+    UpdateMapMusic();
     if (Flags.NewGame) Welcome.AfterGarden();
     LastPressedKeyTime = DateTime.Now;
     TickTimer.Tick += Tick;
@@ -65,6 +76,7 @@ internal class Game : IGlobalActions
     PlayerName = Parameters.PlayerName;
     Tickets = Parameters.Tickets;
     Inventory = Parameters.Inventory;
+    Inventory.Add(new Duck());
   }
 
   public static SoundSystem SoundSystem { get; }
@@ -172,8 +184,10 @@ internal class Game : IGlobalActions
         else if (Flags.UnlockShop && (Map?.IsArrundShop(PlayerPosition) ?? false)) new Shop().Show();
         else if (Flags.UnlockSnowyMap && (Map?.IsArrundMapPath(PlayerPosition) ?? false))
         {
-          ChangeMap(Map.Maps[MapPresets.snowy], false);
-          UpdateMapMusic();
+          if(Map?.Preset==MapPreset.snowy) ChangeMap(Map.Maps[MapPreset.garden], false);
+          else ChangeMap(Map.Maps[MapPreset.snowy], false);
+            UpdateMapMusic();
+          PlayerPosition = new(0, 0, 0);
         }
         break;
       case Keys.Escape:
@@ -369,6 +383,7 @@ internal class Game : IGlobalActions
     else if (Beboos[0]?.Age >= 3 && !Flags.UnlockSnowyMap)
     {
 
+      Flags.UnlockSnowyMap = true;
     }
     SoundSystem.System.Update();
   }
@@ -400,6 +415,14 @@ internal class Game : IGlobalActions
   internal void Close(object? sender, FormClosingEventArgs e)
   {
     Map?.Items.RemoveAll(item => typeof(Roll) == item.GetType());
+    Dictionary<MapPreset, MapInfo> mapInfos = [];
+    foreach (var map in Map.Maps.Values)
+    {
+      var fruits = 0;
+      if (map.TreeLines.Count > 0) fruits = map.TreeLines[0].Fruits;
+      var mapInfo = new MapInfo(map.Items, fruits);
+      mapInfos.Add(map.Preset, mapInfo);
+    }
     var parameters = new SaveParameters(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName,
        SoundSystem.Volume,
        Beboos[0]?.Name ?? "",
@@ -410,12 +433,12 @@ internal class Game : IGlobalActions
        flags: Flags,
        playerName: PlayerName,
        fruitsBasket: FruitsBasket ?? [],
-       remainingFruits: Map?.TreeLines[0].Fruits ?? 0,
        inventory: Inventory,
        tickets: Tickets,
-       mapItems: Map?.Items ?? [],
        unlockedRolls: MusicBox.AvailableRolls,
-       favoredColor: Parameters.FavoredColor
+       favoredColor: Parameters.FavoredColor,
+       currentMap: Map?.Preset ?? MapPreset.garden,
+       mapInfos: mapInfos
    );
     parameters.Flags.NewGame = Game.Beboos == null;
     SaveManager.WriteJson(parameters);
