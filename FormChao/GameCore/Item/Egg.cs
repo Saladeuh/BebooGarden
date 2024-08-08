@@ -17,14 +17,14 @@ public class Egg(string color) : Item
 
   public override void Action() => Hatch();
   public override void Take() => Hatch();
-  public override void BebooAction() => Hatch();
+  public override void BebooAction(Beboo beboo) => Hatch();
   private void Hatch()
   {
     Game.Map?.Items.Remove(this);
     SoundLoopTimer.Stop();
     Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicHatch);
     var name = NewBeboo.Run();
-    Game.Beboos[0] = new Beboo(name, 1, DateTime.MinValue);
+    Game.Map?.Beboos.Add( new Beboo(name, 1, DateTime.MinValue));
     Game.UpdateMapMusic();
   }
 

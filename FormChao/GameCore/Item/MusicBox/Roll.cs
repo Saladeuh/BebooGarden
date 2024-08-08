@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using BebooGarden.GameCore.Pet;
 using BebooGarden.Interface;
 using FmodAudio;
 
@@ -66,6 +67,6 @@ internal class Roll(
     }
   }
   public override void Action() =>Take();
-  public override void BebooAction() => Take();
+  public override void BebooAction(Beboo beboo) => Take();
 
 }

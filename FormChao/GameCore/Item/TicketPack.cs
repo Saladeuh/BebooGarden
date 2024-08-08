@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using BebooGarden.GameCore.Pet;
 
 namespace BebooGarden.GameCore.Item;
 
@@ -26,6 +27,6 @@ internal class TicketPack(int amount) : Item
     Position = null;
     Game.GainTicket(Amount);
   }
-  public override void BebooAction() => Take();
+  public override void BebooAction(Beboo beboo) => Take();
   
 }

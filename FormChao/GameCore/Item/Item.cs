@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using BebooGarden.GameCore.Pet;
 using BebooGarden.Interface;
 using FmodAudio;
 using Newtonsoft.Json;
@@ -53,7 +54,7 @@ public abstract class Item
       IGlobalActions.SayLocalizedString("shop.notickets");
     }
   }
-  public virtual void BebooAction()
+  public virtual void BebooAction(Beboo beboo)
   {
 
   }

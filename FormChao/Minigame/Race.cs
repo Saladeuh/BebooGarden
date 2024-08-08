@@ -12,20 +12,23 @@ internal class Race : IWindowManager
   public static readonly int BASERACELENGTH = 60;
   public int Length { get; set; }
   public DateTime StartTime;
-
-  public Race(int length)
+  private Beboo MainBeboo { get; }
+  public Race(int length, Beboo mainBeboo)
   {
     Length = length;
+    MainBeboo = mainBeboo;
   }
   public void Start()
   {
     Game.ChangeMap(Map.Maps[MapPreset.basicrace]);
+    Game.Map?.Beboos.Add(MainBeboo);
+    MainBeboo.Unpause();
     var startPos = new Vector3(-Length / 2, 0, 0);
-    Game.Beboos[0].Position = startPos;
-    Game.Beboos[1] = new Beboo("bob", 1, DateTime.Now, Game.Random.Next(10), true, 1.3f);
-    Game.Beboos[1].Position = startPos + new Vector3(0, 2, 0);
-    Game.Beboos[2] = new Beboo("boby", 1, DateTime.Now, Game.Random.Next(10), true, 1.2f);
-    Game.Beboos[2].Position = startPos + new Vector3(0, -2, 0);
+    MainBeboo.Position = startPos;
+    Game.Map?.Beboos.Add(new Beboo("bob", 1, DateTime.Now, Game.Random.Next(10), true, 1.3f));
+    Game.Map.Beboos[1].Position = startPos + new Vector3(0, 2, 0);
+    Game.Map?.Beboos.Add(new Beboo("boby", 1, DateTime.Now, Game.Random.Next(10), true, 1.2f));
+    Game.Map.Beboos[2].Position = startPos + new Vector3(0, -2, 0);
     Game.SoundSystem.PlayRaceMusic();
     Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicRaceStart, true);
     StartTime = DateTime.Now;
@@ -35,13 +38,12 @@ internal class Race : IWindowManager
   {
     Game.TickTimer.Tick -= Tick;
     RaceResult.Run(third, second, first);
+    Game.Map?.Beboos[1].Pause();
+    Game.Map?.Beboos[2].Pause();
+    Game.Map?.Beboos.Clear();
     Game.LoadBackedMap();
-    Game.Beboos[0].Position = new(0, 0, 0);
-    Game.Beboos[0].GoalPosition = new(0, 0, 0);
-    Game.Beboos[1].Pause();
-    Game.Beboos[1] = null;
-    Game.Beboos[2].Pause();
-    Game.Beboos[2] = null;
+    MainBeboo.Position = new(0, 0, 0);
+    MainBeboo.GoalPosition = new(0, 0, 0);
     Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicRaceEnd);
     Game.UpdateMapMusic();
   }
@@ -50,9 +52,9 @@ internal class Race : IWindowManager
 
   private void Tick(object? sender, EventArgs e)
   {
-    for (int i = 0; i < Game.Beboos.Length; i++)
+    for (int i = 0; i < Game.Map?.Beboos.Count; i++)
     {
-      Beboo? beboo = Game.Beboos[i];
+      Beboo? beboo = Game.Map?.Beboos[i];
       if (beboo != null)
       {
         var bebooY = beboo.Position.Y;
@@ -81,7 +83,7 @@ internal class Race : IWindowManager
         }
       }
     }
-    Game.SoundSystem.MovePlayerTo(Game.Beboos[0].Position);
+    Game.SoundSystem.MovePlayerTo(MainBeboo.Position);
     if (first.Item1 != -1 && second.Item1 != -1 && third.Item1 != -1)
     {
       End(third, second, first);

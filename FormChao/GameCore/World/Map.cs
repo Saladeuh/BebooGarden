@@ -1,6 +1,7 @@
 ﻿using System.Drawing.Printing;
 using System.Numerics;
 using BebooGarden.GameCore.Item;
+using BebooGarden.GameCore.Pet;
 using BebooGarden.Minigame;
 using FmodAudio;
 using Newtonsoft.Json;
@@ -36,6 +37,8 @@ public class Map
   public Channel? BackgroundChannel { get; set; }
   public ReverbProperties ReverbPreset { get; set; }
   public MapPreset Preset { get; }
+  public List<Beboo> Beboos { get; set; } = new();
+
   public Map(MapPreset preset, int sizeX, int sizeY, List<TreeLine> treeLines, Vector3 waterPoint, ReverbProperties reverbPreset)
   {
     this.Preset = preset;
@@ -98,5 +101,15 @@ public class Map
   public bool IsArrundMapPath(Vector3 position)
   {
     return Util.IsInSquare(new Vector3(-SizeX / 2, -SizeY / 2, 0), position, 1);
+  }
+  public bool IsArrundRaceGate(Vector3 position)
+  {
+    return Util.IsInSquare(new Vector3(-SizeX / 2, SizeY / 2, 0), position, 1);
+  }
+
+  public override bool Equals(object? obj)
+  {
+    return obj is Map map &&
+           Preset == map.Preset;
   }
 }

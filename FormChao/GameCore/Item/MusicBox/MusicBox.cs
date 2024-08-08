@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using BebooGarden.GameCore.Pet;
 using BebooGarden.Interface;
 using BebooGarden.Interface.ScriptedScene;
 
@@ -87,9 +88,9 @@ internal class MusicBox : Item
       IGlobalActions.SayLocalizedString("musicbox.noroll");
     }
   }
-  public override void BebooAction()
+  public override void BebooAction(Beboo beboo)
   {
-    base.BebooAction();
+    base.BebooAction(beboo);
     var rollName = AvailableRolls[Game.Random.Next(AvailableRolls.Count)];
     var roll = Array.Find(AllRolls, roll => roll.Title + roll.Source == rollName);
     roll?.Play();

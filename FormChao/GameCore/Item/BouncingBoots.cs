@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using BebooGarden.GameCore.Pet;
 using FmodAudio;
 
 namespace BebooGarden.GameCore.Item;
@@ -15,10 +16,10 @@ internal class BouncingBoots : Item
   public override void Action()
   {
   }
-  public override void BebooAction()
+  public override void BebooAction(Beboo beboo)
   {
-    base.BebooAction();
-    Game.Beboos[0].BootsSlippedOn = true;
+    base.BebooAction(beboo);
+    beboo.BootsSlippedOn = true;
   }
   public override void PlaySound()
   {

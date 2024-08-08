@@ -226,7 +226,7 @@ public class Beboo
     var proximityItem = Game.Map?.GetItemArroundPosition(Position);
     if (Happy && proximityItem != null && Game.Random.Next(6) == 1)
     {
-      proximityItem.BebooAction();
+      proximityItem.BebooAction(this);
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooFunSounds, this);
     }
     if (Game.Random.Next(20) == 1) BootsSlippedOn = false;

@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using BebooGarden.GameCore.Pet;
 using FmodAudio;
 
 namespace BebooGarden.GameCore.Item;
@@ -20,9 +21,9 @@ internal class Duck : Item
     Game.GainTicket(1);
 #endif
   }
-  public override void BebooAction()
+  public override void BebooAction(Beboo beboo)
   {
-    base.BebooAction();
+    base.BebooAction(beboo);
     Action();
   }
   public override void PlaySound()

@@ -254,6 +254,7 @@ internal class SoundSystem
     }
     LoadAmbiSounds();
     foreach (var item in map.Items) item.SoundLoopTimer?.Start();
+    foreach (var beboo in map.Beboos) beboo.Unpause();
     Reverb = System.CreateReverb3D();
     Reverb.SetProperties(map.ReverbPreset);
     Reverb.Set3DAttributes(new Vector3(0, 0, 0), 0f, 500f);
@@ -394,7 +395,8 @@ internal class SoundSystem
     foreach (var channel in map.TreesChannels) channel.Paused = true;
     foreach (var channel in map.WaterChannels) channel.Paused = true;
     foreach (var item in map.Items) item.SoundLoopTimer?.Stop();
-    try { if (map != null) map.BackgroundChannel.Paused = true; } catch { }
+    try { if (map != null && map.BackgroundChannel!=null) map.BackgroundChannel.Paused = true; } catch { }
+    foreach (var beboo in map.Beboos) beboo.Pause();
   }
 
   public void Unpause(Map map)
@@ -410,6 +412,7 @@ internal class SoundSystem
     {
       LoadMap(map);
     }
+    foreach (var beboo in map.Beboos) beboo.Unpause();
   }
   public void PlayCinematic(Sound sound, bool pauseMusic = true)
   {
@@ -450,8 +453,13 @@ internal class SoundSystem
 
   public void PlayMapMusic(Map map)
   {
-    if (Game.Beboos[0] == null) return;
-    if (Game.Beboos[0].Happy)
+    if (map.Beboos.Count == 0 && Music==null) return;
+    bool everyoneHappy = true;
+    foreach (var beboo in map.Beboos)
+    {
+      if (everyoneHappy) everyoneHappy = beboo.Happy;
+    }
+    if (everyoneHappy)
     {
       switch (map.Preset)
       {
