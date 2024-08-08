@@ -2,7 +2,7 @@
 using BebooGarden.GameCore.Item;
 using BebooGarden.Interface.UI;
 
-namespace BebooGarden.Interface.Shop;
+namespace BebooGarden.Interface.EscapeMenu;
 
 public class Inventory(string title, Dictionary<string, Item> choices, bool closeWhenSelect = false)
   : ChooseMenu<Item>(title, choices, closeWhenSelect)
@@ -12,7 +12,8 @@ public class Inventory(string title, Dictionary<string, Item> choices, bool clos
     Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuOkSound);
     var clickedButton = (Button)sender;
     Result = Choices[clickedButton.Text];
-    Result?.Buy();
+    Game.ItemInHand=Result;
+    Close();
   }
   protected override void Back(object? sender, EventArgs e)
   {

@@ -8,7 +8,7 @@ namespace BebooGarden.Interface.Shop;
 
 public class Shop
 {
-  private ItemsMenu ItemsMenu { get; set; }
+  private Inventory ItemsMenu { get; set; }
   private RollsMenu RollsMenu { get; set; }
   public MainMenu MainShopMenu { get; set; }
 

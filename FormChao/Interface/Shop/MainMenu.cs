@@ -7,7 +7,6 @@ namespace BebooGarden.Interface.Shop;
 public class MainMenu(string title, Dictionary<string, Form> choices, bool closeWhenSelect = false)
   : ChooseMenu<Form>(title, choices, closeWhenSelect)
 {
-
   protected override void btn_Click(object sender, EventArgs e)
   {
     Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuOkSound);

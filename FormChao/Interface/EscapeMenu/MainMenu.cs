@@ -2,20 +2,17 @@
 using BebooGarden.GameCore.Item;
 using BebooGarden.Interface.UI;
 
-namespace BebooGarden.Interface.Shop;
+namespace BebooGarden.Interface.EscapeMenu;
 
-public class Inventory(string title, Dictionary<string, Item> choices, bool closeWhenSelect = false)
-  : ChooseMenu<Item>(title, choices, closeWhenSelect)
+public class MainMenu(string title, Dictionary<string, Form> choices, bool closeWhenSelect = false)
+  : ChooseMenu<Form>(title, choices, closeWhenSelect)
 {
   protected override void btn_Click(object sender, EventArgs e)
   {
     Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuOkSound);
     var clickedButton = (Button)sender;
     Result = Choices[clickedButton.Text];
-    Result?.Buy();
-  }
-  protected override void Back(object? sender, EventArgs e)
-  {
-    base.Back(sender, e);
+    Result.ShowDialog(this);
+    if (Result is Inventory) Close();
   }
 }

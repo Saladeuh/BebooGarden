@@ -5,6 +5,7 @@ using BebooGarden.GameCore.Item.MusicBox;
 using BebooGarden.GameCore.Pet;
 using BebooGarden.GameCore.World;
 using BebooGarden.Interface;
+using BebooGarden.Interface.EscapeMenu;
 using BebooGarden.Interface.ScriptedScene;
 using BebooGarden.Interface.Shop;
 using BebooGarden.Save;
@@ -98,7 +99,7 @@ internal class Game : IGlobalActions
   public string PlayerName { get; }
   public static List<Item.Item> Inventory { get; set; } = [];
   public static int Tickets { get; set; } = 0;
-  public Item.Item? ItemInHand { get; private set; }
+  public static Item.Item? ItemInHand { get; set; }
 
   public static void GainTicket(int amount)
   {
@@ -211,23 +212,7 @@ internal class Game : IGlobalActions
         }
         break;
       case Keys.Escape:
-        Dictionary<string, Item.Item> options = [];
-        if (Inventory.Count > 0)
-        {
-          foreach (var item in Inventory)
-          {
-            int occurences = Inventory.FindAll(x => x.Name == item.Name).Count;
-            string text = GetLocalizedString("inventory.item", item.Name, occurences);
-            if (options.Keys.ToList().Find(x => x.Contains(item.Name)) == null && occurences == 1) options.Add(item.Name, item);
-            else if (options.Keys.ToList().Find(x => x.Contains(text)) == null)
-              options.Add(text, item);
-          }
-          ItemInHand = IWindowManager.ShowChoice("ui.chooseitem", options);
-        }
-        else
-        {
-          SayLocalizedString("ui.emptyinventory");
-        }
+        new EscapeMenu().Show();
         break;
       case Keys.F1:
         break;
