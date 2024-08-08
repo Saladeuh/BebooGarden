@@ -88,5 +88,7 @@
     "race.third": "{0} is the third ... ({1} seconds)",
     "race.second": "{0} is the second. ({1} seconds)",
     "srace.first": "{0} is the first ! ({1} seconds)",
-    "unlockvoice": "{0} is now old enough to recognize its name\nTry calling its!"
+    "unlockvoice": "{0} is now old enough to recognize its name\nTry calling its!",
+    "path": "Path",
+    "nobeboo": "There is no beboo here."
 }

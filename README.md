@@ -1,7 +1,7 @@
 # todo
-- help inventaire, score, peur eau
+- début, progre help inventaire, score, peur eau
 - jouets: bulles, poisson
-- maps: alert, 
+- maps: alert, bug reverb
 - credits
 - lang, miam caresse, danse, œuf couleur, saleté?
 - online

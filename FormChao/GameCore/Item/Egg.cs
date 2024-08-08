@@ -24,7 +24,8 @@ public class Egg(string color) : Item
     SoundLoopTimer.Stop();
     Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicHatch);
     var name = NewBeboo.Run();
-    Game.Map?.Beboos.Add( new Beboo(name, 1, DateTime.MinValue));
+    Game.Map?.Beboos.Add(new Beboo(name, 1, DateTime.MinValue));
+    Game.Flags.NewGame = false;
     Game.UpdateMapMusic();
   }
 

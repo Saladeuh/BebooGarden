@@ -33,7 +33,7 @@ internal class Game : IGlobalActions
     Parameters = SaveManager.LoadSave();
     Flags = Parameters.Flags;
     Flags.UnlockSnowyMap = true;
-    try { Map = Map.Maps[Parameters.CurrentMap]; } catch(Exception e) { Map = Map.Maps[MapPreset.garden]; }
+    try { Map = Map.Maps[Parameters.CurrentMap]; } catch (Exception e) { Map = Map.Maps[MapPreset.garden]; }
     MusicBox.AvailableRolls = Parameters.UnlockedRolls ?? [];
     SoundSystem.Volume = Parameters.Volume;
     SoundSystem.LoadMainScreen(Flags.NewGame);
@@ -191,11 +191,19 @@ internal class Game : IGlobalActions
         else if (Flags.UnlockShop && (Map?.IsArrundShop(PlayerPosition) ?? false)) new Shop().Show();
         else if (Flags.UnlockSnowyMap && (Map?.IsArrundMapPath(PlayerPosition) ?? false))
         {
-          if (Map.Preset == MapPreset.snowy) ChangeMap(Map.Maps[MapPreset.garden], false);
-          else ChangeMap(Map.Maps[MapPreset.snowy], false);
+          Map richedMap;
+          if (Map.Preset == MapPreset.snowy) richedMap = Map.Maps[MapPreset.garden];
+          else richedMap = Map.Maps[MapPreset.snowy];
+          var beboosHere = BeboosUnderCursor(2);
+          foreach (var transferedBeboo in beboosHere)
+          {
+            Map?.Beboos.Remove(transferedBeboo);
+            transferedBeboo.Position = new(0, 0, 0);
+            richedMap.Beboos.Add(transferedBeboo);
+          }
+          ChangeMap(richedMap);
           UpdateMapMusic();
           PlayerPosition = new(0, 0, 0);
-          // @todo tp proximity beboos
         }
         else if ((Map?.IsArrundRaceGate(PlayerPosition) ?? false))
         {
@@ -264,6 +272,15 @@ internal class Game : IGlobalActions
       if (Util.IsInSquare(beboo.Position, PlayerPosition, 1)) return beboo;
     }
     return null;
+  }
+  public List<Beboo> BeboosUnderCursor(int squareSide = 1)
+  {
+    var beboos = new List<Beboo>();
+    foreach (var beboo in Map.Beboos)
+    {
+      if (Util.IsInSquare(beboo.Position, PlayerPosition, squareSide)) beboos.Add(beboo);
+    }
+    return beboos;
   }
   private static void SayTickets()
   {
@@ -367,12 +384,15 @@ internal class Game : IGlobalActions
     SoundSystem.Whistle();
     foreach (var beboo in Map?.Beboos)
     {
-      Task.Run(async () =>
+      if (Map?.Beboos.Count<=1 || Random.Next(3) == 1)
       {
-        await Task.Delay(Game.Random.Next(1000, 2000));
-        beboo.WakeUp();
-      });
-      beboo.GoalPosition = currentPosition;
+        Task.Run(async () =>
+        {
+          await Task.Delay(Game.Random.Next(1000, 2000));
+          beboo.WakeUp();
+        });
+        beboo.GoalPosition = currentPosition;
+      }
     }
   }
 
@@ -385,7 +405,7 @@ internal class Game : IGlobalActions
     SoundSystem.MovePlayerTo(newPos);
     if (Map.IsInLake(newPos)) SayLocalizedString("water");
     else if (Flags.UnlockShop && (Map?.IsArrundShop(PlayerPosition) ?? false)) SayLocalizedString("shop");
-    else if (Flags.UnlockSnowyMap && (Map?.IsArrundMapPath(PlayerPosition) ?? false)) SayLocalizedString("snowy");
+    else if (Flags.UnlockSnowyMap && (Map?.IsArrundMapPath(PlayerPosition) ?? false)) SayLocalizedString("path");
     else if ((Map?.IsArrundRaceGate(PlayerPosition) ?? false)) SayLocalizedString("racegate");
     SpeakObjectUnderCursor();
   }
@@ -450,8 +470,8 @@ internal class Game : IGlobalActions
     {
       var fruits = 0;
       if (map.TreeLines.Count > 0) fruits = map.TreeLines[0].Fruits;
-      var bebooInfos= new List<BebooInfo>();
-      foreach(var beboo in map.Beboos)
+      var bebooInfos = new List<BebooInfo>();
+      foreach (var beboo in map.Beboos)
       {
         bebooInfos.Add(new(beboo.Name, beboo.Age, beboo.Happiness, beboo.Energy));
       }
@@ -471,7 +491,6 @@ internal class Game : IGlobalActions
        currentMap: Map?.Preset ?? MapPreset.garden,
        mapInfos: mapInfos
    );
-    // @todo make it better
     SaveManager.WriteJson(parameters);
   }
   private static Map? _backedMap;

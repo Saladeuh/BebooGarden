@@ -77,5 +77,7 @@
     "race.third": "{0} est le troisième... ({1} secondes)",
     "race.second": "{0} est le deuxième. ({1} secondes)",
     "race.first": "{0} est le premier ! ({1} secondes)",
-    "unlockvoice": "{0} est maintenant assez grand pour reconnaître son nom !\nEssayez de l'appeler."
+    "unlockvoice": "{0} est maintenant assez grand pour reconnaître son nom !\nEssayez de l'appeler.",
+    "path": "Chemin",
+    "nobeboo": "Il n'y a pas de bébou ici.."
 }
