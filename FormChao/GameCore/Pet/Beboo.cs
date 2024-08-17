@@ -28,12 +28,14 @@ public class Beboo
     }
   }
   public Dsp VoiceDsp { get; }
-  public Beboo(string name, float age, DateTime lastPlayed, int happiness = 5, bool racer = false, float voicePitch = 1)
+  public int SwimLevel { get; set; } = 0;
+  public Beboo(string name, float age, DateTime lastPlayed, int happiness = 5, int swimLevel = 0, bool racer = false, float voicePitch = 1)
   {
     Position = new Vector3(0, 0, 0);
     Name = name == string.Empty ? "boby" : name;
     VoiceDsp = Game.SoundSystem.System.CreateDSPByType(FmodAudio.DigitalSignalProcessing.DSPType.PitchShift);
     VoiceDsp.SetParameterFloat(0, voicePitch);
+    SwimLevel = swimLevel;
     var isSleepingAtStart = !racer && (DateTime.Now.Hour < 8 || DateTime.Now.Hour > 20);
     Sleeping = isSleepingAtStart;
     CuteBehaviour =
@@ -211,8 +213,10 @@ public class Beboo
     if (Game.Map?.IsInLake(Position) ?? false)
     {
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooStepWaterSound, this, false);
-      StartPanik();
-    } else if (Game.Map?.Preset == MapPreset.snowy)
+      if (SwimLevel < 1) StartPanik();
+      else if (SwimLevel < 10 && Game.Random.Next(SwimLevel) == 1) StartPanik();
+    }
+    else if (Game.Map?.Preset == MapPreset.snowy)
     {
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooStepSnowSound, this, false);
     }
@@ -239,6 +243,7 @@ public class Beboo
   {
     if (!Panik) return;
     Panik = false;
+    SwimLevel += 1;
     FancyMoveBehaviour.MinMS = 2000;
     FancyMoveBehaviour.MaxMS = 40000;
     MoveBehaviour.MinMS = 200;
@@ -313,9 +318,9 @@ public class Beboo
       Energy++;
       Happiness++;
     }
-    else if (fruitSpecies == FruitSpecies.Energetic )
+    else if (fruitSpecies == FruitSpecies.Energetic)
     {
-      Energy+=3;
+      Energy += 3;
       Happiness++;
     }
     else if (fruitSpecies == FruitSpecies.Shrink) VoicePitch += 0.1f;

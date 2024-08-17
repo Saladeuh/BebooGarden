@@ -5,11 +5,13 @@ namespace BebooGarden.Interface.ScriptedScene;
 
 public interface IWindowManager
 {
-  protected static void ShowTalk(string translateKey, bool blocking=true)
+  protected static void ShowTalk(string translateKey, bool blocking = true)
   {
     var talk = new Talk(IGlobalActions.GetLocalizedString(translateKey));
     if (blocking) talk.ShowDialog(Game.GameWindow);
-    else { talk.Show();
+    else
+    {
+      talk.Show();
       talk.Activate();
     }
     Game.ResetKeyState();
@@ -19,7 +21,9 @@ public interface IWindowManager
   {
     var talk = new Talk(IGlobalActions.GetLocalizedString(translateKey, args));
     if (blocking) talk.ShowDialog(Game.GameWindow);
-    else { talk.Show();
+    else
+    {
+      talk.Show();
       talk.Activate();
     }
     Game.ResetKeyState();
@@ -33,7 +37,7 @@ public interface IWindowManager
     return texbox.Result;
   }
 
-  protected static string? ShowChoice(string title, string[] choices, bool back=true)
+  protected static string? ShowChoice(string title, string[] choices, bool back = true)
   {
     var localizedChoices = new Dictionary<string, string>(choices.Select(value =>
         new KeyValuePair<string, string>(IGlobalActions.GetLocalizedString(value), value)));

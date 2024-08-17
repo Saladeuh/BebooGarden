@@ -25,9 +25,9 @@ internal class Race : IWindowManager
     MainBeboo.Unpause();
     var startPos = new Vector3(-Length / 2, 0, 0);
     MainBeboo.Position = startPos;
-    Game.Map?.Beboos.Add(new Beboo("bob", 1, DateTime.Now, Game.Random.Next(10), true, 1.3f));
+    Game.Map?.Beboos.Add(new Beboo("bob", 1, DateTime.Now, Game.Random.Next(10), 8, true, 1.3f));
     Game.Map.Beboos[1].Position = startPos + new Vector3(0, 2, 0);
-    Game.Map?.Beboos.Add(new Beboo("boby", 1, DateTime.Now, Game.Random.Next(10), true, 1.2f));
+    Game.Map?.Beboos.Add(new Beboo("boby", 1, DateTime.Now, Game.Random.Next(10), 8, true, 1.2f));
     Game.Map.Beboos[2].Position = startPos + new Vector3(0, -2, 0);
     Game.SoundSystem.PlayRaceMusic();
     Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicRaceStart, true);

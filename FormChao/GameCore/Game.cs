@@ -54,7 +54,7 @@ internal class Game : IGlobalActions
         }
         foreach (var bebooInfo in Parameters.MapInfos[map.Preset].BebooInfos)
         {
-          var beboo = new Beboo(bebooInfo.Name, bebooInfo.Age, Parameters.LastPlayed, bebooInfo.Happiness);
+          var beboo = new Beboo(bebooInfo.Name, bebooInfo.Age, Parameters.LastPlayed, bebooInfo.Happiness, bebooInfo.SwimLevel);
           map.Beboos.Add(beboo);
           if (map != Map) beboo.Pause();
         }
@@ -420,6 +420,11 @@ internal class Game : IGlobalActions
         UnlockSnowyMap.Run();
         Flags.UnlockSnowyMap = true;
       }
+      if(beboo.SwimLevel>=10 && !Flags.UnlockPerfectSwimming)
+      {
+        UnlockSwimming.Run(beboo.Name);
+        Flags.UnlockPerfectSwimming = true;
+      }
     }
     SoundSystem.System.Update();
   }
@@ -459,7 +464,7 @@ internal class Game : IGlobalActions
       var bebooInfos = new List<BebooInfo>();
       foreach (var beboo in map.Beboos)
       {
-        bebooInfos.Add(new(beboo.Name, beboo.Age, beboo.Happiness, beboo.Energy));
+        bebooInfos.Add(new(beboo.Name, beboo.Age, beboo.Happiness, beboo.Energy, beboo.SwimLevel));
       }
       var mapInfo = new MapInfo(map.Items, fruits, bebooInfos);
       mapInfos.Add(map.Preset, mapInfo);

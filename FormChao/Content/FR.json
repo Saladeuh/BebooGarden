@@ -90,6 +90,7 @@
     "race.first": "{0} est le premier ! ({1} secondes)",
     "unlockvoice": "{0} est maintenant assez grand pour reconnaître son nom !\nEssayez de l'appeler.",
     "unlocksnowy": "Bravo !\nVous venez de déblquer le chemin vers la pleine enneigée. Allez vite la visiter en amenant votre Bébou en bas à gauche du jardin.",
+    "unlockswimming": "Waw !\n{0} sait parfaitement nager désormais.",
     "path": "Chemin",
     "nobeboo": "Il n'y a pas de bébou ici.."
 }
