@@ -2,11 +2,11 @@
 
 namespace BebooGarden.Interface.UI;
 
-public partial class ChooseMenu<T> : Form
+public class ChooseMenu<T> : Form
 {
   public T? Result;
 
-  public ChooseMenu(string title, Dictionary<string, T> choices, bool closeWhenSelect = false)
+  public ChooseMenu(string title, Dictionary<string, T> choices)
   {
     WindowState = FormWindowState.Maximized;
     Choices = choices;
@@ -32,7 +32,7 @@ public partial class ChooseMenu<T> : Form
     back.AccessibleDescription = Choices.Keys.Count + 1 + "/" + (Choices.Keys.Count + 1);
     back.Click += Back;
     back.Enter += btn_enter;
-   back.KeyDown += KeyHandle;
+    back.KeyDown += KeyHandle;
     Controls.Add(back);
     Game.ResetKeyState();
   }

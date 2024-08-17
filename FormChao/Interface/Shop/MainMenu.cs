@@ -5,7 +5,7 @@ using BebooGarden.Interface.UI;
 namespace BebooGarden.Interface.Shop;
 
 public class MainMenu(string title, Dictionary<string, Form> choices, bool closeWhenSelect = false)
-  : ChooseMenu<Form>(title, choices, closeWhenSelect)
+  : ChooseMenu<Form>(title, choices)
 {
   protected override void btn_Click(object sender, EventArgs e)
   {

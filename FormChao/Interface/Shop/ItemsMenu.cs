@@ -5,7 +5,7 @@ using BebooGarden.Interface.UI;
 namespace BebooGarden.Interface.Shop;
 
 public class Inventory(string title, Dictionary<string, Item> choices, bool closeWhenSelect = false)
-  : ChooseMenu<Item>(title, choices, closeWhenSelect)
+  : ChooseMenu<Item>(title, choices)
 {
   protected override void btn_Click(object sender, EventArgs e)
   {

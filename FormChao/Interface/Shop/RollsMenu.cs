@@ -6,7 +6,7 @@ using BebooGarden.Interface.UI;
 namespace BebooGarden.Interface.Shop;
 
 internal class RollsMenu(string title, Dictionary<string, Roll> choices, bool closeWhenSelect = false)
-  : ChooseMenu<Roll>(title, choices, closeWhenSelect)
+  : ChooseMenu<Roll>(title, choices)
 {
   protected override void btn_Click(object sender, EventArgs e)
   {
