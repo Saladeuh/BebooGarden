@@ -30,7 +30,7 @@ public class MainMenu : Form
     {
       Text = "website"
     };
-    websiteButton.Click += OpenWiebsite;
+    websiteButton.Click += OpenWebsite;
     websiteButton.Enter += btn_enter;
     websiteButton.KeyDown += KeyHandle;
     Controls.Add(websiteButton);
@@ -75,9 +75,9 @@ public class MainMenu : Form
     var clickedButton = (Button)sender;
     Result = Choices[clickedButton.Text];
     Result.ShowDialog(this);
-    if (Result is Inventory) Close();
+    if (Result is Inventory || Result is Teleport) Close();
   }
-  private void OpenWiebsite(object? sender, EventArgs e)
+  private void OpenWebsite(object? sender, EventArgs e)
   {
     Process.Start(new ProcessStartInfo("https://www.example.com") { UseShellExecute = true });
   }

@@ -82,6 +82,8 @@
     "shop.rollstitle": "Music Box rolls",
     "shop.title": "Welcome to the boutique! ({0} remainsing tickets)", //0=tickets remaining number    
     "inventory.item": "{0} (×{1})", //0=item name 1=count of item
+    "tp": "Find an item",
+    "tp.item": "{0} {1}", //0=item name, 1=item index
     "gainticket": "You gain {0} ticket",
     "shopunlock": "You unlock the boutique!\nGo to the lower right corner of the garden to redeem your tickets!",
     "shop": "Boutique",

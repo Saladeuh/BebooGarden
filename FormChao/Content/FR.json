@@ -71,6 +71,8 @@
     "shop.rollstitle": "Rouleaux de boîte à musique",
     "shop.title": "Bienvenue dans la boutique! ({0} tickets restants)", //0=tickets remaining number    
     "inventory.item": "{0} (×{1})", //0=item name 1=count of item
+    "tp": "Trouver un objet.",
+    "tp.item": "{0} {1}", //0=item name, 1=item index
     "gainticket": "Vous gagnez {0} ticket",
     "shopunlock": "Vous venez de débloquer l'accès à la boutique!\nRendez-vous dans le coin inférieur droit du jardin pour échanger vos tickets!",
     "shop": "Boutique",

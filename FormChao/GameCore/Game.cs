@@ -89,7 +89,7 @@ internal class Game : IGlobalActions
   public static SoundSystem SoundSystem { get; }
   public static Dictionary<Keys, bool> KeyState { get; private set; }
   private DateTime LastPressedKeyTime { get; set; }
-  private Vector3 PlayerPosition { get; set; }
+  public static Vector3 PlayerPosition { get; private set; }
   public SortedDictionary<FruitSpecies, int>? FruitsBasket { get; set; }
   public static Form1? GameWindow { get; private set; }
   public static Random Random { get; set; } = new();
@@ -224,7 +224,7 @@ internal class Game : IGlobalActions
         else
         {
           if (KeyState[Keys.Space]) break;
-          Beboo? bebooUnderCursor = BebooUnerCursor();
+          Beboo? bebooUnderCursor = BebooUnderCursor();
           if (bebooUnderCursor != null)
           {
             if (bebooUnderCursor.Sleeping) Whistle();
@@ -250,7 +250,7 @@ internal class Game : IGlobalActions
 
     KeyState[e.KeyCode] = true;
   }
-  public Beboo? BebooUnerCursor()
+  public static Beboo? BebooUnderCursor()
   {
     foreach (var beboo in Map.Beboos)
     {
@@ -328,7 +328,7 @@ internal class Game : IGlobalActions
   private void ShakeOrPetAtPlayerPosition()
   {
     var treeLine = Map?.GetTreeLineAtPosition(PlayerPosition);
-    var bebooUnderCursor = BebooUnerCursor();
+    var bebooUnderCursor = BebooUnderCursor();
     if (treeLine != null)
     {
       var dropped = treeLine.Shake();
@@ -345,7 +345,7 @@ internal class Game : IGlobalActions
 
   private void FeedBeboo()
   {
-    var bebaooUnderCursor = BebooUnerCursor();
+    var bebaooUnderCursor = BebooUnderCursor();
     if (FruitsBasket == null || bebaooUnderCursor == null) return;
     Dictionary<string, FruitSpecies> options = [];
     foreach (var fruit in FruitsBasket)
@@ -381,7 +381,7 @@ internal class Game : IGlobalActions
     }
   }
 
-  private void MoveOf(Vector3 movement)
+  public static void MoveOf(Vector3 movement)
   {
     if (Map == null) return;
     var newPos = Map.Clamp(PlayerPosition + movement);
@@ -395,12 +395,12 @@ internal class Game : IGlobalActions
     SpeakObjectUnderCursor();
   }
 
-  private void SpeakObjectUnderCursor()
+  private static void SpeakObjectUnderCursor()
   {
     var treeLine = Map?.GetTreeLineAtPosition(PlayerPosition);
     var item = Map?.GetItemArroundPosition(PlayerPosition);
-    var bebooUnderMursor = BebooUnerCursor();
-    if (bebooUnderMursor != null) ScreenReader.Output(bebooUnderMursor.Name);
+    var bebooUnderCursor = BebooUnderCursor();
+    if (bebooUnderCursor != null) ScreenReader.Output(bebooUnderCursor.Name);
     if (treeLine != null)
       SayLocalizedString("trees");
     else if (item != null) SayLocalizedString(item.Name);

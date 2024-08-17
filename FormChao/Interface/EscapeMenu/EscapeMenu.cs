@@ -6,12 +6,14 @@ using FmodAudio;
 using BebooGarden.Interface.ScriptedScene;
 using System.Diagnostics;
 using System.Globalization;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace BebooGarden.Interface.EscapeMenu;
 
 public class EscapeMenu
 {
   private Inventory Inventory { get; set; }
+  private Teleport Teleport { get; set; }
   private Languages Languages { get; set; }
   public MainMenu MainMenu { get; set; }
 
@@ -27,19 +29,39 @@ public class EscapeMenu
         options.Add(text, item);
     }
     Inventory = new("ui.chooseitem", options);
+    Dictionary<string, Item> tPOptions = [];
+    if (Game.Map != null)
+    {
+      foreach (var item in Game.Map?.Items)
+      {
+        var sameItems = Game.Map.Items.FindAll(x => x.Name == item.Name);
+        int occurences = sameItems.Count;
+        if (tPOptions.Keys.ToList().Find(x => x.Contains(item.Name)) == null && occurences == 1) tPOptions.Add(item.Name, item);
+        else if (tPOptions.Keys.ToList().Find(x => x.Contains(item.Name)) == null)
+        {
+          for (int i = 0; i < sameItems.Count; i++)
+          {
+            Item sameItem = sameItems[i];
+            string text = IGlobalActions.GetLocalizedString("tp.item", item.Name, i+1); options.Add(text, item);
+            tPOptions.Add(text, item);
+          }
+        }
+      }
+    }
+    Teleport = new("ui.chooseitem", tPOptions);
     var languageOptions = new Dictionary<string, string>();
-    foreach(var twoLetterLang in IGlobalActions.SUPPORTEDLANGUAGES)
+    foreach (var twoLetterLang in IGlobalActions.SUPPORTEDLANGUAGES)
     {
       languageOptions.Add(new CultureInfo(twoLetterLang).DisplayName, twoLetterLang);
     }
-    Languages=new("lang",  languageOptions);
+    Languages = new("lang", languageOptions);
     MainMenu = new(IGlobalActions.GetLocalizedString("mainmenu"), new Dictionary<string, Form>()
     {
       {IGlobalActions.GetLocalizedString( "bag"), Inventory },
+      {IGlobalActions.GetLocalizedString( "tp"), Teleport },
     //  {IGlobalActions.GetLocalizedString( "languages"), Languages },
     });
   }
-
 
   public void Show()
   {
