@@ -21,7 +21,9 @@ public class ChooseMenu<T> : Form
       var choiceText = Choices.Keys.ElementAt(i);
       var btnOption = new Button();
       btnOption.Text = choiceText;
-      btnOption.AccessibleDescription = i + 1 + "/" + (Choices.Keys.Count + 1);
+      int max = Choices.Keys.Count;
+      if (hasBack) max += 1;
+      btnOption.AccessibleDescription = i + 1 + "/" + max;
       btnOption.Click += btn_Click;
       btnOption.Enter += btn_enter;
       btnOption.KeyDown += KeyHandle;
