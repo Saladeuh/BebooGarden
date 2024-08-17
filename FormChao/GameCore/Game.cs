@@ -417,6 +417,7 @@ internal class Game : IGlobalActions
       }
       else if (beboo.Age >= 3 && !Flags.UnlockSnowyMap)
       {
+        UnlockSnowyMap.Run();
         Flags.UnlockSnowyMap = true;
       }
     }

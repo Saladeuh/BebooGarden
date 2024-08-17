@@ -4,9 +4,9 @@ namespace BebooGarden.Interface.ScriptedScene;
 
 internal class UnlockSnowyMap : IWindowManager
 {
-  public static void Run(string bebooName)
+  public static void Run()
   {
     Game.SoundSystem.System.PlaySound(Game.SoundSystem.JingleComplete);
-    IWindowManager.ShowTalk("unlocksnowy", true, bebooName);
+    IWindowManager.ShowTalk("unlocksnowy");
   }
 }
