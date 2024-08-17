@@ -1,6 +1,6 @@
 # todo
-- progre, enhance snow, help inventaire, score, peur eau
-- jouets: bulles, poisson
+- progre, help inventaire, score, peur eau
+- jouets: bulles, poisson, snowman+fond
 - maps: alert, bug reverb
 - escape: commandes credits, 
 - miam caresse, danse, œuf couleur, lang, saleté?

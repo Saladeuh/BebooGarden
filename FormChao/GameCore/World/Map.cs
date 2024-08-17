@@ -47,6 +47,15 @@ public class Map
     TreeLines = treeLines;
     WaterPoint = waterPoint;
     TimedBehaviour<Map> ticketPopBehaviour = new(this, 30000 * 60, 60000 * 60, (map) => map.PopTicketPack(), true);
+    TimedBehaviour<Map> SnowBallPopBehaviour = new(this, 10000, 15000, (map) =>
+    {
+      var snowBalls = this.Items.FindAll(x => x is SnowBall);
+      if(snowBalls.Count< 10)
+      {
+        var randPos = GenerateRandomUnoccupedPosition();
+        AddItem(new SnowBall(), randPos);
+      }
+    }, true);
     ReverbPreset = reverbPreset;
   }
 
@@ -54,13 +63,19 @@ public class Map
   {
     if (!Items.OfType<TicketPack>().Any())
     {
-      Vector3 randPos;
-      do
-      {
-        randPos = new Vector3(Game.Random.Next(-SizeX / 2, SizeX / 2), Game.Random.Next(-SizeY / 2, SizeY / 2), 0);
-      } while (IsInLake(randPos) || GetTreeLineAtPosition(randPos) != null);
+      Vector3 randPos = GenerateRandomUnoccupedPosition();
       AddItem(new TicketPack(Game.Random.Next(4)), randPos);
     }
+  }
+
+  private Vector3 GenerateRandomUnoccupedPosition()
+  {
+    Vector3 randPos;
+    do
+    {
+      randPos = new Vector3(Game.Random.Next(-SizeX / 2, SizeX / 2), Game.Random.Next(-SizeY / 2, SizeY / 2), 0);
+    } while (IsInLake(randPos) || GetTreeLineAtPosition(randPos) != null);
+    return randPos;
   }
 
   public Vector3 Clamp(Vector3 value)
@@ -102,7 +117,7 @@ public class Map
   {
     return Util.IsInSquare(new Vector3(-SizeX / 2, -SizeY / 2, 0), position, 1);
   }
-  public bool IsArrundRaceGate(Vector3 position)
+  public bool IsArroundRaceGate(Vector3 position)
   {
     return Util.IsInSquare(new Vector3(-SizeX / 2, SizeY / 2, 0), position, 1);
   }

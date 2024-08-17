@@ -206,7 +206,7 @@ internal class Game : IGlobalActions
           UpdateMapMusic();
           PlayerPosition = new(0, 0, 0);
         }
-        else if ((Map?.IsArrundRaceGate(PlayerPosition) ?? false))
+        else if ((Map?.IsArroundRaceGate(PlayerPosition) ?? false))
         {
           new Minigame.Race(Minigame.Race.BASERACELENGTH, Map?.Beboos[0]).Start();
         }
@@ -385,13 +385,13 @@ internal class Game : IGlobalActions
   {
     if (Map == null) return;
     var newPos = Map.Clamp(PlayerPosition + movement);
-    if (newPos != PlayerPosition + movement) SoundSystem.WallBouncing();
+    if (newPos != PlayerPosition + movement) Game.SoundSystem.System.PlaySound(Game.SoundSystem.WallSound);
     PlayerPosition = newPos;
     SoundSystem.MovePlayerTo(newPos);
     if (Map.IsInLake(newPos)) SayLocalizedString("water");
     else if (Flags.UnlockShop && (Map?.IsArrundShop(PlayerPosition) ?? false)) SayLocalizedString("shop");
     else if (Flags.UnlockSnowyMap && (Map?.IsArrundMapPath(PlayerPosition) ?? false)) SayLocalizedString("path");
-    else if ((Map?.IsArrundRaceGate(PlayerPosition) ?? false)) SayLocalizedString("racegate");
+    else if ((Map?.IsArroundRaceGate(PlayerPosition) ?? false)) SayLocalizedString("racegate");
     SpeakObjectUnderCursor();
   }
 

@@ -61,6 +61,7 @@ internal class SoundSystem
   public Sound ItemPutWaterSound { get; private set; }
   public Sound ItemDuckSound { get; private set; }
   public Sound ItemTicketPackSound { get; private set; }
+  public Sound ItemSnowBallKickSound { get; private set; }
   public List<Sound> EggKrakSounds { get; private set; }
   public Sound GrassSound { get; private set; }
   public Sound ColdWindSound { get; private set; }
@@ -157,7 +158,7 @@ internal class SoundSystem
       [FruitSpecies.Normal] = System.CreateSound(CONTENTFOLDER + "sounds/character/fruit.wav", Mode.Unique),
       [FruitSpecies.Energetic] = JingleLittleStar
     };
-    WallSound = System.CreateSound(CONTENTFOLDER + "sounds/wall.wav", Mode.Unique);
+    WallSound = System.CreateSound(CONTENTFOLDER + "sounds/wall.wav", Mode._3D | Mode._3D_InverseTaperedRolloff);
     BebooStepSound = System.CreateSound(CONTENTFOLDER + "sounds/beboo/step.wav",
         Mode._3D | Mode._3D_LinearSquareRolloff);
     BebooStepWaterSound = System.CreateSound(CONTENTFOLDER + "sounds/buble4.wav",
@@ -196,6 +197,7 @@ internal class SoundSystem
     ItemPutWaterSound = System.CreateSound(CONTENTFOLDER + "sounds/character/itemwaterfall.wav", Mode.Unique);
     ItemDuckSound = System.CreateSound(CONTENTFOLDER + "sounds/kwak.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     ItemTicketPackSound = System.CreateSound(CONTENTFOLDER + "sounds/ticket.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
+    ItemSnowBallKickSound = System.CreateSound(CONTENTFOLDER + "sounds/character/snowballkick.wav", Mode._3D | Mode._3D_LinearSquareRolloff);
     EggKrakSounds = [];
     LoadSoundsInList(["krak.wav", "krak2.wav"], EggKrakSounds, "sounds/egg/");
     BoingSounds = new List<Sound>();
@@ -361,11 +363,6 @@ internal class SoundSystem
   public void ShakeTrees()
   {
     System.PlaySound(TreesShakeSound);
-  }
-
-  internal void WallBouncing()
-  {
-    System.PlaySound(WallSound);
   }
 
   internal void DropFruitSound(FruitSpecies fruitSpecies)

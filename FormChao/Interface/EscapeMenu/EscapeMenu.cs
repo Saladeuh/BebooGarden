@@ -43,7 +43,7 @@ public class EscapeMenu
           {
             Item sameItem = sameItems[i];
             string text = IGlobalActions.GetLocalizedString("tp.item", item.Name, i+1); options.Add(text, item);
-            tPOptions.Add(text, item);
+            tPOptions.Add(text, sameItem);
           }
         }
       }
