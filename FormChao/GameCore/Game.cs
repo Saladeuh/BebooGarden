@@ -350,7 +350,7 @@ internal class Game : IGlobalActions
     Dictionary<string, FruitSpecies> options = [];
     foreach (var fruit in FruitsBasket)
     {
-      if (fruit.Value > 0) options.Add(GetLocalizedString($"{fruit.Key.ToString()} {fruit.Value}"), fruit.Key);
+      if (fruit.Value > 0) options.Add(GetLocalizedString(fruit.Key.ToString())+" "+fruit.Value.ToString(), fruit.Key);
     }
     if (options.Count > 0)
     {

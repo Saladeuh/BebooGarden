@@ -232,7 +232,7 @@ internal class SoundSystem
       var treePosVector2 = map.TreeLines[0].X;
       var treePosVector3 = new Vector3(treePosVector2.X, treePosVector2.Y, 10);
       treeChannel.Set3DAttributes(treePosVector3, default, default);
-      treeChannel.Set3DMinMaxDistance(60f, 60f);
+      treeChannel.Set3DMinMaxDistance(80f, 80f);
       treeChannel.Set3DConeSettings(200, 2001, 0.3f);
       treeChannel.Set3DConeOrientation(new Vector3(1, 0, 0));
       treeChannel.Volume = 0.2f;
@@ -247,13 +247,14 @@ internal class SoundSystem
         map.BackgroundChannel = System.PlaySound(sound, paused: false)!;
         map.BackgroundChannel.SetLoopPoints(TimeUnit.MS, 678, TimeUnit.MS, 6007);
         map.BackgroundChannel.Volume = 0.5f;
+        LoadAmbiSounds();
         break;
       case MapPreset.snowy:
         map.BackgroundChannel = System.PlaySound(ColdWindSound, paused: false)!;
         map.BackgroundChannel.Volume = 1f;
+        _ambiTimer.Enabled = false;
         break;
     }
-    LoadAmbiSounds();
     foreach (var item in map.Items) item.SoundLoopTimer?.Start();
     foreach (var beboo in map.Beboos) beboo.Unpause();
     Reverb = System.CreateReverb3D();
@@ -279,10 +280,11 @@ internal class SoundSystem
     Channel channel = System.PlaySound(sound, paused: false)!;
     channel.Set3DAttributes(new Vector3(Game.Random.Next(-20, 20), Game.Random.Next(-20, 20), 5f), default, default);
     channel.Set3DMinMaxDistance(0, 35);
+    var enabled = _ambiTimer.Enabled;
     _ambiTimer?.Dispose();
     _ambiTimer = new Timer(Game.Random.Next(4000, 8000));
     _ambiTimer.Elapsed += onAmbiTimer;
-    _ambiTimer.Enabled = true;
+    _ambiTimer.Enabled = enabled;
   }
 
   public void PlayQueue(Sound sound, bool queued = true)
