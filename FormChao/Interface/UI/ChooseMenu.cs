@@ -6,7 +6,7 @@ public class ChooseMenu<T> : Form
 {
   public T? Result;
 
-  public ChooseMenu(string title, Dictionary<string, T> choices)
+  public ChooseMenu(string title, Dictionary<string, T> choices, bool hasBack=true)
   {
     WindowState = FormWindowState.Maximized;
     Choices = choices;
@@ -27,13 +27,16 @@ public class ChooseMenu<T> : Form
       btnOption.KeyDown += KeyHandle;
       Controls.Add(btnOption);
     }
-    var back = new Button();
-    back.Text = IGlobalActions.GetLocalizedString("ui.back");
-    back.AccessibleDescription = Choices.Keys.Count + 1 + "/" + (Choices.Keys.Count + 1);
-    back.Click += Back;
-    back.Enter += btn_enter;
-    back.KeyDown += KeyHandle;
-    Controls.Add(back);
+    if (hasBack)
+    {
+      var back = new Button();
+      back.Text = IGlobalActions.GetLocalizedString("ui.back");
+      back.AccessibleDescription = Choices.Keys.Count + 1 + "/" + (Choices.Keys.Count + 1);
+      back.Click += Back;
+      back.Enter += btn_enter;
+      back.KeyDown += KeyHandle;
+      Controls.Add(back);
+    }
     Game.ResetKeyState();
   }
 

@@ -33,11 +33,11 @@ public interface IWindowManager
     return texbox.Result;
   }
 
-  protected static string? ShowChoice(string title, string[] choices)
+  protected static string? ShowChoice(string title, string[] choices, bool back=true)
   {
     var localizedChoices = new Dictionary<string, string>(choices.Select(value =>
         new KeyValuePair<string, string>(IGlobalActions.GetLocalizedString(value), value)));
-    var choiceMenu = new ChooseMenu<string>(title, localizedChoices);
+    var choiceMenu = new ChooseMenu<string>(title, localizedChoices, back);
     choiceMenu.ShowDialog(Game.GameWindow);
     Game.ResetKeyState();
     return choiceMenu.Result;

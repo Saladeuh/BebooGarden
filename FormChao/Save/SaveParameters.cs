@@ -45,4 +45,6 @@ public class SaveParameters
   public Dictionary<MapPreset, MapInfo> MapInfos { get; set; }
   public List<string> UnlockedRolls { get; set; } = new();
   public MapPreset CurrentMap {  get; set; }
+  public string FreeTime { get; set; }
+  public string Dessert { get; set; }
 } 
