@@ -88,6 +88,7 @@
     "race.second": "{0} is the second. ({1} seconds)",
     "srace.first": "{0} is the first ! ({1} seconds)",
     "unlockvoice": "{0} is now old enough to recognize its name\nTry calling its!",
+    "unlocksnowy": "Congratulations!\nYou unlock the path to the snowy area. Go thrugh it by calling your Bbeboo to the bottom left of the garden.",
     "path": "Path",
     "nobeboo": "There is no beboo here."
 }

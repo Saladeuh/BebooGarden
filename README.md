@@ -1,5 +1,5 @@
 # todo
-- début, progre help inventaire, score, peur eau
+- progre, help inventaire, score, peur eau
 - jouets: bulles, poisson
 - maps: alert, bug reverb
 - escape: commandes credits, 
