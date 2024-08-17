@@ -35,7 +35,7 @@ public class Beboo
     Name = name == string.Empty ? "boby" : name;
     VoiceDsp = Game.SoundSystem.System.CreateDSPByType(FmodAudio.DigitalSignalProcessing.DSPType.PitchShift);
     VoiceDsp.SetParameterFloat(0, voicePitch);
-    SwimLevel = swimLevel;
+    SwimLevel = 9;
     var isSleepingAtStart = !racer && (DateTime.Now.Hour < 8 || DateTime.Now.Hour > 20);
     Sleeping = isSleepingAtStart;
     CuteBehaviour =

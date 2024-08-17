@@ -416,13 +416,13 @@ internal class Game : IGlobalActions
       }
       else if (beboo.Age >= 3 && !Flags.UnlockSnowyMap)
       {
-        UnlockSnowyMap.Run();
         Flags.UnlockSnowyMap = true;
+        UnlockSnowyMap.Run();
       }
       if(beboo.SwimLevel>=10 && !Flags.UnlockPerfectSwimming)
       {
-        UnlockSwimming.Run(beboo.Name);
         Flags.UnlockPerfectSwimming = true;
+        UnlockSwimming.Run(beboo.Name);
       }
     }
     SoundSystem.System.Update();
