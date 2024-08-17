@@ -16,7 +16,7 @@ public class Map
         [new TreeLine(new Vector2(20, 20), new Vector2(20, -20))],
        new Vector3(-15, 0, 0), FmodAudio.Preset.Plain) },
     {MapPreset.snowy, new Map(MapPreset.snowy, 60, 60,
-        [new TreeLine(new Vector2(-5,30), new Vector2(5, 30))],
+        [new TreeLine(new Vector2(-5,30), new Vector2(5, 30), 3, [FruitSpecies.Normal, FruitSpecies.Energetic])],
        new Vector3(-100, 0, 0), FmodAudio.Preset.Plain) },
     {MapPreset.basicrace,new Map(MapPreset.basicrace, Race.BASERACELENGTH, 10,
         [],

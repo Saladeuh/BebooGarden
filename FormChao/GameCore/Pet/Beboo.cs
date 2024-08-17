@@ -313,6 +313,11 @@ public class Beboo
       Energy++;
       Happiness++;
     }
+    else if (fruitSpecies == FruitSpecies.Energetic )
+    {
+      Energy+=3;
+      Happiness++;
+    }
     else if (fruitSpecies == FruitSpecies.Shrink) VoicePitch += 0.1f;
     else if (fruitSpecies == FruitSpecies.Growth) VoicePitch -= 0.1f;
 

@@ -322,7 +322,7 @@ internal class Game : IGlobalActions
 
   private void SayBasketState()
   {
-    if (FruitsBasket != null) SayLocalizedString("ui.basket", FruitsBasket[FruitSpecies.Normal]);
+    if (FruitsBasket != null) SayLocalizedString("ui.basket", FruitsBasket.Count);
   }
 
   private void ShakeOrPetAtPlayerPosition()
@@ -345,8 +345,8 @@ internal class Game : IGlobalActions
 
   private void FeedBeboo()
   {
-    var bebaooUnderCursor = BebooUnderCursor();
-    if (FruitsBasket == null || bebaooUnderCursor == null) return;
+    var bebooUnderCursor = BebooUnderCursor();
+    if (FruitsBasket == null || bebooUnderCursor == null) return;
     Dictionary<string, FruitSpecies> options = [];
     foreach (var fruit in FruitsBasket)
     {
@@ -357,7 +357,7 @@ internal class Game : IGlobalActions
       var choice = IWindowManager.ShowChoice("ui.chooseitem", options);
       if (choice != FruitSpecies.None)
       {
-        bebaooUnderCursor.Eat(choice);
+        bebooUnderCursor.Eat(choice);
         FruitsBasket[choice]--;
       }
     }

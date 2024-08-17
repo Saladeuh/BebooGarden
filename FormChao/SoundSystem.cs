@@ -154,7 +154,8 @@ internal class SoundSystem
     TreesShakeSound = System.CreateSound(CONTENTFOLDER + "sounds/character/Tree_Shake.wav");
     FruitsSounds = new SortedDictionary<FruitSpecies, Sound>
     {
-      [FruitSpecies.Normal] = System.CreateSound(CONTENTFOLDER + "sounds/character/fruit.wav", Mode.Unique)
+      [FruitSpecies.Normal] = System.CreateSound(CONTENTFOLDER + "sounds/character/fruit.wav", Mode.Unique),
+      [FruitSpecies.Energetic] = JingleLittleStar
     };
     WallSound = System.CreateSound(CONTENTFOLDER + "sounds/wall.wav", Mode.Unique);
     BebooStepSound = System.CreateSound(CONTENTFOLDER + "sounds/beboo/step.wav",
