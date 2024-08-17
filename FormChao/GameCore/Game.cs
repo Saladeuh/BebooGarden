@@ -149,7 +149,7 @@ internal class Game : IGlobalActions
         break;
       case Keys.Up:
       case Keys.Z:
-        if (KeyState[Keys.Space])
+        if (KeyState[Keys.Enter])
         {
           if (!_lastArrowWasUp)
           {
@@ -164,7 +164,7 @@ internal class Game : IGlobalActions
         break;
       case Keys.Down:
       case Keys.S:
-        if (KeyState[Keys.Space])
+        if (KeyState[Keys.Enter])
         {
           if (_lastArrowWasUp)
           {
@@ -189,7 +189,7 @@ internal class Game : IGlobalActions
         break;
       case Keys.Enter:
         if (itemUnderCursor != null && itemUnderCursor.IsTakable) itemUnderCursor.Take();
-        else if (Flags.UnlockShop && (Map?.IsArrundShop(PlayerPosition) ?? false)) new Shop().Show();
+        else if (Flags.UnlockShop && (Map?.IsArroundShop(PlayerPosition) ?? false)) new Shop().Show();
         else if (Flags.UnlockSnowyMap && (Map?.IsArrundMapPath(PlayerPosition) ?? false))
         {
           Map richedMap;
@@ -223,7 +223,6 @@ internal class Game : IGlobalActions
         }
         else
         {
-          if (KeyState[Keys.Space]) break;
           Beboo? bebooUnderCursor = BebooUnderCursor();
           if (bebooUnderCursor != null)
           {
@@ -389,7 +388,7 @@ internal class Game : IGlobalActions
     PlayerPosition = newPos;
     SoundSystem.MovePlayerTo(newPos);
     if (Map.IsInLake(newPos)) SayLocalizedString("water");
-    else if (Flags.UnlockShop && (Map?.IsArrundShop(PlayerPosition) ?? false)) SayLocalizedString("shop");
+    else if (Flags.UnlockShop && (Map?.IsArroundShop(PlayerPosition) ?? false)) SayLocalizedString("shop");
     else if (Flags.UnlockSnowyMap && (Map?.IsArrundMapPath(PlayerPosition) ?? false)) SayLocalizedString("path");
     else if ((Map?.IsArroundRaceGate(PlayerPosition) ?? false)) SayLocalizedString("racegate");
     SpeakObjectUnderCursor();

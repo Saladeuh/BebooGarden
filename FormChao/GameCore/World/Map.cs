@@ -109,7 +109,7 @@ public class Map
     return Items.FirstOrDefault(item => item != null && item.Position != null && Util.IsInSquare(item.Position.Value, position, 1),
             null);
   }
-  public bool IsArrundShop(Vector3 position)
+  public bool IsArroundShop(Vector3 position)
   {
     return Util.IsInSquare(new Vector3(SizeX / 2, -SizeY / 2, 0), position, 1);
   }
