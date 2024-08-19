@@ -65,6 +65,7 @@ internal class SoundSystem
   public Sound ItemSnowBallKickSound { get; private set; }
   public List<Sound> EggKrakSounds { get; private set; }
   public Sound GrassSound { get; private set; }
+  public Sound UnderWaterSound { get; private set; }
   public Sound ColdWindSound { get; private set; }
   public Sound MenuBipSound { get; private set; }
   public Sound MenuKeySound { get; private set; }
@@ -176,7 +177,7 @@ internal class SoundSystem
     LoadItemSound();
     GrassSound = System.CreateSound(CONTENTFOLDER + "sounds/grass_rustle.wav",
         Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
-    ColdWindSound = System.CreateSound(CONTENTFOLDER + "sounds/snow/winter_day.wav",
+    UnderWaterSound = System.CreateSound(CONTENTFOLDER + "sounds/underwater_ambience.ogg",
         Mode.Loop_Normal | Mode.Unique);
     LoadMenuSounds();
     Reverb3D reverb = System.CreateReverb3D();
@@ -266,6 +267,12 @@ internal class SoundSystem
       case MapPreset.snowy:
         map.BackgroundChannel = System.PlaySound(ColdWindSound, paused: false)!;
         map.BackgroundChannel.Volume = 1f;
+        _ambiTimer.Enabled = false;
+        break;
+      case MapPreset.underwater:
+        map.BackgroundChannel = System.PlaySound(UnderWaterSound, paused: false)!;
+        map.BackgroundChannel.SetLoopPoints(TimeUnit.PCM, 85488, TimeUnit.PCM, 1265135);
+        map.BackgroundChannel.Volume = 0.5f;
         _ambiTimer.Enabled = false;
         break;
     }
@@ -407,6 +414,7 @@ internal class SoundSystem
     foreach (var item in map.Items) item.SoundLoopTimer?.Stop();
     try { if (map != null && map.BackgroundChannel != null) map.BackgroundChannel.Paused = true; } catch { }
     foreach (var beboo in map.Beboos) beboo.Pause();
+    DisableAmbiTimer();
   }
 
   public void Unpause(Map map)
@@ -418,6 +426,7 @@ internal class SoundSystem
       foreach (var channel in map.WaterChannels) channel.Paused = false;
       foreach (var item in map.Items) item.SoundLoopTimer?.Start();
       if (map.BackgroundChannel != null) map.BackgroundChannel.Paused = false;
+      if(map.Preset==MapPreset.garden) EnableAmbiTimer();
     }
     catch
     {
