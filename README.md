@@ -1,7 +1,7 @@
 # todo
-- progre, help inventaire, score
-- jouets: bulles, poisson, snowman+fond
-- maps: alert, bug reverb
+- bulles
+- help inventaire, score
+- jouets: poisson, snowman+fond, coin d'eau, arbres, creuse
 - escape: commandes credits, 
 - danse, œuf couleur, lang, saleté?
 - online

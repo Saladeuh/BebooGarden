@@ -4,5 +4,6 @@ public enum MapPreset
 {
   garden,
   basicrace,
-  snowy
+  snowy,
+  underwater,
 }

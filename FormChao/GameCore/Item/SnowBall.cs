@@ -62,7 +62,7 @@ internal class SnowBall : Item
   public override bool IsTakable { get; set; } = true;
   public override bool IsWaterProof { get; set; } = false;
   public override Channel? Channel { get; set; }
-  public override int Cost { get; set; } = -1;
+  public override int Cost { get; set; } = 20;
   public override void Action()
   {
     Game.SoundSystem.PlaySoundAtPosition(Game.SoundSystem.ItemSnowBallKickSound, Position.Value);

@@ -17,15 +17,18 @@ public class Map
        new Vector3(-15, 0, 0), FmodAudio.Preset.Plain) },
     {MapPreset.snowy, new Map(MapPreset.snowy, 60, 60,
         [new TreeLine(new Vector2(-5,30), new Vector2(5, 30), 3, [FruitSpecies.Normal, FruitSpecies.Energetic])],
-       new Vector3(-100, 0, 0), FmodAudio.Preset.Plain) },
-    {MapPreset.basicrace,new Map(MapPreset.basicrace, Race.BASERACELENGTH, 10,
+        new Vector3(-100, 0, 0), FmodAudio.Preset.Plain) },
+    {MapPreset.underwater, new Map(MapPreset.underwater, 40, 40,
+        [],
+        new Vector3(0, 0, 0), FmodAudio.Preset.UnderWater) },
+    {MapPreset.basicrace, new Map(MapPreset.basicrace, Race.BASERACELENGTH, 10,
         [],
         new Vector3(0, -(Race.BASERACELENGTH / 2) - 10, 0), FmodAudio.Preset.StoneCorridor) }
   };
   private int SizeX { get; set; }
   private int SizeY { get; set; }
   public List<TreeLine> TreeLines { get; }
-  public Vector3 WaterPoint { get; }
+  public Vector3? WaterPoint { get; }
   public List<Item.Item> Items { get; set; } = new();
   public bool IsLullabyPlaying { get; set; } = false;
   public bool IsDansePlaying { get; set; } = false;
@@ -39,7 +42,7 @@ public class Map
   public MapPreset Preset { get; }
   public List<Beboo> Beboos { get; set; } = new();
 
-  public Map(MapPreset preset, int sizeX, int sizeY, List<TreeLine> treeLines, Vector3 waterPoint, ReverbProperties reverbPreset)
+  public Map(MapPreset preset, int sizeX, int sizeY, List<TreeLine> treeLines, Vector3? waterPoint, ReverbProperties reverbPreset)
   {
     this.Preset = preset;
     SizeX = sizeX;
@@ -50,12 +53,12 @@ public class Map
     TimedBehaviour<Map> SnowBallPopBehaviour = new(this, 10000, 15000, (map) =>
     {
       var snowBalls = this.Items.FindAll(x => x is SnowBall);
-      if(snowBalls.Count< 10)
+      if (snowBalls.Count < 10)
       {
         var randPos = GenerateRandomUnoccupedPosition();
         AddItem(new SnowBall(), randPos);
       }
-    }, true);
+    }, this.Preset==MapPreset.snowy);
     ReverbPreset = reverbPreset;
   }
 
@@ -86,7 +89,13 @@ public class Map
     var newPos = new Vector3(x, y, z);
     return newPos;
   }
-  public bool IsInLake(Vector3 position) => Util.IsInSquare(position, WaterPoint, 5);
+  public bool IsInLake(Vector3 position)
+  {
+    if (Preset == MapPreset.underwater) return true;
+    if (WaterPoint != null) return Util.IsInSquare(position, WaterPoint.Value, 5);
+    else return false;
+  }
+
   public TreeLine? GetTreeLineAtPosition(Vector3 position)
   {
     return TreeLines.FirstOrDefault(
@@ -113,9 +122,20 @@ public class Map
   {
     return Util.IsInSquare(new Vector3(SizeX / 2, -SizeY / 2, 0), position, 1);
   }
-  public bool IsArrundMapPath(Vector3 position)
+  public bool IsArroundMapPath(Vector3 position)
   {
     return Util.IsInSquare(new Vector3(-SizeX / 2, -SizeY / 2, 0), position, 1);
+  }
+  public bool IsArroundMapUnderWater(Vector3 position)
+  {
+    switch (Preset)
+    {
+      case MapPreset.garden:
+        return Util.IsInSquare(new Vector3(-SizeX / 2, -SizeY / 4, 0), position, 1);
+      case MapPreset.underwater:
+        return Util.IsInSquare(new Vector3(SizeX / 2, SizeY / 4, 0), position, 1);
+      default: return false;
+    }
   }
   public bool IsArroundRaceGate(Vector3 position)
   {

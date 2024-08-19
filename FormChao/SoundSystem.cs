@@ -4,6 +4,7 @@ using BebooGarden.GameCore;
 using BebooGarden.GameCore.Pet;
 using BebooGarden.GameCore.World;
 using FmodAudio;
+using FmodAudio.Base;
 using Timer = System.Timers.Timer;
 
 namespace BebooGarden;
@@ -84,6 +85,7 @@ internal class SoundSystem
   public Sound SadMusicStream { get; private set; }
   public Sound ShopMusicStream { get; private set; }
   public Sound SnowyMusicStream { get; private set; }
+  public Sound UnderWaterMusicStream { get; private set; }
   public Sound RaceMusicStream { get; private set; }
   public Sound RaceStopSound { get; private set; }
   public Sound RaceGoodSound { get; private set; }
@@ -102,7 +104,6 @@ internal class SoundSystem
   public Sound CinematicRaceStart { get; private set; }
   public Sound CinematicRaceEnd { get; private set; }
   public List<Sound> BebooFunSounds { get; private set; }
-  public Reverb3D Reverb { get; private set; }
   public List<Sound> BoingSounds { get; private set; }
 
   private void LoadSoundsInList(string[] files, List<Sound> sounds, string prefixe = "")
@@ -121,6 +122,7 @@ internal class SoundSystem
     SadMusicStream = System.CreateStream(CONTENTFOLDER + "music/Depressed.mp3", Mode.Loop_Normal);
     ShopMusicStream = System.CreateStream(CONTENTFOLDER + "music/Boutique.mp3", Mode.Loop_Normal);
     SnowyMusicStream = System.CreateStream(CONTENTFOLDER + "music/snowy.mp3", Mode.Loop_Normal);
+    UnderWaterMusicStream = System.CreateStream(CONTENTFOLDER + "music/Aquatic.mp3", Mode.Loop_Normal);
     LoadRace();
     WaterSound = System.CreateStream(CONTENTFOLDER + "sounds/WaterCalmWide.wav",
         Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff);
@@ -177,6 +179,9 @@ internal class SoundSystem
     ColdWindSound = System.CreateSound(CONTENTFOLDER + "sounds/snow/winter_day.wav",
         Mode.Loop_Normal | Mode.Unique);
     LoadMenuSounds();
+    Reverb3D reverb = System.CreateReverb3D();
+    System.SetReverbProperties(1, Preset.Off);
+    reverb.Set3DAttributes(new Vector3(0, 0, 0), 0f, 500f);
   }
 
   private void LoadRace()
@@ -219,14 +224,21 @@ internal class SoundSystem
 
   public void LoadMap(Map map)
   {
-    Channel waterChannel = System.PlaySound(WaterSound, paused: true)!;
-    waterChannel.SetLoopPoints(TimeUnit.MS, 2780, TimeUnit.MS, 17796);
-    waterChannel.Set3DAttributes(map.WaterPoint + new Vector3(0, 0, 10), default, default);
-    waterChannel.Set3DMinMaxDistance(30f, 35f);
-    waterChannel.Volume = 0.1f;
-    waterChannel.Paused = false;
-    map.WaterChannels.Clear();
-    map.WaterChannels.Add(waterChannel);
+    if (map.Preset == MapPreset.underwater)
+    {
+      map.WaterChannels.Clear();
+    }
+    else if (map.WaterPoint != null)
+    {
+      Channel waterChannel = System.PlaySound(WaterSound, paused: true)!;
+      waterChannel.SetLoopPoints(TimeUnit.MS, 2780, TimeUnit.MS, 17796);
+      waterChannel.Set3DAttributes(map.WaterPoint.Value + new Vector3(0, 0, 10), default, default);
+      waterChannel.Set3DMinMaxDistance(30f, 35f);
+      waterChannel.Volume = 0.1f;
+      waterChannel.Paused = false;
+      map.WaterChannels.Clear();
+      map.WaterChannels.Add(waterChannel);
+    }
     if (map.TreeLines.Count > 0)
     {
       Channel treeChannel = System.PlaySound(TreeWindSound, paused: true)!;
@@ -259,9 +271,7 @@ internal class SoundSystem
     }
     foreach (var item in map.Items) item.SoundLoopTimer?.Start();
     foreach (var beboo in map.Beboos) beboo.Unpause();
-    Reverb = System.CreateReverb3D();
-    Reverb.SetProperties(map.ReverbPreset);
-    Reverb.Set3DAttributes(new Vector3(0, 0, 0), 0f, 500f);
+    System.SetReverbProperties(1, map.ReverbPreset);
   }
 
   public void LoadAmbiSounds()
@@ -395,12 +405,13 @@ internal class SoundSystem
     foreach (var channel in map.TreesChannels) channel.Paused = true;
     foreach (var channel in map.WaterChannels) channel.Paused = true;
     foreach (var item in map.Items) item.SoundLoopTimer?.Stop();
-    try { if (map != null && map.BackgroundChannel!=null) map.BackgroundChannel.Paused = true; } catch { }
+    try { if (map != null && map.BackgroundChannel != null) map.BackgroundChannel.Paused = true; } catch { }
     foreach (var beboo in map.Beboos) beboo.Pause();
   }
 
   public void Unpause(Map map)
   {
+    System.SetReverbProperties(1, Preset.Off);
     try
     {
       foreach (var channel in map.TreesChannels) channel.Paused = false;
@@ -450,10 +461,13 @@ internal class SoundSystem
   {
     MusicTransition(SnowyMusicStream, 1922069, 6508548, FmodAudio.TimeUnit.PCM);
   }
-
+  internal void PlayUnderWaterMusic()
+  {
+    MusicTransition(UnderWaterMusicStream, 2684920, 6164501, FmodAudio.TimeUnit.PCM);
+  }
   public void PlayMapMusic(Map map)
   {
-    if (map.Beboos.Count == 0 && Music==null) return;
+    if (map.Beboos.Count == 0 && Music == null) return;
     bool everyoneHappy = true;
     foreach (var beboo in map.Beboos)
     {
@@ -465,6 +479,7 @@ internal class SoundSystem
       {
         case MapPreset.garden: PlayNeutralMusic(); break;
         case MapPreset.snowy: PlaySnowyMusic(); break;
+        case MapPreset.underwater: PlayUnderWaterMusic(); break;
         default: PlayNeutralMusic(); break;
       }
     }

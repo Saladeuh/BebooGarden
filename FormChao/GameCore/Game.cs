@@ -9,13 +9,13 @@ using BebooGarden.Interface.EscapeMenu;
 using BebooGarden.Interface.ScriptedScene;
 using BebooGarden.Interface.Shop;
 using BebooGarden.Save;
+using FmodAudio;
 using Timer = System.Windows.Forms.Timer;
 
 
 namespace BebooGarden.GameCore;
 
 internal class Game : IGlobalActions
-
 {
   public static readonly Timer TickTimer = new();
 
@@ -33,8 +33,7 @@ internal class Game : IGlobalActions
     GameWindow = form;
     Parameters = SaveManager.LoadSave();
     Flags = Parameters.Flags;
-    Flags.UnlockSnowyMap = true;
-    try { Map = Map.Maps[Parameters.CurrentMap]; } catch (Exception e) { Map = Map.Maps[MapPreset.garden]; }
+    try { Map = Map.Maps[Parameters.CurrentMap]; } catch (Exception) { Map = Map.Maps[MapPreset.garden]; }
     MusicBox.AvailableRolls = Parameters.UnlockedRolls ?? [];
     SoundSystem.Volume = Parameters.Volume;
     SoundSystem.LoadMainScreen(Flags.NewGame);
@@ -52,12 +51,15 @@ internal class Game : IGlobalActions
         {
           map.Items = new();
         }
-        foreach (var bebooInfo in Parameters.MapInfos[map.Preset].BebooInfos)
+        try
         {
-          var beboo = new Beboo(bebooInfo.Name, bebooInfo.Age, Parameters.LastPlayed, bebooInfo.Happiness, bebooInfo.SwimLevel);
-          map.Beboos.Add(beboo);
-          if (map != Map) beboo.Pause();
-        }
+          foreach (var bebooInfo in Parameters.MapInfos[map.Preset].BebooInfos)
+          {
+            var beboo = new Beboo(bebooInfo.Name, bebooInfo.Age, Parameters.LastPlayed, bebooInfo.Happiness, bebooInfo.SwimLevel);
+            map.Beboos.Add(beboo);
+            if (map != Map) beboo.Pause();
+          }
+        } catch(KeyNotFoundException _) { }
       }
     }
     else
@@ -190,22 +192,10 @@ internal class Game : IGlobalActions
       case Keys.Enter:
         if (itemUnderCursor != null && itemUnderCursor.IsTakable) itemUnderCursor.Take();
         else if (Flags.UnlockShop && (Map?.IsArroundShop(PlayerPosition) ?? false)) new Shop().Show();
-        else if (Flags.UnlockSnowyMap && (Map?.IsArrundMapPath(PlayerPosition) ?? false))
-        {
-          Map richedMap;
-          if (Map.Preset == MapPreset.snowy) richedMap = Map.Maps[MapPreset.garden];
-          else richedMap = Map.Maps[MapPreset.snowy];
-          var beboosHere = BeboosUnderCursor(2);
-          foreach (var transferedBeboo in beboosHere)
-          {
-            Map?.Beboos.Remove(transferedBeboo);
-            transferedBeboo.Position = new(0, 0, 0);
-            richedMap.Beboos.Add(transferedBeboo);
-          }
-          ChangeMap(richedMap);
-          UpdateMapMusic();
-          PlayerPosition = new(0, 0, 0);
-        }
+        else if (Flags.UnlockSnowyMap && (Map?.IsArroundMapPath(PlayerPosition) ?? false)) 
+          TravelBetwieen(MapPreset.garden, MapPreset.snowy);
+        else if (Flags.UnlockUnderwaterMap && (Map?.IsArroundMapUnderWater(PlayerPosition) ?? false))
+      TravelBetwieen(MapPreset.garden, MapPreset.underwater);
         else if ((Map?.IsArroundRaceGate(PlayerPosition) ?? false))
         {
           new Minigame.Race(Minigame.Race.BASERACELENGTH, Map?.Beboos[0]).Start();
@@ -249,6 +239,24 @@ internal class Game : IGlobalActions
 
     KeyState[e.KeyCode] = true;
   }
+
+  private void TravelBetwieen(MapPreset a, MapPreset b)
+  {
+    Map richedMap = Map;
+    if (Map.Preset == a) richedMap = Map.Maps[b];
+    else  if(Map.Preset==b) richedMap = Map.Maps[a];
+    var beboosHere = BeboosUnderCursor(2);
+    foreach (var transferedBeboo in beboosHere)
+    {
+      Map?.Beboos.Remove(transferedBeboo);
+      transferedBeboo.Position = new(0, 0, 0);
+      richedMap.Beboos.Add(transferedBeboo);
+    }
+    ChangeMap(richedMap);
+    UpdateMapMusic();
+    PlayerPosition = new(0, 0, 0);
+  }
+
   public static Beboo? BebooUnderCursor()
   {
     foreach (var beboo in Map.Beboos)
@@ -349,7 +357,7 @@ internal class Game : IGlobalActions
     Dictionary<string, FruitSpecies> options = [];
     foreach (var fruit in FruitsBasket)
     {
-      if (fruit.Value > 0) options.Add(GetLocalizedString(fruit.Key.ToString())+" "+fruit.Value.ToString(), fruit.Key);
+      if (fruit.Value > 0) options.Add(GetLocalizedString(fruit.Key.ToString()) + " " + fruit.Value.ToString(), fruit.Key);
     }
     if (options.Count > 0)
     {
@@ -368,7 +376,7 @@ internal class Game : IGlobalActions
     SoundSystem.Whistle();
     foreach (var beboo in Map?.Beboos)
     {
-      if (Map?.Beboos.Count<=1 || Random.Next(3) == 1)
+      if (Map?.Beboos.Count <= 1 || Random.Next(3) == 1)
       {
         Task.Run(async () =>
         {
@@ -387,10 +395,11 @@ internal class Game : IGlobalActions
     if (newPos != PlayerPosition + movement) Game.SoundSystem.System.PlaySound(Game.SoundSystem.WallSound);
     PlayerPosition = newPos;
     SoundSystem.MovePlayerTo(newPos);
-    if (Map.IsInLake(newPos)) SayLocalizedString("water");
+    if (Map.IsInLake(newPos) && Map.Preset!=MapPreset.underwater) SayLocalizedString("water");
     else if (Flags.UnlockShop && (Map?.IsArroundShop(PlayerPosition) ?? false)) SayLocalizedString("shop");
-    else if (Flags.UnlockSnowyMap && (Map?.IsArrundMapPath(PlayerPosition) ?? false)) SayLocalizedString("path");
+    else if (Flags.UnlockSnowyMap && (Map?.IsArroundMapPath(PlayerPosition) ?? false)) SayLocalizedString("path");
     else if ((Map?.IsArroundRaceGate(PlayerPosition) ?? false)) SayLocalizedString("racegate");
+    else if (Flags.UnlockUnderwaterMap && (Map?.IsArroundMapUnderWater(PlayerPosition) ?? false)) SayLocalizedString("underwater");
     SpeakObjectUnderCursor();
   }
 
@@ -418,11 +427,14 @@ internal class Game : IGlobalActions
       {
         Flags.UnlockSnowyMap = true;
         UnlockSnowyMap.Run();
+        Map.Maps[MapPreset.snowy].AddItem(new Egg("none"), new(0, 0, 0));
+        Flags.UnlockEggInShop = true;
       }
-      if(beboo.SwimLevel>=10 && !Flags.UnlockPerfectSwimming)
+      if (beboo.SwimLevel >= 10 && !Flags.UnlockPerfectSwimming)
       {
         Flags.UnlockPerfectSwimming = true;
         UnlockSwimming.Run(beboo.Name);
+        Flags.UnlockUnderwaterMap = true;
       }
     }
     SoundSystem.System.Update();
