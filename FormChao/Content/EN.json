@@ -49,6 +49,9 @@
     "ticketpack.description": "Jack pot!",
     "roll.name": "Music box's roll",
     "egg.name": "Beboo's egg",
+    "egg.description": "For more and more beboos!",
+    "bubble.name": "Bubble",
+    "bubble.description": "Blup",
     "snowball.name": "Soow ball",
     "ui.empty": "You must type something.",
     "ui.yourname": "Your name",
@@ -63,7 +66,7 @@
     "ui.freetimequick": "What do you love to do?",
     "ui.dessert": "Finaly, what is your favorite dessert in this list?",
     "ui.allgood": "Well, everything seems in order.",
-    "ui.quicktips": "Perfect!\nBefore you start taking care of {0}, I need to teach you the basics of the garden.\nTo feed {0}, you'll need to collect fruits from the trees on your right. Shake the trees by holding down the space bar and alternating between the up and down arrow keys.\nTo give a fruit to {0}, press the space bar when you are close, just like you did with the egg earlier.",
+    "ui.quicktips": "Perfect!\nBefore you start taking care of {0}, I need to teach you the basics of the garden.\nTo feed {0}, you'll need to collect fruits from the trees on your right. Shake the trees by holding down the enter key and alternating between the up and down arrow keys.\nTo give a fruit to {0}, press the space bar when you are close, just like you did with the egg earlier.",
     "ui.emptyinventory": "Nothing in the bag",
     "ui.chooseitem": "Choose an item",
     "ui.itemput": "{0} dropped",
@@ -94,5 +97,6 @@
     "unlocksnowy": "Congratulations!\nYou unlock the path to the snowy area. Go thrugh it by calling your Beboo to the bottom left of the garden.",
     "unlockswimming": "Congratulations!\n{0} can perfectly swimming now.",
     "path": "Path",
-    "nobeboo": "There is no beboo here."
+    "nobeboo": "There is no beboo here.",
+    "underwater": "Volcanic underwater chimney"
 }

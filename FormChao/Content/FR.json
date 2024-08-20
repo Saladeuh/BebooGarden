@@ -46,6 +46,9 @@
     "boots.description": "Un Bébou peut les utiliser pour sauter plus loin",    "ticketpack.name": "Paquet de tickets",
     "ticketpack.description": "Jack pot!",
     "egg.name": "œuf de bébou",
+    "egg.description": "Toujours plus de Bébous!!!!",
+    "bubble.name": "Bulle",
+    "bubble.description": "Bloup",
     "snowball.name": "Boule de neige",
     "roll.name": "Rouleau de boîte à musique",
     "ui.empty": "Vous devez écrire quelque chose.",
@@ -61,7 +64,7 @@
     "ui.freetimequick": "Qu'aimez-vous faire ?",
     "ui.dessert": "Enfin, quel est votre dessert préféré parmis ceux-ci ?",
     "ui.allgood": "Eh bien, tout est en règle, il me semble.",
-    "ui.quicktips": "Parfait !\nAvant de vous laisser vous occuper de {0}, je dois vous apprendre le béaba du jardin.\nPour nourrir {0}, il vous faut récupérer des fruits dans les arbres à votre droite. Secouez-les en maintenant espace, puis en alternant les flèches haut et bas.\nPour donner un fruit à {0}, appuyez sur espace quand vous êtes à proximité, comme pour interagir avec l’œuf précédemment.\nVous pouvez aussi appuyer sur F pour savoir précisément si {0} manque de quelque chose.\nEnfin, appuyez sur échappe pour accéder au menu.\nAmusez-vous bien !",
+    "ui.quicktips": "Parfait !\nAvant de vous laisser vous occuper de {0}, je dois vous apprendre le béaba du jardin.\nPour nourrir {0}, il vous faut récupérer des fruits dans les arbres à votre droite. Secouez-les en maintenant entrée, puis en alternant les flèches haut et bas.\nPour donner un fruit à {0}, appuyez sur espace quand vous êtes à proximité, comme pour interagir avec l’œuf précédemment.\nVous pouvez aussi appuyer sur F pour savoir précisément si {0} manque de quelque chose.\nEnfin, appuyez sur échappe pour accéder au menu.\nAmusez-vous bien !",
     "ui.emptyinventory": "Aucun objets dans le sac",
     "ui.chooseitem": "Choisissez un objet",
     "ui.itemput": "{0} déposé",
@@ -92,5 +95,6 @@
     "unlocksnowy": "Bravo !\nVous venez de déblquer le chemin vers la pleine enneigée. Allez vite la visiter en amenant votre Bébou en bas à gauche du jardin.",
     "unlockswimming": "Waw !\n{0} sait parfaitement nager désormais.",
     "path": "Chemin",
-    "nobeboo": "Il n'y a pas de bébou ici.."
+    "nobeboo": "Il n'y a pas de bébou ici..",
+    "underwater": "Cheminée volcanique sous-marine"
 }

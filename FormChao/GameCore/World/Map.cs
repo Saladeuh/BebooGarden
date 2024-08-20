@@ -140,9 +140,9 @@ public class Map
     switch (Preset)
     {
       case MapPreset.garden:
-        return Util.IsInSquare(new Vector3(-SizeX / 2, -SizeY / 4, 0), position, 1);
+        return Util.IsInSquare(new Vector3(-SizeX / 2, 0, 0), position, 1);
       case MapPreset.underwater:
-        return Util.IsInSquare(new Vector3(SizeX / 2, SizeY / 4, 0), position, 1);
+        return Util.IsInSquare(new Vector3(SizeX / 2, 0, 0), position, 1);
       default: return false;
     }
   }
