@@ -10,6 +10,9 @@ internal class Program
   [STAThread]
   private static void Main()
   {
+#if !DEBUG
+    AppDomain.CurrentDomain.UnhandledException += HandleUnhandleException;
+#endif
     ScreenReader.Load();
     AutoUpdater.InstalledVersion = new Version(version);
 #if !DEBUG
@@ -19,6 +22,24 @@ internal class Program
     Application.Run(mainWindow);
   }
 
+  private static void HandleUnhandleException(object sender, UnhandledExceptionEventArgs e)
+  {
+    Exception ex = (Exception)e.ExceptionObject;
+    string filePath = @"error.log";
+    using (StreamWriter writer = new StreamWriter(filePath, true))
+    {
+      writer.WriteLine("-----------------------------------------------------------------------------");
+      writer.WriteLine("Date : " + DateTime.Now.ToString());
+      writer.WriteLine();
+      while (ex != null)
+      {
+        writer.WriteLine(ex.GetType().FullName);
+        writer.WriteLine("Message : " + ex.Message);
+        writer.WriteLine("StackTrace : " + ex.StackTrace);
+        ex = ex.InnerException;
+      }
+    }
+  }
   private static void AutoUpdate()
   {
     AutoUpdater.Synchronous = true;
