@@ -80,13 +80,15 @@ public class Map
     }
   }
 
-  private Vector3 GenerateRandomUnoccupedPosition(bool excludeWater=true)
+  private Vector3 GenerateRandomUnoccupedPosition(bool excludeWater = true)
   {
+    var tryCounter = 0;
     Vector3 randPos;
     do
     {
       randPos = new Vector3(Game.Random.Next(-SizeX / 2, SizeX / 2), Game.Random.Next(-SizeY / 2, SizeY / 2), 0);
-    } while ((excludeWater&& IsInLake(randPos)) || GetTreeLineAtPosition(randPos) != null);
+      tryCounter++;
+    } while (tryCounter <= 5 && (excludeWater && IsInLake(randPos)) || GetTreeLineAtPosition(randPos) != null);
     return randPos;
   }
 
@@ -133,7 +135,7 @@ public class Map
   }
   public bool IsArroundMapPath(Vector3 position)
   {
-    return (Preset==MapPreset.garden || Preset==MapPreset.snowy) && Util.IsInSquare(new Vector3(-SizeX / 2, -SizeY / 2, 0), position, 1);
+    return (Preset == MapPreset.garden || Preset == MapPreset.snowy) && Util.IsInSquare(new Vector3(-SizeX / 2, -SizeY / 2, 0), position, 1);
   }
   public bool IsArroundMapUnderWater(Vector3 position)
   {
