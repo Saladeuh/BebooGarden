@@ -1,5 +1,5 @@
 # todo
-- help inventaire, score
+- help inventaire, pitch beboos
 - jouets: poisson, snowman+fond, coin d'eau, arbres, creuse
 - escape: commandes credits, 
 - danse, œuf couleur, lang, saleté?

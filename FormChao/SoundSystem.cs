@@ -373,7 +373,7 @@ internal class SoundSystem
     channel.Set3DMinMaxDistance(0f, 30f);
     channel.Set3DAttributes(position + new Vector3(0, 0, -2), default, default);
     channel.Volume += volumeModifier;
-    if (pitchDsp != null) channel.AddDSP(0, pitchDsp.Value);
+    //if (pitchDsp != null) channel.AddDSP(0, pitchDsp.Value);
     channel.Paused = false;
     return channel;
   }
@@ -407,7 +407,7 @@ internal class SoundSystem
   {
     var sound = sounds[Game.Random.Next(sounds.Count())];
     var channel = PlaySoundAtPosition(sound, position, 0, pitchDsp);
-    if (pitchDsp != null) channel.AddDSP(0, pitchDsp.Value);
+    //if (pitchDsp != null) channel.AddDSP(0, pitchDsp.Value);
     channel.Volume += volumeModifier;
     return channel;
   }

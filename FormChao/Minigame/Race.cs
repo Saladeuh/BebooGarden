@@ -13,9 +13,16 @@ internal class Race : IWindowManager
   public int Length { get; set; }
   public DateTime StartTime;
   private Beboo MainBeboo { get; }
-  public Race(int length, Beboo mainBeboo)
+  private RaceType RaceType { get; }
+  public Race(RaceType raceType, Beboo mainBeboo)
   {
-    Length = length;
+    RaceType = raceType;
+    switch (raceType)
+    {
+      case RaceType.Base:
+        Length = BASERACELENGTH; break;
+        break;
+    }
     MainBeboo = mainBeboo;
   }
   public void Start()
@@ -37,6 +44,11 @@ internal class Race : IWindowManager
   public void End((int, double) third, (int, double) second, (int, double) first)
   {
     Game.TickTimer.Tick -= Tick;
+    double contesterScore = 0;
+    if (third.Item1 == 0) contesterScore = third.Item2;
+    else if (second.Item1 == 0) contesterScore = second.Item2;
+    else if (first.Item1 == 0) contesterScore = first.Item2;
+    Game.RaceScores[RaceType]=contesterScore;
     RaceResult.Run(third, second, first);
     Game.Map?.Beboos[1].Pause();
     Game.Map?.Beboos[2].Pause();

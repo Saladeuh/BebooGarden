@@ -33,6 +33,7 @@ internal partial class Game : IGlobalActions
     GameWindow = form;
     Parameters = SaveManager.LoadSave();
     Flags = Parameters.Flags;
+    RaceScores = Parameters.RaceScores;
     Flags.UnlockEggInShop = Flags.UnlockUnderwaterMap || Flags.UnlockSnowyMap || Flags.UnlockEggInShop;
     try { Map = Map.Maps[Parameters.CurrentMap]; } catch (Exception) { Map = Map.Maps[MapPreset.garden]; }
     MusicBox.AvailableRolls = Parameters.UnlockedRolls ?? [];
@@ -100,6 +101,7 @@ internal partial class Game : IGlobalActions
   public SaveParameters Parameters { get; }
   public static Map? Map { get; private set; }
   public static Flags Flags { get; set; }
+  public static Dictionary<RaceType, double> RaceScores { get; set; }= new();
   public string PlayerName { get; }
   public static List<Item.Item> Inventory { get; set; } = [];
   public static int Tickets { get; set; } = 0;
@@ -208,7 +210,8 @@ internal partial class Game : IGlobalActions
               options.Add(Map.Beboos[i].Name, i);
             contester = Map.Beboos[IWindowManager.ShowChoice<int>("choosebeboo", options)];
           }
-          new Minigame.Race(Minigame.Race.BASERACELENGTH, contester).Start();
+
+          new Minigame.Race(RaceType.Base, contester).Start();
         }
         break;
       case Keys.Escape:
@@ -475,7 +478,8 @@ internal partial class Game : IGlobalActions
        unlockedRolls: MusicBox.AvailableRolls,
        favoredColor: Parameters.FavoredColor,
        currentMap: Map?.Preset ?? MapPreset.garden,
-       mapInfos: mapInfos
+       mapInfos: mapInfos,
+       raceScores: RaceScores
    );
     SaveManager.WriteJson(parameters);
   }
