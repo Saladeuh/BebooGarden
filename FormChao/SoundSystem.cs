@@ -363,7 +363,6 @@ internal class SoundSystem
     var sound = sounds[Game.Random.Next(sounds.Count())];
     if (beboo.Channel != null && stopOthers && beboo.Channel.IsPlaying) beboo.Channel.Stop();
     beboo.Channel = PlaySoundAtPosition(sound, beboo.Position, 0, beboo.VoiceDsp);
-    beboo.Channel.AddDSP(0, beboo.VoiceDsp);
     if (volume != -1) beboo.Channel.Volume = volume;
   }
 
