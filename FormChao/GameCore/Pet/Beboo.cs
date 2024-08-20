@@ -43,7 +43,7 @@ public class Beboo
     MoveBehaviour =
         new TimedBehaviour<Beboo>(this, 200, 400, beboo => { beboo.MoveTowardGoal(); }, !isSleepingAtStart);
     FancyMoveBehaviour =
-        new TimedBehaviour<Beboo>(this, 20000, 40000, beboo => { beboo.WannaGoToRandomPlace(); }, true);
+        new TimedBehaviour<Beboo>(this, 10000, 30000, beboo => { beboo.WannaGoToRandomPlace(); }, true);
     GoingTiredBehaviour =
         new TimedBehaviour<Beboo>(this, 50000, 70000, beboo => { beboo.Energy--; }, !isSleepingAtStart || !racer);
     GoingDepressedBehaviour =
@@ -227,16 +227,25 @@ public class Beboo
       EndPanik();
     }
 
-    var proximityItem = Game.Map?.GetItemArroundPosition(Position);
-    if (Happy && proximityItem != null && Game.Random.Next(6) == 1)
-    {
-      proximityItem.BebooAction(this);
-      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooFunSounds, this);
-    }
+    PlayArround();
     if (Game.Random.Next(20) == 1) BootsSlippedOn = false;
     var moved = Position != GoalPosition;
     if (!moved) GoalPosition = null;
     return moved;
+  }
+
+  private void PlayArround()
+  {
+    if (Happy && Game.Random.Next(4) == 1)
+    {
+      var proximityItem = Game.Map?.GetItemArroundPosition(Position);
+      if (proximityItem != null)
+      {
+        proximityItem.BebooAction(this);
+        Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooFunSounds, this);
+        Happiness++;
+      }
+    }
   }
 
   private void EndPanik()
@@ -274,9 +283,16 @@ public class Beboo
 
   private void WannaGoToRandomPlace()
   {
-    var rnd = new Random();
-    var randomMove = new Vector3(rnd.Next(-4, 5), rnd.Next(-4, 5), 0);
-    GoalPosition = Position + randomMove;
+    if (Game.Random.Next(3) == 1)
+    {
+      var targetItem = Game.Map?.Items[Game.Random.Next(Game.Map.Items.Count)];
+      if(targetItem != null) GoalPosition=targetItem.Position;
+    }
+    else
+    {
+      var randomMove = new Vector3(Game.Random.Next(-4, 5), Game.Random.Next(-4, 5), 0);
+      GoalPosition = Position + randomMove;
+    }
   }
 
   public void GoAsleep()

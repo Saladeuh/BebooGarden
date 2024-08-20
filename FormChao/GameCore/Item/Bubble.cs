@@ -29,9 +29,16 @@ internal class Bubble : Item
       }
       if (Game.Random.Next(8) == 1) bubble.Direction = null;
     }, true);
+    SlowDriftBehaviour = new(this, 20000, 40000, (bubble) =>
+    {
+      if (bubble.Direction != null || bubble.Position == null) return;
+      Direction = DIRECTIONS[Game.Random.Next(DIRECTIONS.Length)];
+      Game.SoundSystem.PlaySoundAtPosition(Game.SoundSystem.BubbleUpSound, bubble.Position.Value);
+    }, true);
   }
   public Vector3? Direction { get; set; }
   private TimedBehaviour<Bubble> MoveBehaviour { get; set; }
+  public TimedBehaviour<Bubble> SlowDriftBehaviour { get; private set; }
   protected override string _translateKeyName { get; } = "bubble.name";
   protected override string _translateKeyDescription { get; } = "bubble.description";
   public override Vector3? Position
@@ -65,7 +72,13 @@ internal class Bubble : Item
   public override void Action()
   {
     Game.SoundSystem.PlaySoundAtPosition(Game.SoundSystem.BubbleSounds, Position.Value);
-    Direction = DIRECTIONS[Game.Random.Next(DIRECTIONS.Length)];
+    if (Game.Random.Next(5) == 1)
+    {
+      Game.SoundSystem.PlaySoundAtPosition(Game.SoundSystem.BubblePopSound, Position.Value);
+      Game.Map?.Items.Remove(this);
+      MoveBehaviour.Stop();
+      SlowDriftBehaviour.Stop();
+    } else Direction = DIRECTIONS[Game.Random.Next(DIRECTIONS.Length)];
   }
   public override void BebooAction(Beboo beboo)
   {

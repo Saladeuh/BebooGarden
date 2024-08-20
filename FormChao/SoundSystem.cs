@@ -107,6 +107,8 @@ internal class SoundSystem
   public List<Sound> BebooFunSounds { get; private set; }
   public List<Sound> BoingSounds { get; private set; }
   public List<Sound> BubbleSounds { get; private set; }
+  public Sound BubblePopSound { get; private set; }
+  public Sound BubbleUpSound { get; private set; }
 
   private void LoadSoundsInList(string[] files, List<Sound> sounds, string prefixe = "")
   {
@@ -213,6 +215,8 @@ internal class SoundSystem
     LoadSoundsInList(["boing2.wav", "boing.wav"], BoingSounds, "sounds/");
     BubbleSounds = new List<Sound>();
     LoadSoundsInList(["bubble.wav", "bubble2.wav", "bubble3.wav"], BubbleSounds, "sounds/");
+    BubblePopSound = System.CreateSound(CONTENTFOLDER + "sounds/bubblepop.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
+    BubbleUpSound = System.CreateSound(CONTENTFOLDER + "sounds/bubbleup.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
   }
 
   public void LoadMenuSounds()
