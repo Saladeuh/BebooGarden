@@ -58,7 +58,16 @@ public class Map
         var randPos = GenerateRandomUnoccupedPosition();
         AddItem(new SnowBall(), randPos);
       }
-    }, this.Preset==MapPreset.snowy);
+    }, this.Preset == MapPreset.snowy);
+    TimedBehaviour<Map> BubblePopBehaviour = new(this, 10000, 15000, (map) =>
+    {
+      var snowBalls = this.Items.FindAll(x => x is Bubble);
+      if (snowBalls.Count < 15)
+      {
+        var randPos = GenerateRandomUnoccupedPosition(false);
+        AddItem(new Bubble(), randPos);
+      }
+    }, this.Preset == MapPreset.underwater);
     ReverbPreset = reverbPreset;
   }
 
@@ -71,13 +80,13 @@ public class Map
     }
   }
 
-  private Vector3 GenerateRandomUnoccupedPosition()
+  private Vector3 GenerateRandomUnoccupedPosition(bool excludeWater=true)
   {
     Vector3 randPos;
     do
     {
       randPos = new Vector3(Game.Random.Next(-SizeX / 2, SizeX / 2), Game.Random.Next(-SizeY / 2, SizeY / 2), 0);
-    } while (IsInLake(randPos) || GetTreeLineAtPosition(randPos) != null);
+    } while ((excludeWater&& IsInLake(randPos)) || GetTreeLineAtPosition(randPos) != null);
     return randPos;
   }
 
@@ -124,7 +133,7 @@ public class Map
   }
   public bool IsArroundMapPath(Vector3 position)
   {
-    return Util.IsInSquare(new Vector3(-SizeX / 2, -SizeY / 2, 0), position, 1);
+    return (Preset==MapPreset.garden || Preset==MapPreset.snowy) && Util.IsInSquare(new Vector3(-SizeX / 2, -SizeY / 2, 0), position, 1);
   }
   public bool IsArroundMapUnderWater(Vector3 position)
   {

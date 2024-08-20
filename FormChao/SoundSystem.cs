@@ -106,6 +106,7 @@ internal class SoundSystem
   public Sound CinematicRaceEnd { get; private set; }
   public List<Sound> BebooFunSounds { get; private set; }
   public List<Sound> BoingSounds { get; private set; }
+  public List<Sound> BubbleSounds { get; private set; }
 
   private void LoadSoundsInList(string[] files, List<Sound> sounds, string prefixe = "")
   {
@@ -164,7 +165,7 @@ internal class SoundSystem
     WallSound = System.CreateSound(CONTENTFOLDER + "sounds/wall.wav", Mode._3D | Mode._3D_InverseTaperedRolloff);
     BebooStepSound = System.CreateSound(CONTENTFOLDER + "sounds/beboo/step.wav",
         Mode._3D | Mode._3D_LinearSquareRolloff);
-    BebooStepWaterSound = System.CreateSound(CONTENTFOLDER + "sounds/buble4.wav",
+    BebooStepWaterSound = System.CreateSound(CONTENTFOLDER + "sounds/bubble4.wav",
         Mode._3D | Mode._3D_LinearSquareRolloff);
     BebooStepSnowSound = System.CreateSound(CONTENTFOLDER + "sounds/snow/step.wav",
         Mode._3D | Mode._3D_LinearSquareRolloff);
@@ -177,6 +178,8 @@ internal class SoundSystem
     LoadItemSound();
     GrassSound = System.CreateSound(CONTENTFOLDER + "sounds/grass_rustle.wav",
         Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
+    ColdWindSound = System.CreateSound(CONTENTFOLDER + "sounds/snow/winter_day.wav",
+    Mode.Loop_Normal | Mode.Unique);
     UnderWaterSound = System.CreateSound(CONTENTFOLDER + "sounds/underwater_ambience.ogg",
         Mode.Loop_Normal | Mode.Unique);
     LoadMenuSounds();
@@ -208,6 +211,8 @@ internal class SoundSystem
     LoadSoundsInList(["krak.wav", "krak2.wav"], EggKrakSounds, "sounds/egg/");
     BoingSounds = new List<Sound>();
     LoadSoundsInList(["boing2.wav", "boing.wav"], BoingSounds, "sounds/");
+    BubbleSounds = new List<Sound>();
+    LoadSoundsInList(["bubble.wav", "bubble2.wav", "bubble3.wav"], BubbleSounds, "sounds/");
   }
 
   public void LoadMenuSounds()
@@ -397,10 +402,11 @@ internal class SoundSystem
     if (Music != null) Music.Mute = mute;
   }
 
-  internal Channel PlaySoundAtPosition(List<Sound> sounds, Vector3 position)
+  internal Channel PlaySoundAtPosition(List<Sound> sounds, Vector3 position, float volumeModifier=0)
   {
     var sound = sounds[Game.Random.Next(sounds.Count())];
     var channel = PlaySoundAtPosition(sound, position);
+    channel.Volume += volumeModifier;
     return channel;
   }
 
@@ -426,7 +432,7 @@ internal class SoundSystem
       foreach (var channel in map.WaterChannels) channel.Paused = false;
       foreach (var item in map.Items) item.SoundLoopTimer?.Start();
       if (map.BackgroundChannel != null) map.BackgroundChannel.Paused = false;
-      if(map.Preset==MapPreset.garden) EnableAmbiTimer();
+      if (map.Preset == MapPreset.garden) EnableAmbiTimer();
     }
     catch
     {
@@ -472,7 +478,7 @@ internal class SoundSystem
   }
   internal void PlayUnderWaterMusic()
   {
-    MusicTransition(UnderWaterMusicStream, 2684920, 6164501, FmodAudio.TimeUnit.PCM);
+    MusicTransition(UnderWaterMusicStream, 2684920, 6164501, FmodAudio.TimeUnit.PCM,0.3f);
   }
   public void PlayMapMusic(Map map)
   {

@@ -1,5 +1,5 @@
 # todo
-- bulles
+- trad bulles underwater, passage
 - help inventaire, score
 - jouets: poisson, snowman+fond, coin d'eau, arbres, creuse
 - escape: commandes credits, 

@@ -5,35 +5,35 @@ using FmodAudio;
 
 namespace BebooGarden.GameCore.Item;
 
-internal class SnowBall : Item
+internal class Bubble : Item
 {
   private readonly Vector3[] DIRECTIONS = [new(0, 1, 0), new(1, 0, 0), new(-1, 0, 0), new(0, -1, 0)];
   private Vector3? position;
-  public SnowBall()
+  public Bubble()
   {
-    MoveBehaviour = new(this, 100, 100, (snowBall) =>
+    MoveBehaviour = new(this, 1200, 1500, (bubble) =>
     {
-      if (snowBall.Direction == null || snowBall.Position == null) return;
-      snowBall.Position += snowBall.Direction;
-      Game.SoundSystem.PlaySoundAtPosition(Game.SoundSystem.BebooStepSnowSound, snowBall.Position.Value);
+      if (bubble.Direction == null || bubble.Position == null) return;
+      bubble.Position += bubble.Direction;
+      Game.SoundSystem.PlaySoundAtPosition(Game.SoundSystem.BubbleSounds, bubble.Position.Value);
       if (Game.Map != null)
       {
-        var snowBalls = Game.Map.Items.FindAll(x => x is SnowBall);
-        foreach (SnowBall otherSnowBall in snowBalls)
+        var bubbles = Game.Map.Items.FindAll(x => x is Bubble);
+        foreach (Bubble otherBubble in bubbles)
         {
-          if (otherSnowBall.Direction == null && Util.IsInSquare(snowBall.Position.Value, otherSnowBall.Position.Value, 1))
+          if (otherBubble.Direction == null && Util.IsInSquare(bubble.Position.Value, otherBubble.Position.Value, 1))
           {
-            otherSnowBall.Action();
+            otherBubble.Action();
           }
         }
       }
-      if (Game.Random.Next(8) == 1) snowBall.Direction = null;
+      if (Game.Random.Next(8) == 1) bubble.Direction = null;
     }, true);
   }
   public Vector3? Direction { get; set; }
-  private TimedBehaviour<SnowBall> MoveBehaviour { get; set; }
-  protected override string _translateKeyName { get; } = "snowball.name";
-  protected override string _translateKeyDescription { get; } = "snowball.description";
+  private TimedBehaviour<Bubble> MoveBehaviour { get; set; }
+  protected override string _translateKeyName { get; } = "bubble.name";
+  protected override string _translateKeyDescription { get; } = "bubble.description";
   public override Vector3? Position
   {
     get => position;
@@ -59,13 +59,12 @@ internal class SnowBall : Item
       }
     }
   } // position null=in inventory
-  public override bool IsTakable { get; set; } = true;
-  public override bool IsWaterProof { get; set; } = false;
+  public override bool IsTakable { get; set; } = false;
+  public override bool IsWaterProof { get; set; } = true;
   public override Channel? Channel { get; set; }
-  public override int Cost { get; set; } = - 1;
   public override void Action()
   {
-    Game.SoundSystem.PlaySoundAtPosition(Game.SoundSystem.ItemSnowBallKickSound, Position.Value);
+    Game.SoundSystem.PlaySoundAtPosition(Game.SoundSystem.BubbleSounds, Position.Value, 0.2f);
     Direction = DIRECTIONS[Game.Random.Next(DIRECTIONS.Length)];
   }
   public override void BebooAction(Beboo beboo)

@@ -13,6 +13,7 @@ public class Egg(string color) : Item
   protected override string _translateKeyDescription { get; } = "egg.description";
   public override Vector3? Position { get; set; } // position null=in inventory
   public override bool IsTakable { get; set; } = false;
+  public override int Cost { get; set; } = 20;
   public override bool IsWaterProof { get; set; } = true;
   public override Channel? Channel { get; set; }
   private string Color { get; set; } = color;
