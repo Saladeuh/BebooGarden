@@ -15,7 +15,7 @@ using Timer = System.Windows.Forms.Timer;
 
 namespace BebooGarden.GameCore;
 
-internal class Game : IGlobalActions
+internal partial class Game : IGlobalActions
 {
   public static readonly Timer TickTimer = new();
 
@@ -33,6 +33,7 @@ internal class Game : IGlobalActions
     GameWindow = form;
     Parameters = SaveManager.LoadSave();
     Flags = Parameters.Flags;
+    Flags.UnlockEggInShop = Flags.UnlockUnderwaterMap || Flags.UnlockSnowyMap || Flags.UnlockEggInShop;
     try { Map = Map.Maps[Parameters.CurrentMap]; } catch (Exception) { Map = Map.Maps[MapPreset.garden]; }
     MusicBox.AvailableRolls = Parameters.UnlockedRolls ?? [];
     SoundSystem.Volume = Parameters.Volume;
@@ -55,11 +56,12 @@ internal class Game : IGlobalActions
         {
           foreach (var bebooInfo in Parameters.MapInfos[map.Preset].BebooInfos)
           {
-            var beboo = new Beboo(bebooInfo.Name, bebooInfo.Age, Parameters.LastPlayed, bebooInfo.Happiness, bebooInfo.SwimLevel);
+            var beboo = new Beboo(bebooInfo.Name, bebooInfo.Age, Parameters.LastPlayed, bebooInfo.Happiness, bebooInfo.SwimLevel, false, bebooInfo.Voice);
             map.Beboos.Add(beboo);
             if (map != Map) beboo.Pause();
           }
-        } catch(KeyNotFoundException _) { }
+        }
+        catch (KeyNotFoundException _) { }
       }
     }
     else
@@ -192,10 +194,10 @@ internal class Game : IGlobalActions
       case Keys.Enter:
         if (itemUnderCursor != null && itemUnderCursor.IsTakable) itemUnderCursor.Take();
         else if (Flags.UnlockShop && (Map?.IsArroundShop(PlayerPosition) ?? false)) new Shop().Show();
-        else if (Flags.UnlockSnowyMap && (Map?.IsArroundMapPath(PlayerPosition) ?? false)) 
+        else if (Flags.UnlockSnowyMap && (Map?.IsArroundMapPath(PlayerPosition) ?? false))
           TravelBetwieen(MapPreset.garden, MapPreset.snowy);
         else if (Flags.UnlockUnderwaterMap && (Map?.IsArroundMapUnderWater(PlayerPosition) ?? false))
-      TravelBetwieen(MapPreset.garden, MapPreset.underwater);
+          TravelBetwieen(MapPreset.garden, MapPreset.underwater);
         else if ((Map?.IsArroundRaceGate(PlayerPosition) ?? false))
         {
           new Minigame.Race(Minigame.Race.BASERACELENGTH, Map?.Beboos[0]).Start();
@@ -244,7 +246,7 @@ internal class Game : IGlobalActions
   {
     Map richedMap = Map;
     if (Map.Preset == a) richedMap = Map.Maps[b];
-    else  if(Map.Preset==b) richedMap = Map.Maps[a];
+    else if (Map.Preset == b) richedMap = Map.Maps[a];
     var beboosHere = BeboosUnderCursor(2);
     foreach (var transferedBeboo in beboosHere)
     {
@@ -395,7 +397,7 @@ internal class Game : IGlobalActions
     if (newPos != PlayerPosition + movement) Game.SoundSystem.System.PlaySound(Game.SoundSystem.WallSound);
     PlayerPosition = newPos;
     SoundSystem.MovePlayerTo(newPos);
-    if (Map.IsInLake(newPos) && Map.Preset!=MapPreset.underwater) SayLocalizedString("water");
+    if (Map.IsInLake(newPos) && Map.Preset != MapPreset.underwater) SayLocalizedString("water");
     else if (Flags.UnlockShop && (Map?.IsArroundShop(PlayerPosition) ?? false)) SayLocalizedString("shop");
     else if (Flags.UnlockSnowyMap && (Map?.IsArroundMapPath(PlayerPosition) ?? false)) SayLocalizedString("path");
     else if ((Map?.IsArroundRaceGate(PlayerPosition) ?? false)) SayLocalizedString("racegate");
@@ -412,32 +414,6 @@ internal class Game : IGlobalActions
     if (treeLine != null)
       SayLocalizedString("trees");
     else if (item != null) SayLocalizedString(item.Name);
-  }
-  private void Tick(object? _, EventArgs __)
-  {
-    foreach (var beboo in Map?.Beboos)
-    {
-      if (Map.IsLullabyPlaying) beboo.GoAsleep();
-      if (beboo.Age >= 2 && !Flags.VoiceRecoPopupPrinted)
-      {
-        Flags.VoiceRecoPopupPrinted = true;
-        UnlockVoiceRecognition.Run(beboo.Name);
-      }
-      else if (beboo.Age >= 3 && !Flags.UnlockSnowyMap)
-      {
-        Flags.UnlockSnowyMap = true;
-        UnlockSnowyMap.Run();
-        Map.Maps[MapPreset.snowy].AddItem(new Egg("none"), new(0, 0, 0));
-        Flags.UnlockEggInShop = true;
-      }
-      if (beboo.SwimLevel >= 10 && !Flags.UnlockPerfectSwimming)
-      {
-        Flags.UnlockPerfectSwimming = true;
-        UnlockSwimming.Run(beboo.Name);
-        Flags.UnlockUnderwaterMap = true;
-      }
-    }
-    SoundSystem.System.Update();
   }
 
   public static void KeyUpMapper(object? sender, KeyEventArgs e)
@@ -475,7 +451,7 @@ internal class Game : IGlobalActions
       var bebooInfos = new List<BebooInfo>();
       foreach (var beboo in map.Beboos)
       {
-        bebooInfos.Add(new(beboo.Name, beboo.Age, beboo.Happiness, beboo.Energy, beboo.SwimLevel));
+        bebooInfos.Add(new(beboo.Name, beboo.Age, beboo.Happiness, beboo.Energy, beboo.SwimLevel, beboo.VoicePitch));
       }
       var mapInfo = new MapInfo(map.Items, fruits, bebooInfos);
       mapInfos.Add(map.Preset, mapInfo);
