@@ -64,7 +64,7 @@ internal class Bubble : Item
   public override Channel? Channel { get; set; }
   public override void Action()
   {
-    Game.SoundSystem.PlaySoundAtPosition(Game.SoundSystem.BubbleSounds, Position.Value, 0.2f);
+    Game.SoundSystem.PlaySoundAtPosition(Game.SoundSystem.BubbleSounds, Position.Value);
     Direction = DIRECTIONS[Game.Random.Next(DIRECTIONS.Length)];
   }
   public override void BebooAction(Beboo beboo)

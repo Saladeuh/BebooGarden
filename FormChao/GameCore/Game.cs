@@ -198,9 +198,17 @@ internal partial class Game : IGlobalActions
           TravelBetwieen(MapPreset.garden, MapPreset.snowy);
         else if (Flags.UnlockUnderwaterMap && (Map?.IsArroundMapUnderWater(PlayerPosition) ?? false))
           TravelBetwieen(MapPreset.garden, MapPreset.underwater);
-        else if ((Map?.IsArroundRaceGate(PlayerPosition) ?? false))
+        else if (Map?.Beboos.Count > 0 && (Map?.IsArroundRaceGate(PlayerPosition) ?? false))
         {
-          new Minigame.Race(Minigame.Race.BASERACELENGTH, Map?.Beboos[0]).Start();
+          Beboo? contester = Map?.Beboos[0];
+          if (Map.Beboos.Count > 1)
+          {
+            var options = new Dictionary<string, int>();
+            for (int i = 0; i < Map.Beboos.Count; i++)
+              options.Add(Map.Beboos[i].Name, i);
+            contester = Map.Beboos[IWindowManager.ShowChoice<int>("choosebeboo", options)];
+          }
+          new Minigame.Race(Minigame.Race.BASERACELENGTH, contester).Start();
         }
         break;
       case Keys.Escape:

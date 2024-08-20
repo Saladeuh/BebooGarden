@@ -4,7 +4,7 @@ using BebooGarden.GameCore;
 using BebooGarden.GameCore.Pet;
 using BebooGarden.GameCore.World;
 using FmodAudio;
-using FmodAudio.Base;
+using FmodAudio.DigitalSignalProcessing;
 using Timer = System.Timers.Timer;
 
 namespace BebooGarden;
@@ -355,24 +355,25 @@ internal class SoundSystem
   public void PlayBebooSound(Sound sound, Beboo beboo, bool stopOthers = true)
   {
     if (beboo.Channel != null && stopOthers && beboo.Channel.IsPlaying) beboo.Channel.Stop();
-    beboo.Channel = PlaySoundAtPosition(sound, beboo.Position);
-    beboo.Channel.AddDSP(0, beboo.VoiceDsp);
+    beboo.Channel = PlaySoundAtPosition(sound, beboo.Position, 0, beboo.VoiceDsp);
   }
 
   public void PlayBebooSound(List<Sound> sounds, Beboo beboo, bool stopOthers = true, float volume = -1)
   {
     var sound = sounds[Game.Random.Next(sounds.Count())];
     if (beboo.Channel != null && stopOthers && beboo.Channel.IsPlaying) beboo.Channel.Stop();
-    beboo.Channel = PlaySoundAtPosition(sound, beboo.Position);
+    beboo.Channel = PlaySoundAtPosition(sound, beboo.Position, 0, beboo.VoiceDsp);
     beboo.Channel.AddDSP(0, beboo.VoiceDsp);
     if (volume != -1) beboo.Channel.Volume = volume;
   }
 
-  public Channel PlaySoundAtPosition(Sound sound, Vector3 position)
+  public Channel PlaySoundAtPosition(Sound sound, Vector3 position, float volumeModifier = 0, Dsp? pitchDsp = null)
   {
     Channel channel = System.PlaySound(sound, paused: true)!;
     channel.Set3DMinMaxDistance(0f, 30f);
     channel.Set3DAttributes(position + new Vector3(0, 0, -2), default, default);
+    channel.Volume += volumeModifier;
+    if (pitchDsp != null) channel.AddDSP(0, pitchDsp.Value);
     channel.Paused = false;
     return channel;
   }
@@ -402,10 +403,11 @@ internal class SoundSystem
     if (Music != null) Music.Mute = mute;
   }
 
-  internal Channel PlaySoundAtPosition(List<Sound> sounds, Vector3 position, float volumeModifier=0)
+  public Channel PlaySoundAtPosition(List<Sound> sounds, Vector3 position, float volumeModifier = 0, Dsp? pitchDsp = null)
   {
     var sound = sounds[Game.Random.Next(sounds.Count())];
-    var channel = PlaySoundAtPosition(sound, position);
+    var channel = PlaySoundAtPosition(sound, position, 0, pitchDsp);
+    if (pitchDsp != null) channel.AddDSP(0, pitchDsp.Value);
     channel.Volume += volumeModifier;
     return channel;
   }
@@ -478,7 +480,7 @@ internal class SoundSystem
   }
   internal void PlayUnderWaterMusic()
   {
-    MusicTransition(UnderWaterMusicStream, 2684920, 6164501, FmodAudio.TimeUnit.PCM,0.3f);
+    MusicTransition(UnderWaterMusicStream, 2684920, 6164501, FmodAudio.TimeUnit.PCM, 0.3f);
   }
   public void PlayMapMusic(Map map)
   {
