@@ -11,8 +11,8 @@ internal class Race : IWindowManager
 {
   private const int MAXTRIESPERDAY = 5;
   public static Dictionary<RaceType, double> RaceScores { get; set; } = new();
-  public static int TodayTries {  get; set; }
-  public static int TotalWin {  get; set; }
+  public static int TodayTries { get; set; }
+  public static int TotalWin { get; set; }
   public static readonly int BASERACELENGTH = 60;
   public int Length { get; set; }
   public DateTime StartTime;
@@ -25,6 +25,8 @@ internal class Race : IWindowManager
     {
       case RaceType.Base:
         Length = BASERACELENGTH; break;
+      case RaceType.Snowy:
+        Length = BASERACELENGTH; break;
         break;
     }
     MainBeboo = mainBeboo;
@@ -32,7 +34,11 @@ internal class Race : IWindowManager
   public void Start()
   {
     TodayTries++;
-    Game.ChangeMap(Map.Maps[MapPreset.basicrace]);
+    switch (RaceType)
+    {
+      case RaceType.Base: Game.ChangeMap(Map.Maps[MapPreset.basicrace]); break;
+      case RaceType.Snowy: Game.ChangeMap(Map.Maps[MapPreset.snowyrace]); ; break;
+    }
     Game.Map?.Beboos.Add(MainBeboo);
     MainBeboo.Unpause();
     var startPos = new Vector3(-Length / 2, 0, 0);
@@ -53,12 +59,15 @@ internal class Race : IWindowManager
     if (third.Item1 == 0) contesterScore = third.Item2;
     else if (second.Item1 == 0) contesterScore = second.Item2;
     else if (first.Item1 == 0) contesterScore = first.Item2;
-    RaceScores[RaceType]=contesterScore;
+    RaceScores[RaceType] = contesterScore;
     RaceResult.Run(third, second, first);
-    if (first.Item1 == 0) { Game.GainTicket(2);
+    if (first.Item1 == 0)
+    {
+      Game.GainTicket(2);
       TotalWin++;
-      MainBeboo.Happiness+=2;
-    } else
+      MainBeboo.Happiness += 2;
+    }
+    else
     {
       MainBeboo.Happiness--;
       MainBeboo.Energy--;
@@ -112,5 +121,12 @@ internal class Race : IWindowManager
       End(third, second, first);
     }
   }
-  public static int GetRemainingTriesToday() => MAXTRIESPERDAY - TodayTries;
+  public static int GetRemainingTriesToday()
+  {
+#if DEBUG
+    return MAXTRIESPERDAY;
+#else
+    return MAXTRIESPERDAY - TodayTries;
+#endif
+  }
 }

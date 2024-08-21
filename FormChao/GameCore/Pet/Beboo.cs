@@ -219,6 +219,20 @@ public class Beboo
     else if (Game.Map?.Preset == MapPreset.snowy)
     {
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooStepSnowSound, this, false);
+      if (Game.Random.Next(9) == 1)
+      {
+        Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooStepSlipSound, this, false);
+        Position += Util.DIRECTIONS[Game.Random.Next(Util.DIRECTIONS.Length)];
+      }
+    }
+    else if (Game.Map?.Preset == MapPreset.snowyrace)
+    {
+      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooStepSnowSound, this, false);
+      if (BootsSlippedOn || Game.Random.Next(4) == 1)
+      {
+        Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooStepSlipSound, this, false);
+        Position += (Util.DIRECTIONS[Game.Random.Next(Util.DIRECTIONS.Length)])*2;
+      }
     }
     else
     {

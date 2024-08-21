@@ -4,6 +4,7 @@ namespace BebooGarden;
 
 public static class Util
 {
+  public static readonly Vector3[] DIRECTIONS = [new(0, 1, 0), new(1, 0, 0), new(-1, 0, 0), new(0, -1, 0)];
   public static readonly string[] Colors =
       { "pink", "red", "orange", "yellow", "green", "blue", "indigo", "violet", "none" };
 

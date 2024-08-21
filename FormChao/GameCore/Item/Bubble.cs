@@ -7,7 +7,6 @@ namespace BebooGarden.GameCore.Item;
 
 internal class Bubble : Item
 {
-  private readonly Vector3[] DIRECTIONS = [new(0, 1, 0), new(1, 0, 0), new(-1, 0, 0), new(0, -1, 0)];
   private Vector3? position;
   public Bubble()
   {
@@ -32,13 +31,13 @@ internal class Bubble : Item
     SlowDriftBehaviour = new(this, 20000, 40000, (bubble) =>
     {
       if (bubble.Direction != null || bubble.Position == null) return;
-      Direction = DIRECTIONS[Game.Random.Next(DIRECTIONS.Length)];
+      Direction = Util.DIRECTIONS[Game.Random.Next(Util.DIRECTIONS.Length)];
       Game.SoundSystem.PlaySoundAtPosition(Game.SoundSystem.BubbleUpSound, bubble.Position.Value);
     }, true);
   }
   public Vector3? Direction { get; set; }
   private TimedBehaviour<Bubble> MoveBehaviour { get; set; }
-  public TimedBehaviour<Bubble> SlowDriftBehaviour { get; private set; }
+  private TimedBehaviour<Bubble> SlowDriftBehaviour { get; set; }
   protected override string _translateKeyName { get; } = "bubble.name";
   protected override string _translateKeyDescription { get; } = "bubble.description";
   public override Vector3? Position
@@ -78,7 +77,7 @@ internal class Bubble : Item
       Game.Map?.Items.Remove(this);
       MoveBehaviour.Stop();
       SlowDriftBehaviour.Stop();
-    } else Direction = DIRECTIONS[Game.Random.Next(DIRECTIONS.Length)];
+    } else Direction = Util.DIRECTIONS[Game.Random.Next(Util.DIRECTIONS.Length)];
   }
   public override void BebooAction(Beboo beboo)
   {

@@ -6,4 +6,5 @@ public enum MapPreset
   basicrace,
   snowy,
   underwater,
+  snowyrace,
 }

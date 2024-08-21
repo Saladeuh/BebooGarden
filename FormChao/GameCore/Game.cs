@@ -259,8 +259,14 @@ internal partial class Game : IGlobalActions
         else contester = null;
       }
       else contester = Map?.Beboos[0];
-
-      if (contester != null) new Minigame.Race(RaceType.Base, contester).Start();
+      if (contester == null) return;
+      var raceTypeOptions = new Dictionary<string, RaceType>()
+      {
+        { "race.simple", RaceType.Base },
+        { "race.snow", RaceType.Snowy }
+      };
+      RaceType choice = IWindowManager.ShowChoice<RaceType>("race.chooserace", raceTypeOptions);
+      if (choice != RaceType.None) new Minigame.Race(choice, contester).Start();
     }
     else
     {

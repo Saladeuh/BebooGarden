@@ -23,7 +23,10 @@ public class Map
         new Vector3(0, 0, 0), FmodAudio.Preset.UnderWater) },
     {MapPreset.basicrace, new Map(MapPreset.basicrace, Race.BASERACELENGTH, 10,
         [],
-        new Vector3(0, -(Race.BASERACELENGTH / 2) - 10, 0), FmodAudio.Preset.StoneCorridor) }
+        new Vector3(0, -(Race.BASERACELENGTH / 2) - 10, 0), FmodAudio.Preset.StoneCorridor) },
+        {MapPreset.snowyrace, new Map(MapPreset.snowyrace, Race.BASERACELENGTH, 10,
+        [],
+        null, FmodAudio.Preset.Plain) }
   };
   private int SizeX { get; set; }
   private int SizeY { get; set; }

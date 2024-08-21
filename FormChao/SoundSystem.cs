@@ -56,6 +56,7 @@ internal class SoundSystem
   public Sound BebooStepSound { get; private set; }
   public Sound BebooStepWaterSound { get; private set; }
   public Sound BebooStepSnowSound { get; private set; }
+  public Sound BebooStepSlipSound { get; set; }
   public Sound BebooScreamSound { get; private set; }
   public Sound ItemPutSound { get; private set; }
   public Sound ItemTakeSound { get; private set; }
@@ -171,6 +172,8 @@ internal class SoundSystem
         Mode._3D | Mode._3D_LinearSquareRolloff);
     BebooStepSnowSound = System.CreateSound(CONTENTFOLDER + "sounds/snow/step.wav",
         Mode._3D | Mode._3D_LinearSquareRolloff);
+    BebooStepSlipSound = System.CreateSound(CONTENTFOLDER + "sounds/slip.wav",
+        Mode._3D | Mode._3D_LinearSquareRolloff);
     BebooScreamSound = System.CreateSound(CONTENTFOLDER + "sounds/beboo/cri.wav",
         Mode._3D | Mode._3D_LinearSquareRolloff);
     CinematicHatch = System.CreateStream(CONTENTFOLDER + "cinematic/hatch.wav");
@@ -285,7 +288,7 @@ internal class SoundSystem
         _ambiTimer.Enabled = false;
         break;
     }
-    foreach (var item in map.Items) item.SoundLoopTimer?.Start();
+    foreach (var item in map.Items) item.Unpause();
     foreach (var beboo in map.Beboos) beboo.Unpause();
     System.SetReverbProperties(1, map.ReverbPreset);
   }
