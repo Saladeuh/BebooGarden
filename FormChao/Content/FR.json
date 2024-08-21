@@ -76,7 +76,7 @@
     "ui.itemtake": "{0} rangé dans le sac",
     "ui.basket": "Il y a {0} fruits dans le panier",
     "ui.back": "Retour",
-    "shop.item": "{0}, {1} tickets", // 0=item name, 1=cost
+    "shop.item": "{0} : {1}, {2} tickets", // 0=item name, 1=description, 2=cost
     "shop.items": "Objets ({0} tickets restants)", //0=tickets remaining number
     "shop.itemstitle": "Objets",
     "shop.rolls": "Rouleaux de boîte à musique ({0} tickets restants)", //0=tickets remaining number

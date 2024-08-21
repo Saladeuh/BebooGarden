@@ -17,7 +17,7 @@ public class Shop
     var itemsList = new List<Item> { new Duck(), new MusicBox(), new BouncingBoots() };
     if (Game.Flags.UnlockEggInShop) itemsList.Add(new Egg("green"));
     var itemsDictionary = itemsList.ToDictionary(
-        item => IGlobalActions.GetLocalizedString("shop.item", item.Name, item.Cost),
+        item => IGlobalActions.GetLocalizedString("shop.item", item.Name, item.Description, item.Cost),
         item => item
     );
     ItemsMenu = new(IGlobalActions.GetLocalizedString("shop.items", Game.Tickets), itemsDictionary);
