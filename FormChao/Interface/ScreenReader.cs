@@ -18,8 +18,10 @@ internal class ScreenReader
     // Append accessibility deps (e.g. Tolk, NVDA drivers, etc.) to PATH
     string? path = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Process);
     //var accessibilityAssembliesDir = Path.Combine("%appdata%", "XIVLauncher", "installedPlugins", name, version);
-    string accessibilityAssembliesDir = Path.Combine("lib");
+    string accessibilityAssembliesDir = Path.Combine("lib", "screen-reader-libs", "windows");
     path += $";{accessibilityAssembliesDir}";
+    string fmodAssembliesDir = Path.Combine("lib");
+    path += $";{fmodAssembliesDir}";
     Environment.SetEnvironmentVariable("PATH", path, EnvironmentVariableTarget.Process);
     CrossSpeakManager.Instance.Initialize();
   }
