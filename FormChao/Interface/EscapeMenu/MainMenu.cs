@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Globalization;
 using BebooGarden.GameCore;
 
 namespace BebooGarden.Interface.EscapeMenu;
@@ -26,6 +27,14 @@ public class MainMenu : Form
       btnOption.KeyDown += KeyHandle;
       Controls.Add(btnOption);
     }
+    Button commandsButton = new()
+    {
+      Text = IGlobalActions.GetLocalizedString("ui.commands")
+    };
+    commandsButton.Click += OpenCommands;
+    commandsButton.Enter += btn_enter;
+    commandsButton.KeyDown += KeyHandle;
+    Controls.Add(commandsButton);
     Button websiteButton = new()
     {
       Text = "website"
@@ -42,14 +51,14 @@ public class MainMenu : Form
     discordButton.Enter += btn_enter;
     discordButton.KeyDown += KeyHandle;
     Controls.Add(discordButton);
-    Button creditsButton = new()
+    Button quitButton = new()
     {
-      Text = "credits"
+      Text = IGlobalActions.GetLocalizedString("ui.quit")
     };
-    creditsButton.Click += OpenCredits;
-    creditsButton.Enter += btn_enter;
-    creditsButton.KeyDown += KeyHandle;
-    Controls.Add(creditsButton);
+    quitButton.Click += Quit;
+    quitButton.Enter += btn_enter;
+    quitButton.KeyDown += KeyHandle;
+    Controls.Add(quitButton);
     Button back = new();
     back.Text = IGlobalActions.GetLocalizedString("ui.back");
     back.AccessibleDescription = Choices.Keys.Count + 1 + "/" + (Choices.Keys.Count + 1);
@@ -60,9 +69,21 @@ public class MainMenu : Form
     Game.ResetKeyState();
   }
 
-  private void OpenCredits(object? sender, EventArgs e)
+  private void Quit(object? sender, EventArgs e)
   {
-    Process.Start(new ProcessStartInfo("save.txt") { UseShellExecute = true });
+    Game.GameWindow.Close();
+    Back(sender, e);
+  }
+
+  private void OpenCommands(object? sender, EventArgs e)
+  {
+    var twoLetterLang = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+    var langFile = Path.Combine(SoundSystem.CONTENTFOLDER, "doc", $"commands_{twoLetterLang}.md");
+    var file = Path.Combine(SoundSystem.CONTENTFOLDER, "doc", "commands.md");
+    if (File.Exists(langFile))
+      Process.Start(new ProcessStartInfo(langFile) { UseShellExecute = true });
+    else if (File.Exists(file))
+      Process.Start(new ProcessStartInfo(file) { UseShellExecute = true });
   }
   private void InviteDiscord(object? sender, EventArgs e)
   {

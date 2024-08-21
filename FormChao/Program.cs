@@ -5,7 +5,7 @@ namespace BebooGarden;
 
 internal class Program
 {
-  private const string version = "0.5";
+  private const string version = "1.0";
 
   [STAThread]
   private static void Main()

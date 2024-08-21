@@ -58,15 +58,6 @@ internal class IGlobalActions
       case Keys.F4:
         if (Game.SoundSystem.Music != null) Game.SoundSystem.Music.Mute = !Game.SoundSystem.Music.Mute;
         break;
-      case Keys.F1:
-      case Keys.H:
-        //Console.WriteLine("Aide");
-        break;
-      case Keys.L:
-      case Keys.F5:
-        bool changed = ChangeLanguageMenu();
-        if (changed) ScreenReader.Output("Language changed, please restart");
-        break;
     }
   }
 

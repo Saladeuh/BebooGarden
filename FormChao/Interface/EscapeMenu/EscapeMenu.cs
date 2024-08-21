@@ -51,7 +51,7 @@ public class EscapeMenu
     Languages = new("lang", languageOptions);
     MainMenu = new(IGlobalActions.GetLocalizedString("mainmenu"), new Dictionary<string, Form>()
     {
-      {IGlobalActions.GetLocalizedString( "bag"), Inventory },
+      {IGlobalActions.GetLocalizedString("bag"), Inventory },
       {IGlobalActions.GetLocalizedString( "tp"), Teleport },
     //  {IGlobalActions.GetLocalizedString( "languages"), Languages },
     });

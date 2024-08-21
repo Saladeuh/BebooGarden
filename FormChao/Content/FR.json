@@ -80,8 +80,10 @@
     "shop.items": "Objets ({0} tickets restants)", //0=tickets remaining number
     "shop.itemstitle": "Objets",
     "shop.rolls": "Rouleaux de boîte à musique ({0} tickets restants)", //0=tickets remaining number
+    "shop.roll": "{0} : {1}, {2} tickets", // 0=item name, 2=description 2=cost
     "shop.rollstitle": "Rouleaux de boîte à musique",
     "shop.title": "Bienvenue dans la boutique! ({0} tickets restants)", //0=tickets remaining number    
+    "shop.buy": "{0} acheté",
     "inventory.item": "{0} (×{1})", //0=item name 1=count of item
     "tp": "Trouver un objet.",
     "tp.item": "{0} {1}", //0=item name, 1=item index
@@ -100,5 +102,8 @@
     "path": "Chemin",
     "nobeboo": "Il n'y a pas de bébou ici..",
     "underwater": "Cheminée volcanique sous-marine",
-    "choosebeboo": "Choisissez le Bébou qui va concourir."
+    "choosebeboo": "Choisissez le Bébou qui va concourir.",
+    "ui.commands": "Aides : Commandes du jeu.",
+    "ui.quit": "Quitter le jeu.",
+    "bag": "Sac",
 }

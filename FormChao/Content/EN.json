@@ -81,7 +81,9 @@
     "shop.item": "{0} : {1}, {2} tickets", // 0=item name, 2=description 2=cost
     "shop.items": "Items ({0} remaining tickets)", //0=tickets remaining number
     "shop.itemstitle": "Items",
+    "shop.buy": "{0} buied",
     "shop.rolls": "Music box rolls ({0} remainsing tickets)", //0=tickets remaining number
+    "shop.roll": "{0} : {1}, {2} tickets", // 0=item name, 2=description 2=cost
     "shop.rollstitle": "Music Box rolls",
     "shop.title": "Welcome to the boutique! ({0} remainsing tickets)", //0=tickets remaining number    
     "inventory.item": "{0} (×{1})", //0=item name 1=count of item
@@ -102,5 +104,8 @@
     "path": "Path",
     "nobeboo": "There is no beboo here.",
     "underwater": "Volcanic underwater chimney",
-    "choosebeboo": "Choose the Bbeboo who will compete."
+    "choosebeboo": "Choose the Bbeboo who will compete.",
+    "ui.commands": "Help : Game's commandes.",
+    "ui.quit": "Close the game.",
+    "bag": "Bag"
 }

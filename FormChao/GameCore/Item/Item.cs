@@ -45,7 +45,7 @@ public abstract class Item
     {
       Game.Tickets -= Cost;
       Game.SoundSystem.System.PlaySound(Game.SoundSystem.ShopSound);
-      IGlobalActions.SayLocalizedString("shop.buy");
+      IGlobalActions.SayLocalizedString("shop.buy", Name);
       Game.Inventory?.Add(this);
     }
     else

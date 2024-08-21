@@ -15,7 +15,7 @@ internal class Roll(
     bool lullaby = false) : Item
 {
   protected override string _translateKeyName { get; } = title;
-  protected override string _translateKeyDescription { get; } = "roll.description";
+  protected override string _translateKeyDescription { get; } = source;
   public override Vector3? Position { get; set; } // position null=in inventory
   public override Channel? Channel { get; set; }
   public override bool IsTakable { get; set; } = true;
@@ -57,7 +57,7 @@ internal class Roll(
     {
       Game.Tickets -= Cost;
       Game.SoundSystem.System.PlaySound(Game.SoundSystem.ShopSound);
-      IGlobalActions.SayLocalizedString("shop.buy");
+      IGlobalActions.SayLocalizedString("shop.buy", Name);
       MusicBox.AvailableRolls.Add(Title + Source);
     }
     else
