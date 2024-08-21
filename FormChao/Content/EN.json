@@ -48,7 +48,7 @@
     "ticketpack.name": "Tickets pack",
     "ticketpack.description": "Jack pot!",
     "roll.name": "Music box's roll",
-    "egg.name": "Beboo's egg",
+    "egg.name": "{0} beboo's egg", // 0=egg color
     "egg.description": "For more and more beboos!",
     "bubble.name": "Bubble",
     "bubble.description": "Blup",

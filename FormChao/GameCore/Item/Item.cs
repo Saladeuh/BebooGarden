@@ -14,7 +14,7 @@ public abstract class Item
   }
 
   protected abstract string _translateKeyName { get; }
-  public string Name { get => Game.GetLocalizedString(_translateKeyName); }
+  public virtual string Name { get => Game.GetLocalizedString(_translateKeyName); }
   protected abstract string _translateKeyDescription { get; }
   public string Description { get => Game.GetLocalizedString(_translateKeyDescription); }
   public abstract Vector3? Position { get; set; } // poition null=in inventory

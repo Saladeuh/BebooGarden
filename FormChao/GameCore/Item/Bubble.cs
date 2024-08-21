@@ -35,7 +35,7 @@ internal class Bubble : Item
       Game.SoundSystem.PlaySoundAtPosition(Game.SoundSystem.BubbleUpSound, bubble.Position.Value);
     }, true);
   }
-  public Vector3? Direction { get; set; }
+  private Vector3? Direction { get; set; }
   private TimedBehaviour<Bubble> MoveBehaviour { get; set; }
   private TimedBehaviour<Bubble> SlowDriftBehaviour { get; set; }
   protected override string _translateKeyName { get; } = "bubble.name";

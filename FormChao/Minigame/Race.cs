@@ -18,6 +18,7 @@ internal class Race : IWindowManager
   public DateTime StartTime;
   private Beboo MainBeboo { get; }
   private RaceType RaceType { get; }
+
   public Race(RaceType raceType, Beboo mainBeboo)
   {
     RaceType = raceType;
@@ -63,7 +64,11 @@ internal class Race : IWindowManager
     RaceResult.Run(third, second, first);
     if (first.Item1 == 0)
     {
-      Game.GainTicket(2);
+      switch (RaceType)
+      {
+        case RaceType.Base: Game.GainTicket(2); break;
+        case RaceType.Snowy: Game.GainTicket(3); break;
+      }
       TotalWin++;
       MainBeboo.Happiness += 2;
     }

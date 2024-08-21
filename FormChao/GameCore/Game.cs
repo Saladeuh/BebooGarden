@@ -72,7 +72,6 @@ internal partial class Game : IGlobalActions
     {
       PlayerPosition = new Vector3(-2, 0, 0);
       Map.AddItem(new Egg(Parameters.FavoredColor), new(2, 0, 0));
-      Map.AddItem(new Egg(Parameters.FavoredColor), new(-2, 0, 0));
     }
     SoundSystem.LoadMap(Map);
     UpdateMapMusic();
@@ -263,8 +262,8 @@ internal partial class Game : IGlobalActions
       var raceTypeOptions = new Dictionary<string, RaceType>()
       {
         { "race.simple", RaceType.Base },
-        { "race.snow", RaceType.Snowy }
       };
+      if (Flags.UnlockSnowyMap) raceTypeOptions.Add("race.snow", RaceType.Snowy);
       RaceType choice = IWindowManager.ShowChoice<RaceType>("race.chooserace", raceTypeOptions);
       if (choice != RaceType.None) new Minigame.Race(choice, contester).Start();
     }

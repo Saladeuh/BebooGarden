@@ -45,7 +45,7 @@
     "boots.name": "Bottes à ressort",
     "boots.description": "Un Bébou peut les utiliser pour sauter plus loin",    "ticketpack.name": "Paquet de tickets",
     "ticketpack.description": "Jack pot!",
-    "egg.name": "œuf de bébou",
+    "egg.name": "œuf de bébou {0}",
     "egg.description": "Toujours plus de Bébous!!!!",
     "bubble.name": "Bulle",
     "bubble.description": "Bloup",
