@@ -88,7 +88,6 @@ internal partial class Game : IGlobalActions
     PlayerName = Parameters.PlayerName;
     Tickets = Parameters.Tickets;
     Inventory = Parameters.Inventory;
-    Inventory.Add(new Duck());
   }
 
 
