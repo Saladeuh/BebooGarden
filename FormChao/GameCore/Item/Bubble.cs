@@ -26,13 +26,13 @@ internal class Bubble : Item
         }
       }
       if (Game.Random.Next(8) == 1) bubble.Direction = null;
-    }, true);
+    }, false);
     SlowDriftBehaviour = new(this, 20000, 40000, (bubble) =>
     {
       if (bubble.Direction != null || bubble.Position == null) return;
       Direction = Util.DIRECTIONS[Game.Random.Next(Util.DIRECTIONS.Length)];
       Game.SoundSystem.PlaySoundAtPosition(Game.SoundSystem.BubbleUpSound, bubble.Position.Value);
-    }, true);
+    }, false);
   }
   private Vector3? Direction { get; set; }
   private TimedBehaviour<Bubble> MoveBehaviour { get; set; }

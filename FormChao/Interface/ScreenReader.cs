@@ -23,9 +23,10 @@ internal class ScreenReader
     string fmodAssembliesDir = Path.Combine("lib");
     path += $";{fmodAssembliesDir}";
     Environment.SetEnvironmentVariable("PATH", path, EnvironmentVariableTarget.Process);
+    CrossSpeakManager.Instance.PreferSAPI(CrossSpeakManager.Instance.DetectScreenReader() == "");
+    CrossSpeakManager.Instance.TrySAPI(true);
     CrossSpeakManager.Instance.Initialize();
   }
-
 
   internal static void Unload()
   {
