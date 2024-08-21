@@ -8,6 +8,7 @@ using BebooGarden.Interface;
 using BebooGarden.Interface.EscapeMenu;
 using BebooGarden.Interface.ScriptedScene;
 using BebooGarden.Interface.Shop;
+using BebooGarden.Minigame;
 using BebooGarden.Save;
 using FmodAudio;
 using Timer = System.Windows.Forms.Timer;
@@ -33,7 +34,7 @@ internal partial class Game : IGlobalActions
     GameWindow = form;
     Parameters = SaveManager.LoadSave();
     Flags = Parameters.Flags;
-    RaceScores = Parameters.RaceScores;
+   Minigame.Race.RaceScores = Parameters.RaceScores;
     Flags.UnlockEggInShop = Flags.UnlockUnderwaterMap || Flags.UnlockSnowyMap || Flags.UnlockEggInShop;
     try { Map = Map.Maps[Parameters.CurrentMap]; } catch (Exception) { Map = Map.Maps[MapPreset.garden]; }
     MusicBox.AvailableRolls = Parameters.UnlockedRolls ?? [];
@@ -101,7 +102,6 @@ internal partial class Game : IGlobalActions
   public SaveParameters Parameters { get; }
   public static Map? Map { get; private set; }
   public static Flags Flags { get; set; }
-  public static Dictionary<RaceType, double> RaceScores { get; set; }= new();
   public string PlayerName { get; }
   public static List<Item.Item> Inventory { get; set; } = [];
   public static int Tickets { get; set; } = 0;
@@ -202,16 +202,19 @@ internal partial class Game : IGlobalActions
           TravelBetwieen(MapPreset.garden, MapPreset.underwater);
         else if (Map?.Beboos.Count > 0 && (Map?.IsArroundRaceGate(PlayerPosition) ?? false))
         {
-          Beboo? contester = Map?.Beboos[0];
+          Beboo? contester;
           if (Map.Beboos.Count > 1)
           {
-            var options = new Dictionary<string, int>();
+            var options = new Dictionary<string, int?>();
             for (int i = 0; i < Map.Beboos.Count; i++)
               options.Add(Map.Beboos[i].Name, i);
-            contester = Map.Beboos[IWindowManager.ShowChoice<int>("choosebeboo", options)];
+            int? choice = IWindowManager.ShowChoice<int?>("choosebeboo", options);
+            if (choice != null) contester = Map.Beboos[choice.Value];
+            else contester = null;
           }
+          else contester = Map?.Beboos[0];
 
-          new Minigame.Race(RaceType.Base, contester).Start();
+          if (contester!=null) new Minigame.Race(RaceType.Base, contester).Start();
         }
         break;
       case Keys.Escape:
@@ -479,7 +482,7 @@ internal partial class Game : IGlobalActions
        favoredColor: Parameters.FavoredColor,
        currentMap: Map?.Preset ?? MapPreset.garden,
        mapInfos: mapInfos,
-       raceScores: RaceScores
+       raceScores: Race.RaceScores
    );
     SaveManager.WriteJson(parameters);
   }

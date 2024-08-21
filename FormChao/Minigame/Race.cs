@@ -9,6 +9,7 @@ namespace BebooGarden.Minigame;
 
 internal class Race : IWindowManager
 {
+  public static Dictionary<RaceType, double> RaceScores { get; set; } = new();
   public static readonly int BASERACELENGTH = 60;
   public int Length { get; set; }
   public DateTime StartTime;
@@ -48,7 +49,7 @@ internal class Race : IWindowManager
     if (third.Item1 == 0) contesterScore = third.Item2;
     else if (second.Item1 == 0) contesterScore = second.Item2;
     else if (first.Item1 == 0) contesterScore = first.Item2;
-    Game.RaceScores[RaceType]=contesterScore;
+    RaceScores[RaceType]=contesterScore;
     RaceResult.Run(third, second, first);
     Game.Map?.Beboos[1].Pause();
     Game.Map?.Beboos[2].Pause();
