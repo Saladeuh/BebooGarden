@@ -91,6 +91,9 @@
     "race.third": "{0} est le troisième... ({1} secondes)",
     "race.second": "{0} est le deuxième. ({1} secondes)",
     "race.first": "{0} est le premier ! ({1} secondes)",
+    "race.gate": "Participer à une course (encore {0} essais aujourd'hui)", //0=nombre de courses restantes
+    "race.chooseracer": "Choisissez le coureur",
+    "race.trytommorow": "Les courses sont fermées pour aujourd'hui.",
     "unlockvoice": "{0} est maintenant assez grand pour reconnaître son nom !\nEssayez de l'appeler.",
     "unlocksnowy": "Bravo !\nVous venez de déblquer le chemin vers la pleine enneigée. Allez vite la visiter en amenant votre Bébou en bas à gauche du jardin.",
     "unlockswimming": "Waw !\n{0} sait parfaitement nager désormais.",

@@ -17,6 +17,5 @@ public class RaceResult
     Game.SoundSystem.System.PlaySound(Game.SoundSystem.RaceGoodSound);
     IGlobalActions.SayLocalizedString("race.first", Game.Map?.Beboos[first.Item1].Name, first.Item2);
     Thread.Sleep(500);
-    if (first.Item1 == 0) Game.GainTicket(2);
   }
 }

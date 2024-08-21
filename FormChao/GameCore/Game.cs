@@ -34,7 +34,9 @@ internal partial class Game : IGlobalActions
     GameWindow = form;
     Parameters = SaveManager.LoadSave();
     Flags = Parameters.Flags;
-   Minigame.Race.RaceScores = Parameters.RaceScores;
+    Race.RaceScores = Parameters.RaceScores;
+    Race.TotalWin = Parameters.RaceTotalWin;
+    Race.TodayTries = Parameters.LastPlayed.Day == DateTime.Now.Day ? Parameters.RaceTodayTries : 0;
     Flags.UnlockEggInShop = Flags.UnlockUnderwaterMap || Flags.UnlockSnowyMap || Flags.UnlockEggInShop;
     try { Map = Map.Maps[Parameters.CurrentMap]; } catch (Exception) { Map = Map.Maps[MapPreset.garden]; }
     MusicBox.AvailableRolls = Parameters.UnlockedRolls ?? [];
@@ -201,21 +203,7 @@ internal partial class Game : IGlobalActions
         else if (Flags.UnlockUnderwaterMap && (Map?.IsArroundMapUnderWater(PlayerPosition) ?? false))
           TravelBetwieen(MapPreset.garden, MapPreset.underwater);
         else if (Map?.Beboos.Count > 0 && (Map?.IsArroundRaceGate(PlayerPosition) ?? false))
-        {
-          Beboo? contester;
-          if (Map.Beboos.Count > 1)
-          {
-            var options = new Dictionary<string, int?>();
-            for (int i = 0; i < Map.Beboos.Count; i++)
-              options.Add(Map.Beboos[i].Name, i);
-            int? choice = IWindowManager.ShowChoice<int?>("choosebeboo", options);
-            if (choice != null) contester = Map.Beboos[choice.Value];
-            else contester = null;
-          }
-          else contester = Map?.Beboos[0];
-
-          if (contester!=null) new Minigame.Race(RaceType.Base, contester).Start();
-        }
+          StartRace();
         break;
       case Keys.Escape:
         new EscapeMenu().Show();
@@ -254,6 +242,31 @@ internal partial class Game : IGlobalActions
     }
 
     KeyState[e.KeyCode] = true;
+  }
+
+  private static void StartRace()
+  {
+    if (Race.GetRemainingTriesToday() > 0)
+    {
+      Beboo? contester;
+      if (Map.Beboos.Count > 1)
+      {
+        var options = new Dictionary<string, int?>();
+        for (int i = 0; i < Map.Beboos.Count; i++)
+          options.Add(Map.Beboos[i].Name, i);
+        int? choiceId = IWindowManager.ShowChoice<int?>("race.chooseracer", options);
+        if (choiceId != null) contester = Map.Beboos[choiceId.Value];
+        else contester = null;
+      }
+      else contester = Map?.Beboos[0];
+
+      if (contester != null) new Minigame.Race(RaceType.Base, contester).Start();
+    }
+    else
+    {
+      Game.SoundSystem.System.PlaySound(Game.SoundSystem.WarningSound);
+      SayLocalizedString("race.trytommorow");
+    }
   }
 
   private void TravelBetwieen(MapPreset a, MapPreset b)
@@ -414,7 +427,7 @@ internal partial class Game : IGlobalActions
     if (Map.IsInLake(newPos) && Map.Preset != MapPreset.underwater) SayLocalizedString("water");
     if (Flags.UnlockShop && (Map?.IsArroundShop(PlayerPosition) ?? false)) SayLocalizedString("shop");
     else if (Flags.UnlockSnowyMap && (Map?.IsArroundMapPath(PlayerPosition) ?? false)) SayLocalizedString("path");
-    else if ((Map?.IsArroundRaceGate(PlayerPosition) ?? false)) SayLocalizedString("racegate");
+    else if ((Map?.IsArroundRaceGate(PlayerPosition) ?? false)) SayLocalizedString("race.gate", Race.GetRemainingTriesToday());
     else if (Flags.UnlockUnderwaterMap && (Map?.IsArroundMapUnderWater(PlayerPosition) ?? false)) SayLocalizedString("underwater");
     SpeakObjectUnderCursor();
   }
@@ -482,7 +495,9 @@ internal partial class Game : IGlobalActions
        favoredColor: Parameters.FavoredColor,
        currentMap: Map?.Preset ?? MapPreset.garden,
        mapInfos: mapInfos,
-       raceScores: Race.RaceScores
+       raceScores: Race.RaceScores,
+       raceTodayTries: Race.TodayTries,
+       raceTotalWin: Race.TotalWin
    );
     SaveManager.WriteJson(parameters);
   }

@@ -9,7 +9,10 @@ namespace BebooGarden.Minigame;
 
 internal class Race : IWindowManager
 {
+  private const int MAXTRIESPERDAY = 5;
   public static Dictionary<RaceType, double> RaceScores { get; set; } = new();
+  public static int TodayTries {  get; set; }
+  public static int TotalWin {  get; set; }
   public static readonly int BASERACELENGTH = 60;
   public int Length { get; set; }
   public DateTime StartTime;
@@ -28,14 +31,15 @@ internal class Race : IWindowManager
   }
   public void Start()
   {
+    TodayTries++;
     Game.ChangeMap(Map.Maps[MapPreset.basicrace]);
     Game.Map?.Beboos.Add(MainBeboo);
     MainBeboo.Unpause();
     var startPos = new Vector3(-Length / 2, 0, 0);
     MainBeboo.Position = startPos;
-    Game.Map?.Beboos.Add(new Beboo("bob", 1, DateTime.Now, Game.Random.Next(10), 8, true, 1.3f));
+    Game.Map?.Beboos.Add(new Beboo("bob", 1, DateTime.Now, Game.Random.Next(6), Game.Random.Next(8), true, 1.3f));
     Game.Map.Beboos[1].Position = startPos + new Vector3(0, 2, 0);
-    Game.Map?.Beboos.Add(new Beboo("boby", 1, DateTime.Now, Game.Random.Next(10), 8, true, 1.2f));
+    Game.Map?.Beboos.Add(new Beboo("boby", 1, DateTime.Now, Game.Random.Next(6), Game.Random.Next(8), true, 1.2f));
     Game.Map.Beboos[2].Position = startPos + new Vector3(0, -2, 0);
     Game.SoundSystem.PlayRaceMusic();
     Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicRaceStart, true);
@@ -51,6 +55,15 @@ internal class Race : IWindowManager
     else if (first.Item1 == 0) contesterScore = first.Item2;
     RaceScores[RaceType]=contesterScore;
     RaceResult.Run(third, second, first);
+    if (first.Item1 == 0) { Game.GainTicket(2);
+      TotalWin++;
+      MainBeboo.Happiness+=2;
+    } else
+    {
+      MainBeboo.Happiness--;
+      MainBeboo.Energy--;
+    }
+
     Game.Map?.Beboos[1].Pause();
     Game.Map?.Beboos[2].Pause();
     Game.Map?.Beboos.Clear();
@@ -80,17 +93,14 @@ internal class Race : IWindowManager
             if (first.Item1 == -1)
             {
               first = (i, score);
-              //Game.SoundSystem.System.PlaySound(Game.SoundSystem.RaceGoodSound);
             }
             else if (second.Item1 == -1)
             {
               second = (i, score);
-              //Game.SoundSystem.System.PlaySound(Game.SoundSystem.RaceGoodSound);
             }
             else if (third.Item1 == -1)
             {
               third = (i, score);
-              //Game.SoundSystem.System.PlaySound(Game.SoundSystem.RaceGoodSound);
             }
           }
         }
@@ -102,4 +112,5 @@ internal class Race : IWindowManager
       End(third, second, first);
     }
   }
+  public static int GetRemainingTriesToday() => MAXTRIESPERDAY - TodayTries;
 }

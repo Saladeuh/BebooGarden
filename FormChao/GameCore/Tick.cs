@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Timers;
 using BebooGarden.GameCore.Item;
 using BebooGarden.GameCore.World;
 using BebooGarden.Interface.ScriptedScene;
+using BebooGarden.Minigame;
 
 namespace BebooGarden.GameCore;
 
@@ -37,5 +34,23 @@ internal partial class Game
       }
     }
     SoundSystem.System.Update();
+  }
+  private static void SetTimerForMidnight()
+  {
+    // Calculer le temps jusqu'à minuit
+    DateTime now = DateTime.Now;
+    DateTime midnight = now.Date.AddDays(1); // minuit du prochain jour
+    TimeSpan timeUntilMidnight = midnight - now;
+
+    // Créer un timer qui se déclenchera à minuit
+    var timer = new System.Timers.Timer(timeUntilMidnight.TotalMilliseconds);
+    timer.Elapsed += OnMidnightReached;
+    timer.AutoReset = false; // ne pas réinitialiser automatiquement le timer
+    timer.Start();
+  }
+
+  private static void OnMidnightReached(object? sender, ElapsedEventArgs e)
+  {
+    Race.TodayTries = 0;
   }
 }

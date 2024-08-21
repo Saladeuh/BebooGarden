@@ -119,7 +119,7 @@ public class Beboo
   public float Energy
   {
     get => _energy;
-    private set
+    set
     {
       value = Math.Clamp(value, -10, MaxEnergy);
       if (_energy > value && ((Happy && value <= -2) || (!Happy && value <= -5))) GoAsleep();
@@ -136,7 +136,7 @@ public class Beboo
   public int Happiness
   {
     get => _hapiness;
-    private set
+    set
     {
       value = Math.Clamp(value, -10, MaxHappinness);
       if (_hapiness > value && value <= 0) BurstInTearrs();

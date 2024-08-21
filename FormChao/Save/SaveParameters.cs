@@ -6,7 +6,7 @@ namespace BebooGarden.Save;
 public class SaveParameters
 {
   public SaveParameters(string? language, float volume,
-      DateTime lastPayed, Flags flags, string playerName, SortedDictionary<FruitSpecies, int> fruitsBasket, List<Item> inventory, int tickets, List<string> unlockedRolls, string favoredColor, Dictionary<MapPreset, MapInfo> mapInfos, MapPreset currentMap, Dictionary<RaceType, double> raceScores)
+      DateTime lastPayed, Flags flags, string playerName, SortedDictionary<FruitSpecies, int> fruitsBasket, List<Item> inventory, int tickets, List<string> unlockedRolls, string favoredColor, Dictionary<MapPreset, MapInfo> mapInfos, MapPreset currentMap, Dictionary<RaceType, double> raceScores, int raceTodayTries, int raceTotalWin)
   {
     Volume = volume;
     Language = language;
@@ -21,6 +21,8 @@ public class SaveParameters
     MapInfos = mapInfos;
     CurrentMap = currentMap;
     RaceScores = raceScores;
+    RaceTodayTries = raceTodayTries;
+    RaceTotalWin = raceTotalWin;
   }
 
   public SaveParameters()
@@ -49,4 +51,6 @@ public class SaveParameters
   public Dictionary<RaceType, double> RaceScores { get; set; }
   public string FreeTime { get; set; }
   public string Dessert { get; set; }
+  public int RaceTodayTries { get; set; }
+  public int RaceTotalWin { get; set; }
 } 
