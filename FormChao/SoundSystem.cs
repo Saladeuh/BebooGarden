@@ -422,7 +422,7 @@ internal class SoundSystem
   {
     foreach (var channel in map.TreesChannels) channel.Paused = true;
     foreach (var channel in map.WaterChannels) channel.Paused = true;
-    foreach (var item in map.Items) item.SoundLoopTimer?.Stop();
+    foreach (var item in map.Items) item.Pause();
     try { if (map != null && map.BackgroundChannel != null) map.BackgroundChannel.Paused = true; } catch { }
     foreach (var beboo in map.Beboos) beboo.Pause();
     DisableAmbiTimer();
@@ -435,7 +435,7 @@ internal class SoundSystem
     {
       foreach (var channel in map.TreesChannels) channel.Paused = false;
       foreach (var channel in map.WaterChannels) channel.Paused = false;
-      foreach (var item in map.Items) item.SoundLoopTimer?.Start();
+      foreach (var item in map.Items) item.Unpause();
       if (map.BackgroundChannel != null) map.BackgroundChannel.Paused = false;
       if (map.Preset == MapPreset.garden) EnableAmbiTimer();
     }

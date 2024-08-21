@@ -58,5 +58,12 @@ public abstract class Item
   {
 
   }
-
+  public virtual void Pause()
+  {
+    SoundLoopTimer?.Stop();
+  }
+  public virtual void Unpause()
+  {
+    SoundLoopTimer?.Start();
+  }
 }

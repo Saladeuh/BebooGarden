@@ -86,4 +86,16 @@ internal class Bubble : Item
     Action();
   }
   public override void PlaySound() { }
+  public override void Pause()
+  {
+    base.Pause();
+    MoveBehaviour.Stop();
+    SlowDriftBehaviour.Stop();
+  }
+  public override void Unpause()
+  {
+    base.Unpause();
+    MoveBehaviour.Start();
+    SlowDriftBehaviour.Start();
+  }
 }
