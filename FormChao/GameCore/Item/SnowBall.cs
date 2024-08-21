@@ -1,6 +1,5 @@
 ﻿using System.Numerics;
 using BebooGarden.GameCore.Pet;
-using BebooGarden.GameCore.World;
 using FmodAudio;
 
 namespace BebooGarden.GameCore.Item;
@@ -18,7 +17,7 @@ internal class SnowBall : Item
       Game.SoundSystem.PlaySoundAtPosition(Game.SoundSystem.BebooStepSnowSound, snowBall.Position.Value);
       if (Game.Map != null)
       {
-        var snowBalls = Game.Map.Items.FindAll(x => x is SnowBall);
+        List<Item> snowBalls = Game.Map.Items.FindAll(x => x is SnowBall);
         foreach (SnowBall otherSnowBall in snowBalls)
         {
           if (otherSnowBall.Direction == null && Util.IsInSquare(snowBall.Position.Value, otherSnowBall.Position.Value, 1))
@@ -45,7 +44,7 @@ internal class SnowBall : Item
       }
       else if (Game.Map != null)
       {
-        var newPos = Game.Map.Clamp(value.Value);
+        Vector3 newPos = Game.Map.Clamp(value.Value);
         if (newPos != value)
         {
           Game.SoundSystem.PlaySoundAtPosition(Game.SoundSystem.WallSound, newPos);
@@ -62,7 +61,7 @@ internal class SnowBall : Item
   public override bool IsTakable { get; set; } = true;
   public override bool IsWaterProof { get; set; } = false;
   public override Channel? Channel { get; set; }
-  public override int Cost { get; set; } = - 1;
+  public override int Cost { get; set; } = -1;
   public override void Action()
   {
     Game.SoundSystem.PlaySoundAtPosition(Game.SoundSystem.ItemSnowBallKickSound, Position.Value);

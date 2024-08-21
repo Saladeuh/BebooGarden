@@ -23,7 +23,7 @@ internal class SoundSystem
     System = Fmod.CreateSystem();
     //System object Initialization
     System.Init(4095, InitFlags._3D_RightHanded | InitFlags.Vol0_Becomes_Virtual);
-    var advancedSettings = new AdvancedSettings
+    AdvancedSettings advancedSettings = new()
     {
       Vol0VirtualVol = 0.01f
     };
@@ -113,9 +113,9 @@ internal class SoundSystem
 
   private void LoadSoundsInList(string[] files, List<Sound> sounds, string prefixe = "")
   {
-    foreach (var file in files)
+    foreach (string file in files)
     {
-      var sound = System.CreateSound(CONTENTFOLDER + prefixe + file,
+      Sound sound = System.CreateSound(CONTENTFOLDER + prefixe + file,
           Mode._3D | Mode._3D_LinearSquareRolloff);
       sounds.Add(sound);
     }
@@ -256,8 +256,8 @@ internal class SoundSystem
     {
       Channel treeChannel = System.PlaySound(TreeWindSound, paused: true)!;
       treeChannel.SetLoopPoints(TimeUnit.PCM, 668725, TimeUnit.PCM, 2961327);
-      var treePosVector2 = map.TreeLines[0].X;
-      var treePosVector3 = new Vector3(treePosVector2.X, treePosVector2.Y, 10);
+      Vector2 treePosVector2 = map.TreeLines[0].X;
+      Vector3 treePosVector3 = new(treePosVector2.X, treePosVector2.Y, 10);
       treeChannel.Set3DAttributes(treePosVector3, default, default);
       treeChannel.Set3DMinMaxDistance(80f, 80f);
       treeChannel.Set3DConeSettings(200, 2001, 0.3f);
@@ -288,17 +288,17 @@ internal class SoundSystem
         _ambiTimer.Enabled = false;
         break;
     }
-    foreach (var item in map.Items) item.Unpause();
-    foreach (var beboo in map.Beboos) beboo.Unpause();
+    foreach (GameCore.Item.Item item in map.Items) item.Unpause();
+    foreach (Beboo beboo in map.Beboos) beboo.Unpause();
     System.SetReverbProperties(1, map.ReverbPreset);
   }
 
   public void LoadAmbiSounds()
   {
-    var files = Directory.GetFiles(CONTENTFOLDER + "Sounds/birds/", "*.*");
-    foreach (var file in files)
+    string[] files = Directory.GetFiles(CONTENTFOLDER + "Sounds/birds/", "*.*");
+    foreach (string file in files)
     {
-      var sound = System.CreateSound(file, Mode._3D | Mode._3D_LinearSquareRolloff);
+      Sound sound = System.CreateSound(file, Mode._3D | Mode._3D_LinearSquareRolloff);
       AmbiSounds.Add(sound);
     }
 
@@ -307,11 +307,11 @@ internal class SoundSystem
 
   private void onAmbiTimer(object? sender, ElapsedEventArgs e)
   {
-    var sound = AmbiSounds[Game.Random.Next(AmbiSounds.Count())];
+    Sound sound = AmbiSounds[Game.Random.Next(AmbiSounds.Count())];
     Channel channel = System.PlaySound(sound, paused: false)!;
     channel.Set3DAttributes(new Vector3(Game.Random.Next(-20, 20), Game.Random.Next(-20, 20), 5f), default, default);
     channel.Set3DMinMaxDistance(0, 35);
-    var enabled = _ambiTimer.Enabled;
+    bool enabled = _ambiTimer.Enabled;
     _ambiTimer?.Dispose();
     _ambiTimer = new Timer(Game.Random.Next(4000, 8000));
     _ambiTimer.Elapsed += onAmbiTimer;
@@ -367,7 +367,7 @@ internal class SoundSystem
 
   public void PlayBebooSound(List<Sound> sounds, Beboo beboo, bool stopOthers = true, float volume = -1)
   {
-    var sound = sounds[Game.Random.Next(sounds.Count())];
+    Sound sound = sounds[Game.Random.Next(sounds.Count())];
     if (beboo.Channel != null && stopOthers && beboo.Channel.IsPlaying) beboo.Channel.Stop();
     beboo.Channel = PlaySoundAtPosition(sound, beboo.Position, 0, beboo.VoiceDsp);
     if (volume != -1) beboo.Channel.Volume = volume;
@@ -401,7 +401,7 @@ internal class SoundSystem
 
   public void MusicTransition(Sound music, uint startLoop, uint endLoop, TimeUnit timeUnit, float volume = 0.5f)
   {
-    var mute = Music?.Mute ?? false;
+    bool mute = Music?.Mute ?? false;
     Music?.Stop();
     Music = System.PlaySound(music, paused: false)!;
     if (endLoop != 0) Music?.SetLoopPoints(timeUnit, startLoop, timeUnit, endLoop);
@@ -411,8 +411,8 @@ internal class SoundSystem
 
   public Channel PlaySoundAtPosition(List<Sound> sounds, Vector3 position, float volumeModifier = 0, Dsp? pitchDsp = null)
   {
-    var sound = sounds[Game.Random.Next(sounds.Count())];
-    var channel = PlaySoundAtPosition(sound, position, 0, pitchDsp);
+    Sound sound = sounds[Game.Random.Next(sounds.Count())];
+    Channel channel = PlaySoundAtPosition(sound, position, 0, pitchDsp);
     //if (pitchDsp != null) channel.AddDSP(0, pitchDsp.Value);
     channel.Volume += volumeModifier;
     return channel;
@@ -423,11 +423,11 @@ internal class SoundSystem
 
   public void Pause(Map map)
   {
-    foreach (var channel in map.TreesChannels) channel.Paused = true;
-    foreach (var channel in map.WaterChannels) channel.Paused = true;
-    foreach (var item in map.Items) item.Pause();
+    foreach (Channel channel in map.TreesChannels) channel.Paused = true;
+    foreach (Channel channel in map.WaterChannels) channel.Paused = true;
+    foreach (GameCore.Item.Item item in map.Items) item.Pause();
     try { if (map != null && map.BackgroundChannel != null) map.BackgroundChannel.Paused = true; } catch { }
-    foreach (var beboo in map.Beboos) beboo.Pause();
+    foreach (Beboo beboo in map.Beboos) beboo.Pause();
     DisableAmbiTimer();
   }
 
@@ -436,9 +436,9 @@ internal class SoundSystem
     System.SetReverbProperties(1, Preset.Off);
     try
     {
-      foreach (var channel in map.TreesChannels) channel.Paused = false;
-      foreach (var channel in map.WaterChannels) channel.Paused = false;
-      foreach (var item in map.Items) item.Unpause();
+      foreach (Channel channel in map.TreesChannels) channel.Paused = false;
+      foreach (Channel channel in map.WaterChannels) channel.Paused = false;
+      foreach (GameCore.Item.Item item in map.Items) item.Unpause();
       if (map.BackgroundChannel != null) map.BackgroundChannel.Paused = false;
       if (map.Preset == MapPreset.garden) EnableAmbiTimer();
     }
@@ -446,7 +446,7 @@ internal class SoundSystem
     {
       LoadMap(map);
     }
-    foreach (var beboo in map.Beboos) beboo.Unpause();
+    foreach (Beboo beboo in map.Beboos) beboo.Unpause();
   }
   public void PlayCinematic(Sound sound, bool pauseMusic = true)
   {
@@ -492,7 +492,7 @@ internal class SoundSystem
   {
     if (map.Beboos.Count == 0 && Music == null) return;
     bool everyoneHappy = true;
-    foreach (var beboo in map.Beboos)
+    foreach (Beboo beboo in map.Beboos)
     {
       if (everyoneHappy) everyoneHappy = beboo.Happy;
     }

@@ -66,7 +66,7 @@ internal class Roll(
       IGlobalActions.SayLocalizedString("shop.notickets");
     }
   }
-  public override void Action() =>Take();
+  public override void Action() => Take();
   public override void BebooAction(Beboo beboo) => Take();
 
 }

@@ -15,7 +15,7 @@ internal class IGlobalActions
   static IGlobalActions()
   {
     CultureInfo.CurrentUICulture = CultureInfo.InstalledUICulture;
-    var twoLetterISOLanguageName = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+    string twoLetterISOLanguageName = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
     if (!SUPPORTEDLANGUAGES.Contains(twoLetterISOLanguageName)) ChangeLanguage("en-US");
 
     bool FilterFunction(string _, LogLevel logLevel)
@@ -32,10 +32,10 @@ internal class IGlobalActions
   public string LanguageMenu()
   {
     Dictionary<string, int> languages = new();
-    for (var i = 0; i < SUPPORTEDLANGUAGES.Length; i++) languages[SUPPORTEDLANGUAGES[i]] = i;
-    var menuLang = new ChooseMenu<int>("Choose your language", languages);
+    for (int i = 0; i < SUPPORTEDLANGUAGES.Length; i++) languages[SUPPORTEDLANGUAGES[i]] = i;
+    ChooseMenu<int> menuLang = new("Choose your language", languages);
     menuLang.ShowDialog(Game.GameWindow);
-    var language = SUPPORTEDLANGUAGES[menuLang.Result];
+    string language = SUPPORTEDLANGUAGES[menuLang.Result];
     return language;
   }
 
@@ -56,7 +56,7 @@ internal class IGlobalActions
         Game.SoundSystem.System.PlaySound(Game.SoundSystem.UpSound);
         break;
       case Keys.F4:
-       if(Game.SoundSystem.Music!=null) Game.SoundSystem.Music.Mute = !Game.SoundSystem.Music.Mute;
+        if (Game.SoundSystem.Music != null) Game.SoundSystem.Music.Mute = !Game.SoundSystem.Music.Mute;
         break;
       case Keys.F1:
       case Keys.H:
@@ -64,7 +64,7 @@ internal class IGlobalActions
         break;
       case Keys.L:
       case Keys.F5:
-        var changed = ChangeLanguageMenu();
+        bool changed = ChangeLanguageMenu();
         if (changed) ScreenReader.Output("Language changed, please restart");
         break;
     }

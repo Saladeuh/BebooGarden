@@ -10,7 +10,7 @@ internal class Duck : Item
   protected override string _translateKeyDescription { get; } = "duck.description";
   public override Vector3? Position { get; set; } // position null=in inventory
   public override bool IsTakable { get; set; } = true;
-  public override bool IsWaterProof {  get; set; } = true;
+  public override bool IsWaterProof { get; set; } = true;
   public override Channel? Channel { get; set; }
   public override int Cost { get; set; } = 1;
   public override void Action()
@@ -28,7 +28,7 @@ internal class Duck : Item
   }
   public override void PlaySound()
   {
-    if (Position == null || !(Game.Map?.Items.Contains(this)??false)) return;
+    if (Position == null || !(Game.Map?.Items.Contains(this) ?? false)) return;
     Channel = Game.SoundSystem.PlaySoundAtPosition(Game.SoundSystem.ItemDuckSound, (Vector3)Position);
   }
 }

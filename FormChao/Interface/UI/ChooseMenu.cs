@@ -6,20 +6,20 @@ public class ChooseMenu<T> : Form
 {
   public T? Result;
 
-  public ChooseMenu(string title, Dictionary<string, T> choices, bool hasBack=true)
+  public ChooseMenu(string title, Dictionary<string, T> choices, bool hasBack = true)
   {
     WindowState = FormWindowState.Maximized;
     Choices = choices;
-    var lblTitle = new Label();
+    Label lblTitle = new();
     Text = IGlobalActions.GetLocalizedString(title);
     lblTitle.Text = IGlobalActions.GetLocalizedString(title);
     lblTitle.AutoSize = true;
     Controls.Add(lblTitle);
 
-    for (var i = 0; i < Choices.Keys.Count; i++)
+    for (int i = 0; i < Choices.Keys.Count; i++)
     {
-      var choiceText = Choices.Keys.ElementAt(i);
-      var btnOption = new Button();
+      string choiceText = Choices.Keys.ElementAt(i);
+      Button btnOption = new();
       btnOption.Text = choiceText;
       int max = Choices.Keys.Count;
       if (hasBack) max += 1;
@@ -31,7 +31,7 @@ public class ChooseMenu<T> : Form
     }
     if (hasBack)
     {
-      var back = new Button();
+      Button back = new();
       back.Text = IGlobalActions.GetLocalizedString("ui.back");
       back.AccessibleDescription = Choices.Keys.Count + 1 + "/" + (Choices.Keys.Count + 1);
       back.Click += Back;
@@ -73,7 +73,7 @@ public class ChooseMenu<T> : Form
   protected virtual void btn_Click(object sender, EventArgs e)
   {
     Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuOkSound);
-    var clickedButton = (Button)sender;
+    Button clickedButton = (Button)sender;
     Result = Choices[clickedButton.Text];
     Close();
   }

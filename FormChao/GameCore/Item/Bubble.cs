@@ -1,6 +1,5 @@
 ﻿using System.Numerics;
 using BebooGarden.GameCore.Pet;
-using BebooGarden.GameCore.World;
 using FmodAudio;
 
 namespace BebooGarden.GameCore.Item;
@@ -17,7 +16,7 @@ internal class Bubble : Item
       Game.SoundSystem.PlaySoundAtPosition(Game.SoundSystem.BubbleSounds, bubble.Position.Value);
       if (Game.Map != null)
       {
-        var bubbles = Game.Map.Items.FindAll(x => x is Bubble);
+        List<Item> bubbles = Game.Map.Items.FindAll(x => x is Bubble);
         foreach (Bubble otherBubble in bubbles)
         {
           if (otherBubble.Direction == null && Util.IsInSquare(bubble.Position.Value, otherBubble.Position.Value, 1))
@@ -51,7 +50,7 @@ internal class Bubble : Item
       }
       else if (Game.Map != null)
       {
-        var newPos = Game.Map.Clamp(value.Value);
+        Vector3 newPos = Game.Map.Clamp(value.Value);
         if (newPos != value)
         {
           Game.SoundSystem.PlaySoundAtPosition(Game.SoundSystem.WallSound, newPos);
@@ -77,7 +76,8 @@ internal class Bubble : Item
       Game.Map?.Items.Remove(this);
       MoveBehaviour.Stop();
       SlowDriftBehaviour.Stop();
-    } else Direction = Util.DIRECTIONS[Game.Random.Next(Util.DIRECTIONS.Length)];
+    }
+    else Direction = Util.DIRECTIONS[Game.Random.Next(Util.DIRECTIONS.Length)];
   }
   public override void BebooAction(Beboo beboo)
   {

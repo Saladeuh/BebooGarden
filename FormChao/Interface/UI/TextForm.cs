@@ -44,7 +44,7 @@ public partial class TextForm : Form
 
   private void TextBox_modified(object? sender, EventArgs e)
   {
-    var lastSelectorPosition = TextBox.SelectionStart;
+    int lastSelectorPosition = TextBox.SelectionStart;
     if (_lastText.Length == TextBox.TextLength + 1) // letter deleted
     {
       Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuKeyDeleteSound);

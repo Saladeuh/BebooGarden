@@ -10,23 +10,23 @@ public class MainMenu : Form
   {
     WindowState = FormWindowState.Maximized;
     Choices = choices;
-    var lblTitle = new Label();
+    Label lblTitle = new();
     Text = IGlobalActions.GetLocalizedString(title);
     lblTitle.Text = IGlobalActions.GetLocalizedString(title);
     lblTitle.AutoSize = true;
     Controls.Add(lblTitle);
 
-    for (var i = 0; i < Choices.Keys.Count; i++)
+    for (int i = 0; i < Choices.Keys.Count; i++)
     {
-      var choiceText = Choices.Keys.ElementAt(i);
-      var btnOption = new Button();
+      string choiceText = Choices.Keys.ElementAt(i);
+      Button btnOption = new();
       btnOption.Text = choiceText;
       btnOption.Click += btn_Click;
       btnOption.Enter += btn_enter;
       btnOption.KeyDown += KeyHandle;
       Controls.Add(btnOption);
     }
-    var websiteButton = new Button
+    Button websiteButton = new()
     {
       Text = "website"
     };
@@ -34,7 +34,7 @@ public class MainMenu : Form
     websiteButton.Enter += btn_enter;
     websiteButton.KeyDown += KeyHandle;
     Controls.Add(websiteButton);
-    var discordButton = new Button
+    Button discordButton = new()
     {
       Text = "Discord"
     };
@@ -42,7 +42,7 @@ public class MainMenu : Form
     discordButton.Enter += btn_enter;
     discordButton.KeyDown += KeyHandle;
     Controls.Add(discordButton);
-    var creditsButton = new Button
+    Button creditsButton = new()
     {
       Text = "credits"
     };
@@ -50,7 +50,7 @@ public class MainMenu : Form
     creditsButton.Enter += btn_enter;
     creditsButton.KeyDown += KeyHandle;
     Controls.Add(creditsButton);
-    var back = new Button();
+    Button back = new();
     back.Text = IGlobalActions.GetLocalizedString("ui.back");
     back.AccessibleDescription = Choices.Keys.Count + 1 + "/" + (Choices.Keys.Count + 1);
     back.Click += Back;
@@ -72,7 +72,7 @@ public class MainMenu : Form
   protected void btn_Click(object sender, EventArgs e)
   {
     Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuOkSound);
-    var clickedButton = (Button)sender;
+    Button clickedButton = (Button)sender;
     Result = Choices[clickedButton.Text];
     Result.ShowDialog(this);
     if (Result is Inventory || Result is Teleport) Close();

@@ -1,5 +1,4 @@
 ﻿using BebooGarden.GameCore;
-using BebooGarden.GameCore.Item;
 using BebooGarden.GameCore.Item.MusicBox;
 using BebooGarden.Interface.UI;
 
@@ -11,7 +10,7 @@ internal class RollsMenu(string title, Dictionary<string, Roll> choices, bool cl
   protected override void btn_Click(object sender, EventArgs e)
   {
     Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuOkSound);
-    var clickedButton = (Button)sender;
+    Button clickedButton = (Button)sender;
     Result = Choices[clickedButton.Text];
     Result?.Buy();
   }

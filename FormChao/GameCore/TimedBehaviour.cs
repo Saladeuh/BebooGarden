@@ -11,8 +11,7 @@ public class TimedBehaviour<T>
     MinMS = minMS;
     MaxMS = maxMS;
     Action = action;
-    if (minMS < maxMS) ActionTimer = new Timer(Game.Random.Next(minMS, maxMS));
-    else ActionTimer = new Timer(MinMS);
+    ActionTimer = minMS < maxMS ? new Timer(Game.Random.Next(minMS, maxMS)) : new Timer(MinMS);
     ActionTimer.Elapsed += onTimer;
     ActionTimer.Enabled = startAtInit;
     Enabled = startAtInit;
@@ -31,16 +30,7 @@ public class TimedBehaviour<T>
     {
       Action(ActionParameter);
       ActionTimer.Dispose();
-      int ms;
-      if (MinMS != MaxMS)
-      {
-        ms = Game.Random.Next(MinMS, MaxMS);
-      }
-      else
-      {
-        ms = MinMS;
-      }
-
+      int ms = MinMS != MaxMS ? Game.Random.Next(MinMS, MaxMS) : MinMS;
       ActionTimer = new Timer(ms);
       ActionTimer.Elapsed += onTimer;
       ActionTimer.Enabled = Enabled;
@@ -50,16 +40,7 @@ public class TimedBehaviour<T>
   public void Restart()
   {
     ActionTimer.Dispose();
-    int ms;
-    if (MinMS != MaxMS)
-    {
-      ms = Game.Random.Next(MinMS, MaxMS);
-    }
-    else
-    {
-      ms = MinMS;
-    }
-
+    int ms = MinMS != MaxMS ? Game.Random.Next(MinMS, MaxMS) : MinMS;
     ActionTimer = new Timer(ms);
     ActionTimer.Elapsed += onTimer;
     ActionTimer.Enabled = Enabled;
@@ -76,13 +57,13 @@ public class TimedBehaviour<T>
     {
       try
       {
-        var delayTimer = new Timer(delayMS);
+        Timer delayTimer = new(delayMS);
         delayTimer.Elapsed += (_, _) => ActionTimer.Enabled = true;
         delayTimer.Enabled = true;
         Enabled = true;
       }
       catch { }
-      }
+    }
   }
 
   public void Stop()

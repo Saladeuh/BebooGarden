@@ -10,7 +10,6 @@ using BebooGarden.Interface.ScriptedScene;
 using BebooGarden.Interface.Shop;
 using BebooGarden.Minigame;
 using BebooGarden.Save;
-using FmodAudio;
 using Timer = System.Windows.Forms.Timer;
 
 
@@ -45,7 +44,7 @@ internal partial class Game : IGlobalActions
     if (!Flags.NewGame)
     {
       PlayerPosition = new Vector3(0, 0, 0);
-      foreach (var map in Map.Maps.Values)
+      foreach (Map map in Map.Maps.Values)
       {
         if (map.TreeLines.Count > 0) map.TreeLines[0].SetFruitsAfterAWhile(Parameters.LastPlayed, Parameters.MapInfos[map.Preset].RemainingFruits);
         try
@@ -58,9 +57,9 @@ internal partial class Game : IGlobalActions
         }
         try
         {
-          foreach (var bebooInfo in Parameters.MapInfos[map.Preset].BebooInfos)
+          foreach (BebooInfo bebooInfo in Parameters.MapInfos[map.Preset].BebooInfos)
           {
-            var beboo = new Beboo(bebooInfo.Name, bebooInfo.Age, Parameters.LastPlayed, bebooInfo.Happiness, bebooInfo.SwimLevel, false, bebooInfo.Voice);
+            Beboo beboo = new(bebooInfo.Name, bebooInfo.Age, Parameters.LastPlayed, bebooInfo.Happiness, bebooInfo.SwimLevel, false, bebooInfo.Voice);
             map.Beboos.Add(beboo);
             if (map != Map) beboo.Pause();
           }
@@ -125,8 +124,8 @@ internal partial class Game : IGlobalActions
   }
   public static void Call(object? sender, EventArgs eventArgs)
   {
-    SoundSystem.System.Get3DListenerAttributes(0, out var currentPosition, out _, out _, out _);
-    foreach (var beboo in Map.Beboos)
+    SoundSystem.System.Get3DListenerAttributes(0, out Vector3 currentPosition, out _, out _, out _);
+    foreach (Beboo beboo in Map.Beboos)
     {
       if (beboo.Sleeping || !beboo.KnowItsName) continue;
       Task.Run(async () =>
@@ -142,7 +141,7 @@ internal partial class Game : IGlobalActions
   {
     if ((DateTime.Now - LastPressedKeyTime).TotalMilliseconds < 150) return;
     LastPressedKeyTime = DateTime.Now;
-    var itemUnderCursor = Map?.GetItemArroundPosition(PlayerPosition);
+    Item.Item? itemUnderCursor = Map?.GetItemArroundPosition(PlayerPosition);
     Map?.IsInLake(PlayerPosition);
     switch (e.KeyCode)
     {
@@ -250,16 +249,15 @@ internal partial class Game : IGlobalActions
       Beboo? contester;
       if (Map.Beboos.Count > 1)
       {
-        var options = new Dictionary<string, int?>();
+        Dictionary<string, int?> options = new();
         for (int i = 0; i < Map.Beboos.Count; i++)
           options.Add(Map.Beboos[i].Name, i);
         int? choiceId = IWindowManager.ShowChoice<int?>("race.chooseracer", options);
-        if (choiceId != null) contester = Map.Beboos[choiceId.Value];
-        else contester = null;
+        contester = choiceId != null ? Map.Beboos[choiceId.Value] : null;
       }
       else contester = Map?.Beboos[0];
       if (contester == null) return;
-      var raceTypeOptions = new Dictionary<string, RaceType>()
+      Dictionary<string, RaceType> raceTypeOptions = new()
       {
         { "race.simple", RaceType.Base },
       };
@@ -279,8 +277,8 @@ internal partial class Game : IGlobalActions
     Map richedMap = Map;
     if (Map.Preset == a) richedMap = Map.Maps[b];
     else if (Map.Preset == b) richedMap = Map.Maps[a];
-    var beboosHere = BeboosUnderCursor(2);
-    foreach (var transferedBeboo in beboosHere)
+    List<Beboo> beboosHere = BeboosUnderCursor(2);
+    foreach (Beboo transferedBeboo in beboosHere)
     {
       Map?.Beboos.Remove(transferedBeboo);
       transferedBeboo.Position = new(0, 0, 0);
@@ -293,7 +291,7 @@ internal partial class Game : IGlobalActions
 
   public static Beboo? BebooUnderCursor()
   {
-    foreach (var beboo in Map.Beboos)
+    foreach (Beboo beboo in Map.Beboos)
     {
       if (Util.IsInSquare(beboo.Position, PlayerPosition, 1)) return beboo;
     }
@@ -301,8 +299,8 @@ internal partial class Game : IGlobalActions
   }
   public List<Beboo> BeboosUnderCursor(int squareSide = 1)
   {
-    var beboos = new List<Beboo>();
-    foreach (var beboo in Map.Beboos)
+    List<Beboo> beboos = new();
+    foreach (Beboo beboo in Map.Beboos)
     {
       if (Util.IsInSquare(beboo.Position, PlayerPosition, squareSide)) beboos.Add(beboo);
     }
@@ -316,8 +314,8 @@ internal partial class Game : IGlobalActions
   private void TryPutItemInHand()
   {
     if (ItemInHand == null) return;
-    var waterProof = (ItemInHand?.IsWaterProof ?? false);
-    bool inWater = (Map?.IsInLake(PlayerPosition) ?? false);
+    bool waterProof = ItemInHand?.IsWaterProof ?? false;
+    bool inWater = Map?.IsInLake(PlayerPosition) ?? false;
     if (inWater && !waterProof)
     {
       SoundSystem.System.PlaySound(SoundSystem.WarningSound);
@@ -343,17 +341,15 @@ internal partial class Game : IGlobalActions
     {
       SayLocalizedString("nobeboo");
     }
-    foreach (var beboo in Map?.Beboos)
+    foreach (Beboo beboo in Map?.Beboos)
     {
       string sentence;
       if (beboo.Sleeping) sentence = "beboo.sleep";
       else if (beboo.Energy < 0) sentence = "beboo.verytired";
       else if (beboo.Happiness < 0) sentence = "beboo.verysad";
       else if (beboo.Energy < 5) sentence = "beboo.littletired";
-      else if (beboo.Happiness < 4) sentence = "beboo.littlesad";
-      else if (beboo.Energy < 8) sentence = "beboo.good";
-      else sentence = "beboo.verygood";
-      var name = beboo.Name;
+      else sentence = beboo.Happiness < 4 ? "beboo.littlesad" : beboo.Energy < 8 ? "beboo.good" : "beboo.verygood";
+      string name = beboo.Name;
       SayLocalizedString(sentence, name);
 #if DEBUG
       ScreenReader.Output(beboo.Age.ToString());
@@ -368,11 +364,11 @@ internal partial class Game : IGlobalActions
 
   private void ShakeOrPetAtPlayerPosition()
   {
-    var treeLine = Map?.GetTreeLineAtPosition(PlayerPosition);
-    var bebooUnderCursor = BebooUnderCursor();
+    TreeLine? treeLine = Map?.GetTreeLineAtPosition(PlayerPosition);
+    Beboo? bebooUnderCursor = BebooUnderCursor();
     if (treeLine != null)
     {
-      var dropped = treeLine.Shake();
+      FruitSpecies? dropped = treeLine.Shake();
       if (dropped != null)
         if (FruitsBasket != null)
           if (FruitsBasket.TryGetValue(dropped.Value, out _)) FruitsBasket[dropped.Value]++;
@@ -386,16 +382,16 @@ internal partial class Game : IGlobalActions
 
   private void FeedBeboo()
   {
-    var bebooUnderCursor = BebooUnderCursor();
+    Beboo? bebooUnderCursor = BebooUnderCursor();
     if (FruitsBasket == null || bebooUnderCursor == null) return;
     Dictionary<string, FruitSpecies> options = [];
-    foreach (var fruit in FruitsBasket)
+    foreach (KeyValuePair<FruitSpecies, int> fruit in FruitsBasket)
     {
       if (fruit.Value > 0) options.Add(GetLocalizedString(fruit.Key.ToString()) + " " + fruit.Value.ToString(), fruit.Key);
     }
     if (options.Count > 0)
     {
-      var choice = IWindowManager.ShowChoice("ui.chooseitem", options);
+      FruitSpecies choice = IWindowManager.ShowChoice("ui.chooseitem", options);
       if (choice != FruitSpecies.None)
       {
         bebooUnderCursor.Eat(choice);
@@ -406,9 +402,9 @@ internal partial class Game : IGlobalActions
 
   private void Whistle()
   {
-    SoundSystem.System.Get3DListenerAttributes(0, out var currentPosition, out _, out _, out _);
+    SoundSystem.System.Get3DListenerAttributes(0, out Vector3 currentPosition, out _, out _, out _);
     SoundSystem.Whistle();
-    foreach (var beboo in Map?.Beboos)
+    foreach (Beboo beboo in Map?.Beboos)
     {
       if (Map?.Beboos.Count <= 1 || Random.Next(3) == 1)
       {
@@ -425,23 +421,23 @@ internal partial class Game : IGlobalActions
   public static void MoveOf(Vector3 movement)
   {
     if (Map == null) return;
-    var newPos = Map.Clamp(PlayerPosition + movement);
+    Vector3 newPos = Map.Clamp(PlayerPosition + movement);
     if (newPos != PlayerPosition + movement) Game.SoundSystem.System.PlaySound(Game.SoundSystem.WallSound);
     PlayerPosition = newPos;
     SoundSystem.MovePlayerTo(newPos);
     if (Map.IsInLake(newPos) && Map.Preset != MapPreset.underwater) SayLocalizedString("water");
     if (Flags.UnlockShop && (Map?.IsArroundShop(PlayerPosition) ?? false)) SayLocalizedString("shop");
     else if (Flags.UnlockSnowyMap && (Map?.IsArroundMapPath(PlayerPosition) ?? false)) SayLocalizedString("path");
-    else if ((Map?.IsArroundRaceGate(PlayerPosition) ?? false)) SayLocalizedString("race.gate", Race.GetRemainingTriesToday());
+    else if (Map?.IsArroundRaceGate(PlayerPosition) ?? false) SayLocalizedString("race.gate", Race.GetRemainingTriesToday());
     else if (Flags.UnlockUnderwaterMap && (Map?.IsArroundMapUnderWater(PlayerPosition) ?? false)) SayLocalizedString("underwater");
     SpeakObjectUnderCursor();
   }
 
   private static void SpeakObjectUnderCursor()
   {
-    var treeLine = Map?.GetTreeLineAtPosition(PlayerPosition);
-    var item = Map?.GetItemArroundPosition(PlayerPosition);
-    var bebooUnderCursor = BebooUnderCursor();
+    TreeLine? treeLine = Map?.GetTreeLineAtPosition(PlayerPosition);
+    Item.Item? item = Map?.GetItemArroundPosition(PlayerPosition);
+    Beboo? bebooUnderCursor = BebooUnderCursor();
     if (bebooUnderCursor != null) ScreenReader.Output(bebooUnderCursor.Name);
     if (treeLine != null)
       SayLocalizedString("trees");
@@ -460,14 +456,14 @@ internal partial class Game : IGlobalActions
 
   public static void Pause()
   {
-    foreach (var beboo in Map?.Beboos) beboo.Pause();
+    foreach (Beboo beboo in Map?.Beboos) beboo.Pause();
     SoundSystem.DisableAmbiTimer();
     if (Map == null) return;
     SoundSystem.Pause(Map);
   }
   public static void Unpause()
   {
-    foreach (var beboo in Map?.Beboos) beboo.Unpause();
+    foreach (Beboo beboo in Map?.Beboos) beboo.Unpause();
     SoundSystem.EnableAmbiTimer();
     if (Map == null) return;
     SoundSystem.Unpause(Map);
@@ -476,19 +472,19 @@ internal partial class Game : IGlobalActions
   {
     Map?.Items.RemoveAll(item => typeof(Roll) == item.GetType());
     Dictionary<MapPreset, MapInfo> mapInfos = [];
-    foreach (var map in Map.Maps.Values)
+    foreach (Map map in Map.Maps.Values)
     {
-      var fruits = 0;
+      int fruits = 0;
       if (map.TreeLines.Count > 0) fruits = map.TreeLines[0].Fruits;
-      var bebooInfos = new List<BebooInfo>();
-      foreach (var beboo in map.Beboos)
+      List<BebooInfo> bebooInfos = new();
+      foreach (Beboo beboo in map.Beboos)
       {
         bebooInfos.Add(new(beboo.Name, beboo.Age, beboo.Happiness, beboo.Energy, beboo.SwimLevel, beboo.VoicePitch));
       }
-      var mapInfo = new MapInfo(map.Items, fruits, bebooInfos);
+      MapInfo mapInfo = new(map.Items, fruits, bebooInfos);
       mapInfos.Add(map.Preset, mapInfo);
     }
-    var parameters = new SaveParameters(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName,
+    SaveParameters parameters = new(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName,
        SoundSystem.Volume,
        lastPayed: DateTime.Now,
        flags: Flags,

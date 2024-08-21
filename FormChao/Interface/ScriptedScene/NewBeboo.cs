@@ -7,15 +7,15 @@ internal class NewBeboo : IWindowManager
   public static string Run()
   {
     IWindowManager.ShowTalk("ui.letsname");
-    var alreadnExistingName = false;
-    var name = "";
+    bool alreadnExistingName = false;
+    string name = "";
     do
     {
       alreadnExistingName = false;
       name = IWindowManager.ShowTextBox("ui.bebooname", 12, true);
-      foreach (var map in Map.Maps)
+      foreach (KeyValuePair<MapPreset, Map> map in Map.Maps)
       {
-        foreach (var beboo in map.Value.Beboos)
+        foreach (GameCore.Pet.Beboo beboo in map.Value.Beboos)
         {
           alreadnExistingName = alreadnExistingName || beboo.Name == name;
         }

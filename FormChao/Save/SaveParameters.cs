@@ -47,10 +47,10 @@ public class SaveParameters
   public List<Item> Inventory { get; set; } = new();
   public Dictionary<MapPreset, MapInfo> MapInfos { get; set; }
   public List<string> UnlockedRolls { get; set; } = new();
-  public MapPreset CurrentMap {  get; set; }
+  public MapPreset CurrentMap { get; set; }
   public Dictionary<RaceType, double> RaceScores { get; set; }
   public string FreeTime { get; set; }
   public string Dessert { get; set; }
   public int RaceTodayTries { get; set; }
   public int RaceTotalWin { get; set; }
-} 
+}

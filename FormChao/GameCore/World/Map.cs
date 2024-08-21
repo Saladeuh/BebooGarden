@@ -1,5 +1,4 @@
-﻿using System.Drawing.Printing;
-using System.Numerics;
+﻿using System.Numerics;
 using BebooGarden.GameCore.Item;
 using BebooGarden.GameCore.Pet;
 using BebooGarden.Minigame;
@@ -55,19 +54,19 @@ public class Map
     TimedBehaviour<Map> ticketPopBehaviour = new(this, 30000 * 60, 60000 * 60, (map) => map.PopTicketPack(), true);
     TimedBehaviour<Map> SnowBallPopBehaviour = new(this, 10000, 15000, (map) =>
     {
-      var snowBalls = this.Items.FindAll(x => x is SnowBall);
+      List<Item.Item> snowBalls = this.Items.FindAll(x => x is SnowBall);
       if (snowBalls.Count < 10)
       {
-        var randPos = GenerateRandomUnoccupedPosition();
+        Vector3 randPos = GenerateRandomUnoccupedPosition();
         AddItem(new SnowBall(), randPos);
       }
     }, this.Preset == MapPreset.snowy);
     TimedBehaviour<Map> BubblePopBehaviour = new(this, 10000, 15000, (map) =>
     {
-      var snowBalls = this.Items.FindAll(x => x is Bubble);
+      List<Item.Item> snowBalls = this.Items.FindAll(x => x is Bubble);
       if (snowBalls.Count < 15)
       {
-        var randPos = GenerateRandomUnoccupedPosition(false);
+        Vector3 randPos = GenerateRandomUnoccupedPosition(false);
         AddItem(new Bubble(), randPos);
       }
     }, this.Preset == MapPreset.underwater);
@@ -85,29 +84,27 @@ public class Map
 
   private Vector3 GenerateRandomUnoccupedPosition(bool excludeWater = true)
   {
-    var tryCounter = 0;
+    int tryCounter = 0;
     Vector3 randPos;
     do
     {
       randPos = new Vector3(Game.Random.Next(-SizeX / 2, SizeX / 2), Game.Random.Next(-SizeY / 2, SizeY / 2), 0);
       tryCounter++;
-    } while (tryCounter <= 5 && (excludeWater && IsInLake(randPos)) || GetTreeLineAtPosition(randPos) != null);
+    } while ((tryCounter <= 5 && excludeWater && IsInLake(randPos)) || GetTreeLineAtPosition(randPos) != null);
     return randPos;
   }
 
   public Vector3 Clamp(Vector3 value)
   {
-    var x = Math.Clamp(value.X, SizeX / 2 * -1, SizeX / 2);
-    var y = Math.Clamp(value.Y, SizeY / 2 * -1, SizeY / 2);
-    var z = value.Z;
-    var newPos = new Vector3(x, y, z);
+    float x = Math.Clamp(value.X, SizeX / 2 * -1, SizeX / 2);
+    float y = Math.Clamp(value.Y, SizeY / 2 * -1, SizeY / 2);
+    float z = value.Z;
+    Vector3 newPos = new(x, y, z);
     return newPos;
   }
   public bool IsInLake(Vector3 position)
   {
-    if (Preset == MapPreset.underwater) return true;
-    if (WaterPoint != null) return Util.IsInSquare(position, WaterPoint.Value, 5);
-    else return false;
+    return Preset == MapPreset.underwater || WaterPoint != null && Util.IsInSquare(position, WaterPoint.Value, 5);
   }
 
   public TreeLine? GetTreeLineAtPosition(Vector3 position)
@@ -128,8 +125,9 @@ public class Map
 
   public Item.Item? GetItemArroundPosition(Vector3 position)
   {
-    if (Items == null || Items.Count == 0) return null;
-    return Items.FirstOrDefault(item => item != null && item.Position != null && Util.IsInSquare(item.Position.Value, position, 1),
+    return Items == null || Items.Count == 0
+      ? null
+      : Items.FirstOrDefault(item => item != null && item.Position != null && Util.IsInSquare(item.Position.Value, position, 1),
             null);
   }
   public bool IsArroundShop(Vector3 position)

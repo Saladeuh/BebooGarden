@@ -44,10 +44,11 @@ public class TreeLine
     if (Fruits > 0 && Game.Random.Next(6) == 5)
     {
       Fruits--;
-      var droppedFruit = AvailableFruitSpecies[Game.Random.Next(AvailableFruitSpecies.Count)];
+      FruitSpecies droppedFruit = AvailableFruitSpecies[Game.Random.Next(AvailableFruitSpecies.Count)];
       Game.SoundSystem.DropFruitSound(droppedFruit);
       return droppedFruit;
-    } else if (Game.Random.Next(100) == 1)
+    }
+    else if (Game.Random.Next(100) == 1)
     {
       Game.GainTicket(1);
     }
@@ -57,19 +58,19 @@ public class TreeLine
 
   public bool IsOnLine(Vector3 point)
   {
-    var dxc = point.X - X.X;
-    var dyc = point.Y - X.Y;
-    var dxl = Y.X - X.X;
-    var dyl = Y.Y - X.Y;
-    var cross = dxc * dyl - dyc * dxl;
-    if (cross != 0) return false;
-    if (Math.Abs(dxl) >= Math.Abs(dyl))
-      return dxl > 0 ? X.X <= point.X && point.X <= Y.X : Y.X <= point.X && point.X <= X.X;
-    return dyl > 0 ? X.Y <= point.Y && point.Y <= Y.Y : Y.Y <= point.Y && point.Y <= X.Y;
+    float dxc = point.X - X.X;
+    float dyc = point.Y - X.Y;
+    float dxl = Y.X - X.X;
+    float dyl = Y.Y - X.Y;
+    float cross = (dxc * dyl) - (dyc * dxl);
+    return cross == 0
+&& (Math.Abs(dxl) >= Math.Abs(dyl)
+      ? dxl > 0 ? X.X <= point.X && point.X <= Y.X : Y.X <= point.X && point.X <= X.X
+      : dyl > 0 ? X.Y <= point.Y && point.Y <= Y.Y : Y.Y <= point.Y && point.Y <= X.Y);
   }
 
   public void SetFruitsAfterAWhile(DateTime elapsedTime, int remainingFruits)
   {
-    Fruits = (int)(remainingFruits + 60 / FruitPerHour * (DateTime.Now - elapsedTime).TotalMinutes);
+    Fruits = (int)(remainingFruits + (60 / FruitPerHour * (DateTime.Now - elapsedTime).TotalMinutes));
   }
 }

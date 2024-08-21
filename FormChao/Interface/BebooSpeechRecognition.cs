@@ -8,15 +8,15 @@ public class BebooSpeechRecognition
   public BebooSpeechRecognition(string bebooName)
   {
     BebooName = bebooName;
-    var recognizer = new SpeechRecognitionEngine(CultureInfo.InstalledUICulture);
+    SpeechRecognitionEngine recognizer = new(CultureInfo.InstalledUICulture);
     recognizer.SetInputToDefaultAudioDevice();
 
-    var choices = new Choices();
+    Choices choices = new();
     choices.Add(bebooName);
-    var builder = new GrammarBuilder();
+    GrammarBuilder builder = new();
     builder.Append(choices);
     builder.Culture = CultureInfo.InstalledUICulture;
-    var grammar = new Grammar(builder);
+    Grammar grammar = new(builder);
     recognizer.LoadGrammar(grammar);
 
     recognizer.SpeechRecognized += SpeechRecognized;

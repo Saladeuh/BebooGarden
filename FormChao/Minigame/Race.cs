@@ -3,7 +3,6 @@ using BebooGarden.GameCore;
 using BebooGarden.GameCore.Pet;
 using BebooGarden.GameCore.World;
 using BebooGarden.Interface.ScriptedScene;
-using FmodAudio;
 
 namespace BebooGarden.Minigame;
 
@@ -42,7 +41,7 @@ internal class Race : IWindowManager
     }
     Game.Map?.Beboos.Add(MainBeboo);
     MainBeboo.Unpause();
-    var startPos = new Vector3(-Length / 2, 0, 0);
+    Vector3 startPos = new(-Length / 2, 0, 0);
     MainBeboo.Position = startPos;
     Game.Map?.Beboos.Add(new Beboo("bob", 1, DateTime.Now, Game.Random.Next(6), Game.Random.Next(8), true, 1.3f));
     Game.Map.Beboos[1].Position = startPos + new Vector3(0, 2, 0);
@@ -97,11 +96,11 @@ internal class Race : IWindowManager
       Beboo? beboo = Game.Map?.Beboos[i];
       if (beboo != null)
       {
-        var bebooY = beboo.Position.Y;
+        float bebooY = beboo.Position.Y;
         beboo.GoalPosition = new Vector3(Length / 2, bebooY, 0);
         if (beboo.Position.X >= Length / 2)
         {
-          var score = Math.Round((DateTime.Now - StartTime).TotalSeconds, 2);
+          double score = Math.Round((DateTime.Now - StartTime).TotalSeconds, 2);
           if (i != first.Item1 && i != second.Item1 && i != third.Item1)
           {
             if (first.Item1 == -1)

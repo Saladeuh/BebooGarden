@@ -18,7 +18,7 @@ internal class Program
 #if !DEBUG
     AutoUpdate();
 #endif
-    var mainWindow = new Form1();
+    Form1 mainWindow = new();
     Application.Run(mainWindow);
   }
 
@@ -26,7 +26,7 @@ internal class Program
   {
     Exception ex = (Exception)e.ExceptionObject;
     string filePath = @"error.log";
-    using (StreamWriter writer = new StreamWriter(filePath, true))
+    using (StreamWriter writer = new(filePath, true))
     {
       writer.WriteLine("-----------------------------------------------------------------------------");
       writer.WriteLine("Date : " + DateTime.Now.ToString());

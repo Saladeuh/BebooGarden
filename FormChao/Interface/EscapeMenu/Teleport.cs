@@ -10,7 +10,7 @@ public class Teleport(string title, Dictionary<string, Item> choices, bool close
   protected override void btn_Click(object sender, EventArgs e)
   {
     Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuOkSound);
-    var clickedButton = (Button)sender;
+    Button clickedButton = (Button)sender;
     Result = Choices[clickedButton.Text];
     if (Result.Position != null) Game.MoveOf(Result.Position.Value - Game.PlayerPosition);
     Close();

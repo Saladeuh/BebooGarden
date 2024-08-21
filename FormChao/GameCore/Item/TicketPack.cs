@@ -28,5 +28,5 @@ internal class TicketPack(int amount) : Item
     Game.GainTicket(Amount);
   }
   public override void BebooAction(Beboo beboo) => Take();
-  
+
 }

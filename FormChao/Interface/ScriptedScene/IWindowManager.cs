@@ -7,7 +7,7 @@ public interface IWindowManager
 {
   protected static void ShowTalk(string translateKey, bool blocking = true)
   {
-    var talk = new Talk(IGlobalActions.GetLocalizedString(translateKey));
+    Talk talk = new(IGlobalActions.GetLocalizedString(translateKey));
     if (blocking) talk.ShowDialog(Game.GameWindow);
     else
     {
@@ -19,7 +19,7 @@ public interface IWindowManager
 
   protected static void ShowTalk(string translateKey, bool blocking, params object[] args)
   {
-    var talk = new Talk(IGlobalActions.GetLocalizedString(translateKey, args));
+    Talk talk = new(IGlobalActions.GetLocalizedString(translateKey, args));
     if (blocking) talk.ShowDialog(Game.GameWindow);
     else
     {
@@ -31,7 +31,7 @@ public interface IWindowManager
 
   protected static string ShowTextBox(string title, int maxLength, bool nameFormat)
   {
-    var texbox = new TextForm(IGlobalActions.GetLocalizedString(title), maxLength, nameFormat);
+    TextForm texbox = new(IGlobalActions.GetLocalizedString(title), maxLength, nameFormat);
     texbox.ShowDialog(Game.GameWindow);
     Game.ResetKeyState();
     return texbox.Result;
@@ -39,9 +39,9 @@ public interface IWindowManager
 
   protected static string? ShowChoice(string title, string[] choices, bool back = true)
   {
-    var localizedChoices = new Dictionary<string, string>(choices.Select(value =>
+    Dictionary<string, string> localizedChoices = new(choices.Select(value =>
         new KeyValuePair<string, string>(IGlobalActions.GetLocalizedString(value), value)));
-    var choiceMenu = new ChooseMenu<string>(title, localizedChoices, back);
+    ChooseMenu<string> choiceMenu = new(title, localizedChoices, back);
     choiceMenu.ShowDialog(Game.GameWindow);
     Game.ResetKeyState();
     return choiceMenu.Result;
@@ -49,7 +49,7 @@ public interface IWindowManager
 
   public static T? ShowChoice<T>(string title, Dictionary<string, T> choices)
   {
-    var choiceMenu = new ChooseMenu<T>(IGlobalActions.GetLocalizedString(title), choices);
+    ChooseMenu<T> choiceMenu = new(IGlobalActions.GetLocalizedString(title), choices);
     choiceMenu.ShowDialog(Game.GameWindow);
     Game.ResetKeyState();
     return choiceMenu.Result;

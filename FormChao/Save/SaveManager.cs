@@ -20,7 +20,7 @@ internal class SaveManager
   internal static SaveParameters LoadSave()
   {
     Game.SoundSystem.LoadMenuSounds();
-    var parameters = LoadJson() ?? new SaveParameters();
+    SaveParameters parameters = LoadJson() ?? new SaveParameters();
     if (parameters.Flags.NewGame) Welcome.BeforeGarden(parameters);
     IGlobalActions.SetAppLanguage(parameters.Language ?? "en");
     return parameters;
@@ -31,7 +31,7 @@ internal class SaveManager
     if (File.Exists(DATAFILEPATH))
     {
       using StreamReader r = new(DATAFILEPATH);
-      var json = r.ReadToEnd();
+      string json = r.ReadToEnd();
       try
       {
         json = StringCipher.Decrypt(json, Secrets.SAVEKEY);
@@ -40,7 +40,7 @@ internal class SaveManager
       {
       }
 
-      var parameters = JsonConvert.DeserializeObject<SaveParameters>(json, Settings);
+      SaveParameters parameters = JsonConvert.DeserializeObject<SaveParameters>(json, Settings);
       return parameters;
     }
 #if DEBUG
@@ -52,7 +52,7 @@ internal class SaveManager
 
   public static void WriteJson(SaveParameters parameters)
   {
-    var json = JsonConvert.SerializeObject(parameters, Settings);
+    string json = JsonConvert.SerializeObject(parameters, Settings);
 #if !DEBUG
     json = StringCipher.Encrypt(json, Secrets.SAVEKEY);
 #endif

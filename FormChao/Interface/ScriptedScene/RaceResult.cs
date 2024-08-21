@@ -4,7 +4,7 @@ namespace BebooGarden.Interface.ScriptedScene;
 
 public class RaceResult
 {
-  public static void Run((int,double) third, (int,double) second, (int,double) first)
+  public static void Run((int, double) third, (int, double) second, (int, double) first)
   {
     Game.SoundSystem.PlayCinematic(Game.SoundSystem.RaceStopSound, false);
     Thread.Sleep(500);

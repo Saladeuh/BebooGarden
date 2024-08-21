@@ -8,7 +8,7 @@ public class MapInfo
   {
     Items = items;
     RemainingFruits = remainingFruits;
-    BebooInfos=bebooInfos;
+    BebooInfos = bebooInfos;
   }
 
   public List<Item> Items { get; set; } = new();

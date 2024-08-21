@@ -16,27 +16,27 @@ public static class StringCipher
   {
     // Salt and IV is randomly generated each time, but is preprended to encrypted cipher text
     // so that the same Salt and IV values can be used when decrypting.  
-    var saltStringBytes = Generate256BitsOfRandomEntropy();
-    var ivStringBytes = Generate256BitsOfRandomEntropy();
-    var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
-    using (var password = new Rfc2898DeriveBytes(passPhrase, saltStringBytes, DerivationIterations))
+    byte[] saltStringBytes = Generate256BitsOfRandomEntropy();
+    byte[] ivStringBytes = Generate256BitsOfRandomEntropy();
+    byte[] plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+    using (Rfc2898DeriveBytes password = new(passPhrase, saltStringBytes, DerivationIterations))
     {
-      var keyBytes = password.GetBytes(Keysize / 8);
-      using (var symmetricKey = Aes.Create())
+      byte[] keyBytes = password.GetBytes(Keysize / 8);
+      using (Aes symmetricKey = Aes.Create())
       {
         symmetricKey.BlockSize = 128;
         symmetricKey.Mode = CipherMode.CBC;
         symmetricKey.Padding = PaddingMode.PKCS7;
-        using (var encryptor = symmetricKey.CreateEncryptor(keyBytes, ivStringBytes))
+        using (ICryptoTransform encryptor = symmetricKey.CreateEncryptor(keyBytes, ivStringBytes))
         {
-          using (var memoryStream = new MemoryStream())
+          using (MemoryStream memoryStream = new())
           {
-            using (var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
+            using (CryptoStream cryptoStream = new(memoryStream, encryptor, CryptoStreamMode.Write))
             {
               cryptoStream.Write(plainTextBytes, 0, plainTextBytes.Length);
               cryptoStream.FlushFinalBlock();
               // Create the final bytes as a concatenation of the random salt bytes, the random iv bytes and the cipher bytes.
-              var cipherTextBytes = saltStringBytes;
+              byte[] cipherTextBytes = saltStringBytes;
               cipherTextBytes = cipherTextBytes.Concat(ivStringBytes).ToArray();
               cipherTextBytes = cipherTextBytes.Concat(memoryStream.ToArray()).ToArray();
               memoryStream.Close();
@@ -53,29 +53,29 @@ public static class StringCipher
   {
     // Get the complete stream of bytes that represent:
     // [32 bytes of Salt] + [32 bytes of IV] + [n bytes of CipherText]
-    var cipherTextBytesWithSaltAndIv = Convert.FromBase64String(cipherText);
+    byte[] cipherTextBytesWithSaltAndIv = Convert.FromBase64String(cipherText);
     // Get the saltbytes by extracting the first 32 bytes from the supplied cipherText bytes.
-    var saltStringBytes = cipherTextBytesWithSaltAndIv.Take(Keysize / 8).ToArray();
+    byte[] saltStringBytes = cipherTextBytesWithSaltAndIv.Take(Keysize / 8).ToArray();
     // Get the IV bytes by extracting the next 32 bytes from the supplied cipherText bytes.
-    var ivStringBytes = cipherTextBytesWithSaltAndIv.Skip(Keysize / 8).Take(Keysize / 8).ToArray();
+    byte[] ivStringBytes = cipherTextBytesWithSaltAndIv.Skip(Keysize / 8).Take(Keysize / 8).ToArray();
     // Get the actual cipher text bytes by removing the first 64 bytes from the cipherText string.
-    var cipherTextBytes = cipherTextBytesWithSaltAndIv.Skip(Keysize / 8 * 2)
-        .Take(cipherTextBytesWithSaltAndIv.Length - Keysize / 8 * 2).ToArray();
+    byte[] cipherTextBytes = cipherTextBytesWithSaltAndIv.Skip(Keysize / 8 * 2)
+        .Take(cipherTextBytesWithSaltAndIv.Length - (Keysize / 8 * 2)).ToArray();
 
-    using (var password = new Rfc2898DeriveBytes(passPhrase, saltStringBytes, DerivationIterations))
+    using (Rfc2898DeriveBytes password = new(passPhrase, saltStringBytes, DerivationIterations))
     {
-      var keyBytes = password.GetBytes(Keysize / 8);
-      using (var symmetricKey = new RijndaelManaged())
+      byte[] keyBytes = password.GetBytes(Keysize / 8);
+      using (RijndaelManaged symmetricKey = new())
       {
         symmetricKey.BlockSize = 128;
         symmetricKey.Mode = CipherMode.CBC;
         symmetricKey.Padding = PaddingMode.PKCS7;
-        using (var decryptor = symmetricKey.CreateDecryptor(keyBytes, ivStringBytes))
+        using (ICryptoTransform decryptor = symmetricKey.CreateDecryptor(keyBytes, ivStringBytes))
         {
-          using (var memoryStream = new MemoryStream(cipherTextBytes))
+          using (MemoryStream memoryStream = new(cipherTextBytes))
           {
-            using (var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read))
-            using (var streamReader = new StreamReader(cryptoStream, Encoding.UTF8))
+            using (CryptoStream cryptoStream = new(memoryStream, decryptor, CryptoStreamMode.Read))
+            using (StreamReader streamReader = new(cryptoStream, Encoding.UTF8))
             {
               return streamReader.ReadToEnd();
             }
@@ -87,8 +87,8 @@ public static class StringCipher
 
   private static byte[] Generate256BitsOfRandomEntropy()
   {
-    var randomBytes = new byte[16]; // 16 Bytes will give us 128 bits.
-    using (var rngCsp = new RNGCryptoServiceProvider())
+    byte[] randomBytes = new byte[16]; // 16 Bytes will give us 128 bits.
+    using (RNGCryptoServiceProvider rngCsp = new())
     {
       // Fill the array with cryptographically secure random bytes.
       rngCsp.GetBytes(randomBytes);

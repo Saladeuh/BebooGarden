@@ -10,7 +10,7 @@ internal partial class Game
 {
   private void Tick(object? _, EventArgs __)
   {
-    foreach (var beboo in Map?.Beboos)
+    foreach (Pet.Beboo beboo in Map?.Beboos)
     {
       if (Map.IsLullabyPlaying) beboo.GoAsleep();
       if (beboo.Age >= 2 && !Flags.VoiceRecoPopupPrinted)
@@ -43,7 +43,7 @@ internal partial class Game
     TimeSpan timeUntilMidnight = midnight - now;
 
     // Créer un timer qui se déclenchera à minuit
-    var timer = new System.Timers.Timer(timeUntilMidnight.TotalMilliseconds);
+    System.Timers.Timer timer = new(timeUntilMidnight.TotalMilliseconds);
     timer.Elapsed += OnMidnightReached;
     timer.AutoReset = false; // ne pas réinitialiser automatiquement le timer
     timer.Start();

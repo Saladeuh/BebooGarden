@@ -8,12 +8,12 @@ internal class Welcome : IWindowManager
   public static void BeforeGarden(SaveParameters parameters)
   {
     IWindowManager.ShowTalk("ui.welcome");
-    var playerName = IWindowManager.ShowTextBox("ui.yourname", 12, true);
+    string playerName = IWindowManager.ShowTextBox("ui.yourname", 12, true);
     IWindowManager.ShowTalk("ui.aboutyou", true, playerName);
-    var color = IWindowManager.ShowChoice("ui.color", Util.Colors, false);
+    string? color = IWindowManager.ShowChoice("ui.color", Util.Colors, false);
     IWindowManager.ShowTalk("ui.freetime", true);
-    var freetime = IWindowManager.ShowTextBox("ui.freetimequick", 300, false);
-    var dessert = IWindowManager.ShowChoice("ui.dessert", ["chocolatekake", "icecream", "fruitsalad", "coffee"], false);
+    string freetime = IWindowManager.ShowTextBox("ui.freetimequick", 300, false);
+    string? dessert = IWindowManager.ShowChoice("ui.dessert", ["chocolatekake", "icecream", "fruitsalad", "coffee"], false);
     if (string.IsNullOrEmpty(playerName) || string.IsNullOrEmpty(color) || string.IsNullOrEmpty(dessert) || string.IsNullOrEmpty(freetime))
     {
       Game.GameWindow?.Close();

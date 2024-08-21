@@ -10,7 +10,7 @@ public class Inventory(string title, Dictionary<string, Item> choices, bool clos
   protected override void btn_Click(object sender, EventArgs e)
   {
     Game.SoundSystem.System.PlaySound(Game.SoundSystem.MenuOkSound);
-    var clickedButton = (Button)sender;
+    Button clickedButton = (Button)sender;
     Result = Choices[clickedButton.Text];
     Result?.Buy();
   }

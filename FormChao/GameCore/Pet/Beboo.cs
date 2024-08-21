@@ -1,7 +1,6 @@
 ﻿using System.Numerics;
 using BebooGarden.GameCore.World;
 using BebooGarden.Interface;
-using BebooGarden.Interface.ScriptedScene;
 using FmodAudio;
 using FmodAudio.DigitalSignalProcessing;
 
@@ -36,7 +35,7 @@ public class Beboo
     VoiceDsp = Game.SoundSystem.System.CreateDSPByType(FmodAudio.DigitalSignalProcessing.DSPType.PitchShift);
     VoiceDsp.SetParameterFloat(0, voicePitch);
     SwimLevel = swimLevel;
-    var isSleepingAtStart = !racer && (DateTime.Now.Hour < 8 || DateTime.Now.Hour > 20);
+    bool isSleepingAtStart = !racer && (DateTime.Now.Hour < 8 || DateTime.Now.Hour > 20);
     Sleeping = isSleepingAtStart;
     CuteBehaviour =
         new TimedBehaviour<Beboo>(this, 15000, 25000, beboo => { beboo.DoCuteThing(); }, !isSleepingAtStart);
@@ -63,7 +62,7 @@ public class Beboo
         beboo.Age += 0.1f;
       }
     }, !racer);
-    var elapsedTime = DateTime.Now - lastPlayed;
+    TimeSpan elapsedTime = DateTime.Now - lastPlayed;
     Happiness = elapsedTime.TotalHours > 4 ? 5 : happiness;
     Age = age;
     KnowItsName = age > 2;
@@ -204,8 +203,8 @@ public class Beboo
   private bool MoveTowardGoal()
   {
     if (GoalPosition == null || GoalPosition == Position || Sleeping) return false;
-    var direction = (Vector3)GoalPosition - Position;
-    var directionNormalized = Vector3.Normalize(direction);
+    Vector3 direction = (Vector3)GoalPosition - Position;
+    Vector3 directionNormalized = Vector3.Normalize(direction);
     directionNormalized.X = Math.Sign(directionNormalized.X);
     directionNormalized.Y = Math.Sign(directionNormalized.Y);
     Position += directionNormalized;
@@ -231,7 +230,7 @@ public class Beboo
       if (BootsSlippedOn || Game.Random.Next(4) == 1)
       {
         Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooStepSlipSound, this, false);
-        Position += (Util.DIRECTIONS[Game.Random.Next(Util.DIRECTIONS.Length)])*2;
+        Position += Util.DIRECTIONS[Game.Random.Next(Util.DIRECTIONS.Length)] * 2;
       }
     }
     else
@@ -243,7 +242,7 @@ public class Beboo
 
     PlayArround();
     if (Game.Random.Next(20) == 1) BootsSlippedOn = false;
-    var moved = Position != GoalPosition;
+    bool moved = Position != GoalPosition;
     if (!moved) GoalPosition = null;
     return moved;
   }
@@ -252,7 +251,7 @@ public class Beboo
   {
     if (Happy && Game.Random.Next(4) == 1)
     {
-      var proximityItem = Game.Map?.GetItemArroundPosition(Position);
+      Item.Item? proximityItem = Game.Map?.GetItemArroundPosition(Position);
       if (proximityItem != null)
       {
         proximityItem.BebooAction(this);
@@ -299,12 +298,12 @@ public class Beboo
   {
     if (Game.Random.Next(3) == 1)
     {
-      var targetItem = Game.Map?.Items[Game.Random.Next(Game.Map.Items.Count)];
-      if(targetItem != null) GoalPosition=targetItem.Position;
+      Item.Item? targetItem = Game.Map?.Items[Game.Random.Next(Game.Map.Items.Count)];
+      if (targetItem != null) GoalPosition = targetItem.Position;
     }
     else
     {
-      var randomMove = new Vector3(Game.Random.Next(-4, 5), Game.Random.Next(-4, 5), 0);
+      Vector3 randomMove = new(Game.Random.Next(-4, 5), Game.Random.Next(-4, 5), 0);
       GoalPosition = Position + randomMove;
     }
   }

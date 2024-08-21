@@ -10,8 +10,8 @@ public static class Util
 
   public static bool IsInSquare(Vector3 otherPoint, Vector3 center, int halfSideSize)
   {
-    var isInX = Math.Abs(otherPoint.X - center.X) <= halfSideSize;
-    var isInY = Math.Abs(otherPoint.Y - center.Y) <= halfSideSize;
+    bool isInX = Math.Abs(otherPoint.X - center.X) <= halfSideSize;
+    bool isInY = Math.Abs(otherPoint.Y - center.Y) <= halfSideSize;
     return isInX && isInY;
   }
 
@@ -19,7 +19,7 @@ public static class Util
   {
     if (input == null) yield break;
 
-    using (var reader = new StringReader(input))
+    using (StringReader reader = new(input))
     {
       while (reader.ReadLine() is { } line) yield return line;
     }

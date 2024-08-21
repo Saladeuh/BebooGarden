@@ -11,26 +11,26 @@ internal class MusicBox : Item
 {
   static MusicBox()
   {
-    var files = Directory.GetFiles(SoundSystem.CONTENTFOLDER + "music/musicbox/", "*.mp3",
+    string[] files = Directory.GetFiles(SoundSystem.CONTENTFOLDER + "music/musicbox/", "*.mp3",
         SearchOption.AllDirectories);
     AllRolls = new Roll[files.Length];
-    var i = 0;
-    foreach (var file in files)
+    int i = 0;
+    foreach (string file in files)
       if (File.Exists(file))
       {
         Sound musicStream = Game.SoundSystem.System.CreateStream(file, Mode.Loop_Normal);
-        var fileInfo = new FileInfo(file);
-        var splittedName = fileInfo.Name.Split('-');
+        FileInfo fileInfo = new(file);
+        string[] splittedName = fileInfo.Name.Split('-');
 
-        var title = splittedName[0].Trim();
-        var source = splittedName[1].Trim().Replace(".mp3", "");
+        string title = splittedName[0].Trim();
+        string source = splittedName[1].Trim().Replace(".mp3", "");
         if (fileInfo.DirectoryName != null)
         {
-          var lastDirectoryName = new Uri(fileInfo.DirectoryName).Segments.Last();
-          var isDanse = lastDirectoryName == "danse";
-          var isLullaby = lastDirectoryName == "lullaby";
-          GetLoopValues(fileInfo.FullName.Replace(".mp3", ".txt"), out var startLoop, out var endLoop);
-          var roll = new Roll(title, source, startLoop, endLoop, musicStream, isDanse, isLullaby);
+          string lastDirectoryName = new Uri(fileInfo.DirectoryName).Segments.Last();
+          bool isDanse = lastDirectoryName == "danse";
+          bool isLullaby = lastDirectoryName == "lullaby";
+          GetLoopValues(fileInfo.FullName.Replace(".mp3", ".txt"), out uint startLoop, out uint endLoop);
+          Roll roll = new(title, source, startLoop, endLoop, musicStream, isDanse, isLullaby);
           AllRolls[i] = roll;
         }
 
@@ -54,7 +54,7 @@ internal class MusicBox : Item
     if (File.Exists(filePath))
       try
       {
-        foreach (var line in File.ReadLines(filePath))
+        foreach (string line in File.ReadLines(filePath))
           if (line.StartsWith("LOOP_START:"))
             loopStart = uint.Parse(line.Split(':')[1].Trim());
           else if (line.StartsWith("LOOP_END:")) loopEnd = uint.Parse(line.Split(':')[1].Trim());
@@ -69,17 +69,19 @@ internal class MusicBox : Item
     if (AvailableRolls.Count > 0)
     {
       Dictionary<string, Roll> rollDictionary = [];
-      foreach (var rollName in AvailableRolls)
+      foreach (string rollName in AvailableRolls)
       {
-        var roll = Array.Find(AllRolls, roll => roll.Title + roll.Source == rollName);
+        Roll? roll = Array.Find(AllRolls, roll => roll.Title + roll.Source == rollName);
         if (roll != null) rollDictionary.Add(roll.Title, roll);
       }
 
-      var choosedRoll =
+      Roll? choosedRoll =
           IWindowManager.ShowChoice(IGlobalActions.GetLocalizedString("ui.chooseroll"), rollDictionary);
       if (choosedRoll != null) choosedRoll.Play();
-      else { Game.UpdateMapMusic();
-       if(Game.Map!=null) Game.Map.IsLullabyPlaying = false;
+      else
+      {
+        Game.UpdateMapMusic();
+        if (Game.Map != null) Game.Map.IsLullabyPlaying = false;
       }
     }
     else
@@ -91,8 +93,8 @@ internal class MusicBox : Item
   public override void BebooAction(Beboo beboo)
   {
     base.BebooAction(beboo);
-    var rollName = AvailableRolls[Game.Random.Next(AvailableRolls.Count)];
-    var roll = Array.Find(AllRolls, roll => roll.Title + roll.Source == rollName);
+    string rollName = AvailableRolls[Game.Random.Next(AvailableRolls.Count)];
+    Roll? roll = Array.Find(AllRolls, roll => roll.Title + roll.Source == rollName);
     roll?.Play();
   }
   public override void PlaySound()
