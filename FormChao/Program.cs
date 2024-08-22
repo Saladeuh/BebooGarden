@@ -13,6 +13,8 @@ internal class Program
   private static void Main()
   {
 #if !DEBUG
+    Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+    Application.ThreadException += HandleThreadException;
     AppDomain.CurrentDomain.UnhandledException += HandleUnhandleException;
 #endif
     ScreenReader.Load();
@@ -26,7 +28,17 @@ internal class Program
 
   private static void HandleUnhandleException(object sender, UnhandledExceptionEventArgs e)
   {
-    Exception ex = (Exception)e.ExceptionObject;
+    logException((Exception) e.ExceptionObject);
+  }
+
+  private static void HandleThreadException(object sender, ThreadExceptionEventArgs e)
+  {
+    logException(e.Exception);
+  }
+
+  
+  private static void logException(Exception ex)
+  {
     string filePath = @"error.log";
     using (StreamWriter writer = new(filePath, true))
     {
@@ -42,6 +54,7 @@ internal class Program
       }
     }
   }
+
   private static void AutoUpdate()
   {
     AutoUpdater.Synchronous = true;
