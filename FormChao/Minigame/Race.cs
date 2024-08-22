@@ -13,7 +13,7 @@ internal class Race : IWindowManager
   public static int TodayTries { get; set; }
   public static int TotalWin { get; set; }
   public static readonly int BASERACELENGTH = 60;
-  public static bool IsARaceRunning {  get; set; }
+  public static bool IsARaceRunning { get; set; }
   public int Length { get; set; }
   public DateTime StartTime;
   private Beboo MainBeboo { get; }
@@ -54,10 +54,11 @@ internal class Race : IWindowManager
     Game.Map.Beboos[1].Position = startPos + new Vector3(0, 2, 0);
     Game.Map?.Beboos.Add(new Beboo("boby", 1, DateTime.Now, Game.Random.Next(6), Game.Random.Next(8), true, 1.2f));
     Game.Map.Beboos[2].Position = startPos + new Vector3(0, -2, 0);
-    switch (RaceType) {
-      case RaceType.Base:  Game.SoundSystem.PlayRaceMusic(); break;
-        case RaceType.Snowy: Game.SoundSystem.PlayRaceLolMusic(); break;  
-  }
+    switch (RaceType)
+    {
+      case RaceType.Base: Game.SoundSystem.PlayRaceMusic(); break;
+      case RaceType.Snowy: Game.SoundSystem.PlayRaceLolMusic(); break;
+    }
     Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicRaceStart, true);
     StartTime = DateTime.Now;
     Game.TickTimer.Tick += Tick;
@@ -98,7 +99,7 @@ internal class Race : IWindowManager
   }
   (int, double) first = (-1, 0), second = (-1, 0), third = (-1, 0);
 
-
+  bool _secondArrived = false;
   private void Tick(object? sender, EventArgs e)
   {
     for (int i = 0; i < Game.Map?.Beboos.Count; i++)
@@ -108,9 +109,10 @@ internal class Race : IWindowManager
       {
         float bebooY = beboo.Position.Y;
         beboo.GoalPosition = new Vector3(Length / 2, bebooY, 0);
-        if (beboo.Position.X >= Length / 2)
+        double totalSecond = Math.Round((DateTime.Now - StartTime).TotalSeconds, 2);
+        if (beboo.Position.X >= Length / 2 || totalSecond >= 60 || _secondArrived)
         {
-          double score = Math.Round((DateTime.Now - StartTime).TotalSeconds, 2);
+          double score = totalSecond;
           if (i != first.Item1 && i != second.Item1 && i != third.Item1)
           {
             if (first.Item1 == -1)
@@ -120,10 +122,14 @@ internal class Race : IWindowManager
             else if (second.Item1 == -1)
             {
               second = (i, score);
+              _secondArrived = true;
             }
             else if (third.Item1 == -1)
             {
-              third = (i, score);
+              if (_secondArrived)
+                third = (i, 0);
+              else
+                third = (i, score);
             }
           }
         }
