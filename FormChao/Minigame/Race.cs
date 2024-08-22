@@ -17,7 +17,13 @@ internal class Race : IWindowManager
   public DateTime StartTime;
   private Beboo MainBeboo { get; }
   private RaceType RaceType { get; }
-
+  static Race()
+  {
+    foreach (RaceType raceType in Enum.GetValues(typeof(RaceType)))
+    {
+      RaceScores[raceType] = 0;
+    }
+  }
   public Race(RaceType raceType, Beboo mainBeboo)
   {
     RaceType = raceType;
@@ -27,7 +33,6 @@ internal class Race : IWindowManager
         Length = BASERACELENGTH; break;
       case RaceType.Snowy:
         Length = BASERACELENGTH; break;
-        break;
     }
     MainBeboo = mainBeboo;
   }
@@ -59,7 +64,7 @@ internal class Race : IWindowManager
     if (third.Item1 == 0) contesterScore = third.Item2;
     else if (second.Item1 == 0) contesterScore = second.Item2;
     else if (first.Item1 == 0) contesterScore = first.Item2;
-    RaceScores[RaceType] = contesterScore;
+    RaceScores[this.RaceType] = contesterScore;
     RaceResult.Run(third, second, first);
     if (first.Item1 == 0)
     {

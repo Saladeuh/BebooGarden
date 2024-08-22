@@ -33,7 +33,7 @@ internal partial class Game : IGlobalActions
     GameWindow = form;
     Parameters = SaveManager.LoadSave();
     Flags = Parameters.Flags;
-    Race.RaceScores = Parameters.RaceScores;
+   if(Parameters.RaceScores!=null) Race.RaceScores = Parameters.RaceScores;
     Race.TotalWin = Parameters.RaceTotalWin;
     Race.TodayTries = Parameters.LastPlayed.Day == DateTime.Now.Day ? Parameters.RaceTodayTries : 0;
     Flags.UnlockEggInShop = Flags.UnlockUnderwaterMap || Flags.UnlockSnowyMap || Flags.UnlockEggInShop;
