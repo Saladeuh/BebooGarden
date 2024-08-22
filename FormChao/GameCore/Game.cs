@@ -469,6 +469,10 @@ internal partial class Game : IGlobalActions
   }
   internal void Close(object? sender, FormClosingEventArgs e)
   {
+    if (Race.IsARaceRunning){ e.Cancel = true;
+      SoundSystem.System.PlaySound(SoundSystem.WarningSound);
+      return;
+    }
     Map?.Items.RemoveAll(item => typeof(Roll) == item.GetType());
     Dictionary<MapPreset, MapInfo> mapInfos = [];
     foreach (Map map in Map.Maps.Values)

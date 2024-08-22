@@ -13,6 +13,7 @@ internal class Race : IWindowManager
   public static int TodayTries { get; set; }
   public static int TotalWin { get; set; }
   public static readonly int BASERACELENGTH = 60;
+  public static bool IsARaceRunning {  get; set; }
   public int Length { get; set; }
   public DateTime StartTime;
   private Beboo MainBeboo { get; }
@@ -38,6 +39,7 @@ internal class Race : IWindowManager
   }
   public void Start()
   {
+    IsARaceRunning = true;
     TodayTries++;
     switch (RaceType)
     {
@@ -74,6 +76,7 @@ internal class Race : IWindowManager
     MainBeboo.GoalPosition = new(0, 0, 0);
     Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicRaceEnd);
     Game.UpdateMapMusic();
+    IsARaceRunning = false;
     if (first.Item1 == 0)
     {
       switch (RaceType)
