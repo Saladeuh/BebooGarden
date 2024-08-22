@@ -16,7 +16,8 @@ internal class IGlobalActions
   {
     CultureInfo.CurrentUICulture = CultureInfo.InstalledUICulture;
     string twoLetterISOLanguageName = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
-    if (!SUPPORTEDLANGUAGES.Contains(twoLetterISOLanguageName)) ChangeLanguage("en-US");
+    if (!SUPPORTEDLANGUAGES.Contains(twoLetterISOLanguageName))
+      CultureInfo.CurrentUICulture = new CultureInfo("en");
 
     bool FilterFunction(string _, LogLevel logLevel)
     {
