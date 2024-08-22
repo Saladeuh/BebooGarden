@@ -66,6 +66,14 @@ internal class Race : IWindowManager
     else if (first.Item1 == 0) contesterScore = first.Item2;
     RaceScores[this.RaceType] = contesterScore;
     RaceResult.Run(third, second, first);
+    Game.Map?.Beboos[1].Pause();
+    Game.Map?.Beboos[2].Pause();
+    Game.Map?.Beboos.Clear();
+    Game.LoadBackedMap();
+    MainBeboo.Position = new(0, 0, 0);
+    MainBeboo.GoalPosition = new(0, 0, 0);
+    Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicRaceEnd);
+    Game.UpdateMapMusic();
     if (first.Item1 == 0)
     {
       switch (RaceType)
@@ -81,15 +89,6 @@ internal class Race : IWindowManager
       MainBeboo.Happiness--;
       MainBeboo.Energy--;
     }
-
-    Game.Map?.Beboos[1].Pause();
-    Game.Map?.Beboos[2].Pause();
-    Game.Map?.Beboos.Clear();
-    Game.LoadBackedMap();
-    MainBeboo.Position = new(0, 0, 0);
-    MainBeboo.GoalPosition = new(0, 0, 0);
-    Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicRaceEnd);
-    Game.UpdateMapMusic();
   }
   (int, double) first = (-1, 0), second = (-1, 0), third = (-1, 0);
 

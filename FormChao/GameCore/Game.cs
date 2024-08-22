@@ -113,7 +113,7 @@ internal partial class Game : IGlobalActions
       Tickets += amount;
       SayLocalizedString("gainticket", amount);
       SoundSystem.System.PlaySound(SoundSystem.MenuOk2Sound);
-      if (!Flags.UnlockShop)
+      if (!Flags.UnlockShop && Map.Preset!=MapPreset.snowyrace && Map.Preset!=MapPreset.basicrace)
       {
         Flags.UnlockShop = true;
         SoundSystem.System.PlaySound(SoundSystem.JingleComplete);
