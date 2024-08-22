@@ -4,6 +4,7 @@ using BebooGarden.GameCore;
 using BebooGarden.GameCore.Pet;
 using BebooGarden.GameCore.World;
 using FmodAudio;
+using FmodAudio.Base;
 using FmodAudio.DigitalSignalProcessing;
 using Timer = System.Timers.Timer;
 
@@ -89,6 +90,7 @@ internal class SoundSystem
   public Sound SnowyMusicStream { get; private set; }
   public Sound UnderWaterMusicStream { get; private set; }
   public Sound RaceMusicStream { get; private set; }
+  public Sound RaceLolMusicStream { get; private set; }
   public Sound RaceStopSound { get; private set; }
   public Sound RaceGoodSound { get; private set; }
   public Sound RaceBadSound { get; private set; }
@@ -196,6 +198,7 @@ internal class SoundSystem
   private void LoadRace()
   {
     RaceMusicStream = System.CreateStream(CONTENTFOLDER + "music/race.mp3", Mode.Loop_Normal);
+    RaceLolMusicStream = System.CreateStream(CONTENTFOLDER + "music/race2.mp3", Mode.Loop_Normal);
     RaceStopSound = System.CreateSound(CONTENTFOLDER + "sounds/race/stop.mp3",
         Mode._3D | Mode._3D_LinearSquareRolloff);
     RaceGoodSound = System.CreateSound(CONTENTFOLDER + "sounds/race/good.wav",
@@ -479,6 +482,10 @@ internal class SoundSystem
   internal void PlayRaceMusic()
   {
     MusicTransition(RaceMusicStream, 0, 0, FmodAudio.TimeUnit.PCM);
+  }
+  internal void PlayRaceLolMusic()
+  {
+    MusicTransition(RaceLolMusicStream, 0, 0, FmodAudio.TimeUnit.PCM);
   }
   internal void PlaySnowyMusic()
   {

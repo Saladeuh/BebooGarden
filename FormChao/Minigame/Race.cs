@@ -54,7 +54,10 @@ internal class Race : IWindowManager
     Game.Map.Beboos[1].Position = startPos + new Vector3(0, 2, 0);
     Game.Map?.Beboos.Add(new Beboo("boby", 1, DateTime.Now, Game.Random.Next(6), Game.Random.Next(8), true, 1.2f));
     Game.Map.Beboos[2].Position = startPos + new Vector3(0, -2, 0);
-    Game.SoundSystem.PlayRaceMusic();
+    switch (RaceType) {
+      case RaceType.Base:  Game.SoundSystem.PlayRaceMusic(); break;
+        case RaceType.Snowy: Game.SoundSystem.PlayRaceLolMusic(); break;  
+  }
     Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicRaceStart, true);
     StartTime = DateTime.Now;
     Game.TickTimer.Tick += Tick;
