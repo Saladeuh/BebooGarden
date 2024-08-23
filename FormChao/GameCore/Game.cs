@@ -262,7 +262,11 @@ internal partial class Game : IGlobalActions
         { "race.simple", RaceType.Base },
       };
       if (Flags.UnlockSnowyMap) raceTypeOptions.Add("race.snow", RaceType.Snowy);
-      RaceType choice = IWindowManager.ShowChoice<RaceType>("race.chooserace", raceTypeOptions);
+      RaceType choice = RaceType.Base;
+      if (raceTypeOptions.Count > 1)
+      {
+        choice = IWindowManager.ShowChoice<RaceType>("race.chooserace", raceTypeOptions);
+      }
       if (choice != RaceType.None) new Minigame.Race(choice, contester).Start();
     }
     else
@@ -448,7 +452,7 @@ internal partial class Game : IGlobalActions
         SayLocalizedString("trees.soonempty");
       else if (treeLine.Fruits >= treeLine.FruitPerHour / 2)
         SayLocalizedString("trees.soonfull");
-    else if (item != null) SayLocalizedString(item.Name);
+      else if (item != null) SayLocalizedString(item.Name);
   }
 
   public static void KeyUpMapper(object? sender, KeyEventArgs e)
