@@ -83,6 +83,7 @@ internal class SoundSystem
   public Sound JingleStar { get; private set; }
   public List<Sound> BebooYumySounds { get; private set; }
   private SortedDictionary<FruitSpecies, Sound> FruitsSounds { get; set; }
+  public Sound WelcomeMusicStream { get; private set; }
   public Sound NeutralMusicStream { get; private set; }
   public Channel? Music { get; private set; }
   public Sound SadMusicStream { get; private set; }
@@ -123,7 +124,7 @@ internal class SoundSystem
     }
   }
 
-  public void LoadMainScreen(bool startMusic)
+  public void LoadMainScreen()
   {
     NeutralMusicStream = System.CreateStream(CONTENTFOLDER + "music/neutral.mp3", Mode.Loop_Normal);
     SadMusicStream = System.CreateStream(CONTENTFOLDER + "music/Depressed.mp3", Mode.Loop_Normal);
@@ -413,7 +414,7 @@ internal class SoundSystem
     if (Music != null) Music.Mute = mute;
   }
 
-  public Channel PlaySoundAtPosition(List<Sound> sounds, Vector3 position, float volumeModifier = 0, float pitch=1)
+  public Channel PlaySoundAtPosition(List<Sound> sounds, Vector3 position, float volumeModifier = 0, float pitch = 1)
   {
     Sound sound = sounds[Game.Random.Next(sounds.Count())];
     Channel channel = PlaySoundAtPosition(sound, position, 0, pitch);
@@ -469,12 +470,15 @@ internal class SoundSystem
   {
     MusicTransition(Game.SoundSystem.SadMusicStream, 464375, 4471817, TimeUnit.PCM, 0.1f);
   }
-
+  internal void PlayNWelcomeMusic()
+  {
+    WelcomeMusicStream = System.CreateStream(CONTENTFOLDER + "music/welcome.mp3", Mode.Loop_Normal);
+    MusicTransition(WelcomeMusicStream, 2734439, 9096639, TimeUnit.MS, 0.3f);
+  }
   internal void PlayNeutralMusic()
   {
     MusicTransition(NeutralMusicStream, 12, 88369, TimeUnit.MS);
   }
-
   internal void PlayShopMusic()
   {
     MusicTransition(ShopMusicStream, 459264, 8156722, FmodAudio.TimeUnit.PCM);
@@ -515,5 +519,18 @@ internal class SoundSystem
       }
     }
     else PlaySadMusic();
+  }
+  internal void MusicFadeOut(int seconds=2)
+  {
+    if (Music != null)
+    {
+      do
+      {
+        Music.Volume -= 0.05f;
+        Thread.Sleep(250);
+      } while (Music.Volume > 0.1f);
+      Thread.Sleep(250);
+      Music.Paused = true;
+    }
   }
 }

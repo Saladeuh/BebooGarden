@@ -40,7 +40,7 @@ internal partial class Game : IGlobalActions
     try { Map = Map.Maps[Parameters.CurrentMap]; } catch (Exception) { Map = Map.Maps[MapPreset.garden]; }
     MusicBox.AvailableRolls = Parameters.UnlockedRolls ?? [];
     SoundSystem.Volume = Parameters.Volume;
-    SoundSystem.LoadMainScreen(Flags.NewGame);
+    SoundSystem.LoadMainScreen();
     if (!Flags.NewGame)
     {
       PlayerPosition = new Vector3(0, 0, 0);
@@ -73,8 +73,8 @@ internal partial class Game : IGlobalActions
       Map.AddItem(new Egg(Parameters.FavoredColor), new(2, 0, 0));
     }
     SoundSystem.LoadMap(Map);
-    UpdateMapMusic();
     if (Flags.NewGame) Welcome.AfterGarden();
+    else UpdateMapMusic();
     LastPressedKeyTime = DateTime.Now;
     TickTimer.Tick += Tick;
     TickTimer.Enabled = true;

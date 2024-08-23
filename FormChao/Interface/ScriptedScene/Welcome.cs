@@ -7,6 +7,7 @@ internal class Welcome : IWindowManager
 {
   public static void BeforeGarden(SaveParameters parameters)
   {
+    Game.SoundSystem.PlayNWelcomeMusic();
     IWindowManager.ShowTalk("ui.welcome");
     string playerName = IWindowManager.ShowTextBox("ui.yourname", 12, true);
     IWindowManager.ShowTalk("ui.aboutyou", true, playerName);
@@ -24,6 +25,7 @@ internal class Welcome : IWindowManager
       parameters.PlayerName = playerName;
       parameters.FreeTime = freetime;
       parameters.Dessert = dessert;
+      Game.SoundSystem.MusicFadeOut();
     }
   }
   public static void AfterGarden()

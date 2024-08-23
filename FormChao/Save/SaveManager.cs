@@ -22,7 +22,6 @@ internal class SaveManager
     Game.SoundSystem.LoadMenuSounds();
     SaveParameters parameters = LoadJson() ?? new SaveParameters();
     if (parameters.Flags.NewGame) Welcome.BeforeGarden(parameters);
-    IGlobalActions.SetAppLanguage(parameters.Language ?? "en");
     return parameters;
   }
 
