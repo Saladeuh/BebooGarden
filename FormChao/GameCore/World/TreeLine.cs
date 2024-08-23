@@ -20,7 +20,7 @@ public class TreeLine
 
   public Vector2 X { get; }
   public Vector2 Y { get; }
-  private int FruitPerHour { get; }
+  public int FruitPerHour { get; }
 
   public int Fruits
   {

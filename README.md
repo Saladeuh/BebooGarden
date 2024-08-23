@@ -1,5 +1,5 @@
 # todo
-- help inventaire, pitch beboos
+- arrbres, pa course pa bébou, html, help inventaire, pitch beboos
 - jouets: poisson, snowman+fond, coin d'eau, arbres, creuse
 - escape: commandes credits, 
 - danse, saleté?, pitch beboo, lam¤g

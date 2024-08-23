@@ -13,7 +13,10 @@
     "icecream": "Une délicieuse glace", 
     "fruitsalad": "Une salade de fruits raffraîchissante",
     "coffee": "Juste un café, merci.",
-    "trees": "Arbres",
+    "trees.full": "Arbres pleins de fruits",
+    "trees.empty": "Arbres sans fruits",
+    "trees.soonempty": "Arbres avec quelques fruits",
+    "trees.soonfull": "Arbres avec beaucoup de fruits",
     "water": "lagon",
     "beboo.gosleep": "{0} va dormir",
     // 1=beboo name

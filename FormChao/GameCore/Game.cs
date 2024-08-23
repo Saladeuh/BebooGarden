@@ -33,7 +33,7 @@ internal partial class Game : IGlobalActions
     GameWindow = form;
     Parameters = SaveManager.LoadSave();
     Flags = Parameters.Flags;
-   if(Parameters.RaceScores!=null) Race.RaceScores = Parameters.RaceScores;
+    if (Parameters.RaceScores != null) Race.RaceScores = Parameters.RaceScores;
     Race.TotalWin = Parameters.RaceTotalWin;
     Race.TodayTries = Parameters.LastPlayed.Day == DateTime.Now.Day ? Parameters.RaceTodayTries : 0;
     Flags.UnlockEggInShop = Flags.UnlockUnderwaterMap || Flags.UnlockSnowyMap || Flags.UnlockEggInShop;
@@ -113,7 +113,7 @@ internal partial class Game : IGlobalActions
       Tickets += amount;
       SayLocalizedString("gainticket", amount);
       SoundSystem.System.PlaySound(SoundSystem.MenuOk2Sound);
-      if (!Flags.UnlockShop && Map.Preset!=MapPreset.snowyrace && Map.Preset!=MapPreset.basicrace)
+      if (!Flags.UnlockShop && Map.Preset != MapPreset.snowyrace && Map.Preset != MapPreset.basicrace)
       {
         Flags.UnlockShop = true;
         SoundSystem.System.PlaySound(SoundSystem.JingleComplete);
@@ -440,7 +440,14 @@ internal partial class Game : IGlobalActions
     Beboo? bebooUnderCursor = BebooUnderCursor();
     if (bebooUnderCursor != null) ScreenReader.Output(bebooUnderCursor.Name);
     if (treeLine != null)
-      SayLocalizedString("trees");
+      if (treeLine.Fruits == treeLine.FruitPerHour)
+        SayLocalizedString("trees.full");
+      else if (treeLine.Fruits == 0)
+        SayLocalizedString("trees.empty");
+      else if (treeLine.Fruits <= treeLine.FruitPerHour / 2)
+        SayLocalizedString("trees.soonempty");
+      else if (treeLine.Fruits >= treeLine.FruitPerHour / 2)
+        SayLocalizedString("trees.soonfull");
     else if (item != null) SayLocalizedString(item.Name);
   }
 
@@ -470,7 +477,9 @@ internal partial class Game : IGlobalActions
   }
   internal void Close(object? sender, FormClosingEventArgs e)
   {
-    if (Race.IsARaceRunning){ e.Cancel = true;
+    if (Race.IsARaceRunning)
+    {
+      e.Cancel = true;
       SoundSystem.System.PlaySound(SoundSystem.WarningSound);
       return;
     }
