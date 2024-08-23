@@ -365,23 +365,24 @@ internal class SoundSystem
   public void PlayBebooSound(Sound sound, Beboo beboo, bool stopOthers = true)
   {
     if (beboo.Channel != null && stopOthers && beboo.Channel.IsPlaying) beboo.Channel.Stop();
-    beboo.Channel = PlaySoundAtPosition(sound, beboo.Position, 0, beboo.VoiceDsp);
+    beboo.Channel = PlaySoundAtPosition(sound, beboo.Position, 0, beboo.VoicePitch);
   }
 
   public void PlayBebooSound(List<Sound> sounds, Beboo beboo, bool stopOthers = true, float volume = -1)
   {
     Sound sound = sounds[Game.Random.Next(sounds.Count())];
     if (beboo.Channel != null && stopOthers && beboo.Channel.IsPlaying) beboo.Channel.Stop();
-    beboo.Channel = PlaySoundAtPosition(sound, beboo.Position, 0, beboo.VoiceDsp);
+    beboo.Channel = PlaySoundAtPosition(sound, beboo.Position, 0, beboo.VoicePitch);
     if (volume != -1) beboo.Channel.Volume = volume;
   }
 
-  public Channel PlaySoundAtPosition(Sound sound, Vector3 position, float volumeModifier = 0, Dsp? pitchDsp = null)
+  public Channel PlaySoundAtPosition(Sound sound, Vector3 position, float volumeModifier = 0, float pitch = 1)
   {
     Channel channel = System.PlaySound(sound, paused: true)!;
     channel.Set3DMinMaxDistance(0f, 30f);
     channel.Set3DAttributes(position + new Vector3(0, 0, -2), default, default);
     channel.Volume += volumeModifier;
+    channel.Pitch = pitch;
     //if (pitchDsp != null) channel.AddDSP(0, pitchDsp.Value);
     channel.Paused = false;
     return channel;
@@ -412,10 +413,10 @@ internal class SoundSystem
     if (Music != null) Music.Mute = mute;
   }
 
-  public Channel PlaySoundAtPosition(List<Sound> sounds, Vector3 position, float volumeModifier = 0, Dsp? pitchDsp = null)
+  public Channel PlaySoundAtPosition(List<Sound> sounds, Vector3 position, float volumeModifier = 0, float pitch=1)
   {
     Sound sound = sounds[Game.Random.Next(sounds.Count())];
-    Channel channel = PlaySoundAtPosition(sound, position, 0, pitchDsp);
+    Channel channel = PlaySoundAtPosition(sound, position, 0, pitch);
     //if (pitchDsp != null) channel.AddDSP(0, pitchDsp.Value);
     channel.Volume += volumeModifier;
     return channel;
