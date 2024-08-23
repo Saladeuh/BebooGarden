@@ -5,7 +5,7 @@ namespace BebooGarden;
 
 internal class Program
 {
-  private const string version = "1.3" +
+  private const string version = "1.4" +
     "" +
     ".0.0";
 
@@ -29,14 +29,15 @@ internal class Program
   private static void HandleUnhandleException(object sender, UnhandledExceptionEventArgs e)
   {
     logException((Exception) e.ExceptionObject);
+    Application.Exit();
   }
 
   private static void HandleThreadException(object sender, ThreadExceptionEventArgs e)
   {
     logException(e.Exception);
+    Application.Exit();
   }
 
-  
   private static void logException(Exception ex)
   {
     string filePath = @"error.log";

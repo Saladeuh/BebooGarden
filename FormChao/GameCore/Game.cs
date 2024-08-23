@@ -444,6 +444,7 @@ internal partial class Game : IGlobalActions
     Beboo? bebooUnderCursor = BebooUnderCursor();
     if (bebooUnderCursor != null) ScreenReader.Output(bebooUnderCursor.Name);
     if (treeLine != null)
+    {
       if (treeLine.Fruits == treeLine.FruitPerHour)
         SayLocalizedString("trees.full");
       else if (treeLine.Fruits == 0)
@@ -452,7 +453,8 @@ internal partial class Game : IGlobalActions
         SayLocalizedString("trees.soonempty");
       else if (treeLine.Fruits >= treeLine.FruitPerHour / 2)
         SayLocalizedString("trees.soonfull");
-      else if (item != null) SayLocalizedString(item.Name);
+    }
+    else if (item != null) SayLocalizedString(item.Name);
   }
 
   public static void KeyUpMapper(object? sender, KeyEventArgs e)
