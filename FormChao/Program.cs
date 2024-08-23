@@ -58,7 +58,7 @@ internal class Program
   private static void AutoUpdate()
   {
     AutoUpdater.Synchronous = true;
-    AutoUpdater.ShowSkipButton = false;
+    AutoUpdater.ShowSkipButton = true;
     AutoUpdater.ShowRemindLaterButton = false;
     AutoUpdater.Start("https://raw.githubusercontent.com/Saladeuh/BebooGarden/main/AutoUpdater.xml");
   }
