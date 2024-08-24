@@ -312,7 +312,7 @@ internal partial class Game : IGlobalActions
   }
   private static void SayTickets()
   {
-    SayLocalizedString(Tickets.ToString());
+    SayLocalizedString("tickets", Tickets);
   }
 
   private void TryPutItemInHand()

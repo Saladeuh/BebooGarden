@@ -17,6 +17,7 @@
     "trees.empty": "Trees without any fruit",
     "trees.soonempty": "trees with some fruits",
     "trees.soonfull": "Trees with some fruits",
+    "tickets": "You have {0} tickets",
     "water": "lagoon",
     "Normal": "Apple",
     "Energetic": "Super Apple",

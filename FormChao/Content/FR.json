@@ -17,6 +17,7 @@
     "trees.empty": "Arbres sans fruits",
     "trees.soonempty": "Arbres avec quelques fruits",
     "trees.soonfull": "Arbres avec beaucoup de fruits",
+    "tickets": "Vous avez {0} tickets",
     "water": "lagon",
     "beboo.gosleep": "{0} va dormir",
     // 1=beboo name
