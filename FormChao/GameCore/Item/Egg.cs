@@ -27,7 +27,7 @@ public class Egg(string color) : Item
     Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicHatch);
     string name = NewBeboo.Run();
     int swimLevel = (Game.Map?.IsInLake(Position ?? new(0, 0, 0)) ?? false) ? 10 : 0;
-    Game.Map?.Beboos.Add(new Beboo(name, 1, DateTime.MinValue, 5, swimLevel, false, 1 + (Game.Random.Next(4) / 10)) { Position = this.Position ?? new(0, 0, 0) });
+    Game.Map?.Beboos.Add(new Beboo(name, 1, DateTime.MinValue, 3, 3, swimLevel, false, 1 + (Game.Random.Next(4) / 10)) { Position = this.Position ?? new(0, 0, 0) });
     Game.Flags.NewGame = false;
     Game.UpdateMapMusic();
   }

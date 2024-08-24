@@ -59,7 +59,7 @@ internal partial class Game : IGlobalActions
         {
           foreach (BebooInfo bebooInfo in Parameters.MapInfos[map.Preset].BebooInfos)
           {
-            Beboo beboo = new(bebooInfo.Name, bebooInfo.Age, Parameters.LastPlayed, bebooInfo.Happiness, bebooInfo.SwimLevel, false, bebooInfo.Voice);
+            Beboo beboo = new(bebooInfo.Name, bebooInfo.Age, Parameters.LastPlayed, bebooInfo.Happiness, bebooInfo.Energy, bebooInfo.SwimLevel, false, bebooInfo.Voice);
             map.Beboos.Add(beboo);
             if (map != Map) beboo.Pause();
           }

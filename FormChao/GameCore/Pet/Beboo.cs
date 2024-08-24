@@ -28,7 +28,7 @@ public class Beboo
   }
   public Dsp VoiceDsp { get; }
   public int SwimLevel { get; set; } = 0;
-  public Beboo(string name, float age, DateTime lastPlayed, int happiness = 5, int swimLevel = 0, bool racer = false, float voicePitch = 1)
+  public Beboo(string name, float age, DateTime lastPlayed, int happiness = 3, float energy = 3, int swimLevel = 0, bool racer = false, float voicePitch = 1)
   {
     Position = new Vector3(0, 0, 0);
     Name = name == string.Empty ? "boby" : name;
@@ -63,7 +63,8 @@ public class Beboo
       }
     }, !racer);
     TimeSpan elapsedTime = DateTime.Now - lastPlayed;
-    Happiness = elapsedTime.TotalHours > 4 ? 5 : happiness;
+    Happiness = elapsedTime.TotalHours > 4 ? 3 : happiness;
+    Happiness = elapsedTime.TotalDays > 2 ? 0 : happiness;
     Age = age;
     KnowItsName = age > 2;
     switch (age)
@@ -81,7 +82,8 @@ public class Beboo
         MaxHappinness = 20;
         break;
     }
-    Energy = elapsedTime.TotalHours > 8 ? 5 : 10;
+    Energy = elapsedTime.TotalHours > 8 ? 3 : 10;
+    Energy = elapsedTime.TotalDays > 2 ? 1 : 5;
     SpeechRecognizer = new BebooSpeechRecognition(name);
     SpeechRecognizer.BebooCalled += Game.Call;
   }
