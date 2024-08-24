@@ -1,8 +1,9 @@
 # todo
-- html, help inventaire
+- move sound, sac vide, html, ticket text, help inventaire, zqsd shop
 - jouets: poisson, snowman+fond, coin d'eau, arbres, creuse
 - escape: commandes credits, 
-- danse, saleté?, pitch beboo, lam¤g
+- danse, saleté?, lam¤g
+- weird bug: name double textbox, antivirus
 - online
 - plus commandes vocales
 - music lvl=general sounds volume equalization
