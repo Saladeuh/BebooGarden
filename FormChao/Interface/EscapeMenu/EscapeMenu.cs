@@ -46,7 +46,9 @@ public class EscapeMenu
         }
       }
     }
+    if(tPOptions.Count > 0)
     Teleport = new("ui.chooseitem", tPOptions);
+    else Teleport = new("ui.emptymap", tPOptions);
     Dictionary<string, string> languageOptions = new();
     foreach (string twoLetterLang in IGlobalActions.SUPPORTEDLANGUAGES)
     {

@@ -49,7 +49,7 @@
     "duck.name": "Rubber duck",
     "duck.description": "It's just a duck",
     "boots.name": "Bouncing Boots",
-    "boots.description": "A Beboo can use them to bounce farer",
+    "boots.description": "A Beboo can use them to bounce farer. Place it on the ground then try make a beboo to put them on",
     "ticketpack.name": "Tickets pack",
     "ticketpack.description": "Jack pot!",
     "roll.name": "Music box's roll",
@@ -119,5 +119,6 @@
     "ui.discord": "Join the discord server",
     "ui.quit": "Close the game.",
     "bag": "Bag",
-    "emptybag": "Your bag is empty (escape to leave)."
+    "emptybag": "Your bag is empty (escape to leave).",
+    "ui.emptymap": "There are no items here. To place an item, go to your bag, select an item then press space where you want to place it."
 }

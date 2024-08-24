@@ -49,7 +49,8 @@
     "duck.name": "Canard en caoutchouc",
     "duck.description": "C'est juste un canard",
     "boots.name": "Bottes à ressort",
-    "boots.description": "Un Bébou peut les utiliser pour sauter plus loin",    "ticketpack.name": "Paquet de tickets",
+    "boots.description": "Un Bébou peut les utiliser pour sauter plus loin. Posez les au sol et faites en sorte qu'un bébou les enfile.",
+    "ticketpack.name": "Paquet de tickets",
     "ticketpack.description": "Jack pot!",
     "egg.name": "œuf de bébou {0}",
     "egg.description": "Toujours plus de Bébous!!!!",
@@ -118,5 +119,6 @@
     "ui.discord": "Rejoindre le serveur Discord",
     "ui.quit": "Quitter le jeu.",
     "bag": "Sac",
-    "emptybag": "Le sac est vide (échape pour sortir)"
+    "emptybag": "Le sac est vide (échape pour sortir)",
+    "ui.emptymap": "Il n'y a pas d'objets ici. Pour poser un objet, rendez-vous daos votre sac, sélectionez l'objet puis appuyez sur espace où vous souhaitez le poser."
 }

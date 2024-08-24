@@ -1,5 +1,5 @@
 # todo
-- no object map, help inventaire
+- help inventaire
 - jouets: poisson, snowman+fond, coin d'eau, arbres, creuse
 - escape: credits, 
 - weird bug: name double textbox, antivirus
