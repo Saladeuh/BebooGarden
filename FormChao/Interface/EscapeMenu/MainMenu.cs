@@ -104,15 +104,22 @@ public class MainMenu : Form
   }
   private void KeyHandle(object? sender, KeyEventArgs e)
   {
-    switch (e.KeyCode)
+    Button button = sender as Button;
+    var key = e.KeyCode;
+    if (key == Keys.Escape || key == Keys.Back)
+      Back(sender, EventArgs.Empty);
+    else if (key == Keys.F4 && e.Modifiers == Keys.Alt) Back(sender, EventArgs.Empty);
+    else if (Game.WASD && (key == Keys.W || key == Keys.A)
+      || !Game.WASD && (key == Keys.Z || key == Keys.Q))
     {
-      case Keys.Escape:
-      case Keys.Back:
-        Back(sender, EventArgs.Empty);
-        break;
-      case Keys.F4:
-        if (e.Modifiers == Keys.Alt) Back(sender, EventArgs.Empty);
-        break;
+      if (button.TabIndex > 1) Controls[button.TabIndex - 1].Focus();
+      else Controls[Controls.Count - 1].Focus();
+    }
+    else if (Game.WASD && (key == Keys.S || key == Keys.D)
+      || !Game.WASD && (key == Keys.S || key == Keys.D))
+    {
+      if (button.TabIndex < Controls.Count - 1) Controls[button.TabIndex + 1].Focus();
+      else Controls[1].Focus();
     }
   }
   protected virtual void Back(object? sender, EventArgs e)
