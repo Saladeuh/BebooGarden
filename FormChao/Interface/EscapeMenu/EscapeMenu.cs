@@ -53,7 +53,7 @@ public class EscapeMenu
       languageOptions.Add(new CultureInfo(twoLetterLang).DisplayName, twoLetterLang);
     }
     Languages = new("lang", languageOptions);
-    MainMenu = new(IGlobalActions.GetLocalizedString("mainmenu"), new Dictionary<string, Form>()
+    MainMenu = new(IGlobalActions.GetLocalizedString("ui.mainmenu"), new Dictionary<string, Form>()
     {
       {IGlobalActions.GetLocalizedString("bag"), Inventory },
       {IGlobalActions.GetLocalizedString( "tp"), Teleport },
