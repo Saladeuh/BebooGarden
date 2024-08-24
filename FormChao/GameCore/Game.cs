@@ -434,6 +434,7 @@ internal partial class Game : IGlobalActions
     else if (Flags.UnlockSnowyMap && (Map?.IsArroundMapPath(PlayerPosition) ?? false)) SayLocalizedString("path");
     else if (Map?.IsArroundRaceGate(PlayerPosition) ?? false) SayLocalizedString("race.gate", Race.GetRemainingTriesToday());
     else if (Flags.UnlockUnderwaterMap && (Map?.IsArroundMapUnderWater(PlayerPosition) ?? false)) SayLocalizedString("underwater");
+    SoundSystem.System.PlaySound(SoundSystem.CursorSound);
     SpeakObjectUnderCursor();
   }
 
