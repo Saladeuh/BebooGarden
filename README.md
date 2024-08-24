@@ -1,5 +1,5 @@
 # todo
-- help inventaire
+- no object map, help inventaire
 - jouets: poisson, snowman+fond, coin d'eau, arbres, creuse
 - escape: credits, 
 - danse, saleté?, lam¤g

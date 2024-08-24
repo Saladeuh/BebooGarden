@@ -115,6 +115,8 @@
     "choosebeboo": "Choose the Bbeboo who will compete.",
     "ui.mainmenu": "Main menu",
     "ui.commands": "Help : Game's commandes.",
+    "ui.credits": "Credits",
+    "ui.discord": "Join the discord server",
     "ui.quit": "Close the game.",
     "bag": "Bag",
     "emptybag": "Your bag is empty (escape to leave)."

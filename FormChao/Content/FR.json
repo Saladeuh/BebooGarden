@@ -112,6 +112,8 @@
     "choosebeboo": "Choisissez le Bébou qui va concourir.",
     "ui.mainmenu": "Menu principal",
     "ui.commands": "Aides : Commandes du jeu.",
+    "ui.credits": "Crédits",
+    "ui.discord": "Rejoindre le serveur Discord",
     "ui.quit": "Quitter le jeu.",
     "bag": "Sac",
     "emptybag": "Le sac est vide (échape pour sortir)"

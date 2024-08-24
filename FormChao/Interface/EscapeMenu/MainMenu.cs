@@ -35,22 +35,22 @@ public class MainMenu : Form
     commandsButton.Enter += btn_enter;
     commandsButton.KeyDown += KeyHandle;
     Controls.Add(commandsButton);
-    Button websiteButton = new()
-    {
-      Text = "website"
-    };
-    websiteButton.Click += OpenWebsite;
-    websiteButton.Enter += btn_enter;
-    websiteButton.KeyDown += KeyHandle;
-    Controls.Add(websiteButton);
     Button discordButton = new()
     {
-      Text = "Discord"
+      Text = IGlobalActions.GetLocalizedString("ui.discord")
     };
     discordButton.Click += InviteDiscord;
     discordButton.Enter += btn_enter;
     discordButton.KeyDown += KeyHandle;
     Controls.Add(discordButton);
+    Button creditsButton = new()
+    {
+      Text = IGlobalActions.GetLocalizedString("ui.credits")
+    };
+    creditsButton.Click += OpenCredits;
+    creditsButton.Enter += btn_enter;
+    creditsButton.KeyDown += KeyHandle;
+    Controls.Add(creditsButton);
     Button quitButton = new()
     {
       Text = IGlobalActions.GetLocalizedString("ui.quit")
@@ -98,9 +98,15 @@ public class MainMenu : Form
     Result.ShowDialog(this);
     if (Result is Inventory || Result is Teleport) Close();
   }
-  private void OpenWebsite(object? sender, EventArgs e)
+  private void OpenCredits(object? sender, EventArgs e)
   {
-    Process.Start(new ProcessStartInfo("https://www.example.com") { UseShellExecute = true });
+    var twoLetterLang = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+    var langFile = Path.Combine(SoundSystem.CONTENTFOLDER, "doc", $"credits_{twoLetterLang}.html");
+    var file = Path.Combine(SoundSystem.CONTENTFOLDER, "doc", "credits.html");
+    if (File.Exists(langFile))
+      Process.Start(new ProcessStartInfo(langFile) { UseShellExecute = true });
+    else if (File.Exists(file))
+      Process.Start(new ProcessStartInfo(file) { UseShellExecute = true });
   }
   private void KeyHandle(object? sender, KeyEventArgs e)
   {
