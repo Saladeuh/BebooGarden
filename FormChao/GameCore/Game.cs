@@ -256,13 +256,13 @@ internal partial class Game : IGlobalActions
       if (contester == null) return;
       Dictionary<string, RaceType> raceTypeOptions = new()
       {
-        { "race.simple", RaceType.Base },
+        {GetLocalizedString("race.simple"), RaceType.Base },
       };
-      if (Flags.UnlockSnowyMap) raceTypeOptions.Add("race.snow", RaceType.Snowy);
+      if (Flags.UnlockSnowyMap) raceTypeOptions.Add(GetLocalizedString( "race.snow"), RaceType.Snowy);
       RaceType choice = RaceType.Base;
       if (raceTypeOptions.Count > 1)
       {
-        choice = IWindowManager.ShowChoice<RaceType>("race.chooserace", raceTypeOptions);
+        choice = IWindowManager.ShowChoice<RaceType>(GetLocalizedString( "race.chooserace"), raceTypeOptions);
       }
       if (choice != RaceType.None) new Minigame.Race(choice, contester).Start();
     }

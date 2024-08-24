@@ -368,7 +368,7 @@ internal class SoundSystem
   public void PlayBebooSound(Sound sound, Beboo beboo, bool stopOthers = true)
   {
     if (beboo.Channel != null && stopOthers && beboo.Channel.IsPlaying) beboo.Channel.Stop();
-    beboo.Channel = PlaySoundAtPosition(sound, beboo.Position, 0, beboo.VoicePitch);
+    beboo.Channel = PlaySoundAtPosition(sound, beboo.Position, -0.1, beboo.VoicePitch);
   }
 
   public void PlayBebooSound(List<Sound> sounds, Beboo beboo, bool stopOthers = true, float volume = -1)
@@ -379,12 +379,12 @@ internal class SoundSystem
     if (volume != -1) beboo.Channel.Volume = volume;
   }
 
-  public Channel PlaySoundAtPosition(Sound sound, Vector3 position, float volumeModifier = 0, float pitch = 1)
+  public Channel PlaySoundAtPosition(Sound sound, Vector3 position, double volumeModifier = 0, float pitch = 1)
   {
     Channel channel = System.PlaySound(sound, paused: true)!;
     channel.Set3DMinMaxDistance(0f, 30f);
     channel.Set3DAttributes(position + new Vector3(0, 0, -2), default, default);
-    channel.Volume += volumeModifier;
+    channel.Volume += (float)volumeModifier;
     channel.Pitch = pitch;
     //if (pitchDsp != null) channel.AddDSP(0, pitchDsp.Value);
     channel.Paused = false;

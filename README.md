@@ -1,7 +1,7 @@
 # todo
 - help inventaire
 - jouets: poisson, snowman+fond, coin d'eau, arbres, creuse
-- escape: commandes credits, 
+- escape: credits, 
 - danse, saleté?, lam¤g
 - weird bug: name double textbox, antivirus
 - online
