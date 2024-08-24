@@ -205,9 +205,6 @@ internal partial class Game : IGlobalActions
       case Keys.Escape:
         new EscapeMenu().Show();
         break;
-      case Keys.F1:
-        throw new NotImplementedException();
-        break;
       case Keys.Space:
         if (ItemInHand != null)
         {
