@@ -105,7 +105,7 @@ internal partial class Game : IGlobalActions
   public static List<Item.Item> Inventory { get; set; } = [];
   public static int Tickets { get; set; } = 0;
   public static Item.Item? ItemInHand { get; set; }
-  public static bool WASD = InputLanguage.CurrentInputLanguage.Culture.TwoLetterISOLanguageName!="fr"; 
+  public static bool WASD = InputLanguage.CurrentInputLanguage.Culture.TwoLetterISOLanguageName != "fr";
   public static void GainTicket(int amount)
   {
     if (amount > 0)
@@ -258,11 +258,11 @@ internal partial class Game : IGlobalActions
       {
         {GetLocalizedString("race.simple"), RaceType.Base },
       };
-      if (Flags.UnlockSnowyMap) raceTypeOptions.Add(GetLocalizedString( "race.snow"), RaceType.Snowy);
+      if (Flags.UnlockSnowyMap) raceTypeOptions.Add(GetLocalizedString("race.snow"), RaceType.Snowy);
       RaceType choice = RaceType.Base;
       if (raceTypeOptions.Count > 1)
       {
-        choice = IWindowManager.ShowChoice<RaceType>(GetLocalizedString( "race.chooserace"), raceTypeOptions);
+        choice = IWindowManager.ShowChoice<RaceType>(GetLocalizedString("race.chooserace"), raceTypeOptions);
       }
       if (choice != RaceType.None) new Minigame.Race(choice, contester).Start();
     }
@@ -360,7 +360,9 @@ internal partial class Game : IGlobalActions
 
   private void SayBasketState()
   {
-    if (FruitsBasket != null) SayLocalizedString("ui.basket", FruitsBasket.Count);
+    var fruits = 0;
+    foreach (var fruistCount in FruitsBasket.Values) fruits += fruistCount;
+    if (FruitsBasket != null) SayLocalizedString("ui.basket", fruits);
   }
 
   private void ShakeOrPetAtPlayerPosition()
@@ -390,14 +392,11 @@ internal partial class Game : IGlobalActions
     {
       if (fruit.Value > 0) options.Add(GetLocalizedString(fruit.Key.ToString()) + " " + fruit.Value.ToString(), fruit.Key);
     }
-    if (options.Count > 0)
+    FruitSpecies choice = IWindowManager.ShowChoice("ui.chooseitem", options);
+    if (choice != FruitSpecies.None)
     {
-      FruitSpecies choice = IWindowManager.ShowChoice("ui.chooseitem", options);
-      if (choice != FruitSpecies.None)
-      {
-        bebooUnderCursor.Eat(choice);
-        FruitsBasket[choice]--;
-      }
+      bebooUnderCursor.Eat(choice);
+      FruitsBasket[choice]--;
     }
   }
 

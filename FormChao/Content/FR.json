@@ -19,6 +19,8 @@
     "trees.soonfull": "Arbres avec beaucoup de fruits",
     "tickets": "Vous avez {0} tickets",
     "water": "lagon",
+    "Normal": "Pomme",
+    "Energetic": "Super pomme",
     "beboo.gosleep": "{0} va dormir",
     // 1=beboo name
     "beboo.wakeup": "{0} se réveille",
