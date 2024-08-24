@@ -110,4 +110,5 @@
     "ui.commands": "Aides : Commandes du jeu.",
     "ui.quit": "Quitter le jeu.",
     "bag": "Sac",
+    "emptybag": "Le sac est vide (échape pour sortir)"
 }

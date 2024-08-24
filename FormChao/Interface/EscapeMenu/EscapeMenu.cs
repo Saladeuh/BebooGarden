@@ -14,15 +14,19 @@ public class EscapeMenu
   public EscapeMenu()
   {
     Dictionary<string, Item> options = [];
-    foreach (Item item in Game.Inventory)
+    if (Game.Inventory.Count > 0)
     {
-      int occurences = Game.Inventory.FindAll(x => x.Name == item.Name).Count;
-      string text = IGlobalActions.GetLocalizedString("inventory.item", item.Name, occurences);
-      if (options.Keys.ToList().Find(x => x.Contains(item.Name)) == null && occurences == 1) options.Add(item.Name, item);
-      else if (options.Keys.ToList().Find(x => x.Contains(text)) == null)
-        options.Add(text, item);
+      foreach (Item item in Game.Inventory)
+      {
+        int occurences = Game.Inventory.FindAll(x => x.Name == item.Name).Count;
+        string text = IGlobalActions.GetLocalizedString("inventory.item", item.Name, occurences);
+        if (options.Keys.ToList().Find(x => x.Contains(item.Name)) == null && occurences == 1) options.Add(item.Name, item);
+        else if (options.Keys.ToList().Find(x => x.Contains(text)) == null)
+          options.Add(text, item);
+      }
+      Inventory = new("ui.chooseitem", options);
     }
-    Inventory = new("ui.chooseitem", options);
+    else Inventory = new("emptybag", options);
     Dictionary<string, Item> tPOptions = [];
     if (Game.Map != null)
     {

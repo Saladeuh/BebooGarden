@@ -112,5 +112,6 @@
     "choosebeboo": "Choose the Bbeboo who will compete.",
     "ui.commands": "Help : Game's commandes.",
     "ui.quit": "Close the game.",
-    "bag": "Bag"
+    "bag": "Bag",
+    "emptybag": "Your bag is empty (escape to leave)."
 }
