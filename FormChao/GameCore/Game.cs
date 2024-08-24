@@ -427,6 +427,8 @@ internal partial class Game : IGlobalActions
     if (Map == null) return;
     Vector3 newPos = Map.Clamp(PlayerPosition + movement);
     if (newPos != PlayerPosition + movement) Game.SoundSystem.System.PlaySound(Game.SoundSystem.WallSound);
+    else SoundSystem.System.PlaySound(SoundSystem.CursorSound);
+
     PlayerPosition = newPos;
     SoundSystem.MovePlayerTo(newPos);
     if (Map.IsInLake(newPos) && Map.Preset != MapPreset.underwater) SayLocalizedString("water");
@@ -434,7 +436,6 @@ internal partial class Game : IGlobalActions
     else if (Flags.UnlockSnowyMap && (Map?.IsArroundMapPath(PlayerPosition) ?? false)) SayLocalizedString("path");
     else if (Map?.IsArroundRaceGate(PlayerPosition) ?? false) SayLocalizedString("race.gate", Race.GetRemainingTriesToday());
     else if (Flags.UnlockUnderwaterMap && (Map?.IsArroundMapUnderWater(PlayerPosition) ?? false)) SayLocalizedString("underwater");
-    SoundSystem.System.PlaySound(SoundSystem.CursorSound);
     SpeakObjectUnderCursor();
   }
 

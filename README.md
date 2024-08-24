@@ -1,5 +1,5 @@
 # todo
-- move sound, sac vide, html, ticket text, help inventaire, zqsd shop
+- sac vide, html, ticket text, help inventaire, zqsd shop
 - jouets: poisson, snowman+fond, coin d'eau, arbres, creuse
 - escape: commandes credits, 
 - danse, saleté?, lam¤g
