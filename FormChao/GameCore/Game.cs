@@ -105,7 +105,7 @@ internal partial class Game : IGlobalActions
   public static List<Item.Item> Inventory { get; set; } = [];
   public static int Tickets { get; set; } = 0;
   public static Item.Item? ItemInHand { get; set; }
-  public static bool WASD = false;
+  public static bool WASD = InputLanguage.CurrentInputLanguage.Culture.TwoLetterISOLanguageName!="fr"; 
   public static void GainTicket(int amount)
   {
     if (amount > 0)
