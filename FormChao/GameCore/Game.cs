@@ -496,7 +496,7 @@ internal partial class Game : IGlobalActions
       List<BebooInfo> bebooInfos = new();
       foreach (Beboo beboo in map.Beboos)
       {
-        bebooInfos.Add(new(beboo.Name, beboo.Age, beboo.Happiness, beboo.Energy, beboo.SwimLevel, beboo.VoicePitch));
+        if (!beboo.Racer) bebooInfos.Add(new(beboo.Name, beboo.Age, beboo.Happiness, beboo.Energy, beboo.SwimLevel, beboo.VoicePitch));
       }
       MapInfo mapInfo = new(map.Items, fruits, bebooInfos);
       mapInfos.Add(map.Preset, mapInfo);

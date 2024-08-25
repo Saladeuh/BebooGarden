@@ -28,8 +28,10 @@ public class Beboo
   }
   public Dsp VoiceDsp { get; }
   public int SwimLevel { get; set; } = 0;
+  public bool Racer { get; set; } = false;
   public Beboo(string name, float age, DateTime lastPlayed, int happiness = 3, float energy = 3, int swimLevel = 0, bool racer = false, float voicePitch = 1)
   {
+    Racer = racer;
     Position = new Vector3(0, 0, 0);
     Name = name == string.Empty ? "boby" : name;
     VoiceDsp = Game.SoundSystem.System.CreateDSPByType(FmodAudio.DigitalSignalProcessing.DSPType.PitchShift);

@@ -5,7 +5,7 @@ namespace BebooGarden;
 
 internal class Program
 {
-  private const string version = "1.9" +
+  private const string version = "1.10" +
     "" +
     ".0.0";
 
