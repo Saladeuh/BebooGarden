@@ -349,16 +349,22 @@ internal partial class Game : IGlobalActions
     foreach (Beboo beboo in Map?.Beboos)
     {
       string sentence;
-      if (beboo.Sleeping) sentence = "beboo.sleep";
-      else if (beboo.Energy < 0) sentence = "beboo.verytired";
-      else if (beboo.Happiness < 0) sentence = "beboo.verysad";
-      else if (beboo.Energy < 5) sentence = "beboo.littletired";
-      else sentence = beboo.Happiness < 4 ? "beboo.littlesad" : beboo.Energy < 8 ? "beboo.good" : "beboo.verygood";
       string name = beboo.Name;
-      SayLocalizedString(sentence, name);
+      if (beboo.Sleeping)
+      {
+        sentence = "beboo.sleep";
+      }
+      else
+      {
+        if (beboo.Happiness < 0) sentence = "beboo.verysad";
+        else if (beboo.Energy < 0) sentence = "beboo.verytired";
+        else if (beboo.Energy < 3) sentence = "beboo.littletired";
+        else sentence = beboo.Happiness < 3 ? "beboo.littlesad" : beboo.Energy < 8 ? "beboo.good" : "beboo.verygood";
+        SayLocalizedString(sentence, name);
 #if DEBUG
-      ScreenReader.Output(beboo.Age.ToString());
+        ScreenReader.Output(beboo.Age.ToString());
 #endif
+      }
     }
   }
 

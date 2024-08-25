@@ -391,6 +391,9 @@ public class Beboo
     FancyMoveBehaviour.MaxMS = 60000;
     CuteBehaviour.MinMS = 15000;
     CuteBehaviour.MaxMS = 25000;
+    MoveBehaviour.Restart();
+    FancyMoveBehaviour.Restart();
+    CuteBehaviour.Restart();
   }
 
   private void BeFloppy()
@@ -401,6 +404,9 @@ public class Beboo
     FancyMoveBehaviour.MaxMS = 70000;
     CuteBehaviour.MinMS = 15000;
     CuteBehaviour.MaxMS = 25000;
+    MoveBehaviour.Restart();
+    FancyMoveBehaviour.Restart();
+    CuteBehaviour.Restart();
   }
 
   private void BeOverexited()
@@ -411,6 +417,9 @@ public class Beboo
     FancyMoveBehaviour.MaxMS = 10000;
     CuteBehaviour.MinMS = 10000;
     CuteBehaviour.MaxMS = 20000;
+    MoveBehaviour.Restart();
+    FancyMoveBehaviour.Restart();
+    CuteBehaviour.Restart();
   }
   public void Pause()
   {
