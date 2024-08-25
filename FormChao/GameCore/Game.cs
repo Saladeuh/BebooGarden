@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Numerics;
+using System.Threading.Channels;
 using BebooGarden.GameCore.Item;
 using BebooGarden.GameCore.Item.MusicBox;
 using BebooGarden.GameCore.Pet;
@@ -423,8 +424,7 @@ internal partial class Game : IGlobalActions
     if (Map == null) return;
     Vector3 newPos = Map.Clamp(PlayerPosition + movement);
     if (newPos != PlayerPosition + movement) Game.SoundSystem.System.PlaySound(Game.SoundSystem.WallSound);
-    else SoundSystem.System.PlaySound(SoundSystem.CursorSound);
-
+    else SoundSystem.PlayCursorSound();
     PlayerPosition = newPos;
     SoundSystem.MovePlayerTo(newPos);
     if (Map.IsInLake(newPos) && Map.Preset != MapPreset.underwater) SayLocalizedString("water");

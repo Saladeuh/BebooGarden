@@ -395,7 +395,11 @@ internal class SoundSystem
   {
     System.PlaySound(WhistleSound);
   }
-
+  public void PlayCursorSound()
+  {
+    Channel channel= System.PlaySound(CursorSound);
+    channel.Volume += 0.2f;
+  }
   public void ShakeTrees()
   {
     System.PlaySound(TreesShakeSound);
