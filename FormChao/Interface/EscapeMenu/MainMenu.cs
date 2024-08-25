@@ -66,7 +66,6 @@ public class MainMenu : Form
     back.Enter += btn_enter;
     back.KeyDown += KeyHandle;
     Controls.Add(back);
-    Game.ResetKeyState();
   }
 
   private void Quit(object? sender, EventArgs e)

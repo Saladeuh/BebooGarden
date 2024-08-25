@@ -39,7 +39,6 @@ public class ChooseMenu<T> : Form
       back.KeyDown += KeyHandle;
       Controls.Add(back);
     }
-    Game.ResetKeyState();
   }
   // copy paste in MainMenu
   private void KeyHandle(object? sender, KeyEventArgs e)

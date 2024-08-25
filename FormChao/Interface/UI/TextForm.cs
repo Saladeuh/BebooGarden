@@ -19,7 +19,6 @@ public partial class TextForm : Form
     TextBox.TextChanged += TextBox_modified;
     TextBox.KeyDown += TextBox_keydown;
     Controls.Add(TextBox);
-    Game.ResetKeyState();
   }
 
   private TextBox TextBox { get; }

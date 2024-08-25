@@ -15,7 +15,7 @@ public class Egg(string color) : Item
   public override int Cost { get; set; } = 20;
   public override bool IsWaterProof { get; set; } = true;
   public override Channel? Channel { get; set; }
-  private string Color { get; set; } = color;
+  public string Color { get; } = color;
 
   public override void Action() => Hatch();
   public override void Take() => Hatch();

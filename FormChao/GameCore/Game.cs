@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using System.Numerics;
 using System.Threading.Channels;
+using System.Windows.Input;
 using BebooGarden.GameCore.Item;
 using BebooGarden.GameCore.Item.MusicBox;
 using BebooGarden.GameCore.Pet;
@@ -11,6 +12,7 @@ using BebooGarden.Interface.ScriptedScene;
 using BebooGarden.Interface.Shop;
 using BebooGarden.Minigame;
 using BebooGarden.Save;
+using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
 using Timer = System.Windows.Forms.Timer;
 
 
@@ -25,8 +27,6 @@ internal partial class Game : IGlobalActions
   static Game()
   {
     SoundSystem = new SoundSystem();
-    KeyState = [];
-    foreach (Keys key in Enum.GetValues(typeof(Keys))) KeyState[key] = false;
   }
 
   public Game(Form1 form)
@@ -96,7 +96,6 @@ internal partial class Game : IGlobalActions
 
 
   public static SoundSystem SoundSystem { get; }
-  public static Dictionary<Keys, bool> KeyState { get; private set; }
   private DateTime LastPressedKeyTime { get; set; }
   public static Vector3 PlayerPosition { get; private set; }
   public SortedDictionary<FruitSpecies, int>? FruitsBasket { get; set; }
@@ -158,7 +157,7 @@ internal partial class Game : IGlobalActions
         break;
       case Keys.Up:
       case Keys.Z:
-        if (KeyState[Keys.Enter])
+        if ((Keyboard.GetKeyStates(Key.Enter) & KeyStates.Down) > 0)
         {
           if (!_lastArrowWasUp)
           {
@@ -173,7 +172,7 @@ internal partial class Game : IGlobalActions
         break;
       case Keys.Down:
       case Keys.S:
-        if (KeyState[Keys.Enter])
+        if ((Keyboard.GetKeyStates(Key.Enter) & KeyStates.Down) > 0)
         {
           if (_lastArrowWasUp)
           {
@@ -239,8 +238,6 @@ internal partial class Game : IGlobalActions
         CheckGlobalActions(e.KeyCode);
         break;
     }
-
-    KeyState[e.KeyCode] = true;
   }
 
   private static void StartRace()
@@ -464,15 +461,6 @@ internal partial class Game : IGlobalActions
     else if (item != null) SayLocalizedString(item.Name);
   }
 
-  public static void KeyUpMapper(object? sender, KeyEventArgs e)
-  {
-    KeyState[e.KeyCode] = false;
-  }
-  public static void ResetKeyState()
-  {
-    KeyState = [];
-    foreach (Keys key in Enum.GetValues(typeof(Keys))) KeyState[key] = false;
-  }
 
   public static void Pause()
   {

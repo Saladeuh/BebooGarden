@@ -14,7 +14,6 @@ public interface IWindowManager
       talk.Show();
       talk.Activate();
     }
-    Game.ResetKeyState();
   }
 
   protected static void ShowTalk(string translateKey, bool blocking, params object[] args)
@@ -26,14 +25,12 @@ public interface IWindowManager
       talk.Show();
       talk.Activate();
     }
-    Game.ResetKeyState();
   }
 
   protected static string ShowTextBox(string title, int maxLength, bool nameFormat)
   {
     TextForm texbox = new(IGlobalActions.GetLocalizedString(title), maxLength, nameFormat);
     texbox.ShowDialog(Game.GameWindow);
-    Game.ResetKeyState();
     return texbox.Result;
   }
 
@@ -43,7 +40,6 @@ public interface IWindowManager
         new KeyValuePair<string, string>(IGlobalActions.GetLocalizedString(value), value)));
     ChooseMenu<string> choiceMenu = new(title, localizedChoices, back);
     choiceMenu.ShowDialog(Game.GameWindow);
-    Game.ResetKeyState();
     return choiceMenu.Result;
   }
 
@@ -51,7 +47,6 @@ public interface IWindowManager
   {
     ChooseMenu<T> choiceMenu = new(IGlobalActions.GetLocalizedString(title), choices);
     choiceMenu.ShowDialog(Game.GameWindow);
-    Game.ResetKeyState();
     return choiceMenu.Result;
   }
 }
