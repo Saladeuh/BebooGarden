@@ -147,7 +147,7 @@ public class Beboo
           await Task.Delay(1000);
           BeHappy();
         });
-      if (value >= 8) BeOverexited();
+      if (value >= 9) BeOverexited();
       else if (value <= 0) BeFloppy();
       else BeNormal();
       _hapiness = value;
@@ -214,7 +214,7 @@ public class Beboo
     if (Game.Map?.IsInLake(Position) ?? false)
     {
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooStepWaterSound, this, false);
-      if (SwimLevel < 1) StartPanik();
+      if (SwimLevel <= 1) StartPanik();
       else if (SwimLevel < 10 && Game.Random.Next(SwimLevel) == 1) StartPanik();
     }
     else if (Game.Map?.Preset == MapPreset.snowy)
