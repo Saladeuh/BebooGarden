@@ -90,11 +90,12 @@ internal class Race : IWindowManager
       }
       TotalWin++;
       MainBeboo.Happiness += 2;
+      MainBeboo.Energy -= 2;
     }
     else
     {
       MainBeboo.Happiness--;
-      MainBeboo.Energy--;
+      MainBeboo.Energy -= 2;
     }
   }
   (int, double) first = (-1, 0), second = (-1, 0), third = (-1, 0);
