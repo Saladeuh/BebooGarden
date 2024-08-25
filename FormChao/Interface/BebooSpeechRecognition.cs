@@ -8,26 +8,29 @@ public class BebooSpeechRecognition
   public BebooSpeechRecognition(string bebooName)
   {
     BebooName = bebooName;
-    if (SpeechRecognitionEngine.InstalledRecognizers().Count > 0)
+    try
     {
-      SpeechRecognitionEngine recognizer;
-      GrammarBuilder builder = new();
-      recognizer = new(SpeechRecognitionEngine.InstalledRecognizers()[0].Culture);
-      builder.Culture = SpeechRecognitionEngine.InstalledRecognizers()[0].Culture;
-      recognizer.SetInputToDefaultAudioDevice();
-      Choices choices = new();
-      choices.Add(bebooName);
-      builder.Append(choices);
-      Grammar grammar = new(builder);
-      recognizer.LoadGrammar(grammar);
+      if (SpeechRecognitionEngine.InstalledRecognizers()!=null && SpeechRecognitionEngine.InstalledRecognizers().Count > 0)
+      {
+        SpeechRecognitionEngine recognizer;
+        GrammarBuilder builder = new();
+        recognizer = new(SpeechRecognitionEngine.InstalledRecognizers()[0].Culture);
+        builder.Culture = SpeechRecognitionEngine.InstalledRecognizers()[0].Culture;
+        recognizer.SetInputToDefaultAudioDevice();
+        Choices choices = new();
+        choices.Add(bebooName);
+        builder.Append(choices);
+        Grammar grammar = new(builder);
+        recognizer.LoadGrammar(grammar);
 
-      recognizer.SpeechRecognized += SpeechRecognized;
+        recognizer.SpeechRecognized += SpeechRecognized;
 
-      // Démarrer la reconnaissance vocale
-      recognizer.RecognizeAsync(RecognizeMode.Multiple);
+        // Démarrer la reconnaissance vocale
+        recognizer.RecognizeAsync(RecognizeMode.Multiple);
+      }
     }
+    catch { }
   }
-
   private string BebooName { get; }
   public event EventHandler BebooCalled;
 
