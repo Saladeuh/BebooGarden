@@ -13,6 +13,7 @@ internal partial class Game
     foreach (Pet.Beboo beboo in Map?.Beboos)
     {
       if (Map.IsLullabyPlaying) beboo.GoAsleep();
+      if (Map.Preset != MapPreset.basicrace && Map.Preset != MapPreset.snowyrace && beboo.Racer) beboo.Pause();
       if (beboo.Age >= 2 && !Flags.VoiceRecoPopupPrinted)
       {
         Flags.VoiceRecoPopupPrinted = true;
