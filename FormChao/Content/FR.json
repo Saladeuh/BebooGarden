@@ -89,6 +89,7 @@
     "shop.rolls": "Rouleaux de boîte à musique ({0} tickets restants)", //0=tickets remaining number
     "shop.roll": "{0} : {1}, {2} tickets", // 0=item name, 2=description 2=cost
     "shop.rollstitle": "Rouleaux de boîte à musique",
+    "shop.alreadyroll": "vous possédez déjà ce rouleau.",
     "shop.title": "Bienvenue dans la boutique! ({0} tickets restants)", //0=tickets remaining number    
     "shop.buy": "{0} acheté",
     "inventory.item": "{0} (×{1})", //0=item name 1=count of item

@@ -72,7 +72,7 @@ internal class MusicBox : Item
       foreach (string rollName in AvailableRolls)
       {
         Roll? roll = Array.Find(AllRolls, roll => roll.Title + roll.Source == rollName);
-        if (roll != null) rollDictionary.Add(roll.Title, roll);
+        if (roll != null && !rollDictionary.ContainsKey(roll.Title)) rollDictionary.Add(roll.Title, roll);
       }
 
       Roll? choosedRoll =

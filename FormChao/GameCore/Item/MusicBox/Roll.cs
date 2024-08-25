@@ -53,17 +53,25 @@ internal class Roll(
   }
   public override void Buy()
   {
-    if (Game.Tickets - Cost >= 0)
+    if (!MusicBox.AvailableRolls.Contains(Title + Source))
     {
-      Game.Tickets -= Cost;
-      Game.SoundSystem.System.PlaySound(Game.SoundSystem.ShopSound);
-      IGlobalActions.SayLocalizedString("shop.buy", Name);
-      MusicBox.AvailableRolls.Add(Title + Source);
+      if (Game.Tickets - Cost >= 0)
+      {
+        Game.Tickets -= Cost;
+        Game.SoundSystem.System.PlaySound(Game.SoundSystem.ShopSound);
+        IGlobalActions.SayLocalizedString("shop.buy", Name);
+        MusicBox.AvailableRolls.Add(Title + Source);
+      }
+      else
+      {
+        Game.SoundSystem.System.PlaySound(Game.SoundSystem.WarningSound);
+        IGlobalActions.SayLocalizedString("shop.notickets");
+      }
     }
     else
     {
       Game.SoundSystem.System.PlaySound(Game.SoundSystem.WarningSound);
-      IGlobalActions.SayLocalizedString("shop.notickets");
+      IGlobalActions.SayLocalizedString("shop.alreadyroll");
     }
   }
   public override void Action() => Take();
