@@ -398,7 +398,7 @@ internal class SoundSystem
   public void PlayCursorSound()
   {
     Channel channel= System.PlaySound(CursorSound);
-    channel.Volume += 0.2f;
+    channel.Volume += 1f;
   }
   public void ShakeTrees()
   {
