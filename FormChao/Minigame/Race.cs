@@ -50,6 +50,7 @@ internal class Race : IWindowManager
     MainBeboo.Unpause();
     Vector3 startPos = new(-Length / 2, 0, 0);
     MainBeboo.Position = startPos;
+    MainBeboo.GoalPosition =startPos;
     Game.Map?.Beboos.Add(new Beboo("bob", 1, DateTime.Now, Game.Random.Next(6), 3, Game.Random.Next(8), true, 1.3f));
     Game.Map.Beboos[1].Position = startPos + new Vector3(0, 2, 0);
     Game.Map?.Beboos.Add(new Beboo("boby", 1, DateTime.Now, Game.Random.Next(6), 3, Game.Random.Next(8), true, 1.2f));

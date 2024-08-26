@@ -397,7 +397,7 @@ internal class SoundSystem
   }
   public void PlayCursorSound()
   {
-    Channel channel= System.PlaySound(CursorSound);
+    Channel channel = System.PlaySound(CursorSound);
     channel.Volume += 1f;
   }
   public void ShakeTrees()
@@ -434,8 +434,11 @@ internal class SoundSystem
 
   public void Pause(Map map)
   {
-    foreach (Channel channel in map.TreesChannels) channel.Paused = true;
-    foreach (Channel channel in map.WaterChannels) channel.Paused = true;
+    map.Paused = true;
+    foreach (Channel channel in map.TreesChannels)
+      if (channel.IsPlaying) channel.Paused = true;
+    foreach (Channel channel in map.WaterChannels)
+      if (channel.IsPlaying) channel.Paused = true;
     foreach (GameCore.Item.Item item in map.Items) item.Pause();
     try { if (map != null && map.BackgroundChannel != null) map.BackgroundChannel.Paused = true; } catch { }
     foreach (Beboo beboo in map.Beboos) beboo.Pause();
@@ -444,6 +447,7 @@ internal class SoundSystem
 
   public void Unpause(Map map)
   {
+    map.Paused = false;
     System.SetReverbProperties(1, Preset.Off);
     try
     {
@@ -526,7 +530,7 @@ internal class SoundSystem
     }
     else PlaySadMusic();
   }
-  internal void MusicFadeOut(int seconds=2)
+  internal void MusicFadeOut(int seconds = 2)
   {
     if (Music != null)
     {

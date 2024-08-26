@@ -77,6 +77,7 @@ internal partial class Game : IGlobalActions
           }
         }
         catch (KeyNotFoundException _) { }
+        if (map != Map) SoundSystem.Pause(map);
       }
     }
     else
@@ -541,6 +542,8 @@ internal partial class Game : IGlobalActions
     if (backup) _backedMap = Map;
     Map = map;
     SoundSystem.LoadMap(map);
+    foreach (var otherMap in Map.Maps.Values)
+      if (otherMap != map) SoundSystem.Pause(otherMap);
   }
   internal static void LoadBackedMap()
   {
