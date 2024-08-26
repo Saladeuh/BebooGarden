@@ -32,7 +32,6 @@ internal partial class Game : IGlobalActions
 
   public Game(Form1 form)
   {
-    ScreenReader.Output(InputLanguage.CurrentInputLanguage.Culture.TwoLetterISOLanguageName);
     GameWindow = form;
     Parameters = SaveManager.LoadSave();
     Flags = Parameters.Flags;
@@ -42,10 +41,10 @@ internal partial class Game : IGlobalActions
     Flags.UnlockEggInShop = Flags.UnlockUnderwaterMap || Flags.UnlockSnowyMap || Flags.UnlockEggInShop;
     try
     {
-      if (Parameters.CurrentMap != MapPreset.basicrace && Parameters.CurrentMap != MapPreset.snowyrace)
+      //if (Parameters.CurrentMap != MapPreset.basicrace && Parameters.CurrentMap != MapPreset.snowyrace)
         Map = Map.Maps[Parameters.CurrentMap];
-      else
-        Map = Map.Maps[MapPreset.garden];
+      //else
+        //Map = Map.Maps[MapPreset.garden];
     }
     catch (Exception) { Map = Map.Maps[MapPreset.garden]; }
     MusicBox.AvailableRolls = Parameters.UnlockedRolls ?? [];
