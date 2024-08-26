@@ -149,7 +149,7 @@ internal partial class Game : IGlobalActions
 
   public void KeyDownMapper(object sender, KeyEventArgs e)
   {
-    if ((DateTime.Now - LastPressedKeyTime).TotalMilliseconds < 150) return;
+    if (Race.IsARaceRunning || (DateTime.Now - LastPressedKeyTime).TotalMilliseconds < 150) return;
     LastPressedKeyTime = DateTime.Now;
     Item.Item? itemUnderCursor = Map?.GetItemArroundPosition(PlayerPosition);
     Map?.IsInLake(PlayerPosition);
@@ -213,12 +213,12 @@ internal partial class Game : IGlobalActions
     else if (key == Keys.Enter)
     {
       if (itemUnderCursor != null && itemUnderCursor.IsTakable) itemUnderCursor.Take();
-      else if (Flags.UnlockShop && (Map?.IsArroundShop(PlayerPosition) ?? false)) new Shop().Show();
-      else if (Flags.UnlockSnowyMap && (Map?.IsArroundMapPath(PlayerPosition) ?? false))
+      else if (!Race.IsARaceRunning && Flags.UnlockShop && (Map?.IsArroundShop(PlayerPosition) ?? false)) new Shop().Show();
+      else if (!Race.IsARaceRunning && Flags.UnlockSnowyMap && (Map?.IsArroundMapPath(PlayerPosition) ?? false))
         TravelBetwieen(MapPreset.garden, MapPreset.snowy);
-      else if (Flags.UnlockUnderwaterMap && (Map?.IsArroundMapUnderWater(PlayerPosition) ?? false))
+      else if (!Race.IsARaceRunning && Flags.UnlockUnderwaterMap && (Map?.IsArroundMapUnderWater(PlayerPosition) ?? false))
         TravelBetwieen(MapPreset.garden, MapPreset.underwater);
-      else if (Map?.Beboos.Count > 0 && (Map?.IsArroundRaceGate(PlayerPosition) ?? false))
+      else if (!Race.IsARaceRunning && Map?.Beboos.Count > 0 && (Map?.IsArroundRaceGate(PlayerPosition) ?? false))
         StartRace();
     }
     else if (key == Keys.Escape)
