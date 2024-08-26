@@ -2,6 +2,7 @@
 using System.Numerics;
 using System.Threading.Channels;
 using System.Windows.Input;
+using System.Windows.Interop;
 using BebooGarden.GameCore.Item;
 using BebooGarden.GameCore.Item.MusicBox;
 using BebooGarden.GameCore.Pet;
@@ -31,6 +32,7 @@ internal partial class Game : IGlobalActions
 
   public Game(Form1 form)
   {
+    ScreenReader.Output(InputLanguage.CurrentInputLanguage.Culture.TwoLetterISOLanguageName);
     GameWindow = form;
     Parameters = SaveManager.LoadSave();
     Flags = Parameters.Flags;
@@ -38,7 +40,14 @@ internal partial class Game : IGlobalActions
     Race.TotalWin = Parameters.RaceTotalWin;
     Race.TodayTries = Parameters.LastPlayed.Day == DateTime.Now.Day ? Parameters.RaceTodayTries : 0;
     Flags.UnlockEggInShop = Flags.UnlockUnderwaterMap || Flags.UnlockSnowyMap || Flags.UnlockEggInShop;
-    try { Map = Map.Maps[Parameters.CurrentMap]; } catch (Exception) { Map = Map.Maps[MapPreset.garden]; }
+    try
+    {
+      if (Parameters.CurrentMap != MapPreset.basicrace && Parameters.CurrentMap != MapPreset.snowyrace)
+        Map = Map.Maps[Parameters.CurrentMap];
+      else
+        Map = Map.Maps[MapPreset.garden];
+    }
+    catch (Exception) { Map = Map.Maps[MapPreset.garden]; }
     MusicBox.AvailableRolls = Parameters.UnlockedRolls ?? [];
     SoundSystem.Volume = Parameters.Volume;
     SoundSystem.LoadMainScreen();
@@ -145,98 +154,108 @@ internal partial class Game : IGlobalActions
     LastPressedKeyTime = DateTime.Now;
     Item.Item? itemUnderCursor = Map?.GetItemArroundPosition(PlayerPosition);
     Map?.IsInLake(PlayerPosition);
-    switch (e.KeyCode)
+    Keys key = e.KeyCode;
+    if (key is Keys.Left
+      || WASD && key is Keys.A
+      || !WASD && key is Keys.Q)
     {
-      case Keys.Left:
-      case Keys.Q:
-        MoveOf(new Vector3(-1, 0, 0));
-        break;
-      case Keys.Right:
-      case Keys.D:
-        MoveOf(new Vector3(1, 0, 0));
-        break;
-      case Keys.Up:
-      case Keys.Z:
-        if ((Keyboard.GetKeyStates(Key.Enter) & KeyStates.Down) > 0)
+      MoveOf(new Vector3(-1, 0, 0));
+    }
+    else if (key is Keys.Right or Keys.D)
+    {
+      MoveOf(new Vector3(1, 0, 0));
+    }
+    else if (key is Keys.Up 
+      || WASD && key is Keys.W
+      ||!WASD && key is Keys.Z)
+    {
+      if ((Keyboard.GetKeyStates(Key.Enter) & KeyStates.Down) > 0)
+      {
+        if (!_lastArrowWasUp)
         {
-          if (!_lastArrowWasUp)
-          {
-            ShakeOrPetAtPlayerPosition();
-            _lastArrowWasUp = true;
-          }
+          ShakeOrPetAtPlayerPosition();
+          _lastArrowWasUp = true;
+        }
+      }
+      else
+      {
+        MoveOf(new Vector3(0, 1, 0));
+      }
+    }
+    else if (key is Keys.Down
+      || WASD && key is Keys.S
+      ||!WASD && key is Keys.S)
+    {
+      if ((Keyboard.GetKeyStates(Key.Enter) & KeyStates.Down) > 0)
+      {
+        if (_lastArrowWasUp)
+        {
+          ShakeOrPetAtPlayerPosition();
+          _lastArrowWasUp = false;
+        }
+      }
+      else
+      {
+        MoveOf(new Vector3(0, -1, 0));
+      }
+    }
+    else if (key == Keys.F)
+    {
+      SayBebooState();
+    }
+    else if (key == Keys.G)
+    {
+      SayBasketState();
+    }
+    else if (key == Keys.T)
+    {
+      SayTickets();
+    }
+    else if (key == Keys.Enter)
+    {
+      if (itemUnderCursor != null && itemUnderCursor.IsTakable) itemUnderCursor.Take();
+      else if (Flags.UnlockShop && (Map?.IsArroundShop(PlayerPosition) ?? false)) new Shop().Show();
+      else if (Flags.UnlockSnowyMap && (Map?.IsArroundMapPath(PlayerPosition) ?? false))
+        TravelBetwieen(MapPreset.garden, MapPreset.snowy);
+      else if (Flags.UnlockUnderwaterMap && (Map?.IsArroundMapUnderWater(PlayerPosition) ?? false))
+        TravelBetwieen(MapPreset.garden, MapPreset.underwater);
+      else if (Map?.Beboos.Count > 0 && (Map?.IsArroundRaceGate(PlayerPosition) ?? false))
+        StartRace();
+    }
+    else if (key == Keys.Escape)
+    {
+      new EscapeMenu().Show();
+    }
+    else if (key == Keys.Space)
+    {
+      if (ItemInHand != null)
+      {
+        TryPutItemInHand();
+      }
+      else
+      {
+        Beboo? bebooUnderCursor = BebooUnderCursor();
+        if (bebooUnderCursor != null)
+        {
+          if (bebooUnderCursor.Sleeping) Whistle();
+          else FeedBeboo();
+        }
+        else if (Map?.GetTreeLineAtPosition(PlayerPosition) != null)
+        {
+        }
+        else if (itemUnderCursor != null)
+        {
+          itemUnderCursor.Action();
         }
         else
         {
-          MoveOf(new Vector3(0, 1, 0));
+          Whistle();
         }
-        break;
-      case Keys.Down:
-      case Keys.S:
-        if ((Keyboard.GetKeyStates(Key.Enter) & KeyStates.Down) > 0)
-        {
-          if (_lastArrowWasUp)
-          {
-            ShakeOrPetAtPlayerPosition();
-            _lastArrowWasUp = false;
-          }
-        }
-        else
-        {
-          MoveOf(new Vector3(0, -1, 0));
-        }
-
-        break;
-      case Keys.F:
-        SayBebooState();
-        break;
-      case Keys.G:
-        SayBasketState();
-        break;
-      case Keys.T:
-        SayTickets();
-        break;
-      case Keys.Enter:
-        if (itemUnderCursor != null && itemUnderCursor.IsTakable) itemUnderCursor.Take();
-        else if (Flags.UnlockShop && (Map?.IsArroundShop(PlayerPosition) ?? false)) new Shop().Show();
-        else if (Flags.UnlockSnowyMap && (Map?.IsArroundMapPath(PlayerPosition) ?? false))
-          TravelBetwieen(MapPreset.garden, MapPreset.snowy);
-        else if (Flags.UnlockUnderwaterMap && (Map?.IsArroundMapUnderWater(PlayerPosition) ?? false))
-          TravelBetwieen(MapPreset.garden, MapPreset.underwater);
-        else if (Map?.Beboos.Count > 0 && (Map?.IsArroundRaceGate(PlayerPosition) ?? false))
-          StartRace();
-        break;
-      case Keys.Escape:
-        new EscapeMenu().Show();
-        break;
-      case Keys.Space:
-        if (ItemInHand != null)
-        {
-          TryPutItemInHand();
-        }
-        else
-        {
-          Beboo? bebooUnderCursor = BebooUnderCursor();
-          if (bebooUnderCursor != null)
-          {
-            if (bebooUnderCursor.Sleeping) Whistle();
-            else FeedBeboo();
-          }
-          else if (Map?.GetTreeLineAtPosition(PlayerPosition) != null)
-          {
-          }
-          else if (itemUnderCursor != null)
-          {
-            itemUnderCursor.Action();
-          }
-          else
-          {
-            Whistle();
-          }
-        }
-        break;
-      default:
-        CheckGlobalActions(e.KeyCode);
-        break;
+      }
+    }
+    else
+    {
+      CheckGlobalActions(key);
     }
   }
 

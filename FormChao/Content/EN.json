@@ -91,6 +91,7 @@
     "shop.roll": "{0} : {1}, {2} tickets", // 0=item name, 2=description 2=cost
     "shop.rollstitle": "Music Box rolls",
     "shop.alreadyroll": "You already have this roll",
+    "shop.notickets": "You don't have enough tickets",
     "shop.title": "Welcome to the boutique! ({0} remainsing tickets)", //0=tickets remaining number    
     "inventory.item": "{0} (×{1})", //0=item name 1=count of item
     "tp": "Find an item",
