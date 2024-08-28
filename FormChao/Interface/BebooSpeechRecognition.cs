@@ -8,14 +8,15 @@ public class BebooSpeechRecognition
   public BebooSpeechRecognition(string bebooName)
   {
     BebooName = bebooName;
-    try
-    {
-      if (SpeechRecognitionEngine.InstalledRecognizers()!=null && SpeechRecognitionEngine.InstalledRecognizers().Count > 0)
+    //try
+    //{
+    var recognizerInfos = SpeechRecognitionEngine.InstalledRecognizers();
+    if (recognizerInfos != null && recognizerInfos.Count > 0)
       {
         SpeechRecognitionEngine recognizer;
         GrammarBuilder builder = new();
-        recognizer = new(SpeechRecognitionEngine.InstalledRecognizers()[0].Culture);
-        builder.Culture = SpeechRecognitionEngine.InstalledRecognizers()[0].Culture;
+        recognizer = new(recognizerInfos[0].Culture);
+        builder.Culture = recognizerInfos[0].Culture;
         recognizer.SetInputToDefaultAudioDevice();
         Choices choices = new();
         choices.Add(bebooName);
@@ -28,8 +29,7 @@ public class BebooSpeechRecognition
         // Démarrer la reconnaissance vocale
         recognizer.RecognizeAsync(RecognizeMode.Multiple);
       }
-    }
-    catch { }
+    //} catch { }
   }
   private string BebooName { get; }
   public event EventHandler BebooCalled;

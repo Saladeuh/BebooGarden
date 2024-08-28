@@ -1,4 +1,7 @@
 ﻿using System.Timers;
+using BebooGarden.GameCore.Pet;
+using BebooGarden.GameCore.World;
+using BebooGarden.Minigame;
 using Timer = System.Timers.Timer;
 
 namespace BebooGarden.GameCore;
@@ -28,7 +31,13 @@ public class TimedBehaviour<T>
   {
     try
     {
-      Action(ActionParameter);
+      if (ActionParameter is Beboo)
+      {
+       var  beboo = ActionParameter as Beboo;
+       if(beboo.Racer && Race.IsARaceRunning) Action(ActionParameter);
+       else if(!beboo.Racer) Action(ActionParameter);
+      }
+      else Action(ActionParameter);
       ActionTimer.Dispose();
       int ms = MinMS != MaxMS ? Game.Random.Next(MinMS, MaxMS) : MinMS;
       ActionTimer = new Timer(ms);
