@@ -175,10 +175,11 @@ public class Beboo
   private TimedBehaviour<Beboo> SadBehaviour { get; }
   private TimedBehaviour<Beboo> SleepingBehaviour { get; }
   public TimedBehaviour<Beboo> GrowthBehaviour { get; }
-  private BebooSpeechRecognition SpeechRecognizer { get; }
+  public BebooSpeechRecognition SpeechRecognizer { get; }
   public bool KnowItsName { get; internal set; }
   public int MaxEnergy { get; private set; } = 10;
   public int MaxHappinness { get; private set; } = 10;
+  public bool Paused { get; private set; }
 
   private void BurstInTearrs()
   {
@@ -423,6 +424,7 @@ public class Beboo
   }
   public void Pause()
   {
+    Paused = true;
     CuteBehaviour.Stop();
     MoveBehaviour.Stop();
     GoingDepressedBehaviour.Stop();
@@ -432,6 +434,7 @@ public class Beboo
   }
   public void Unpause()
   {
+    Paused=false;
     if (Sleeping) SleepingBehaviour.Start();
     else
     {
@@ -444,7 +447,7 @@ public class Beboo
   }
   public void Call(object? sender, EventArgs eventArgs)
   {
-    if (Sleeping || !KnowItsName) return;
+    if (Paused || Sleeping || !KnowItsName) return;
     Task.Run(async () =>
     {
       await Task.Delay(1000);

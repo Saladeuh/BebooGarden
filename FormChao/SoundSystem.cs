@@ -51,6 +51,7 @@ internal class SoundSystem
   public List<Sound> BebooYawningSounds { get; private set; }
   public List<Sound> BebooChewSounds { get; private set; }
   public Sound WhistleSound { get; set; }
+  public Sound Whistle2Sound { get; private set; }
   public Sound CursorSound { get; private set; }
   public Sound TreesShakeSound { get; private set; }
   public Sound WallSound { get; private set; }
@@ -163,6 +164,7 @@ internal class SoundSystem
     BebooFunSounds = new List<Sound>();
     LoadSoundsInList(["rir.wav", "rir2.wav"], BebooFunSounds, "sounds/beboo/");
     WhistleSound = System.CreateSound(CONTENTFOLDER + "sounds/character/se_sys_whistle_1p.wav", Mode.Unique);
+    Whistle2Sound = System.CreateSound(CONTENTFOLDER + "sounds/character/se_sys_whistle_2p.wav", Mode.Unique);
     CursorSound = System.CreateSound(CONTENTFOLDER + "sounds/character/cursor.wav", Mode.Unique);
     TreesShakeSound = System.CreateSound(CONTENTFOLDER + "sounds/character/Tree_Shake.wav");
     FruitsSounds = new SortedDictionary<FruitSpecies, Sound>
@@ -391,9 +393,10 @@ internal class SoundSystem
     return channel;
   }
 
-  public void Whistle()
+  public void Whistle(bool alternate=false)
   {
-    System.PlaySound(WhistleSound);
+   if(alternate) System.PlaySound(Whistle2Sound);
+      else System.PlaySound(WhistleSound);
   }
   public void PlayCursorSound()
   {

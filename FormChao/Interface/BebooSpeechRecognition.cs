@@ -39,6 +39,7 @@ public class BebooSpeechRecognition
   private void SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
   {
     var name = Beboo.Name.ToLower();
+    /*
     foreach (var alt in e.Result.Alternates)
     {
       if (alt != null && alt.Text.ToLower().Contains(name))
@@ -47,6 +48,7 @@ public class BebooSpeechRecognition
         return;
       }
     }
+    */
     if (e.Result.Text.ToLower().Contains(name)) BebooCalled.Invoke(this, new EventArgs());
   }
 }
