@@ -44,8 +44,8 @@
     "beboo.verygood": "{0} is doing very well",
     //0=beboo name
     "musicbox.name": "Music box",
-    "musicbox.description": "An old object that can play music when putting a cd in it",
-    "musicbox.noroll": "You don't have any cd to put in it yet",
+    "musicbox.description": "An old object that can play music when putting a roll in it",
+    "musicbox.noroll": "You don't have any roll to put in it yet",
     "duck.name": "Rubber duck",
     "duck.description": "It's just a duck",
     "boots.name": "Bouncing Boots",
@@ -87,10 +87,10 @@
     "shop.items": "Items ({0} remaining tickets)", //0=tickets remaining number
     "shop.itemstitle": "Items",
     "shop.buy": "{0} bought",
-    "shop.rolls": "Music box cd's ({0} remaining tickets)", //0=tickets remaining number
+    "shop.rolls": "Music box roll's ({0} remaining tickets)", //0=tickets remaining number
     "shop.roll": "{0} : {1}, {2} tickets", // 0=item name, 2=description 2=cost
-    "shop.rollstitle": "Music Box cd's",
-    "shop.alreadyroll": "You already have this cd",
+    "shop.rollstitle": "Music Box roll's",
+    "shop.alreadyroll": "You already have this roll",
     "shop.notickets": "You don't have enough tickets",
     "shop.title": "Welcome to the boutique! ({0} remaining tickets)", //0=tickets remaining number    
     "inventory.item": "{0} (×{1})", //0=item name 1=count of item
