@@ -316,16 +316,23 @@ public class Beboo
   public void GoAsleep()
   {
     if (Sleeping) return;
-    IGlobalActions.SayLocalizedString("beboo.gosleep", Name);
-    GoingTiredBehaviour.Stop();
-    MoveBehaviour.Stop();
-    FancyMoveBehaviour.Stop();
-    CuteBehaviour.Stop();
-    GoingDepressedBehaviour.Stop();
-    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.GrassSound, this);
-    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooYawningSounds, this);
-    Sleeping = true;
-    SleepingBehaviour.Start();
+    if (SwimLevel>=10 || Game.Map.Preset==MapPreset.underwater || (Game.Map != null && !Game.Map.IsInLake(Position)))
+    {
+      IGlobalActions.SayLocalizedString("beboo.gosleep", Name);
+      GoingTiredBehaviour.Stop();
+      MoveBehaviour.Stop();
+      FancyMoveBehaviour.Stop();
+      CuteBehaviour.Stop();
+      GoingDepressedBehaviour.Stop();
+      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.GrassSound, this);
+      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooYawningSounds, this);
+      Sleeping = true;
+      SleepingBehaviour.Start();
+    }
+    else
+    {
+      GoalPosition = new(0, 0, 0);
+    }
   }
 
   public void WakeUp()
