@@ -90,10 +90,10 @@ internal partial class Game
     {
       if (Map != null && keyInt<=Map.Beboos.Count)
       {
-        SoundSystem.Whistle(true);
         var sortedBeboos = new List<Beboo>(Map.Beboos);
         sortedBeboos.Sort(delegate(Beboo x, Beboo y) { return x.Age.CompareTo(y.Age); });
         var beboo = Map.Beboos[keyInt - 1];
+        SoundSystem.Whistle(true, beboo.VoicePitch);
         ScreenReader.Output(beboo.Name);
         beboo.Call(sender, e);
       }

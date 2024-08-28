@@ -393,10 +393,12 @@ internal class SoundSystem
     return channel;
   }
 
-  public void Whistle(bool alternate=false)
+  public void Whistle(bool alternate = false, float pitch = 1)
   {
-   if(alternate) System.PlaySound(Whistle2Sound);
-      else System.PlaySound(WhistleSound);
+    Channel channel;
+    if (alternate) channel= System.PlaySound(Whistle2Sound);
+    else channel= System.PlaySound(WhistleSound);
+    channel.Pitch = pitch;
   }
   public void PlayCursorSound()
   {
