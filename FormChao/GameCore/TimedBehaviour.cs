@@ -33,9 +33,9 @@ public class TimedBehaviour<T>
     {
       if (ActionParameter is Beboo)
       {
-       var  beboo = ActionParameter as Beboo;
-       if(beboo.Racer && Race.IsARaceRunning) Action(ActionParameter);
-       else if(!beboo.Racer) Action(ActionParameter);
+        var beboo = ActionParameter as Beboo;
+        if (beboo.Racer && Race.IsARaceRunning) Action(ActionParameter);
+        else if (!beboo.Racer) Action(ActionParameter);
       }
       else Action(ActionParameter);
       ActionTimer.Dispose();

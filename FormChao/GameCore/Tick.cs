@@ -18,6 +18,7 @@ internal partial class Game
       {
         Flags.VoiceRecoPopupPrinted = true;
         UnlockVoiceRecognition.Run(beboo.Name);
+        beboo.KnowItsName = true;
       }
       else if (beboo.Age >= 3 && !Flags.UnlockSnowyMap)
       {

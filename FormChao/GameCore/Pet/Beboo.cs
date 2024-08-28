@@ -86,8 +86,8 @@ public class Beboo
     }
     Energy = elapsedTime.TotalHours > 8 ? 3 : 10;
     Energy = elapsedTime.TotalDays > 2 ? 1 : 5;
-    SpeechRecognizer = new BebooSpeechRecognition(name);
-    SpeechRecognizer.BebooCalled += Game.Call;
+    SpeechRecognizer = new BebooSpeechRecognition(this);
+    SpeechRecognizer.BebooCalled += Call;
   }
 
   public string Name { get; }
@@ -441,5 +441,15 @@ public class Beboo
     }
     GoingDepressedBehaviour.Start();
     GrowthBehaviour.Start();
+  }
+  public void Call(object? sender, EventArgs eventArgs)
+  {
+    if (Sleeping || !KnowItsName) return;
+    Task.Run(async () =>
+    {
+      await Task.Delay(1000);
+      WakeUp();
+    });
+    GoalPosition = Game.PlayerPosition;
   }
 }

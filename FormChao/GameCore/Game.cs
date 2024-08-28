@@ -41,10 +41,10 @@ internal partial class Game : IGlobalActions
     Flags.UnlockEggInShop = Flags.UnlockUnderwaterMap || Flags.UnlockSnowyMap || Flags.UnlockEggInShop;
     try
     {
-      //if (Parameters.CurrentMap != MapPreset.basicrace && Parameters.CurrentMap != MapPreset.snowyrace)
+      if (Parameters.CurrentMap != MapPreset.basicrace && Parameters.CurrentMap != MapPreset.snowyrace)
         Map = Map.Maps[Parameters.CurrentMap];
-      //else
-        //Map = Map.Maps[MapPreset.garden];
+      else
+        Map = Map.Maps[MapPreset.garden];
     }
     catch (Exception) { Map = Map.Maps[MapPreset.garden]; }
     MusicBox.AvailableRolls = Parameters.UnlockedRolls ?? [];
@@ -70,7 +70,10 @@ internal partial class Game : IGlobalActions
           {
             if (bebooInfo.Name != "bob" && bebooInfo.Name != "boby")
             {
-              Beboo beboo = new(bebooInfo.Name, bebooInfo.Age, Parameters.LastPlayed, bebooInfo.Happiness, bebooInfo.Energy, bebooInfo.SwimLevel, false, bebooInfo.Voice);
+              Beboo beboo = new(bebooInfo.Name, bebooInfo.Age, Parameters.LastPlayed, bebooInfo.Happiness, bebooInfo.Energy, bebooInfo.SwimLevel, false, bebooInfo.Voice)
+              {
+                KnowItsName = bebooInfo.KnowItsName || bebooInfo.Age >= 2
+              };
               map.Beboos.Add(beboo);
               if (map != Map) beboo.Pause();
             }
@@ -133,21 +136,6 @@ internal partial class Game : IGlobalActions
       }
     }
   }
-  public static void Call(object? sender, EventArgs eventArgs)
-  {
-    SoundSystem.System.Get3DListenerAttributes(0, out Vector3 currentPosition, out _, out _, out _);
-    foreach (Beboo beboo in Map.Beboos)
-    {
-      if (beboo.Sleeping || !beboo.KnowItsName) continue;
-      Task.Run(async () =>
-      {
-        await Task.Delay(1000);
-        beboo.WakeUp();
-      });
-      beboo.GoalPosition = currentPosition;
-    }
-  }
-
   public void KeyDownMapper(object sender, KeyEventArgs e)
   {
     if (Race.IsARaceRunning || (DateTime.Now - LastPressedKeyTime).TotalMilliseconds < 150) return;
@@ -165,9 +153,9 @@ internal partial class Game : IGlobalActions
     {
       MoveOf(new Vector3(1, 0, 0));
     }
-    else if (key is Keys.Up 
+    else if (key is Keys.Up
       || WASD && key is Keys.W
-      ||!WASD && key is Keys.Z)
+      || !WASD && key is Keys.Z)
     {
       if ((Keyboard.GetKeyStates(Key.Enter) & KeyStates.Down) > 0)
       {
@@ -184,7 +172,7 @@ internal partial class Game : IGlobalActions
     }
     else if (key is Keys.Down
       || WASD && key is Keys.S
-      ||!WASD && key is Keys.S)
+      || !WASD && key is Keys.S)
     {
       if ((Keyboard.GetKeyStates(Key.Enter) & KeyStates.Down) > 0)
       {

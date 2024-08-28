@@ -1,17 +1,18 @@
 ﻿using System.Globalization;
 using System.Speech.Recognition;
+using BebooGarden.GameCore.Pet;
 
 namespace BebooGarden.Interface;
 
 public class BebooSpeechRecognition
 {
-  public BebooSpeechRecognition(string bebooName)
+  public BebooSpeechRecognition(Beboo beboo)
   {
-    BebooName = bebooName;
-    //try
-    //{
-    var recognizerInfos = SpeechRecognitionEngine.InstalledRecognizers();
-    if (recognizerInfos != null && recognizerInfos.Count > 0)
+    Beboo = beboo;
+    try
+    {
+      var recognizerInfos = SpeechRecognitionEngine.InstalledRecognizers();
+      if (recognizerInfos != null && recognizerInfos.Count > 0)
       {
         SpeechRecognitionEngine recognizer;
         GrammarBuilder builder = new();
@@ -19,7 +20,7 @@ public class BebooSpeechRecognition
         builder.Culture = recognizerInfos[0].Culture;
         recognizer.SetInputToDefaultAudioDevice();
         Choices choices = new();
-        choices.Add(bebooName);
+        choices.Add(beboo.Name.ToLower());
         builder.Append(choices);
         Grammar grammar = new(builder);
         recognizer.LoadGrammar(grammar);
@@ -29,13 +30,23 @@ public class BebooSpeechRecognition
         // Démarrer la reconnaissance vocale
         recognizer.RecognizeAsync(RecognizeMode.Multiple);
       }
-    //} catch { }
+    }
+    catch { }
   }
-  private string BebooName { get; }
+  private Beboo Beboo { get; }
   public event EventHandler BebooCalled;
 
   private void SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
   {
-    if (e.Result.Text == BebooName) BebooCalled.Invoke(this, new EventArgs());
+    var name = Beboo.Name.ToLower();
+    foreach (var alt in e.Result.Alternates)
+    {
+      if (alt != null && alt.Text.ToLower().Contains(name))
+      {
+        BebooCalled.Invoke(this, new EventArgs());
+        return;
+      }
+    }
+    if (e.Result.Text.ToLower().Contains(name)) BebooCalled.Invoke(this, new EventArgs());
   }
 }
