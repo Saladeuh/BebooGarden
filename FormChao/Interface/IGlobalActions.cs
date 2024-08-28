@@ -16,7 +16,6 @@ internal class IGlobalActions
   {
     CultureInfo.CurrentUICulture = CultureInfo.InstalledUICulture;
     string twoLetterISOLanguageName = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
-    ScreenReader.Output(twoLetterISOLanguageName);
     if (!SUPPORTEDLANGUAGES.Contains(twoLetterISOLanguageName))
       CultureInfo.CurrentUICulture = new CultureInfo("en");
 
