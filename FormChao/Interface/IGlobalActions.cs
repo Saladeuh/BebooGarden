@@ -10,12 +10,13 @@ namespace BebooGarden.Interface;
 
 internal class IGlobalActions
 {
-  public static readonly string[] SUPPORTEDLANGUAGES = ["fr", "en"];
+  public static readonly string[] SUPPORTEDLANGUAGES = ["fr", "en", "pt", "pl"];
 
   static IGlobalActions()
   {
     CultureInfo.CurrentUICulture = CultureInfo.InstalledUICulture;
     string twoLetterISOLanguageName = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+    ScreenReader.Output(twoLetterISOLanguageName);
     if (!SUPPORTEDLANGUAGES.Contains(twoLetterISOLanguageName))
       CultureInfo.CurrentUICulture = new CultureInfo("en");
 
