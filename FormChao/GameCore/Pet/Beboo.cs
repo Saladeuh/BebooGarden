@@ -149,8 +149,8 @@ public class Beboo
           await Task.Delay(1000);
           BeHappy();
         });
-      if (value >= 9) BeOverexited();
-      else if (value <= 0) BeFloppy();
+      if (value >= 9 && Energy>5) BeOverexcited();
+      else if (value <= 0&& Energy<5) BeFloppy();
       else BeNormal();
       _hapiness = value;
     }
@@ -316,7 +316,7 @@ public class Beboo
   public void GoAsleep()
   {
     if (Sleeping) return;
-    if (SwimLevel>=10 || Game.Map.Preset==MapPreset.underwater || (Game.Map != null && !Game.Map.IsInLake(Position)))
+    if (SwimLevel >= 10 || Game.Map.Preset == MapPreset.underwater || (Game.Map != null && !Game.Map.IsInLake(Position)))
     {
       IGlobalActions.SayLocalizedString("beboo.gosleep", Name);
       GoingTiredBehaviour.Stop();
@@ -331,7 +331,7 @@ public class Beboo
     }
     else
     {
-      GoalPosition = new(0, 0, 0);
+      GoalPosition = new(0, 0, 0); //TODO do somethin better
     }
   }
 
@@ -417,7 +417,7 @@ public class Beboo
     CuteBehaviour.Restart();
   }
 
-  private void BeOverexited()
+  private void BeOverexcited()
   {
     MoveBehaviour.MinMS = 50;
     MoveBehaviour.MaxMS = 150;
@@ -441,7 +441,7 @@ public class Beboo
   }
   public void Unpause()
   {
-    Paused=false;
+    Paused = false;
     if (Sleeping) SleepingBehaviour.Start();
     else
     {

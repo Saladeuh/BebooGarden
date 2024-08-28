@@ -136,7 +136,7 @@ internal partial class Game : IGlobalActions
       }
     }
   }
-  
+
   private static void StartRace()
   {
     if (Race.GetRemainingTriesToday() > 0)
@@ -253,12 +253,14 @@ internal partial class Game : IGlobalActions
         if (beboo.Happiness < 0) sentence = "beboo.verysad";
         else if (beboo.Energy < 0) sentence = "beboo.verytired";
         else if (beboo.Energy < 3) sentence = "beboo.littletired";
-        else sentence = beboo.Happiness < 3 ? "beboo.littlesad" : beboo.Energy < 8 ? "beboo.good" : "beboo.verygood";
-        SayLocalizedString(sentence, name);
-#if DEBUG
-        ScreenReader.Output(beboo.Age.ToString());
-#endif
+        else sentence = beboo.Happiness < 3 ? "beboo.littlesad" : (beboo.Energy < 8 ? "beboo.good" : "beboo.verygood");
       }
+      SayLocalizedString(sentence, name);
+#if DEBUG
+      ScreenReader.Output(beboo.Age.ToString());
+#endif
+
+
     }
   }
 
