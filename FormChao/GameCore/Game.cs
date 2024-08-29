@@ -13,6 +13,7 @@ using BebooGarden.Interface.ScriptedScene;
 using BebooGarden.Interface.Shop;
 using BebooGarden.Minigame;
 using BebooGarden.Save;
+using static System.Net.Mime.MediaTypeNames;
 using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
 using Timer = System.Windows.Forms.Timer;
 
@@ -30,10 +31,11 @@ internal partial class Game : IGlobalActions
     SoundSystem = new SoundSystem();
   }
 
-  public Game(Form1 form)
+  public Game(Form1 form, SaveParameters parameters)
   {
     GameWindow = form;
-    Parameters = SaveManager.LoadSave();
+    GameWindow.Text = GetLocalizedString("beboogarden");
+    Parameters= parameters;
     Flags = Parameters.Flags;
     if (Parameters.RaceScores != null) Race.RaceScores = Parameters.RaceScores;
     Race.TotalWin = Parameters.RaceTotalWin;

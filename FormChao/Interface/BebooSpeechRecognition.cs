@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Speech.Recognition;
+using BebooGarden.GameCore;
 using BebooGarden.GameCore.Pet;
 
 namespace BebooGarden.Interface;
