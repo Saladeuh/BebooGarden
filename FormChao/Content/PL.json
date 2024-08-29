@@ -45,14 +45,14 @@
     //0=beboo name
     "musicbox.name": "odtwarzacz muzyki.",
     "musicbox.description": "starę urządzenie, które pozwala na odtwarzania muzyki z cd",
-    "musicbox.noroll": "nie masz żadnych cd",
+    "musicbox.noroll": "nie masz żadnych rolek",
     "duck.name": "Gumowa kaczka",
     "duck.description": "Zwykła Gumowa kaczka",
     "boots.name": "Buty do skakania",
     "boots.description": "twój Beboo może użyć ih do skakania. ",
     "ticketpack.name": "Tickets pack",
     "ticketpack.description": "Jack pot!",
-    "roll.name": "cd",
+    "roll.name": rolka"",
     "egg.name": "{0} jajko beboo", // 0=egg color
     "egg.description": "więcej, więcej beboo!",
     "bubble.name": "Bańka",
@@ -77,27 +77,27 @@
     "ui.itemput": "{0} postawione",
     // 0=item name
     "ui.warningwater": "Nie dawaj tego do wody!",
-    "ui.rolltake": "wziołeś cd  {0}, od {1}",
+    "ui.rolltake": "wziołeś rolkę  {0}, od {1}",
     //0=title 1=source (composer or piece)
-    "ui.chooseroll": "Wybierz cd",
+    "ui.chooseroll": "Wybierz rolkę",
     "ui.itemtake": "{0} w torbie",
-    "ui.basket": "There are {0} owoców w koszyku",
+    "ui.basket": " {0} owoców w koszyku",
     "ui.back": "wruć",
     "shop.item": "{0} : {1}, za {2} biletów", // 0=item name, 2=description 2=cost
     "shop.items": "Items ({0} biletów pozostało", //0=tickets remaining number
     "shop.itemstitle": "Przedmioty",
     "shop.buy": "{0} kupiono",
-    "shop.rolls": "Music box cd's ({0} pozostało biletów)", //0=tickets remaining number
+    "shop.rolls": "rolki do odtwarzacza muzyki ({0} pozostało biletów)", //0=tickets remaining number
     "shop.roll": "{0} : {1}, za {2} biletów", // 0=item name, 2=description 2=cost
-    "shop.rollstitle": "płyty cd do odtwarzacza muzyki",
-    "shop.alreadyroll": "You already have this cd",
+    "shop.rollstitle": "płyty rolkę do odtwarzacza muzyki",
+    "shop.alreadyroll": "Masz już tą rolkę",
     "shop.notickets": "Nie masz na tyle biletów",
-    "shop.title": "Witamy w butiku! ({0} remaining tickets)", //0=tickets remaining number    
+    "shop.title": "Witamy w butiku! ({0} biletów pozostało tickets)", //0=tickets remaining number    
     "inventory.item": "{0} (×{1})", //0=item name 1=count of item
     "tp": "Find an item",
     "tp.item": "{0} {1}", //0=item name, 1=item index
     "gainticket": "dostałeś {0} biletów",
-    "shopunlock": "You unlock the boutique!\nGo to the lower right corner of the garden to redeem your tickets!",
+    "shopunlock": "odblokowałeś butik, możesz iść do dolnego prawego rogu aby sprawdzić!",
     "shop": "Butik",
     "race.third": "{0} is trzeci ...",
     "race.second": "{0} drugi. ({1} seconds)",
@@ -105,7 +105,7 @@
     "race.gate": "idź na wyścig, ({0} dzisiaj pozostało)", //0=number of remaining races
     "race.chooseracer": "Wybierz, kto będzie się ścigać",
     "race.chooserace": "Wybierz wyścig",
-    "race.trytommorow": "Racing is closed for today.",
+    "race.trytommorow": "Wyścigi są zamknięte na dzisiaj.",
     "race.simple": "Łatwy wyścig",
     "race.snow": "Śnieżny wyścig",
     "unlockvoice": "{0} zaczyna rozpoznawać swoje imie!\npróbuj go zawołać!",
