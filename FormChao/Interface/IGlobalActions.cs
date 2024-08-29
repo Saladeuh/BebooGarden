@@ -10,7 +10,7 @@ namespace BebooGarden.Interface;
 
 internal class IGlobalActions
 {
-  public static readonly string[] SUPPORTEDLANGUAGES = ["fr", "en", "pt", "pl"];
+  public static readonly string[] SUPPORTEDLANGUAGES = ["fr", "en", "pt-br", "pl", "vi"];
 
   static IGlobalActions()
   {

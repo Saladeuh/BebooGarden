@@ -76,7 +76,7 @@ public class MainMenu : Form
 
   private void OpenCommands(object? sender, EventArgs e)
   {
-    var twoLetterLang = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+    var twoLetterLang = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
     var langFile = Path.Combine(SoundSystem.CONTENTFOLDER, "doc", $"commands_{twoLetterLang}.html");
     var file = Path.Combine(SoundSystem.CONTENTFOLDER, "doc", "commands.html");
     if (File.Exists(langFile))

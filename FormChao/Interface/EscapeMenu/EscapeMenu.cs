@@ -59,7 +59,7 @@ public class EscapeMenu
     {
       {IGlobalActions.GetLocalizedString("bag"), Inventory },
       {IGlobalActions.GetLocalizedString( "tp"), Teleport },
-      {IGlobalActions.GetLocalizedString( "languages"), Languages },
+      {IGlobalActions.GetLocalizedString( "ui.language"), Languages },
     });
   }
 
