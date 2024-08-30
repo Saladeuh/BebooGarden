@@ -1,5 +1,5 @@
 ## todos (personal notes)
-- help inventaire
+- interraction: pousser?
 - jouets: poisson, snowman+fond, coin d'eau, arbres, creuse
 - weird bug: name double textbox, antivirus
 - online

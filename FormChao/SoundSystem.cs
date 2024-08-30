@@ -116,6 +116,10 @@ internal class SoundSystem
   public List<Sound> BubbleSounds { get; private set; }
   public Sound BubblePopSound { get; private set; }
   public Sound BubbleUpSound { get; private set; }
+  public List<Sound> BebooSurpriseSounds { get; private set; }
+  public List<Sound> BebooInteractSounds { get; private set; }
+  public List<Sound> BebooAngrySounds { get; private set; }
+  public List<Sound> BebooSongSounds { get; private set; }
 
   private void LoadSoundsInList(string[] files, List<Sound> sounds, string prefixe = "")
   {
@@ -162,8 +166,14 @@ internal class SoundSystem
     LoadSoundsInList(["pet.wav", "pet2.wav"], BebooPetSound, "sounds/character/");
     BebooCrySounds = new List<Sound>();
     LoadSoundsInList(["trist.wav", "trist2.wav"], BebooCrySounds, "sounds/beboo/");
-    BebooFunSounds = new List<Sound>();
-    LoadSoundsInList(["rir.wav", "rir2.wav"], BebooFunSounds, "sounds/beboo/");
+    BebooSurpriseSounds = new List<Sound>();
+    LoadSoundsInList(["surprise.wav", "surprise2.wav", "surprise3.wav"], BebooSurpriseSounds, "sounds/beboo/");
+    BebooInteractSounds = new List<Sound>();
+    LoadSoundsInList(["ta.wav", "baaah.wav"], BebooInteractSounds, "sounds/beboo/");
+    BebooAngrySounds = new List<Sound>();
+    LoadSoundsInList(["colere.wav", "colere2.wav"], BebooAngrySounds, "sounds/beboo/");
+    BebooSongSounds = new List<Sound>();
+    LoadSoundsInList(["song.wav", "song2.wav", "song3.wav"], BebooSongSounds, "sounds/beboo/");
     WhistleSound = System.CreateSound(CONTENTFOLDER + "sounds/character/se_sys_whistle_1p.wav", Mode.Unique);
     Whistle2Sound = System.CreateSound(CONTENTFOLDER + "sounds/character/se_sys_whistle_2p.wav", Mode.Unique);
     CursorSound = System.CreateSound(CONTENTFOLDER + "sounds/character/cursor.wav", Mode.Unique);
@@ -397,8 +407,8 @@ internal class SoundSystem
   public void Whistle(bool alternate = false, float pitch = 1)
   {
     Channel channel;
-    if (alternate) channel= System.PlaySound(Whistle2Sound);
-    else channel= System.PlaySound(WhistleSound);
+    if (alternate) channel = System.PlaySound(Whistle2Sound);
+    else channel = System.PlaySound(WhistleSound);
     channel.Pitch = pitch;
   }
   public void PlayCursorSound()

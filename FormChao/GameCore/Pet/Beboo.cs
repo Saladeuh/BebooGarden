@@ -149,8 +149,8 @@ public class Beboo
           await Task.Delay(1000);
           BeHappy();
         });
-      if (value >= 9 && Energy>5) BeOverexcited();
-      else if (value <= 0&& Energy<5) BeFloppy();
+      if (value >= 9 && Energy > 5) BeOverexcited();
+      else if (value <= 0 && Energy < 5) BeFloppy();
       else BeNormal();
       _hapiness = value;
     }
@@ -264,6 +264,28 @@ public class Beboo
         Happiness++;
       }
     }
+    if (Happy && Game.Random.Next(3) == 1)
+    {
+      var proximityBeboos = Game.Map?.GetBeboosArround(Position);
+      proximityBeboos.Remove(this);
+      InteractWith(proximityBeboos[Game.Random.Next(proximityBeboos.Count)]);
+      Happiness++;
+    }
+  }
+
+  private void InteractWith(Beboo friend)
+  {
+    if (friend.Sleeping) ForceWakeUp(friend);
+    else
+    {
+      var rnd = Game.Random.Next(5);
+      switch (rnd)
+      {
+        case 1: case 2: SingWith(friend); break;
+        case 3: Follow(friend); break;
+        case 4: Scare(friend); break;
+      }
+    }
   }
 
   private void EndPanik()
@@ -305,6 +327,13 @@ public class Beboo
     {
       Item.Item? targetItem = Game.Map?.Items[Game.Random.Next(Game.Map.Items.Count)];
       if (targetItem != null) GoalPosition = targetItem.Position;
+    }
+    else if (Game.Map?.Beboos.Count > 1 && Game.Random.Next(3) == 1)
+    {
+      var otherBeboos = new List<Beboo>(Game.Map.Beboos);
+      otherBeboos.Remove(this);
+      var targetBeboo = otherBeboos[Game.Random.Next(otherBeboos.Count)];
+      GoalPosition = targetBeboo.Position;
     }
     else
     {
@@ -461,5 +490,51 @@ public class Beboo
       WakeUp();
     });
     GoalPosition = Game.PlayerPosition;
+  }
+  public void Scare(Beboo friend)
+  {
+    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooInteractSounds, this);
+    friend.GetScared(this);
+  }
+  public void ForceWakeUp(Beboo friend)
+  {
+    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooInteractSounds, this);
+    friend.GetWakeUped(this);
+  }
+  public void GetScared(Beboo friend)
+  {
+    StartPanik();
+    Task.Run(async () =>
+    {
+      await Task.Delay(5000);
+      EndPanik();
+    });
+  }
+  public void GetWakeUped(Beboo friend)
+  {
+    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooSurpriseSounds, this);
+    Task.Run(async () =>
+    {
+      await Task.Delay(2000);
+      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooAngrySounds, this);
+      WakeUp();
+    });
+  }
+  public void Follow(Beboo friend)
+  {
+    GoalPosition = friend.GoalPosition;
+  }
+  public void SingWith(Beboo friend)
+  {
+    if (friend.Channel != null && friend.Channel.IsPlaying) return;
+    var randomSong = Game.SoundSystem.BebooSongSounds[Game.Random.Next(Game.SoundSystem.BebooSongSounds.Count)];
+    Game.SoundSystem.PlayBebooSound(randomSong, this);
+    Task.Run(async () =>
+    {
+      await Task.Delay(100);
+      Game.SoundSystem.PlayBebooSound(randomSong, friend);
+    });
+    Happiness++;
+    friend.Happiness++;
   }
 }

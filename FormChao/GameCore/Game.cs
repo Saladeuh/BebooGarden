@@ -314,7 +314,7 @@ internal partial class Game : IGlobalActions
     SoundSystem.Whistle();
     foreach (Beboo beboo in Map?.Beboos)
     {
-      if (Map?.Beboos.Count <= 1 || Random.Next(3) == 1)
+      if (Map?.Beboos.Count <= 1 || Random.Next(2) == 1)
       {
         Task.Run(async () =>
         {

@@ -132,6 +132,10 @@ public class Map
       : Items.FirstOrDefault(item => item != null && item.Position != null && Util.IsInSquare(item.Position.Value, position, 1),
             null);
   }
+  public List<Beboo> GetBeboosArround(Vector3 position)
+  {
+    return Beboos.FindAll(beboo => beboo != null && beboo.Position != null && Util.IsInSquare(beboo.Position, position, 1));
+  }
   public bool IsArroundShop(Vector3 position)
   {
     return Util.IsInSquare(new Vector3(SizeX / 2, -SizeY / 2, 0), position, 1);
