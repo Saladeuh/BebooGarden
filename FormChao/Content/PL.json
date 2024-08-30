@@ -52,7 +52,7 @@
     "boots.description": "twój Beboo może użyć ih do skakania. ",
     "ticketpack.name": "Tickets pack",
     "ticketpack.description": "Jack pot!",
-    "roll.name": rolka"",
+    "roll.name": "rolka",
     "egg.name": "{0} jajko beboo", // 0=egg color
     "egg.description": "więcej, więcej beboo!",
     "bubble.name": "Bańka",
@@ -122,5 +122,7 @@
     "ui.quit": "Zamknij grę.",
     "bag": "Torba",
     "emptybag": "twoja torba jest pusta, naciśnij esc, aby wyjźć.",
-    "ui.emptymap": "Tu nie ma żadnyh przedmiotów, wejdź do menu puźniej na torbę i wybierz przedmiot do postawienia."
+    "ui.emptymap": "Tu nie ma żadnyh przedmiotów, wejdź do menu puźniej na torbę i wybierz przedmiot do postawienia.",
+    "ui.language": "zmień język",
+    "ui.languagechanged": "język zmieniony."
 }

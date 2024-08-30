@@ -122,5 +122,7 @@
     "ui.quit": "Quitter le jeu.",
     "bag": "Sac",
     "emptybag": "Le sac est vide (échape pour sortir)",
-    "ui.emptymap": "Il n'y a pas d'objets ici. Pour poser un objet, rendez-vous daos votre sac, sélectionez l'objet puis appuyez sur espace où vous souhaitez le poser."
+    "ui.emptymap": "Il n'y a pas d'objets ici. Pour poser un objet, rendez-vous daos votre sac, sélectionez l'objet puis appuyez sur espace où vous souhaitez le poser.",
+    "ui.language": "Changer la langue",
+    "ui.languagechanged": "Langue changée"
 }

@@ -122,5 +122,7 @@
     "ui.quit": "Đóng trò chơi.",
     "bag": "túi",
     "emptybag": "Túi của bạn trống rỗng (Escape để thoát ra ngoài).",
-    "ui.emptymap": "Không có vật phẩm nào ở đây. Để đặt một vật phẩm, hãy đi tới túi của bạn, chọn một vật phẩm rồi nhấn phím cách tại nơi bạn muốn đặt nó."
+    "ui.emptymap": "Không có vật phẩm nào ở đây. Để đặt một vật phẩm, hãy đi tới túi của bạn, chọn một vật phẩm rồi nhấn phím cách tại nơi bạn muốn đặt nó.",
+    "ui.language": "thay đổi ngôn ngữ",
+    "ui.languagechanged": "ngôn ngữ đã thay đổi"
 }

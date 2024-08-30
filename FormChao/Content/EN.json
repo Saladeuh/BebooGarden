@@ -122,5 +122,7 @@
     "ui.quit": "Close the game.",
     "bag": "Bag",
     "emptybag": "Your bag is empty (escape to leave).",
-    "ui.emptymap": "There are no items here. To place an item, go to your bag, select an item then press space where you want to place it."
+    "ui.emptymap": "There are no items here. To place an item, go to your bag, select an item then press space where you want to place it.",
+    "ui.language": "Change language",
+    "ui.languagechanged": "Language changed"
 }

@@ -108,5 +108,7 @@
     "ui.quit": "Fechar o jogo.",
     "bag": "Bolsa",
     "emptybag": "Sua bolsa está vazia (escape para sair).",
-    "ui.emptymap": "Não há itens aqui. Para colocar um item, vá até sua bolsa, selecione um item e depois pressione espaço onde deseja colocá-lo."
+    "ui.emptymap": "Não há itens aqui. Para colocar um item, vá até sua bolsa, selecione um item e depois pressione espaço onde deseja colocá-lo.",
+    "ui.language": "Change language",
+    "ui.languagechanged": "Language changed"
 }
