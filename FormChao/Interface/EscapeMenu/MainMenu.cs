@@ -95,7 +95,7 @@ public class MainMenu : Form
     Button clickedButton = (Button)sender;
     Result = Choices[clickedButton.Text];
     Result.ShowDialog(this);
-    if (Result is Inventory || Result is Teleport) Close();
+    if (Result is Inventory or Teleport or Languages) Close();
   }
   private void OpenCredits(object? sender, EventArgs e)
   {
