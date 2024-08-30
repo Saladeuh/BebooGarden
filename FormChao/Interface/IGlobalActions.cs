@@ -63,6 +63,20 @@ internal class IGlobalActions
       case Keys.F4:
         if (Game.SoundSystem.Music != null) Game.SoundSystem.Music.Mute = !Game.SoundSystem.Music.Mute;
         break;
+      case Keys.F5:
+        if (Game.SoundSystem.Music != null)
+        {
+          if (Game.SoundSystem.Music.Volume >= 0.1f) Game.SoundSystem.Music.Volume -= 0.1f;
+          Game.SoundSystem.System.PlaySound(Game.SoundSystem.DownSound);
+        }
+        break;
+      case Keys.F6:
+        if (Game.SoundSystem.Music != null)
+        {
+          Game.SoundSystem.Music.Volume += 0.1f;
+          Game.SoundSystem.System.PlaySound(Game.SoundSystem.UpSound);
+        }
+        break;
     }
   }
 
