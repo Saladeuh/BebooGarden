@@ -35,7 +35,7 @@ internal partial class Game : IGlobalActions
   {
     GameWindow = form;
     GameWindow.Text = GetLocalizedString("beboogarden");
-    Parameters= parameters;
+    Parameters = parameters;
     Flags = Parameters.Flags;
     if (Parameters.RaceScores != null) Race.RaceScores = Parameters.RaceScores;
     Race.TotalWin = Parameters.RaceTotalWin;
@@ -198,7 +198,7 @@ internal partial class Game : IGlobalActions
     }
     return null;
   }
-  public List<Beboo> BeboosUnderCursor(int squareSide = 1)
+  public static List<Beboo> BeboosUnderCursor(int squareSide = 1)
   {
     List<Beboo> beboos = new();
     foreach (Beboo beboo in Map.Beboos)
@@ -346,8 +346,9 @@ internal partial class Game : IGlobalActions
   {
     TreeLine? treeLine = Map?.GetTreeLineAtPosition(PlayerPosition);
     Item.Item? item = Map?.GetItemArroundPosition(PlayerPosition);
-    Beboo? bebooUnderCursor = BebooUnderCursor();
-    if (bebooUnderCursor != null) ScreenReader.Output(bebooUnderCursor.Name);
+    var beboosUnderCursor = BeboosUnderCursor(1);
+    if (beboosUnderCursor.Count > 0)
+      foreach (var beboo in beboosUnderCursor) ScreenReader.Output(beboo.Name);
     if (treeLine != null)
     {
       if (treeLine.Fruits == treeLine.FruitPerHour)
