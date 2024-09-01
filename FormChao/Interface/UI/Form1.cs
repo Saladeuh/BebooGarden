@@ -3,7 +3,7 @@ using BebooGarden.GameCore;
 using BebooGarden.Interface.EscapeMenu;
 using BebooGarden.Save;
 
-namespace BebooGarden.Interface;
+namespace BebooGarden.Interface.UI;
 
 public partial class Form1 : Form
 {

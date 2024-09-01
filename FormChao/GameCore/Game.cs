@@ -11,6 +11,7 @@ using BebooGarden.Interface;
 using BebooGarden.Interface.EscapeMenu;
 using BebooGarden.Interface.ScriptedScene;
 using BebooGarden.Interface.Shop;
+using BebooGarden.Interface.UI;
 using BebooGarden.Minigame;
 using BebooGarden.Save;
 using static System.Net.Mime.MediaTypeNames;
@@ -370,6 +371,7 @@ internal partial class Game : IGlobalActions
     SoundSystem.DisableAmbiTimer();
     if (Map == null) return;
     SoundSystem.Pause(Map);
+    SoundSystem.Music.Paused = true;
   }
   public static void Unpause()
   {

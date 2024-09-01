@@ -74,6 +74,9 @@ internal partial class Game
     else if (key == Keys.T)
     {
       SayTickets();
+    } else if(key == Keys.F1)
+    {
+      new Minigame.memory.MainMenu(SoundSystem.Volume).PlayGame();
     }
     else if (key == Keys.Enter)
     {
@@ -86,52 +89,56 @@ internal partial class Game
       else if (!Race.IsARaceRunning && Map?.Beboos.Count > 0 && (Map?.IsArroundRaceGate(PlayerPosition) ?? false))
         StartRace();
     }
-    else if (int.TryParse(key.ToString().Replace("NumPad", "").Replace("D", ""), out int keyInt) && keyInt>0)
+    else
     {
-      if (Map != null && keyInt<=Map.Beboos.Count)
+      int keyInt;
+      if (Util.IsKeyDigit(key, out keyInt) && keyInt > 0)
       {
-        var sortedBeboos = new List<Beboo>(Map.Beboos);
-        sortedBeboos.Sort(delegate(Beboo x, Beboo y) { return x.Age.CompareTo(y.Age); });
-        var beboo = Map.Beboos[keyInt - 1];
-        SoundSystem.Whistle(true, beboo.VoicePitch);
-        ScreenReader.Output(beboo.Name);
-        beboo.Call(sender, e);
-      }
-    }
-    else if (key == Keys.Escape)
-    {
-      new EscapeMenu().Show();
-    }
-    else if (key == Keys.Space)
-    {
-      if (ItemInHand != null)
-      {
-        TryPutItemInHand();
-      }
-      else
-      {
-        Beboo? bebooUnderCursor = BebooUnderCursor();
-        if (bebooUnderCursor != null)
+        if (Map != null && keyInt <= Map.Beboos.Count)
         {
-          if (bebooUnderCursor.Sleeping) Whistle();
-          else FeedBeboo();
+          var sortedBeboos = new List<Beboo>(Map.Beboos);
+          sortedBeboos.Sort(delegate (Beboo x, Beboo y) { return x.Age.CompareTo(y.Age); });
+          var beboo = Map.Beboos[keyInt - 1];
+          SoundSystem.Whistle(true, beboo.VoicePitch);
+          ScreenReader.Output(beboo.Name);
+          beboo.Call(sender, e);
         }
-        else if (Map?.GetTreeLineAtPosition(PlayerPosition) != null)
+      }
+      else if (key == Keys.Escape)
+      {
+        new EscapeMenu().Show();
+      }
+      else if (key == Keys.Space)
+      {
+        if (ItemInHand != null)
         {
-        }
-        else if (itemUnderCursor != null)
-        {
-          itemUnderCursor.Action();
+          TryPutItemInHand();
         }
         else
         {
-          Whistle();
+          Beboo? bebooUnderCursor = BebooUnderCursor();
+          if (bebooUnderCursor != null)
+          {
+            if (bebooUnderCursor.Sleeping) Whistle();
+            else FeedBeboo();
+          }
+          else if (Map?.GetTreeLineAtPosition(PlayerPosition) != null)
+          {
+          }
+          else if (itemUnderCursor != null)
+          {
+            itemUnderCursor.Action();
+          }
+          else
+          {
+            Whistle();
+          }
         }
       }
-    }
-    else
-    {
-      CheckGlobalActions(key);
+      else
+      {
+        CheckGlobalActions(key);
+      }
     }
   }
 }

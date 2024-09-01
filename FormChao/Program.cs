@@ -1,5 +1,6 @@
 using AutoUpdaterDotNET;
 using BebooGarden.Interface;
+using BebooGarden.Interface.UI;
 
 namespace BebooGarden;
 

@@ -46,7 +46,7 @@ public class Beboo
     FancyMoveBehaviour =
         new TimedBehaviour<Beboo>(this, 10000, 30000, beboo => { beboo.WannaGoToRandomPlace(); }, true);
     GoingTiredBehaviour =
-        new TimedBehaviour<Beboo>(this, 50000, 70000, beboo => { beboo.Energy--; }, !isSleepingAtStart || !racer);
+        new TimedBehaviour<Beboo>(this, 60000*3, 60000*6, beboo => { beboo.Energy--; }, !isSleepingAtStart || !racer);
     GoingDepressedBehaviour =
         new TimedBehaviour<Beboo>(this, 120000, 150000, beboo => { beboo.Happiness--; }, !racer);
     SadBehaviour = new TimedBehaviour<Beboo>(this, 5000, 15000,
