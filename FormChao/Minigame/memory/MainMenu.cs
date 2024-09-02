@@ -1,24 +1,21 @@
-﻿using System.Globalization;
-using System.Text;
-using BebooGarden.GameCore;
+﻿using BebooGarden.GameCore;
 using BebooGarden.Interface;
 using BebooGarden.Interface.ScriptedScene;
 using FmodAudio;
-using Microsoft.Extensions.Localization;
 
 namespace BebooGarden.Minigame.memory;
 
 internal class MainMenu : IGlobalActions
 {
-  public static bool AlreadyPlaied = false;
+  private static bool AlreadyPlaied = false;
   public FmodSystem System { get; }
   public SoundSystem SoundSystem { get; set; }
-  public int MaxScore { get; set; }
-  public readonly string CONTENTFOLDER = "Content/boombox/sounds/";
+  private int MaxScore { get; set; }
+  private readonly string CONTENTFOLDER = "Content/boombox/sounds/";
 
   public MainMenu(float volume)
   {
-    SoundSystem = new SoundSystem(volume);
+    SoundSystem = new SoundSystem(volume-0.3f);
   }
 
   public int PlayGame()
@@ -37,7 +34,6 @@ internal class MainMenu : IGlobalActions
     var groups = Directory.GetDirectories(CONTENTFOLDER).ToList();
     groups.Insert(0, BebooGarden.SoundSystem.CONTENTFOLDER + "sounds/beboo");
     int score = -1;
-    Level level;
     do
     {
       score++;
@@ -61,7 +57,7 @@ internal class MainMenu : IGlobalActions
       {
         maxRetry = 3;
       }
-      level = new(SoundSystem, nbSounds, maxRetry, group1, group2);
+      Level level = new(SoundSystem, nbSounds, maxRetry, group1, group2);
       level.ShowDialog(Game.GameWindow);
     } while (Level.Win);
     SayLocalizedString("score", score);

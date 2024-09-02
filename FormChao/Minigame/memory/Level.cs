@@ -1,16 +1,14 @@
-﻿using System.Reflection.Emit;
-using BebooGarden.GameCore;
-using BebooGarden.Interface;
+﻿using BebooGarden.Interface;
 
 namespace BebooGarden.Minigame.memory;
 
 internal class Level : Form
 {
   private int Retry { get; set; }
-  public int NbSounds { get; }
+  private int NbSounds { get; }
   private int MaxRetry { get; set; }
   private List<(int, CaseState)> Grid { get; set; }
-  public SoundSystem SoundSystem { get; set; }
+  private SoundSystem SoundSystem { get; set; }
   public static bool Win { get; internal set; } = true;
 
   public Level(SoundSystem soundSystem, int nbSounds, int maxRetry, string group1, string? group2 = null)
@@ -25,10 +23,11 @@ internal class Level : Form
     SoundSystem.LoadLevel(nbSounds, group1, group2);
     KeyDown += Keymapper;
   }
-  public void FillGridByRandomInt()
+
+  private void FillGridByRandomInt()
   {
     var rnd = new Random();
-    var randomDisposition = Enumerable.Range(1, NbSounds).Concat(Enumerable.Range(1, NbSounds)).OrderBy(r => rnd.Next()).ToArray();
+    var randomDisposition = Enumerable.Range(1, NbSounds).Concat(Enumerable.Range(1, NbSounds)).OrderBy(_ => rnd.Next()).ToArray();
     foreach (int n in randomDisposition)
     {
       Grid.Add((n, CaseState.None));
@@ -69,7 +68,6 @@ internal class Level : Form
     if (Grid[caseIndex].Item2 == CaseState.Paired || caseIndexTouched.Count == 1 && caseIndexTouched.Contains(caseIndex))
     {
       SoundSystem.PlayQueue(SoundSystem.JingleError);
-      return;
     }
     else if (caseIndexTouched.Count == 1 && !caseIndexTouched.Contains(caseIndex))
     {
