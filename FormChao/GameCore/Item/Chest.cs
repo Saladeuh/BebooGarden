@@ -16,8 +16,15 @@ internal class Chest : Item
   public override void Action()
   {
     Game.SoundSystem.PlaySoundAtPosition(Game.SoundSystem.ItemChestOpenSound, (Vector3)Position);
-    var score = new Minigame.memory.MainMenu(Game.SoundSystem.Volume).PlayGame();
-    Game.GainTicket((int)score / 5);
+    var beboo = Game.ChooseBeboo();
+    if (beboo != null)
+    {
+      var score = new Minigame.memory.MainMenu(Game.SoundSystem.Volume).PlayGame();
+      Game.GainTicket((int)score / 5);
+      beboo.Age += ((int)score / 5) * 0.1f;
+      if (score > 0) beboo.Happiness++;
+      else beboo.Happiness--;
+    }
     Game.SoundSystem.PlaySoundAtPosition(Game.SoundSystem.ItemChestCloseSound, (Vector3)Position);
   }
   public override void BebooAction(Beboo beboo)

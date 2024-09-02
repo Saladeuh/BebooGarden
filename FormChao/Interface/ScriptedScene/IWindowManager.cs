@@ -5,7 +5,7 @@ namespace BebooGarden.Interface.ScriptedScene;
 
 public interface IWindowManager
 {
-  protected static void ShowTalk(string translateKey, bool blocking = true)
+  public static void ShowTalk(string translateKey, bool blocking = true)
   {
     Talk talk = new(IGlobalActions.GetLocalizedString(translateKey));
     if (blocking) talk.ShowDialog(Game.GameWindow);
@@ -16,7 +16,7 @@ public interface IWindowManager
     }
   }
 
-  protected static void ShowTalk(string translateKey, bool blocking, params object[] args)
+  public static void ShowTalk(string translateKey, bool blocking, params object[] args)
   {
     Talk talk = new(IGlobalActions.GetLocalizedString(translateKey, args));
     if (blocking) talk.ShowDialog(Game.GameWindow);
@@ -27,7 +27,7 @@ public interface IWindowManager
     }
   }
 
-  protected static string ShowTextBox(string title, int maxLength, bool nameFormat)
+  public static string ShowTextBox(string title, int maxLength, bool nameFormat)
   {
     TextForm texbox = new(IGlobalActions.GetLocalizedString(title), maxLength, nameFormat);
     texbox.ShowDialog(Game.GameWindow);

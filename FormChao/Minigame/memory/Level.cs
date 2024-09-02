@@ -16,7 +16,7 @@ internal class Level : Form
   public Level(SoundSystem soundSystem, int nbSounds, int maxRetry, string group1, string? group2 = null)
   {
     Visible = false;
-    Text = "test";
+    Text = IGlobalActions.GetLocalizedString("boombox");
     NbSounds = nbSounds;
     MaxRetry = maxRetry;
     Grid = new List<(int, CaseState)>();

@@ -144,17 +144,7 @@ internal partial class Game : IGlobalActions
   {
     if (Race.GetRemainingTriesToday() > 0)
     {
-      Beboo? contester;
-      if (Map.Beboos.Count > 1)
-      {
-        Dictionary<string, int?> options = new();
-        for (int i = 0; i < Map.Beboos.Count; i++)
-          options.Add(Map.Beboos[i].Name, i);
-        int? choiceId = IWindowManager.ShowChoice<int?>("race.chooseracer", options);
-        contester = choiceId != null ? Map.Beboos[choiceId.Value] : null;
-      }
-      else contester = Map?.Beboos[0];
-      if (contester == null) return;
+      Beboo? contester = ChooseBeboo(); if (contester == null) return;
       Dictionary<string, RaceType> raceTypeOptions = new()
       {
         {GetLocalizedString("race.simple"), RaceType.Base },
@@ -172,6 +162,28 @@ internal partial class Game : IGlobalActions
       Game.SoundSystem.System.PlaySound(Game.SoundSystem.WarningSound);
       SayLocalizedString("race.trytommorow");
     }
+  }
+
+  public static Beboo? ChooseBeboo()
+  {
+    Beboo? beboo=null;
+    if (Map.Beboos.Count > 0)
+    {
+      if (Map.Beboos.Count > 1)
+      {
+        Dictionary<string, int?> options = new();
+        for (int i = 0; i < Map.Beboos.Count; i++)
+          options.Add(Map.Beboos[i].Name, i);
+        int? choiceId = IWindowManager.ShowChoice<int?>("race.choosebebeboo", options);
+        beboo = choiceId != null ? Map.Beboos[choiceId.Value] : null;
+      }
+      else beboo = Map?.Beboos[0];
+    } else
+    {
+      SayLocalizedString("nobeboo");
+      Game.SoundSystem.System.PlaySound(Game.SoundSystem.WarningSound);
+    }
+    return beboo;
   }
 
   private void TravelBetwieen(MapPreset a, MapPreset b)

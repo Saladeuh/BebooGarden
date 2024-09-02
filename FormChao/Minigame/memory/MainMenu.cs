@@ -2,6 +2,7 @@
 using System.Text;
 using BebooGarden.GameCore;
 using BebooGarden.Interface;
+using BebooGarden.Interface.ScriptedScene;
 using FmodAudio;
 using Microsoft.Extensions.Localization;
 
@@ -9,6 +10,7 @@ namespace BebooGarden.Minigame.memory;
 
 internal class MainMenu : IGlobalActions
 {
+  public static bool AlreadyPlaied = false;
   public FmodSystem System { get; }
   public SoundSystem SoundSystem { get; set; }
   public int MaxScore { get; set; }
@@ -24,8 +26,12 @@ internal class MainMenu : IGlobalActions
     SoundSystem.FreeRessources();
     Game.GameWindow?.DisableInput();
     Game.Pause();
-    SayLocalizedString("welcome");
-    SayLocalizedString("goal");
+    if (!AlreadyPlaied)
+    {
+      IWindowManager.ShowTalk("welcome");
+      IWindowManager.ShowTalk("goal");
+      AlreadyPlaied = true;
+    }
     SoundSystem.LoadMenu();
     var random = new Random();
     var groups = Directory.GetDirectories(CONTENTFOLDER).ToList();
