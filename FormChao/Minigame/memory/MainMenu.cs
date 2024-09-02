@@ -58,10 +58,11 @@ internal class MainMenu : IGlobalActions
       level = new(SoundSystem, nbSounds, maxRetry, group1, group2);
       level.ShowDialog(Game.GameWindow);
     } while (Level.Win);
-    //SayLocalizedString($"{GetLocalizedString("score")}: {score}");
+    SayLocalizedString("score", score);
     if (MaxScore < score) MaxScore = score;
     Game.GameWindow?.EnableInput();
     Game.Unpause();
+    SoundSystem.System.Release();
     return score;
   }
 }

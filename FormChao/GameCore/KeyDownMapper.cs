@@ -76,7 +76,8 @@ internal partial class Game
       SayTickets();
     } else if(key == Keys.F1)
     {
-      new Minigame.memory.MainMenu(SoundSystem.Volume).PlayGame();
+     var score= new Minigame.memory.MainMenu(SoundSystem.Volume).PlayGame();
+      GainTicket((int)score/5);
     }
     else if (key == Keys.Enter)
     {

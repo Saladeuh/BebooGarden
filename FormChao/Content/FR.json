@@ -128,7 +128,7 @@
     "win": "Gagné!",
     "lose": "Perdu!",
     "boombox": "Trésors sonores",
-    "score": "Score",
+    "score": "Score : {0}",
     "welcome": "Bienvenue dans trésors sonores!",
     "goal": "Appuyez sur les chiffres du clavier pour entendre un son. Trouvez toutes les pairs pour passer au niveau suivant.",
 }
