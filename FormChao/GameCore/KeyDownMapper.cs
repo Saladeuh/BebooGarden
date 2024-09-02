@@ -74,12 +74,7 @@ internal partial class Game
     else if (key == Keys.T)
     {
       SayTickets();
-    } else if(key == Keys.F1)
-    {
-     var score= new Minigame.memory.MainMenu(SoundSystem.Volume).PlayGame();
-      GainTicket((int)score/5);
-    }
-    else if (key == Keys.Enter)
+    } else if (key == Keys.Enter)
     {
       if (itemUnderCursor != null && itemUnderCursor.IsTakable) itemUnderCursor.Take();
       else if (!Race.IsARaceRunning && Flags.UnlockShop && (Map?.IsArroundShop(PlayerPosition) ?? false)) new Shop().Show();
