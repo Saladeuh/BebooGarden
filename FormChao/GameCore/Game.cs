@@ -379,6 +379,7 @@ internal partial class Game : IGlobalActions
     SoundSystem.EnableAmbiTimer();
     if (Map == null) return;
     SoundSystem.Unpause(Map);
+    SoundSystem.Music.Paused = false;
   }
   internal void Close(object? sender, FormClosingEventArgs e)
   {

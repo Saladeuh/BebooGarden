@@ -124,5 +124,11 @@
     "emptybag": "Le sac est vide (échape pour sortir)",
     "ui.emptymap": "Il n'y a pas d'objets ici. Pour poser un objet, rendez-vous daos votre sac, sélectionez l'objet puis appuyez sur espace où vous souhaitez le poser.",
     "ui.language": "Changer la langue",
-    "ui.languagechanged": "Langue changée"
+    "ui.languagechanged": "Langue changée",
+    "win": "Gagné!",
+    "lose": "Perdu!",
+    "boombox": "Trésors sonores",
+    "score": "Score",
+    "welcome": "Bienvenue dans trésors sonores!",
+    "goal": "Appuyez sur les chiffres du clavier pour entendre un son. Trouvez toutes les pairs pour passer au niveau suivant.",
 }

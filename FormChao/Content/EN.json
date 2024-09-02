@@ -124,5 +124,11 @@
     "emptybag": "Your bag is empty (escape to leave).",
     "ui.emptymap": "There are no items here. To place an item, go to your bag, select an item then press space where you want to place it.",
     "ui.language": "Change language",
-    "ui.languagechanged": "Language changed"
+    "ui.languagechanged": "Language changed",
+    "win": "You win!",
+    "lose": "You lose.",
+    "boombox": "Boom Box",
+    "score": "Score",
+    "welcome": "Welcome to Boom Box!",
+    "goal": "Press the numbers on the keyboard to hear a sound. Find all the pairs to move to the next level."
 }

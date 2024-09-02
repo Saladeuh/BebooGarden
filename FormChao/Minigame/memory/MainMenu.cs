@@ -26,10 +26,10 @@ internal class MainMenu : IGlobalActions
     Game.Pause();
     SayLocalizedString("welcome");
     SayLocalizedString("goal");
-    SayLocalizedString("keys");
     SoundSystem.LoadMenu();
     var random = new Random();
     var groups = Directory.GetDirectories(CONTENTFOLDER).ToList();
+    groups.Insert(0, BebooGarden.SoundSystem.CONTENTFOLDER + "sounds/beboo");
     int score = -1;
     Level level;
     do

@@ -4,5 +4,5 @@
 - weird bug: name double textbox, antivirus
 - online
 - plus commandes vocales
-- music lvl=general sounds volume equalization
+- general sounds volume equalization
 - nuit
