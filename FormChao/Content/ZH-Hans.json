@@ -1,0 +1,128 @@
+{
+    "beboogarden": "波波花园",
+    "red": "红色",
+    "orange": "橙色",
+    "yellow": "黄色",
+    "green": "绿色",
+    "blue": "蓝色",
+    "pink": "粉红色",
+    "indigo": "青色",
+    "violet": "紫色",
+    "none": "无",
+    "chocolatekake": "一块肥巧克力蛋糕",
+    "icecream": "美味的冰淇淋", 
+    "fruitsalad": "清淡新鲜的水果沙拉",
+    "coffee": "只要一杯咖啡，谢谢。",
+    "trees.full": "结满果实的树",
+    "trees.empty": "没有果实的树",
+    "trees.soonempty": "有少许果实的树",
+    "trees.soonfull": "有部分果实的树",
+    "tickets": "你有 {0} 张宠物券",
+    "water": "泻湖",
+    "Normal": "苹果",
+    "Energetic": "超级苹果",
+    "beboo.gosleep": "{0} 快睡着了",
+    // 1=beboo name
+    "beboo.wakeup": "{0} 醒来",
+    // 1=beboo name
+    "beboo.sadstart": "{0} 泪如雨下。 赶紧做点什么吧！",
+    // 0=beboo name
+    "beboo.happystart": "{0} 很开心！",
+    //0=beboo name
+    "beboo.sleep": "{0} 正在睡觉",
+    //0=beboo name
+    "beboo.verytired": "{0} 很累",
+    // 0=beboo name
+    "beboo.verysad": "{0} 非常难过。赶紧做点什么吧！",
+    //0=beboo name
+    "beboo.littlesad": "{0} 有点难过",
+    //0=beboo name
+    "beboo.littletired": "{0} 有点累",
+    //0=beboo name
+    "beboo.good": "{0} 很好",
+    //0=beboo name
+    "beboo.verygood": "{0} 做的很好",
+    //0=beboo name
+    "musicbox.name": "音乐盒",
+    "musicbox.description": "一个放入唱片就能播放音乐的就物件。",
+    "musicbox.noroll": "你还没有放入唱片",
+    "duck.name": "橡胶鸭",
+    "duck.description": "它只是一只小鸭子",
+    "boots.name": "弹跳靴",
+    "boots.description": "波波可以用它弹跳的更远。把靴子放在地上，让波波来感受下吧。",
+    "ticketpack.name": "宠物券礼包",
+    "ticketpack.description": "大奖！",
+    "roll.name": "音乐盒的唱片",
+    "egg.name": "{0} 波波蛋", // 0=egg color
+    "egg.description": "为了越来越多的波波！",
+    "bubble.name": "气泡",
+    "bubble.description": "波波",
+    "snowball.name": "雪球",
+    "ui.empty": "你必须打点什么。",
+    "ui.yourname": "你的名字",
+    "ui.bebooname": "你波波可爱宠物的名字",
+    "ui.letsname": "你的波波刚刚被孵化出来！现在，给可爱的小家伙取个名字吧！",
+    "ui.welcome": "欢迎来到波波宠物花园！\n首先，我该怎样称呼你？",
+    "ui.welcome2": "这里是波波宠物花园。\n这里是一片巨大的绿地，左边有一个小泻湖，右边有着高大的果树。\n要在花园里导航，我建议你带上耳机或耳塞。\n目前这里什么都没有，除了一个还没有孵化的蛋，在你的右边，你应该可以听到。\n当此对话框关闭后，就用方向键移动，当听到宠物蛋在你面前时，就按下空格键来打破蛋壳。",
+    "ui.aboutyou": "太棒了！ 现在, {0}, 我必须问你几个问题，才能帮你找到最适合你的波波宠物。\n让我们从最简单开始。",
+    // 0=player name
+    "ui.color": "你最喜欢的颜色是什么？",
+    "ui.freetime": "太酷了！\n现在，当你有空闲时间的时候，你喜欢做什么？\n它可以是任何东西。",
+    "ui.freetimequick": "你喜欢做什么？",
+    "ui.dessert": "最后，这份清单上你最喜欢的甜点是什么？",
+    "ui.allgood": "嗯，一切似乎都井然有序。",
+    "ui.quicktips": "太好了！\n在你照顾 {0}, 之前，我需要教你花园基本知识。\n喂养 {0}, 你需要从右边的树上摘水果。 按住enter键抓住树木，然后交替按上下方向键来摇树。\n当获得水果后，来到 {0}身边, 像之前操作宠物蛋那样，按下空格，在背包里找到水果来喂给你的小可爱吧！\n你也可以按F键来查看 {0} 的状态。\n一旦 {0} 很开心，你可以去左上角自由发挥自己。\n最后，按ESC键可打开菜单。\n祝你玩的开心！",
+    "ui.emptyinventory": "背包里什么都没有",
+    "ui.chooseitem": "选择一个项目",
+    "ui.itemput": "{0} 下降",
+    // 0=item name
+    "ui.warningwater": "别把这个放进水里！",
+    "ui.rolltake": "你拿走了音乐盒的唱片  {0}, 从 {1}",
+    //0=title 1=source (composer or piece)
+    "ui.chooseroll": "请选择要插入的唱片",
+    "ui.itemtake": "{0} 存放在背包里",
+    "ui.basket": "篮子里有 {0} 个水果",
+    "ui.back": "返回",
+    "shop.item": "{0} : {1}, {2} 宠物券", // 0=item name, 2=description 2=cost
+    "shop.items": "项目 ({0} 剩余的宠物券)", //0=tickets remaining number
+    "shop.itemstitle": "项目",
+    "shop.buy": "{0} 买",
+    "shop.rolls": "音乐盒唱片 ({0} 剩余宠物券)", //0=tickets remaining number
+    "shop.roll": "{0} : {1}, {2} 宠物券", // 0=item name, 2=description 2=cost
+    "shop.rollstitle": "音乐盒唱片",
+    "shop.alreadyroll": "你已经有这张唱片了",
+    "shop.notickets": "你的宠物券不够",
+    "shop.title": "欢迎光临精品店！ ({0} 剩余宠物券)", //0=tickets remaining number    
+    "inventory.item": "{0} (×{1})", //0=item name 1=count of item
+    "tp": "查找项目",
+    "tp.item": "{0} {1}", //0=item name, 1=item index
+    "gainticket": "你获得 {0} 张宠物券",
+    "shopunlock": "你打开精品店！\n去花园的右下角兑换宠物券吧！",
+    "shop": "奢侈品铭牌专卖店",
+    "race.third": "{0} 是第三名...",
+    "race.second": "{0} 是第二名。 ({1} 秒)",
+    "race.first": "{0} 是第一名！ ({1} 秒)",
+    "race.gate": "参加比赛，你今天还有 ({0} 次参加机会)", //0=number of remaining races
+    "race.chooseracer": "选择你的参赛选手",
+    "race.chooserace": "选择一场比赛",
+    "race.trytommorow": "今天休赛。",
+    "race.simple": "比赛并不容易",
+    "race.snow": "雪地赛跑",
+    "unlockvoice": "{0} 现在已经足够大了，可以认出它的名字了\n试着叫它！",
+    "unlocksnowy": "祝贺你！\n你解锁了通往雪地的道路。 通过花园的左下角，叫你的波波宠物来完成它。",
+    "unlockswimming": "祝贺你！\n{0} 现在可以游泳了。",
+    "path": "路径",
+    "nobeboo": "这里没有波波。",
+    "underwater": "火山水下烟囱",
+    "choosebeboo": "选择参加比赛的波波宠物。",
+    "ui.mainmenu": "主菜单。",
+    "ui.commands": "帮助 : 游戏命令",
+    "ui.credits": "人员名单",
+    "ui.discord": "加入discord服务器",
+    "ui.quit": "结束游戏",
+    "bag": "背包",
+    "emptybag": "你的背包是空的， (ESC离开)。",
+    "ui.emptymap": "这里没有项目。 要放置物品，请前往你的背包，然后选择一键物品，按空格键来放置。",
+    "ui.language": "更改语言",
+    "ui.languagechanged": "语言已更改"
+}
