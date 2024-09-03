@@ -124,5 +124,13 @@
     "emptybag": "twoja torba jest pusta, naciśnij esc, aby wyjźć.",
     "ui.emptymap": "Tu nie ma żadnyh przedmiotów, wejdź do menu puźniej na torbę i wybierz przedmiot do postawienia.",
     "ui.language": "zmień język",
-    "ui.languagechanged": "język zmieniony."
+    "ui.languagechanged": "język zmieniony.",
+    "findbeboo": "Znajdź Beboo",
+    "lose": "Przegrywasz.",
+    "boombox": "Boom Box",
+    "score": "Wynik: {0}",
+    "welcome": "With w boom boxie!",
+    "goal": "Naciskaj numery, any usłyszeć dźwięk, znajdź pary aby iść dalej",
+    "chest.name": "Skrzynka pełna skarbów.",
+    "chest.description": "Skrzynka pełna biletuw, beboo musi iść aby ją zdobyć.",
 }

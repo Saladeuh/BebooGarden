@@ -174,7 +174,7 @@ internal partial class Game : IGlobalActions
         Dictionary<string, int?> options = new();
         for (int i = 0; i < Map.Beboos.Count; i++)
           options.Add(Map.Beboos[i].Name, i);
-        int? choiceId = IWindowManager.ShowChoice<int?>("race.choosebebeboo", options);
+        int? choiceId = IWindowManager.ShowChoice<int?>("choosebeboo", options);
         beboo = choiceId != null ? Map.Beboos[choiceId.Value] : null;
       }
       else beboo = Map?.Beboos[0];

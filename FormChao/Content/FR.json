@@ -131,4 +131,7 @@
     "score": "Score : {0}",
     "welcome": "Bienvenue dans trésors sonores!",
     "goal": "Appuyez sur les chiffres du clavier pour entendre un son. Trouvez toutes les pairs pour passer au niveau suivant.",
+    "chest.name": "Coffre à trésors",
+    "chest.description": "Un coffre rempli de tickets. M ais attention ! Un Bébou doit redoubler d'intelligence pour les obtenir.",
+    "findbeboo": "Trouver un Bébou.",
 }

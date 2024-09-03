@@ -110,5 +110,14 @@
     "emptybag": "Sua bolsa está vazia (escape para sair).",
     "ui.emptymap": "Não há itens aqui. Para colocar um item, vá até sua bolsa, selecione um item e depois pressione espaço onde deseja colocá-lo.",
     "ui.language": "Change language",
-    "ui.languagechanged": "Language changed"
+    "ui.languagechanged": "Language changed",
+    "win": "You win!",
+    "lose": "You lose.",
+    "boombox": "Boom Box",
+    "score": "Score : {0}",
+    "welcome": "Welcome to Boom Box!",
+    "goal": "Press the numbers on the keyboard to hear a sound. Find all the pairs to move to the next level.",
+    "chest.name": "Treasure chest.",
+    "chest.description": "A chest full of tickets. But be careful! A Beboo must be wit to get them.",
+    "findbeboo": "Find a Beboo",
 }

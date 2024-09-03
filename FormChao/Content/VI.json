@@ -124,5 +124,14 @@
     "emptybag": "Túi của bạn trống rỗng (Escape để thoát ra ngoài).",
     "ui.emptymap": "Không có vật phẩm nào ở đây. Để đặt một vật phẩm, hãy đi tới túi của bạn, chọn một vật phẩm rồi nhấn phím cách tại nơi bạn muốn đặt nó.",
     "ui.language": "thay đổi ngôn ngữ",
-    "ui.languagechanged": "ngôn ngữ đã thay đổi"
+    "ui.languagechanged": "ngôn ngữ đã thay đổi",
+    "win": "Bạn thắng!",
+    "findbeboo": "Tìm một Beboo",
+    "lose": "Bạn thua.",
+    "boombox": "Boom Box",
+    "score": "Điểm : {0}",
+    "welcome": "Chào mừng đến với Boom Box!",
+    "goal": "Nhấn các số trên bàn phím để nghe âm thanh. Tìm tất cả các cặp để chuyển sang cấp độ tiếp theo.",
+    "chest.name": "Rương kho báu.",
+    "chest.description": "Một rương đầy vé. Nhưng hãy cẩn thận! Một Beboo phải thông minh để có được chúng.",
 }

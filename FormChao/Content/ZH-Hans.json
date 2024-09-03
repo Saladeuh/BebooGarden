@@ -124,5 +124,14 @@
     "emptybag": "你的背包是空的， (ESC离开)。",
     "ui.emptymap": "这里没有项目。 要放置物品，请前往你的背包，然后选择一键物品，按空格键来放置。",
     "ui.language": "更改语言",
-    "ui.languagechanged": "语言已更改"
+    "ui.languagechanged": "语言已更改",
+    "win": "You win!",
+    "lose": "You lose.",
+    "boombox": "Boom Box",
+    "score": "Score : {0}",
+    "welcome": "Welcome to Boom Box!",
+    "goal": "Press the numbers on the keyboard to hear a sound. Find all the pairs to move to the next level.",
+    "chest.name": "Treasure chest.",
+    "chest.description": "A chest full of tickets. But be careful! A Beboo must be wit to get them.",
+    "findbeboo": "Find a Beboo",
 }

@@ -130,5 +130,8 @@
     "boombox": "Boom Box",
     "score": "Score : {0}",
     "welcome": "Welcome to Boom Box!",
-    "goal": "Press the numbers on the keyboard to hear a sound. Find all the pairs to move to the next level."
+    "goal": "Press the numbers on the keyboard to hear a sound. Find all the pairs to move to the next level.",
+    "chest.name": "Treasure chest.",
+    "chest.description": "A chest full of tickets. But be careful! A Beboo must be wit to get them.",
+    "findbeboo": "Find a Beboo",
 }
