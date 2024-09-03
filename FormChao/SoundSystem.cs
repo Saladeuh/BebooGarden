@@ -134,6 +134,18 @@ internal class SoundSystem
     }
   }
 
+  private void LoadSoundsInList(List<Sound> sounds, string folder)
+  {
+    string path = Path.Combine(CONTENTFOLDER, folder);
+    var files = Directory.GetFiles(path);
+    foreach (string file in files)
+    {
+      Sound sound = System.CreateSound(file,
+          Mode._3D | Mode._3D_LinearSquareRolloff);
+      sounds.Add(sound);
+    }
+  }
+  
   public void LoadMainScreen()
   {
     NeutralMusicStream = System.CreateStream(CONTENTFOLDER + "music/neutral.mp3", Mode.Loop_Normal);
@@ -154,29 +166,31 @@ internal class SoundSystem
     UpSound = System.CreateStream(CONTENTFOLDER + "sounds/menu/up.wav");
     DownSound = System.CreateStream(CONTENTFOLDER + "sounds/menu/down.wav");
     BebooCuteSounds = new List<Sound>();
-    LoadSoundsInList(["ouou.wav", "ouou2.wav", "agougougou.wav"], BebooCuteSounds, "sounds/beboo/");
+    LoadSoundsInList(BebooCuteSounds, "sounds/beboo/cute/");
     BebooYawningSounds = new List<Sound>();
-    LoadSoundsInList(["baille.wav", "baille2.wav"], BebooYawningSounds, "sounds/beboo/");
+    LoadSoundsInList(BebooYawningSounds, "sounds/beboo/yawn/");
     BebooSleepingSounds = new List<Sound>();
-    LoadSoundsInList(["ronfle.wav", "dodo.wav"], BebooSleepingSounds, "sounds/beboo/");
+    LoadSoundsInList(BebooSleepingSounds, "sounds/beboo/sleep/");
     BebooChewSounds = new List<Sound>();
     LoadSoundsInList(["crunch.wav", "crunch2.wav", "EatingApple.wav"], BebooChewSounds, "sounds/beboo/");
     BebooYumySounds = new List<Sound>();
-    LoadSoundsInList(["miam.wav", "miam2.wav", "miam3.wav"], BebooYumySounds, "sounds/beboo/");
+    LoadSoundsInList(BebooYumySounds, "sounds/beboo/yumy/");
     BebooDelightSounds = new List<Sound>();
-    LoadSoundsInList(["rourou.wav", "rourou2.wav", "rourou3.wav"], BebooDelightSounds, "sounds/beboo/");
+    LoadSoundsInList(BebooDelightSounds, "sounds/beboo/pet/");
     BebooPetSound = new List<Sound>();
     LoadSoundsInList(["pet.wav", "pet2.wav"], BebooPetSound, "sounds/character/");
     BebooCrySounds = new List<Sound>();
-    LoadSoundsInList(["trist.wav", "trist2.wav"], BebooCrySounds, "sounds/beboo/");
+    LoadSoundsInList(BebooCrySounds, "sounds/beboo/cry/");
     BebooSurpriseSounds = new List<Sound>();
-    LoadSoundsInList(["surprise.wav", "surprise2.wav", "surprise3.wav"], BebooSurpriseSounds, "sounds/beboo/");
+    LoadSoundsInList(BebooSurpriseSounds, "sounds/beboo/surprise/");
     BebooInteractSounds = new List<Sound>();
-    LoadSoundsInList(["ta.wav", "baaah.wav"], BebooInteractSounds, "sounds/beboo/");
+    LoadSoundsInList(BebooInteractSounds, "sounds/beboo/inter/");
     BebooAngrySounds = new List<Sound>();
-    LoadSoundsInList(["colere.wav", "colere2.wav"], BebooAngrySounds, "sounds/beboo/");
+    LoadSoundsInList(BebooAngrySounds, "sounds/beboo/angry/");
+    BebooFunSounds = new List<Sound>();
+    LoadSoundsInList(BebooFunSounds, "sounds/beboo/fun/");
     BebooSongSounds = new List<Sound>();
-    LoadSoundsInList(["song.wav", "song2.wav", "song3.wav"], BebooSongSounds, "sounds/beboo/");
+    LoadSoundsInList(BebooSongSounds, "sounds/beboo/song/");
     WhistleSound = System.CreateSound(CONTENTFOLDER + "sounds/character/se_sys_whistle_1p.wav", Mode.Unique);
     Whistle2Sound = System.CreateSound(CONTENTFOLDER + "sounds/character/se_sys_whistle_2p.wav", Mode.Unique);
     CursorSound = System.CreateSound(CONTENTFOLDER + "sounds/character/cursor.wav", Mode.Unique);
