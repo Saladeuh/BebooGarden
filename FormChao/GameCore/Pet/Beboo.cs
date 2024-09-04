@@ -29,6 +29,7 @@ public class Beboo
   public Dsp VoiceDsp { get; }
   public int SwimLevel { get; set; } = 0;
   public bool Racer { get; set; } = false;
+  public BebooType BebooType { get; set; }
   public Beboo(string name, float age, DateTime lastPlayed, int happiness = 3, float energy = 3, int swimLevel = 0, bool racer = false, float voicePitch = 1)
   {
     Racer = racer;
@@ -527,7 +528,7 @@ public class Beboo
   public void SingWith(Beboo friend)
   {
     if (friend.Channel != null && friend.Channel.IsPlaying) return;
-    var randomSong = Game.SoundSystem.BebooSongSounds[Game.Random.Next(Game.SoundSystem.BebooSongSounds.Count)];
+    var randomSong = Game.SoundSystem.BebooSongSounds[BebooType][Game.Random.Next(Game.SoundSystem.BebooSongSounds.Count)];
     Game.SoundSystem.PlayBebooSound(randomSong, this);
     Task.Run(async () =>
     {

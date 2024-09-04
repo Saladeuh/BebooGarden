@@ -14,7 +14,7 @@ namespace BebooGarden;
 internal class SoundSystem
 {
   public const string CONTENTFOLDER = "Content/";
-
+  public const string BEBOOSOUNDSFOLDER = "sounds/beboo/";
   private static Timer? _ambiTimer;
   private readonly List<Task> Tasks = new();
   public Vector3 Up = new(0, 0, 1), Forward = new(0, 1, 0);
@@ -47,16 +47,16 @@ internal class SoundSystem
     set => System.MasterSoundGroup.GetValueOrDefault().Volume = value;
   }
 
-  public List<Sound> BebooCuteSounds { get; private set; }
-  public List<Sound> BebooSleepSounds { get; }
-  public List<Sound> BebooYawningSounds { get; private set; }
+  public Dictionary<BebooType, List<Sound>> BebooCuteSounds { get; private set; }
+  public Dictionary<BebooType, List<Sound>> BebooSleepSounds { get; }
+  public Dictionary<BebooType, List<Sound>> BebooYawningSounds { get; private set; }
   public List<Sound> BebooChewSounds { get; private set; }
   public Sound WhistleSound { get; set; }
   public Sound Whistle2Sound { get; private set; }
   public Sound CursorSound { get; private set; }
   public Sound TreesShakeSound { get; private set; }
   public Sound WallSound { get; private set; }
-  public List<Sound> BebooSleepingSounds { get; private set; }
+  public Dictionary<BebooType, List<Sound>> BebooSleepingSounds { get; private set; }
   public Sound BebooStepSound { get; private set; }
   public Sound BebooStepWaterSound { get; private set; }
   public Sound BebooStepSnowSound { get; private set; }
@@ -84,7 +84,7 @@ internal class SoundSystem
   public Sound TreeWindSound { get; private set; }
   public Sound JingleComplete { get; private set; }
   public Sound JingleStar { get; private set; }
-  public List<Sound> BebooYumySounds { get; private set; }
+  public Dictionary<BebooType, List<Sound>> BebooYumySounds { get; private set; }
   private SortedDictionary<FruitSpecies, Sound> FruitsSounds { get; set; }
   public Sound WelcomeMusicStream { get; private set; }
   public Sound NeutralMusicStream { get; private set; }
@@ -99,8 +99,8 @@ internal class SoundSystem
   public Sound RaceGoodSound { get; private set; }
   public Sound RaceBadSound { get; private set; }
   public List<Sound> BebooPetSound { get; private set; }
-  public List<Sound> BebooCrySounds { get; private set; }
-  public List<Sound> BebooDelightSounds { get; private set; }
+  public Dictionary<BebooType, List<Sound>> BebooCrySounds { get; private set; }
+  public Dictionary<BebooType, List<Sound>> BebooDelightSounds { get; private set; }
   public Sound JingleStar2 { get; private set; }
   public Sound JingleWaw { get; private set; }
   public Sound JingleLittleStar { get; private set; }
@@ -111,7 +111,7 @@ internal class SoundSystem
   public Sound CinematicElevator { get; private set; }
   public Sound CinematicRaceStart { get; private set; }
   public Sound CinematicRaceEnd { get; private set; }
-  public List<Sound> BebooFunSounds { get; private set; }
+  public Dictionary<BebooType, List<Sound>> BebooFunSounds { get; private set; }
   public List<Sound> BoingSounds { get; private set; }
   public List<Sound> BubbleSounds { get; private set; }
   public Sound BubblePopSound { get; private set; }
@@ -119,10 +119,10 @@ internal class SoundSystem
   public Sound ItemChestSound { get; private set; }
   public Sound ItemChestOpenSound { get; private set; }
   public Sound ItemChestCloseSound { get; private set; }
-  public List<Sound> BebooSurpriseSounds { get; private set; }
-  public List<Sound> BebooInteractSounds { get; private set; }
-  public List<Sound> BebooAngrySounds { get; private set; }
-  public List<Sound> BebooSongSounds { get; private set; }
+  public Dictionary<BebooType, List<Sound>> BebooSurpriseSounds { get; private set; }
+  public Dictionary<BebooType, List<Sound>> BebooInteractSounds { get; private set; }
+  public Dictionary<BebooType, List<Sound>> BebooAngrySounds { get; private set; }
+  public Dictionary<BebooType, List<Sound>> BebooSongSounds { get; private set; }
 
   private void LoadSoundsInList(string[] files, List<Sound> sounds, string prefixe = "")
   {
@@ -134,18 +134,27 @@ internal class SoundSystem
     }
   }
 
-  private void LoadSoundsInList(List<Sound> sounds, string folder)
+  private Dictionary<BebooType, List<Sound>> LoadBebooSoundsInList(string folder)
   {
-    string path = Path.Combine(CONTENTFOLDER, folder);
-    var files = Directory.GetFiles(path);
-    foreach (string file in files)
+    Dictionary<BebooType, List<Sound>> dict = new();
+    foreach (BebooType bebooType in Enum.GetValues(typeof(BebooType)))
     {
-      Sound sound = System.CreateSound(file,
-          Mode._3D | Mode._3D_LinearSquareRolloff);
-      sounds.Add(sound);
+      List<Sound> sounds = new();
+      string path = Path.Combine(CONTENTFOLDER, BEBOOSOUNDSFOLDER, bebooType.ToString(), folder);
+      if (Directory.Exists(path))
+      {
+        var files = Directory.GetFiles(path);
+        foreach (string file in files)
+        {
+          Sound sound = System.CreateSound(file,
+              Mode._3D | Mode._3D_LinearSquareRolloff);
+          sounds.Add(sound);
+        }
+      }
+      dict[bebooType] = sounds;
     }
+    return dict;
   }
-  
   public void LoadMainScreen()
   {
     NeutralMusicStream = System.CreateStream(CONTENTFOLDER + "music/neutral.mp3", Mode.Loop_Normal);
@@ -165,32 +174,21 @@ internal class SoundSystem
     JingleLittleStar = System.CreateStream(CONTENTFOLDER + "music/LittleStar.wav");
     UpSound = System.CreateStream(CONTENTFOLDER + "sounds/menu/up.wav");
     DownSound = System.CreateStream(CONTENTFOLDER + "sounds/menu/down.wav");
-    BebooCuteSounds = new List<Sound>();
-    LoadSoundsInList(BebooCuteSounds, "sounds/beboo/cute/");
-    BebooYawningSounds = new List<Sound>();
-    LoadSoundsInList(BebooYawningSounds, "sounds/beboo/yawn/");
-    BebooSleepingSounds = new List<Sound>();
-    LoadSoundsInList(BebooSleepingSounds, "sounds/beboo/sleep/");
+    BebooCuteSounds = LoadBebooSoundsInList("cute/");
+    BebooYawningSounds = LoadBebooSoundsInList("yawn/");
+    BebooSleepingSounds = LoadBebooSoundsInList("sleep/");
     BebooChewSounds = new List<Sound>();
-    LoadSoundsInList(["crunch.wav", "crunch2.wav", "EatingApple.wav"], BebooChewSounds, "sounds/beboo/");
-    BebooYumySounds = new List<Sound>();
-    LoadSoundsInList(BebooYumySounds, "sounds/beboo/yumy/");
-    BebooDelightSounds = new List<Sound>();
-    LoadSoundsInList(BebooDelightSounds, "sounds/beboo/pet/");
+    LoadSoundsInList(["crunch.wav", "crunch2.wav", "EatingApple.wav"], BebooChewSounds, BEBOOSOUNDSFOLDER);
+    BebooYumySounds = LoadBebooSoundsInList("yumy/");
+    BebooDelightSounds = LoadBebooSoundsInList("pet/");
     BebooPetSound = new List<Sound>();
     LoadSoundsInList(["pet.wav", "pet2.wav"], BebooPetSound, "sounds/character/");
-    BebooCrySounds = new List<Sound>();
-    LoadSoundsInList(BebooCrySounds, "sounds/beboo/cry/");
-    BebooSurpriseSounds = new List<Sound>();
-    LoadSoundsInList(BebooSurpriseSounds, "sounds/beboo/surprise/");
-    BebooInteractSounds = new List<Sound>();
-    LoadSoundsInList(BebooInteractSounds, "sounds/beboo/inter/");
-    BebooAngrySounds = new List<Sound>();
-    LoadSoundsInList(BebooAngrySounds, "sounds/beboo/angry/");
-    BebooFunSounds = new List<Sound>();
-    LoadSoundsInList(BebooFunSounds, "sounds/beboo/fun/");
-    BebooSongSounds = new List<Sound>();
-    LoadSoundsInList(BebooSongSounds, "sounds/beboo/song/");
+    BebooCrySounds = LoadBebooSoundsInList("cry/");
+    BebooSurpriseSounds = LoadBebooSoundsInList("surprise/");
+    BebooInteractSounds = LoadBebooSoundsInList("inter/");
+    BebooAngrySounds = LoadBebooSoundsInList("angry/");
+    BebooFunSounds = LoadBebooSoundsInList("fun/");
+    BebooSongSounds = LoadBebooSoundsInList("song/");
     WhistleSound = System.CreateSound(CONTENTFOLDER + "sounds/character/se_sys_whistle_1p.wav", Mode.Unique);
     Whistle2Sound = System.CreateSound(CONTENTFOLDER + "sounds/character/se_sys_whistle_2p.wav", Mode.Unique);
     CursorSound = System.CreateSound(CONTENTFOLDER + "sounds/character/cursor.wav", Mode.Unique);
@@ -407,6 +405,17 @@ internal class SoundSystem
   public void PlayBebooSound(List<Sound> sounds, Beboo beboo, bool stopOthers = true, float volume = -1)
   {
     Sound sound = sounds[Game.Random.Next(sounds.Count())];
+    if (beboo.Channel != null && stopOthers && beboo.Channel.IsPlaying) beboo.Channel.Stop();
+    beboo.Channel = PlaySoundAtPosition(sound, beboo.Position, 0, beboo.VoicePitch);
+    if (volume != -1) beboo.Channel.Volume = volume;
+  }
+
+  public void PlayBebooSound(Dictionary<BebooType, List<Sound>> sounds, Beboo beboo, bool stopOthers = true, float volume = -1)
+  {
+    List<Sound> soundsList = new();
+    if (sounds.TryGetValue(beboo.BebooType, out soundsList)) { }
+    else soundsList = sounds[BebooType.Base];
+    Sound sound = soundsList[Game.Random.Next(soundsList.Count)];
     if (beboo.Channel != null && stopOthers && beboo.Channel.IsPlaying) beboo.Channel.Stop();
     beboo.Channel = PlaySoundAtPosition(sound, beboo.Position, 0, beboo.VoicePitch);
     if (volume != -1) beboo.Channel.Volume = volume;
