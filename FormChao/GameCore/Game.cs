@@ -55,6 +55,8 @@ internal partial class Game : IGlobalActions
     SoundSystem.LoadMainScreen();
     if (!Flags.NewGame)
     {
+      CultureInfo.CurrentUICulture = new CultureInfo(parameters.Language);
+      UpdateLocalizer();
       PlayerPosition = new Vector3(0, 0, 0);
       foreach (Map map in Map.Maps.Values)
       {
@@ -166,7 +168,7 @@ internal partial class Game : IGlobalActions
 
   public static Beboo? ChooseBeboo()
   {
-    Beboo? beboo=null;
+    Beboo? beboo = null;
     if (Map.Beboos.Count > 0)
     {
       if (Map.Beboos.Count > 1)
@@ -178,7 +180,8 @@ internal partial class Game : IGlobalActions
         beboo = choiceId != null ? Map.Beboos[choiceId.Value] : null;
       }
       else beboo = Map?.Beboos[0];
-    } else
+    }
+    else
     {
       SayLocalizedString("nobeboo");
       Game.SoundSystem.System.PlaySound(Game.SoundSystem.WarningSound);
@@ -415,9 +418,9 @@ internal partial class Game : IGlobalActions
       MapInfo mapInfo = new(map.Items, fruits, bebooInfos);
       mapInfos.Add(map.Preset, mapInfo);
     }
-    SaveParameters parameters = new(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName,
-       SoundSystem.Volume,
-       lastPayed: DateTime.Now,
+    SaveParameters parameters = new(CultureInfo.CurrentUICulture.Name,
+      SoundSystem.Volume,
+      lastPayed: DateTime.Now,
        flags: Flags,
        playerName: PlayerName,
        fruitsBasket: FruitsBasket ?? [],

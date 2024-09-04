@@ -1,4 +1,6 @@
-﻿using BebooGarden.GameCore;
+﻿using System.Globalization;
+using BebooGarden.GameCore;
+using BebooGarden.Interface.UI;
 using BebooGarden.Save;
 
 namespace BebooGarden.Interface.ScriptedScene;
@@ -8,6 +10,13 @@ internal class Welcome : IWindowManager
   public static void BeforeGarden(SaveParameters parameters)
   {
     Game.SoundSystem.PlayNWelcomeMusic();
+    Dictionary<string, string> languageOptions = new();
+    foreach (string twoLetterLang in IGlobalActions.SUPPORTEDLANGUAGES)
+    {
+      languageOptions.Add(new CultureInfo(twoLetterLang).DisplayName, twoLetterLang);
+    }
+    var languages = new Languages("language", languageOptions, false);
+    languages.ShowDialog(Game.GameWindow);
     IWindowManager.ShowTalk("ui.welcome");
     string playerName = IWindowManager.ShowTextBox("ui.yourname", 12, true);
     IWindowManager.ShowTalk("ui.aboutyou", true, playerName);

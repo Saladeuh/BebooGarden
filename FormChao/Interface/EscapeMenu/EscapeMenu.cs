@@ -4,6 +4,7 @@ using BebooGarden.GameCore.Item;
 using BebooGarden.GameCore.Pet;
 using BebooGarden.GameCore.World;
 using BebooGarden.Interface.ScriptedScene;
+using BebooGarden.Interface.UI;
 
 namespace BebooGarden.Interface.EscapeMenu;
 

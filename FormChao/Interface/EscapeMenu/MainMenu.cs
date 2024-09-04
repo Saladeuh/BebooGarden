@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Globalization;
 using BebooGarden.GameCore;
+using BebooGarden.Interface.UI;
 
 namespace BebooGarden.Interface.EscapeMenu;
 
