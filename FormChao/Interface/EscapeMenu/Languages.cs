@@ -12,6 +12,8 @@ public class Languages(string title, Dictionary<string, string> choices) : Choos
     Button clickedButton = (Button)sender;
     Result = Choices[clickedButton.Text];
     CultureInfo.CurrentUICulture = new CultureInfo(Result);
+    IGlobalActions.UpdateLocalizer();
+    IGlobalActions.SayLocalizedString("ui.languagechanged");
     Close();
   }
   protected override void Back(object? sender, EventArgs e)

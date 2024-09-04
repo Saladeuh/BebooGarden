@@ -10,15 +10,19 @@ namespace BebooGarden.Interface;
 
 internal class IGlobalActions
 {
-  public static readonly string[] SUPPORTEDLANGUAGES = ["fr", "en"];
+  public static readonly string[] SUPPORTEDLANGUAGES = ["fr", "en", "pt-br", "pl", "vi", "zh-Hans"];
 
   static IGlobalActions()
   {
-    CultureInfo.CurrentUICulture = CultureInfo.InstalledUICulture;
     string twoLetterISOLanguageName = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
     if (!SUPPORTEDLANGUAGES.Contains(twoLetterISOLanguageName))
       CultureInfo.CurrentUICulture = new CultureInfo("en");
 
+    UpdateLocalizer();
+  }
+
+  public static void UpdateLocalizer()
+  {
     bool FilterFunction(string _, LogLevel logLevel)
     {
       return logLevel >= LogLevel.Critical;
@@ -28,7 +32,7 @@ internal class IGlobalActions
     Localizer = new JsonStringLocalizer("Content", "test", logger);
   }
 
-  private static IStringLocalizer Localizer { get; }
+  private static IStringLocalizer Localizer { get; set; }
 
   public string LanguageMenu()
   {
@@ -58,6 +62,20 @@ internal class IGlobalActions
         break;
       case Keys.F4:
         if (Game.SoundSystem.Music != null) Game.SoundSystem.Music.Mute = !Game.SoundSystem.Music.Mute;
+        break;
+      case Keys.F5:
+        if (Game.SoundSystem.Music != null)
+        {
+          if (Game.SoundSystem.Music.Volume >= 0.1f) Game.SoundSystem.Music.Volume -= 0.1f;
+          Game.SoundSystem.System.PlaySound(Game.SoundSystem.DownSound);
+        }
+        break;
+      case Keys.F6:
+        if (Game.SoundSystem.Music != null)
+        {
+          Game.SoundSystem.Music.Volume += 0.1f;
+          Game.SoundSystem.System.PlaySound(Game.SoundSystem.UpSound);
+        }
         break;
     }
   }
@@ -102,10 +120,4 @@ internal class IGlobalActions
   {
     ScreenReader.Output(GetLocalizedString(translationKey));
   }
-
-  public static void SetAppLanguage(string language)
-  {
-    CultureInfo.CurrentUICulture = new CultureInfo(language);
-  }
-
 }

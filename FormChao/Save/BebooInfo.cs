@@ -8,4 +8,5 @@ public class BebooInfo(string name, float age, int happiness, float energy, int 
   public float Energy { get; set; } = energy;
   public int SwimLevel { get; set; } = swimLevel;
   public float Voice { get; set; } = voice;
+  public bool KnowItsName { get; set; } = false;
 }

@@ -1,6 +1,9 @@
 ﻿using System.Globalization;
 using BebooGarden.GameCore;
 using BebooGarden.GameCore.Item;
+using BebooGarden.GameCore.Pet;
+using BebooGarden.GameCore.World;
+using BebooGarden.Interface.ScriptedScene;
 
 namespace BebooGarden.Interface.EscapeMenu;
 
@@ -8,6 +11,7 @@ public class EscapeMenu
 {
   private Inventory Inventory { get; set; }
   private Teleport Teleport { get; set; }
+  private BebooTP BebooTP { get; set; }
   private Languages Languages { get; set; }
   public MainMenu MainMenu { get; set; }
 
@@ -46,9 +50,15 @@ public class EscapeMenu
         }
       }
     }
-    if(tPOptions.Count > 0)
-    Teleport = new("ui.chooseitem", tPOptions);
+    if (tPOptions.Count > 0)
+      Teleport = new("ui.chooseitem", tPOptions);
     else Teleport = new("ui.emptymap", tPOptions);
+    Dictionary<string, Beboo> bebooTPOptions = [];
+    for (int i = 0; i < Game.Map.Beboos.Count; i++)
+      bebooTPOptions.Add(Game.Map.Beboos[i].Name, Game.Map.Beboos[i]);
+    if (bebooTPOptions.Count > 0)
+      BebooTP = new("choosebeboo", bebooTPOptions);
+    else BebooTP = new("nobeboo", bebooTPOptions);
     Dictionary<string, string> languageOptions = new();
     foreach (string twoLetterLang in IGlobalActions.SUPPORTEDLANGUAGES)
     {
@@ -58,8 +68,9 @@ public class EscapeMenu
     MainMenu = new(IGlobalActions.GetLocalizedString("ui.mainmenu"), new Dictionary<string, Form>()
     {
       {IGlobalActions.GetLocalizedString("bag"), Inventory },
+      {IGlobalActions.GetLocalizedString( "findbeboo"), BebooTP },
       {IGlobalActions.GetLocalizedString( "tp"), Teleport },
-    //  {IGlobalActions.GetLocalizedString( "languages"), Languages },
+      {IGlobalActions.GetLocalizedString( "ui.language"), Languages },
     });
   }
 

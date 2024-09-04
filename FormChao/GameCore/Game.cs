@@ -11,8 +11,10 @@ using BebooGarden.Interface;
 using BebooGarden.Interface.EscapeMenu;
 using BebooGarden.Interface.ScriptedScene;
 using BebooGarden.Interface.Shop;
+using BebooGarden.Interface.UI;
 using BebooGarden.Minigame;
 using BebooGarden.Save;
+using static System.Net.Mime.MediaTypeNames;
 using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
 using Timer = System.Windows.Forms.Timer;
 
@@ -30,10 +32,11 @@ internal partial class Game : IGlobalActions
     SoundSystem = new SoundSystem();
   }
 
-  public Game(Form1 form)
+  public Game(Form1 form, SaveParameters parameters)
   {
     GameWindow = form;
-    Parameters = SaveManager.LoadSave();
+    GameWindow.Text = GetLocalizedString("beboogarden");
+    Parameters = parameters;
     Flags = Parameters.Flags;
     if (Parameters.RaceScores != null) Race.RaceScores = Parameters.RaceScores;
     Race.TotalWin = Parameters.RaceTotalWin;
@@ -41,10 +44,10 @@ internal partial class Game : IGlobalActions
     Flags.UnlockEggInShop = Flags.UnlockUnderwaterMap || Flags.UnlockSnowyMap || Flags.UnlockEggInShop;
     try
     {
-      //if (Parameters.CurrentMap != MapPreset.basicrace && Parameters.CurrentMap != MapPreset.snowyrace)
+      if (Parameters.CurrentMap != MapPreset.basicrace && Parameters.CurrentMap != MapPreset.snowyrace)
         Map = Map.Maps[Parameters.CurrentMap];
-      //else
-        //Map = Map.Maps[MapPreset.garden];
+      else
+        Map = Map.Maps[MapPreset.garden];
     }
     catch (Exception) { Map = Map.Maps[MapPreset.garden]; }
     MusicBox.AvailableRolls = Parameters.UnlockedRolls ?? [];
@@ -70,13 +73,17 @@ internal partial class Game : IGlobalActions
           {
             if (bebooInfo.Name != "bob" && bebooInfo.Name != "boby")
             {
-              Beboo beboo = new(bebooInfo.Name, bebooInfo.Age, Parameters.LastPlayed, bebooInfo.Happiness, bebooInfo.Energy, bebooInfo.SwimLevel, false, bebooInfo.Voice);
+              Beboo beboo = new(bebooInfo.Name, bebooInfo.Age, Parameters.LastPlayed, bebooInfo.Happiness, bebooInfo.Energy, bebooInfo.SwimLevel, false, bebooInfo.Voice)
+              {
+                KnowItsName = bebooInfo.KnowItsName || bebooInfo.Age >= 2
+              };
               map.Beboos.Add(beboo);
               if (map != Map) beboo.Pause();
             }
           }
         }
         catch (KeyNotFoundException _) { }
+        if (map != Map) SoundSystem.Pause(map);
       }
     }
     else
@@ -132,147 +139,12 @@ internal partial class Game : IGlobalActions
       }
     }
   }
-  public static void Call(object? sender, EventArgs eventArgs)
-  {
-    SoundSystem.System.Get3DListenerAttributes(0, out Vector3 currentPosition, out _, out _, out _);
-    foreach (Beboo beboo in Map.Beboos)
-    {
-      if (beboo.Sleeping || !beboo.KnowItsName) continue;
-      Task.Run(async () =>
-      {
-        await Task.Delay(1000);
-        beboo.WakeUp();
-      });
-      beboo.GoalPosition = currentPosition;
-    }
-  }
-
-  public void KeyDownMapper(object sender, KeyEventArgs e)
-  {
-    if ((DateTime.Now - LastPressedKeyTime).TotalMilliseconds < 150) return;
-    LastPressedKeyTime = DateTime.Now;
-    Item.Item? itemUnderCursor = Map?.GetItemArroundPosition(PlayerPosition);
-    Map?.IsInLake(PlayerPosition);
-    Keys key = e.KeyCode;
-    if (key is Keys.Left
-      || WASD && key is Keys.A
-      || !WASD && key is Keys.Q)
-    {
-      MoveOf(new Vector3(-1, 0, 0));
-    }
-    else if (key is Keys.Right or Keys.D)
-    {
-      MoveOf(new Vector3(1, 0, 0));
-    }
-    else if (key is Keys.Up 
-      || WASD && key is Keys.W
-      ||!WASD && key is Keys.Z)
-    {
-      if ((Keyboard.GetKeyStates(Key.Enter) & KeyStates.Down) > 0)
-      {
-        if (!_lastArrowWasUp)
-        {
-          ShakeOrPetAtPlayerPosition();
-          _lastArrowWasUp = true;
-        }
-      }
-      else
-      {
-        MoveOf(new Vector3(0, 1, 0));
-      }
-    }
-    else if (key is Keys.Down
-      || WASD && key is Keys.S
-      ||!WASD && key is Keys.S)
-    {
-      if ((Keyboard.GetKeyStates(Key.Enter) & KeyStates.Down) > 0)
-      {
-        if (_lastArrowWasUp)
-        {
-          ShakeOrPetAtPlayerPosition();
-          _lastArrowWasUp = false;
-        }
-      }
-      else
-      {
-        MoveOf(new Vector3(0, -1, 0));
-      }
-    }
-    else if (key == Keys.F)
-    {
-      SayBebooState();
-    }
-    else if (key == Keys.G)
-    {
-      SayBasketState();
-    }
-    else if (key == Keys.T)
-    {
-      SayTickets();
-    }
-    else if (key == Keys.Enter)
-    {
-      if (itemUnderCursor != null && itemUnderCursor.IsTakable) itemUnderCursor.Take();
-      else if (Flags.UnlockShop && (Map?.IsArroundShop(PlayerPosition) ?? false)) new Shop().Show();
-      else if (Flags.UnlockSnowyMap && (Map?.IsArroundMapPath(PlayerPosition) ?? false))
-        TravelBetwieen(MapPreset.garden, MapPreset.snowy);
-      else if (Flags.UnlockUnderwaterMap && (Map?.IsArroundMapUnderWater(PlayerPosition) ?? false))
-        TravelBetwieen(MapPreset.garden, MapPreset.underwater);
-      else if (Map?.Beboos.Count > 0 && (Map?.IsArroundRaceGate(PlayerPosition) ?? false))
-        StartRace();
-    }
-    else if (key == Keys.Escape)
-    {
-      new EscapeMenu().Show();
-    }
-    else if (key == Keys.Space)
-    {
-      if (ItemInHand != null)
-      {
-        TryPutItemInHand();
-      }
-      else
-      {
-        Beboo? bebooUnderCursor = BebooUnderCursor();
-        if (bebooUnderCursor != null)
-        {
-          if (bebooUnderCursor.Sleeping) Whistle();
-          else FeedBeboo();
-        }
-        else if (Map?.GetTreeLineAtPosition(PlayerPosition) != null)
-        {
-        }
-        else if (itemUnderCursor != null)
-        {
-          itemUnderCursor.Action();
-        }
-        else
-        {
-          Whistle();
-        }
-      }
-    }
-    else
-    {
-      CheckGlobalActions(key);
-    }
-  }
 
   private static void StartRace()
   {
     if (Race.GetRemainingTriesToday() > 0)
     {
-      Beboo? contester;
-      if (Map.Beboos.Count > 1)
-      {
-        Dictionary<string, int?> options = new();
-        for (int i = 0; i < Map.Beboos.Count; i++)
-          options.Add(Map.Beboos[i].Name, i);
-        int? choiceId = IWindowManager.ShowChoice<int?>("race.chooseracer", options);
-        contester = choiceId != null ? Map.Beboos[choiceId.Value] : null;
-      }
-      else contester = Map?.Beboos[0];
-      if (contester == null) return;
+      Beboo? contester = ChooseBeboo(); if (contester == null) return;
       Dictionary<string, RaceType> raceTypeOptions = new()
       {
         {GetLocalizedString("race.simple"), RaceType.Base },
@@ -290,6 +162,28 @@ internal partial class Game : IGlobalActions
       Game.SoundSystem.System.PlaySound(Game.SoundSystem.WarningSound);
       SayLocalizedString("race.trytommorow");
     }
+  }
+
+  public static Beboo? ChooseBeboo()
+  {
+    Beboo? beboo=null;
+    if (Map.Beboos.Count > 0)
+    {
+      if (Map.Beboos.Count > 1)
+      {
+        Dictionary<string, int?> options = new();
+        for (int i = 0; i < Map.Beboos.Count; i++)
+          options.Add(Map.Beboos[i].Name, i);
+        int? choiceId = IWindowManager.ShowChoice<int?>("choosebeboo", options);
+        beboo = choiceId != null ? Map.Beboos[choiceId.Value] : null;
+      }
+      else beboo = Map?.Beboos[0];
+    } else
+    {
+      SayLocalizedString("nobeboo");
+      Game.SoundSystem.System.PlaySound(Game.SoundSystem.WarningSound);
+    }
+    return beboo;
   }
 
   private void TravelBetwieen(MapPreset a, MapPreset b)
@@ -317,7 +211,7 @@ internal partial class Game : IGlobalActions
     }
     return null;
   }
-  public List<Beboo> BeboosUnderCursor(int squareSide = 1)
+  public static List<Beboo> BeboosUnderCursor(int squareSide = 1)
   {
     List<Beboo> beboos = new();
     foreach (Beboo beboo in Map.Beboos)
@@ -374,12 +268,14 @@ internal partial class Game : IGlobalActions
         if (beboo.Happiness < 0) sentence = "beboo.verysad";
         else if (beboo.Energy < 0) sentence = "beboo.verytired";
         else if (beboo.Energy < 3) sentence = "beboo.littletired";
-        else sentence = beboo.Happiness < 3 ? "beboo.littlesad" : beboo.Energy < 8 ? "beboo.good" : "beboo.verygood";
-        SayLocalizedString(sentence, name);
-#if DEBUG
-        ScreenReader.Output(beboo.Age.ToString());
-#endif
+        else sentence = beboo.Happiness < 3 ? "beboo.littlesad" : (beboo.Energy < 8 ? "beboo.good" : "beboo.verygood");
       }
+      SayLocalizedString(sentence, name);
+#if DEBUG
+      ScreenReader.Output(beboo.Age.ToString());
+#endif
+
+
     }
   }
 
@@ -431,7 +327,7 @@ internal partial class Game : IGlobalActions
     SoundSystem.Whistle();
     foreach (Beboo beboo in Map?.Beboos)
     {
-      if (Map?.Beboos.Count <= 1 || Random.Next(3) == 1)
+      if (Map?.Beboos.Count <= 1 || Random.Next(2) == 1)
       {
         Task.Run(async () =>
         {
@@ -463,8 +359,9 @@ internal partial class Game : IGlobalActions
   {
     TreeLine? treeLine = Map?.GetTreeLineAtPosition(PlayerPosition);
     Item.Item? item = Map?.GetItemArroundPosition(PlayerPosition);
-    Beboo? bebooUnderCursor = BebooUnderCursor();
-    if (bebooUnderCursor != null) ScreenReader.Output(bebooUnderCursor.Name);
+    var beboosUnderCursor = BeboosUnderCursor(1);
+    if (beboosUnderCursor.Count > 0)
+      foreach (var beboo in beboosUnderCursor) ScreenReader.Output(beboo.Name);
     if (treeLine != null)
     {
       if (treeLine.Fruits == treeLine.FruitPerHour)
@@ -486,6 +383,7 @@ internal partial class Game : IGlobalActions
     SoundSystem.DisableAmbiTimer();
     if (Map == null) return;
     SoundSystem.Pause(Map);
+    SoundSystem.Music.Paused = true;
   }
   public static void Unpause()
   {
@@ -493,6 +391,7 @@ internal partial class Game : IGlobalActions
     SoundSystem.EnableAmbiTimer();
     if (Map == null) return;
     SoundSystem.Unpause(Map);
+    SoundSystem.Music.Paused = false;
   }
   internal void Close(object? sender, FormClosingEventArgs e)
   {
@@ -541,6 +440,8 @@ internal partial class Game : IGlobalActions
     if (backup) _backedMap = Map;
     Map = map;
     SoundSystem.LoadMap(map);
+    foreach (var otherMap in Map.Maps.Values)
+      if (otherMap != map) SoundSystem.Pause(otherMap);
   }
   internal static void LoadBackedMap()
   {

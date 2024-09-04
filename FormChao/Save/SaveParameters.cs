@@ -1,4 +1,5 @@
-﻿using BebooGarden.GameCore.Item;
+﻿using System.Globalization;
+using BebooGarden.GameCore.Item;
 using BebooGarden.GameCore.World;
 
 namespace BebooGarden.Save;
@@ -28,7 +29,7 @@ public class SaveParameters
   public SaveParameters()
   {
     Volume = 0.5f;
-    Language = "en";
+    Language = CultureInfo.InstalledUICulture.TwoLetterISOLanguageName;
     LastPlayed = default;
     Flags = new Flags();
     PlayerName = string.Empty;

@@ -29,6 +29,7 @@ public class Beboo
   public Dsp VoiceDsp { get; }
   public int SwimLevel { get; set; } = 0;
   public bool Racer { get; set; } = false;
+  public BebooType BebooType { get; set; }=BebooType.Pink;
   public Beboo(string name, float age, DateTime lastPlayed, int happiness = 3, float energy = 3, int swimLevel = 0, bool racer = false, float voicePitch = 1)
   {
     Racer = racer;
@@ -46,7 +47,7 @@ public class Beboo
     FancyMoveBehaviour =
         new TimedBehaviour<Beboo>(this, 10000, 30000, beboo => { beboo.WannaGoToRandomPlace(); }, true);
     GoingTiredBehaviour =
-        new TimedBehaviour<Beboo>(this, 50000, 70000, beboo => { beboo.Energy--; }, !isSleepingAtStart || !racer);
+        new TimedBehaviour<Beboo>(this, 60000*3, 60000*6, beboo => { beboo.Energy--; }, !isSleepingAtStart || !racer);
     GoingDepressedBehaviour =
         new TimedBehaviour<Beboo>(this, 120000, 150000, beboo => { beboo.Happiness--; }, !racer);
     SadBehaviour = new TimedBehaviour<Beboo>(this, 5000, 15000,
@@ -86,8 +87,8 @@ public class Beboo
     }
     Energy = elapsedTime.TotalHours > 8 ? 3 : 10;
     Energy = elapsedTime.TotalDays > 2 ? 1 : 5;
-    SpeechRecognizer = new BebooSpeechRecognition(name);
-    SpeechRecognizer.BebooCalled += Game.Call;
+    SpeechRecognizer = new BebooSpeechRecognition(this);
+    SpeechRecognizer.BebooCalled += Call;
   }
 
   public string Name { get; }
@@ -149,8 +150,8 @@ public class Beboo
           await Task.Delay(1000);
           BeHappy();
         });
-      if (value >= 9) BeOverexited();
-      else if (value <= 0) BeFloppy();
+      if (value >= 9 && Energy > 5) BeOverexcited();
+      else if (value <= 0 && Energy < 5) BeFloppy();
       else BeNormal();
       _hapiness = value;
     }
@@ -175,10 +176,11 @@ public class Beboo
   private TimedBehaviour<Beboo> SadBehaviour { get; }
   private TimedBehaviour<Beboo> SleepingBehaviour { get; }
   public TimedBehaviour<Beboo> GrowthBehaviour { get; }
-  private BebooSpeechRecognition SpeechRecognizer { get; }
+  public BebooSpeechRecognition SpeechRecognizer { get; }
   public bool KnowItsName { get; internal set; }
   public int MaxEnergy { get; private set; } = 10;
   public int MaxHappinness { get; private set; } = 10;
+  public bool Paused { get; private set; }
 
   private void BurstInTearrs()
   {
@@ -263,6 +265,28 @@ public class Beboo
         Happiness++;
       }
     }
+    if (Happy && Game.Random.Next(3) == 1)
+    {
+      var proximityBeboos = Game.Map?.GetBeboosArround(Position);
+      proximityBeboos.Remove(this);
+      InteractWith(proximityBeboos[Game.Random.Next(proximityBeboos.Count)]);
+      Happiness++;
+    }
+  }
+
+  private void InteractWith(Beboo friend)
+  {
+    if (friend.Sleeping) ForceWakeUp(friend);
+    else
+    {
+      var rnd = Game.Random.Next(5);
+      switch (rnd)
+      {
+        case 1: case 2: SingWith(friend); break;
+        case 3: Follow(friend); break;
+        case 4: Scare(friend); break;
+      }
+    }
   }
 
   private void EndPanik()
@@ -305,6 +329,13 @@ public class Beboo
       Item.Item? targetItem = Game.Map?.Items[Game.Random.Next(Game.Map.Items.Count)];
       if (targetItem != null) GoalPosition = targetItem.Position;
     }
+    else if (Game.Map?.Beboos.Count > 1 && Game.Random.Next(3) == 1)
+    {
+      var otherBeboos = new List<Beboo>(Game.Map.Beboos);
+      otherBeboos.Remove(this);
+      var targetBeboo = otherBeboos[Game.Random.Next(otherBeboos.Count)];
+      GoalPosition = targetBeboo.Position;
+    }
     else
     {
       Vector3 randomMove = new(Game.Random.Next(-4, 5), Game.Random.Next(-4, 5), 0);
@@ -315,16 +346,23 @@ public class Beboo
   public void GoAsleep()
   {
     if (Sleeping) return;
-    IGlobalActions.SayLocalizedString("beboo.gosleep", Name);
-    GoingTiredBehaviour.Stop();
-    MoveBehaviour.Stop();
-    FancyMoveBehaviour.Stop();
-    CuteBehaviour.Stop();
-    GoingDepressedBehaviour.Stop();
-    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.GrassSound, this);
-    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooYawningSounds, this);
-    Sleeping = true;
-    SleepingBehaviour.Start();
+    if (SwimLevel >= 10 || Game.Map.Preset == MapPreset.underwater || (Game.Map != null && !Game.Map.IsInLake(Position)))
+    {
+      IGlobalActions.SayLocalizedString("beboo.gosleep", Name);
+      GoingTiredBehaviour.Stop();
+      MoveBehaviour.Stop();
+      FancyMoveBehaviour.Stop();
+      CuteBehaviour.Stop();
+      GoingDepressedBehaviour.Stop();
+      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.GrassSound, this);
+      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooYawningSounds, this);
+      Sleeping = true;
+      SleepingBehaviour.Start();
+    }
+    else
+    {
+      GoalPosition = new(0, 0, 0); //TODO do somethin better
+    }
   }
 
   public void WakeUp()
@@ -409,7 +447,7 @@ public class Beboo
     CuteBehaviour.Restart();
   }
 
-  private void BeOverexited()
+  private void BeOverexcited()
   {
     MoveBehaviour.MinMS = 50;
     MoveBehaviour.MaxMS = 150;
@@ -423,6 +461,7 @@ public class Beboo
   }
   public void Pause()
   {
+    Paused = true;
     CuteBehaviour.Stop();
     MoveBehaviour.Stop();
     GoingDepressedBehaviour.Stop();
@@ -432,6 +471,7 @@ public class Beboo
   }
   public void Unpause()
   {
+    Paused = false;
     if (Sleeping) SleepingBehaviour.Start();
     else
     {
@@ -441,5 +481,61 @@ public class Beboo
     }
     GoingDepressedBehaviour.Start();
     GrowthBehaviour.Start();
+  }
+  public void Call(object? sender, EventArgs eventArgs)
+  {
+    if (Paused || Sleeping || !KnowItsName) return;
+    Task.Run(async () =>
+    {
+      await Task.Delay(1000);
+      WakeUp();
+    });
+    GoalPosition = Game.PlayerPosition;
+  }
+  public void Scare(Beboo friend)
+  {
+    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooInteractSounds, this);
+    friend.GetScared(this);
+  }
+  public void ForceWakeUp(Beboo friend)
+  {
+    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooInteractSounds, this);
+    friend.GetWakeUped(this);
+  }
+  public void GetScared(Beboo friend)
+  {
+    StartPanik();
+    Task.Run(async () =>
+    {
+      await Task.Delay(5000);
+      EndPanik();
+    });
+  }
+  public void GetWakeUped(Beboo friend)
+  {
+    Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooSurpriseSounds, this);
+    Task.Run(async () =>
+    {
+      await Task.Delay(2000);
+      Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooAngrySounds, this);
+      WakeUp();
+    });
+  }
+  public void Follow(Beboo friend)
+  {
+    GoalPosition = friend.GoalPosition;
+  }
+  public void SingWith(Beboo friend)
+  {
+    if (friend.Channel != null && friend.Channel.IsPlaying) return;
+    var randomSong = Game.SoundSystem.BebooSongSounds[BebooType][Game.Random.Next(Game.SoundSystem.BebooSongSounds.Count)];
+    Game.SoundSystem.PlayBebooSound(randomSong, this);
+    Task.Run(async () =>
+    {
+      await Task.Delay(100);
+      Game.SoundSystem.PlayBebooSound(randomSong, friend);
+    });
+    Happiness++;
+    friend.Happiness++;
   }
 }

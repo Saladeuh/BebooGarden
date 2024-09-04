@@ -1,13 +1,16 @@
+using System.Globalization;
 using BebooGarden.GameCore;
+using BebooGarden.Interface.EscapeMenu;
+using BebooGarden.Save;
 
-namespace BebooGarden.Interface;
+namespace BebooGarden.Interface.UI;
 
 public partial class Form1 : Form
 {
   public Form1()
   {
     WindowState = FormWindowState.Maximized;
-    Text = IGlobalActions.GetLocalizedString("beboogarden");
+    Text = "Beboo Garden";
     Load += onLoad;
   }
 
@@ -15,7 +18,9 @@ public partial class Form1 : Form
 
   private void onLoad(object? sender, EventArgs e)
   {
-    Game = new Game(this);
+    SaveParameters p = SaveManager.LoadSave();
+    CultureInfo.CurrentUICulture = new CultureInfo(p.Language);
+    Game = new Game(this, p);
     KeyDown += Game.KeyDownMapper;
     FormClosing += Game.Close;
   }

@@ -9,7 +9,7 @@
     "indigo": "Indigo",
     "violet": "Violet",
     "none": "None",
-    "chocolatekake": "A fat chocolate kake",
+    "chocolatekake": "A fat chocolate cake",
     "icecream": "A delicious icecream", 
     "fruitsalad": "A light and fresh fruit salad",
     "coffee": "Just a coffee, thanks.",
@@ -21,7 +21,7 @@
     "water": "lagoon",
     "Normal": "Apple",
     "Energetic": "Super Apple",
-    "beboo.gosleep": "{0} go asleep",
+    "beboo.gosleep": "{0} went  asleep",
     // 1=beboo name
     "beboo.wakeup": "{0} wakes up",
     // 1=beboo name
@@ -37,7 +37,7 @@
     //0=beboo name
     "beboo.littlesad": "{0} is a little bit sad",
     //0=beboo name
-    "beboo.littletired": "{0} is a litttle bit tired",
+    "beboo.littletired": "{0} is a little bit tired",
     //0=beboo name
     "beboo.good": "{0} is fine",
     //0=beboo name
@@ -49,7 +49,7 @@
     "duck.name": "Rubber duck",
     "duck.description": "It's just a duck",
     "boots.name": "Bouncing Boots",
-    "boots.description": "A Beboo can use them to bounce farer. Place it on the ground then try make a beboo to put them on",
+    "boots.description": "A Beboo can use them to bounce further. Place it on the ground then try make a beboo to put them on",
     "ticketpack.name": "Tickets pack",
     "ticketpack.description": "Jack pot!",
     "roll.name": "Music box's roll",
@@ -71,7 +71,7 @@
     "ui.freetimequick": "What do you love to do?",
     "ui.dessert": "Finaly, what is your favorite dessert in this list?",
     "ui.allgood": "Well, everything seems in order.",
-    "ui.quicktips": "Perfect!\nBefore you start taking care of {0}, I need to teach you the basics of the garden.\nTo feed {0}, you'll need to collect fruits from the trees on your right. Shake the trees by holding down the enter key and alternating between the up and down arrow keys.\nTo give a fruit to {0}, press the space bar when you are close, just like you did with the egg earlier.\nYou can also press F to know if {0} is missing something.\nOnce {0} is very happy, you can go to top-left corner exert itself.\nFinally, press escape to open the menu.\nHave fun!",
+    "ui.quicktips": "Perfect!\nBefore you start taking care of {0}, I need to teach you the basics of the garden.\nTo feed {0}, you'll need to collect fruits from the trees on your right. Shake the trees by holding down the enter key and alternating between the up and down arrow keys.\nTo give a fruit to {0}, press the space bar when you are close, just like you did with the egg earlier.\nYou can also press F to know if {0} is missing something.\nOnce {0} is very happy, you can go to top-left corner get some exercise.\nFinally, press escape to open the menu.\nHave fun!",
     "ui.emptyinventory": "Nothing in the bag",
     "ui.chooseitem": "Choose an item",
     "ui.itemput": "{0} dropped",
@@ -86,13 +86,13 @@
     "shop.item": "{0} : {1}, {2} tickets", // 0=item name, 2=description 2=cost
     "shop.items": "Items ({0} remaining tickets)", //0=tickets remaining number
     "shop.itemstitle": "Items",
-    "shop.buy": "{0} buied",
-    "shop.rolls": "Music box rolls ({0} remainsing tickets)", //0=tickets remaining number
+    "shop.buy": "{0} bought",
+    "shop.rolls": "Music box roll's ({0} remaining tickets)", //0=tickets remaining number
     "shop.roll": "{0} : {1}, {2} tickets", // 0=item name, 2=description 2=cost
-    "shop.rollstitle": "Music Box rolls",
+    "shop.rollstitle": "Music Box roll's",
     "shop.alreadyroll": "You already have this roll",
     "shop.notickets": "You don't have enough tickets",
-    "shop.title": "Welcome to the boutique! ({0} remainsing tickets)", //0=tickets remaining number    
+    "shop.title": "Welcome to the boutique! ({0} remaining tickets)", //0=tickets remaining number    
     "inventory.item": "{0} (×{1})", //0=item name 1=count of item
     "tp": "Find an item",
     "tp.item": "{0} {1}", //0=item name, 1=item index
@@ -114,13 +114,24 @@
     "path": "Path",
     "nobeboo": "There is no beboo here.",
     "underwater": "Volcanic underwater chimney",
-    "choosebeboo": "Choose the Bbeboo who will compete.",
+    "choosebeboo": "Choose a Bbeboo",
     "ui.mainmenu": "Main menu",
-    "ui.commands": "Help : Game's commandes.",
+    "ui.commands": "Help : Game's keybindings",
     "ui.credits": "Credits",
     "ui.discord": "Join the discord server",
     "ui.quit": "Close the game.",
     "bag": "Bag",
     "emptybag": "Your bag is empty (escape to leave).",
-    "ui.emptymap": "There are no items here. To place an item, go to your bag, select an item then press space where you want to place it."
+    "ui.emptymap": "There are no items here. To place an item, go to your bag, select an item then press space where you want to place it.",
+    "ui.language": "Change language",
+    "ui.languagechanged": "Language changed",
+    "win": "You win!",
+    "lose": "You lose.",
+    "boombox": "Boom Box",
+    "score": "Score : {0}",
+    "welcome": "Welcome to Boom Box!",
+    "goal": "Press the numbers on the keyboard to hear a sound. Find all the pairs to move to the next level.",
+    "chest.name": "Treasure chest.",
+    "chest.description": "A chest full of tickets. But be careful! A Beboo must be wit to get them.",
+    "findbeboo": "Find a Beboo",
 }

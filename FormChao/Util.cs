@@ -24,4 +24,8 @@ public static class Util
       while (reader.ReadLine() is { } line) yield return line;
     }
   }
+  public static bool IsKeyDigit(Keys key, out int keyInt)
+  {
+    return int.TryParse(key.ToString().Replace("NumPad", "").Replace("D", ""), out keyInt);
+  }
 }

@@ -76,7 +76,7 @@ public class MainMenu : Form
 
   private void OpenCommands(object? sender, EventArgs e)
   {
-    var twoLetterLang = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+    var twoLetterLang = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
     var langFile = Path.Combine(SoundSystem.CONTENTFOLDER, "doc", $"commands_{twoLetterLang}.html");
     var file = Path.Combine(SoundSystem.CONTENTFOLDER, "doc", "commands.html");
     if (File.Exists(langFile))
@@ -95,7 +95,7 @@ public class MainMenu : Form
     Button clickedButton = (Button)sender;
     Result = Choices[clickedButton.Text];
     Result.ShowDialog(this);
-    if (Result is Inventory || Result is Teleport) Close();
+    if (Result is Inventory or Teleport or Languages or BebooTP) Close();
   }
   private void OpenCredits(object? sender, EventArgs e)
   {

@@ -12,7 +12,7 @@ public class Shop
 
   public Shop()
   {
-    List<Item> itemsList = new() { new Duck(), new MusicBox(), new BouncingBoots() };
+    List<Item> itemsList = new() { new Duck(), new MusicBox(), new BouncingBoots(), new Chest() };
     if (Game.Flags.UnlockEggInShop) itemsList.Add(new Egg("green"));
     Dictionary<string, Item> itemsDictionary = itemsList.ToDictionary(
         item => IGlobalActions.GetLocalizedString("shop.item", item.Name, item.Description, item.Cost),

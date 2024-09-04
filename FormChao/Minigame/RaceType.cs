@@ -2,5 +2,5 @@
 {
   None,
   Base,
-  Snowy
+  Snowy,
 }

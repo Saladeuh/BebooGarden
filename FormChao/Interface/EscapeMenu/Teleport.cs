@@ -15,8 +15,4 @@ public class Teleport(string title, Dictionary<string, Item> choices, bool close
     if (Result.Position != null) Game.MoveOf(Result.Position.Value - Game.PlayerPosition);
     Close();
   }
-  protected override void Back(object? sender, EventArgs e)
-  {
-    base.Back(sender, e);
-  }
 }

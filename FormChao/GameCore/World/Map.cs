@@ -43,6 +43,7 @@ public class Map
   public ReverbProperties ReverbPreset { get; set; }
   public MapPreset Preset { get; }
   public List<Beboo> Beboos { get; set; } = new();
+  public bool Paused { get; internal set; }
 
   public Map(MapPreset preset, int sizeX, int sizeY, List<TreeLine> treeLines, Vector3? waterPoint, ReverbProperties reverbPreset)
   {
@@ -119,6 +120,7 @@ public class Map
     if (GetTreeLineAtPosition(position) != null) return false;
     Items.Add(item);
     item.Position = position;
+    if (Paused) item.Pause();
     return true;
   }
 
@@ -129,6 +131,10 @@ public class Map
       ? null
       : Items.FirstOrDefault(item => item != null && item.Position != null && Util.IsInSquare(item.Position.Value, position, 1),
             null);
+  }
+  public List<Beboo> GetBeboosArround(Vector3 position)
+  {
+    return Beboos.FindAll(beboo => beboo != null && beboo.Position != null && Util.IsInSquare(beboo.Position, position, 1));
   }
   public bool IsArroundShop(Vector3 position)
   {
