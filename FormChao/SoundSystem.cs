@@ -107,7 +107,7 @@ internal class SoundSystem
   public Sound UpSound { get; private set; }
   public Sound DownSound { get; private set; }
   public Sound ShopSound { get; private set; }
-  public Sound CinematicHatch { get; private set; }
+  public Dictionary<BebooType, Sound> CinematicsHatch { get; private set; } = new();
   public Sound CinematicElevator { get; private set; }
   public Sound CinematicRaceStart { get; private set; }
   public Sound CinematicRaceEnd { get; private set; }
@@ -209,7 +209,7 @@ internal class SoundSystem
         Mode._3D | Mode._3D_LinearSquareRolloff);
     BebooScreamSound = System.CreateSound(CONTENTFOLDER + "sounds/beboo/cri.wav",
         Mode._3D | Mode._3D_LinearSquareRolloff);
-    CinematicHatch = System.CreateStream(CONTENTFOLDER + "cinematic/hatch.wav");
+    LoadHatchCinematics();
     CinematicElevator = System.CreateStream(CONTENTFOLDER + "cinematic/elevator.mp3");
     CinematicRaceStart = System.CreateStream(CONTENTFOLDER + "cinematic/race.mp3");
     CinematicRaceEnd = System.CreateStream(CONTENTFOLDER + "cinematic/Return.mp3");
@@ -224,6 +224,13 @@ internal class SoundSystem
     Reverb3D reverb = System.CreateReverb3D();
     System.SetReverbProperties(1, Preset.Off);
     reverb.Set3DAttributes(new Vector3(0, 0, 0), 0f, 500f);
+  }
+
+  private void LoadHatchCinematics()
+  {
+    CinematicsHatch[BebooType.Green] = System.CreateStream(CONTENTFOLDER + "cinematic/hatch_Green.wav");
+    CinematicsHatch[BebooType.Pink] = System.CreateStream(CONTENTFOLDER + "cinematic/hatch_Pink.wav");
+    CinematicsHatch[BebooType.Base] = System.CreateStream(CONTENTFOLDER + "cinematic/hatch.wav");
   }
 
   private void LoadRace()
@@ -413,7 +420,7 @@ internal class SoundSystem
   public void PlayBebooSound(Dictionary<BebooType, List<Sound>> sounds, Beboo beboo, bool stopOthers = true, float volume = -1)
   {
     List<Sound> soundsList = new();
-    if (sounds.TryGetValue(beboo.BebooType, out soundsList)) { }
+    if (sounds.TryGetValue(beboo.BebooType, out soundsList) && soundsList.Count>0) { }
     else soundsList = sounds[BebooType.Base];
     Sound sound = soundsList[Game.Random.Next(soundsList.Count)];
     if (beboo.Channel != null && stopOthers && beboo.Channel.IsPlaying) beboo.Channel.Stop();

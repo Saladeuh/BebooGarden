@@ -1,4 +1,6 @@
 ﻿using System.Numerics;
+using BebooGarden.GameCore;
+using BebooGarden.GameCore.Pet;
 
 namespace BebooGarden;
 
@@ -27,5 +29,27 @@ public static class Util
   public static bool IsKeyDigit(Keys key, out int keyInt)
   {
     return int.TryParse(key.ToString().Replace("NumPad", "").Replace("D", ""), out keyInt);
+  }
+  public static BebooType GetRandomBebooType()
+  {
+    var bebooTypes = Enum.GetValues(typeof(BebooType));
+    return (BebooType)bebooTypes.GetValue(Game.Random.Next(1, bebooTypes.Length));
+  }
+
+  public static BebooType GetBebooTypeByColor(string color)
+  {
+    switch (color)
+    {
+      case "none": return BebooType.Base;
+      case "pink": return BebooType.Pink;
+      case "red": return BebooType.Red;
+      case "orange": return BebooType.Orange;
+      case "yellow": return BebooType.Yellow;
+      case "green": return BebooType.Green;
+      case "blue": return BebooType.Blue;
+      case "indigo": return BebooType.Indigo;
+      case "violet": return BebooType.Violet;
+      default: return BebooType.Base;
+    }
   }
 }

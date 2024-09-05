@@ -8,7 +8,10 @@ namespace BebooGarden.GameCore.Item;
 public class Egg(string color) : Item
 {
   protected override string _translateKeyName { get; } = "egg.name";
-  public override string Name { get { return Game.GetLocalizedString(_translateKeyName, Game.GetLocalizedString(Color)); } }
+  public override string Name { get {
+      var textColor = "";
+      if (Color !="None") textColor= Color;
+      return Game.GetLocalizedString(_translateKeyName, Game.GetLocalizedString(textColor)); } }
   protected override string _translateKeyDescription { get; } = "egg.description";
   public override Vector3? Position { get; set; } // position null=in inventory
   public override bool IsTakable { get; set; } = false;
@@ -24,10 +27,13 @@ public class Egg(string color) : Item
   {
     Game.Map?.Items.Remove(this);
     SoundLoopTimer.Stop();
-    Game.SoundSystem.PlayCinematic(Game.SoundSystem.CinematicHatch);
+    BebooType bebooType = Color != "none" ? Util.GetBebooTypeByColor(Color) : Util.GetRandomBebooType();
+    Sound cinematic;
+    if (!Game.SoundSystem.CinematicsHatch.TryGetValue(bebooType, out cinematic)) cinematic = Game.SoundSystem.CinematicsHatch[BebooType.Base];
+    Game.SoundSystem.PlayCinematic(cinematic);
     string name = NewBeboo.Run();
     int swimLevel = (Game.Map?.IsInLake(Position ?? new(0, 0, 0)) ?? false) ? 10 : 0;
-    Game.Map?.Beboos.Add(new Beboo(name, 1, DateTime.MinValue, 3, 3, swimLevel, false, 1 + (Game.Random.Next(4) / 10)) { Position = this.Position ?? new(0, 0, 0) });
+    Game.Map?.Beboos.Add(new Beboo(name, bebooType, 1, DateTime.MinValue, 3, 3, swimLevel, false, 1 + (Game.Random.Next(4) / 10)) { Position = this.Position ?? new(0, 0, 0) });
     Game.Flags.NewGame = false;
     Game.UpdateMapMusic();
   }

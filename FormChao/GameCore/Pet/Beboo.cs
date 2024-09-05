@@ -29,12 +29,13 @@ public class Beboo
   public Dsp VoiceDsp { get; }
   public int SwimLevel { get; set; } = 0;
   public bool Racer { get; set; } = false;
-  public BebooType BebooType { get; set; }=BebooType.Pink;
-  public Beboo(string name, float age, DateTime lastPlayed, int happiness = 3, float energy = 3, int swimLevel = 0, bool racer = false, float voicePitch = 1)
+  public BebooType BebooType { get; set; }
+  public Beboo(string name, BebooType bebooType, float age, DateTime lastPlayed, int happiness = 3, float energy = 3, int swimLevel = 0, bool racer = false, float voicePitch = 1)
   {
     Racer = racer;
     Position = new Vector3(0, 0, 0);
     Name = name == string.Empty ? "boby" : name;
+    BebooType = bebooType;
     VoiceDsp = Game.SoundSystem.System.CreateDSPByType(FmodAudio.DigitalSignalProcessing.DSPType.PitchShift);
     VoiceDsp.SetParameterFloat(0, voicePitch);
     SwimLevel = swimLevel;
@@ -126,7 +127,7 @@ public class Beboo
     set
     {
       value = Math.Clamp(value, -10, MaxEnergy);
-      if (_energy > value && ((Happy && value <= -2) || (!Happy && value <= -5))) GoAsleep();
+      if (_energy > value && ((Happy && value <= 0) || (!Happy && value <= -1))) GoAsleep();
       else if (_energy < value && _energy >= 2)
         Task.Run(async () =>
         {
@@ -407,7 +408,7 @@ public class Beboo
     _petCount++;
     _lastPetted = DateTime.Now;
     Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooPetSound, this, false);
-    if (_petCount + Game.Random.Next(2) >= 6)
+    if (_petCount + Game.Random.Next(2) >= 3)
     {
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooDelightSounds, this);
       if (Happiness <= 7 && Game.Random.Next(2) == 1)

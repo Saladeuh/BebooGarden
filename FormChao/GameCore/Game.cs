@@ -75,7 +75,16 @@ internal partial class Game : IGlobalActions
           {
             if (bebooInfo.Name != "bob" && bebooInfo.Name != "boby")
             {
-              Beboo beboo = new(bebooInfo.Name, bebooInfo.Age, Parameters.LastPlayed, bebooInfo.Happiness, bebooInfo.Energy, bebooInfo.SwimLevel, false, bebooInfo.Voice)
+              BebooType bebootype;
+              if (bebooInfo.BebooType != null && bebooInfo.BebooType != BebooType.Base) bebootype = bebooInfo.BebooType;
+              else
+              {
+                bebootype = Random.Next(2) == 1 && parameters.FavoredColor != "none"
+                  ? Util.GetBebooTypeByColor(parameters.FavoredColor)
+                  : Util.GetRandomBebooType();
+              }
+
+              Beboo beboo = new(bebooInfo.Name, bebootype, bebooInfo.Age, Parameters.LastPlayed, bebooInfo.Happiness, bebooInfo.Energy, bebooInfo.SwimLevel, false, bebooInfo.Voice)
               {
                 KnowItsName = bebooInfo.KnowItsName || bebooInfo.Age >= 2
               };
@@ -413,12 +422,12 @@ internal partial class Game : IGlobalActions
       List<BebooInfo> bebooInfos = new();
       foreach (Beboo beboo in map.Beboos)
       {
-        if (!beboo.Racer) bebooInfos.Add(new(beboo.Name, beboo.Age, beboo.Happiness, beboo.Energy, beboo.SwimLevel, beboo.VoicePitch));
+        if (!beboo.Racer) bebooInfos.Add(new(beboo.Name, beboo.Age, beboo.Happiness, beboo.Energy, beboo.SwimLevel, beboo.VoicePitch, beboo.BebooType));
       }
       MapInfo mapInfo = new(map.Items, fruits, bebooInfos);
       mapInfos.Add(map.Preset, mapInfo);
     }
-    SaveParameters parameters = new(CultureInfo.CurrentUICulture.Name,
+  SaveParameters parameters = new(CultureInfo.CurrentUICulture.Name,
       SoundSystem.Volume,
       lastPayed: DateTime.Now,
        flags: Flags,
