@@ -404,11 +404,11 @@ public class Beboo
 
   public void GetPetted()
   {
-    if ((DateTime.Now - _lastPetted).TotalMilliseconds < 700) return;
+    if ((DateTime.Now - _lastPetted).TotalMilliseconds < 800) return;
     _petCount++;
     _lastPetted = DateTime.Now;
     Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooPetSound, this, false);
-    if (_petCount + Game.Random.Next(2) >= 3)
+    if (_petCount + Game.Random.Next(2) >= 4)
     {
       Game.SoundSystem.PlayBebooSound(Game.SoundSystem.BebooDelightSounds, this);
       if (Happiness <= 7 && Game.Random.Next(2) == 1)

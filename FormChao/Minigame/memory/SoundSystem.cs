@@ -54,7 +54,7 @@ public class SoundSystem
     var rnd = new Random();
     if (group2 == null)
     {
-      var files = Directory.GetFiles(group1, "*.*");
+      string[] files = Directory.GetFiles(group1, "*.*", new EnumerationOptions() { RecurseSubdirectories = true });
       var rndArray = Enumerable.Range(0, files.Length).OrderBy(item => rnd.Next()).ToArray();
       for (int i = 0; i < MaxSounds; i++)
       {
@@ -63,9 +63,9 @@ public class SoundSystem
     }
     else
     {
-      var files1 = Directory.GetFiles(group1, "*.wav");
+      var files1 = Directory.GetFiles(group1, "*.wav", new EnumerationOptions() { RecurseSubdirectories = true });
       var rndArray1 = Enumerable.Range(0, files1.Length).OrderBy(item => rnd.Next()).ToArray();
-      var files2 = Directory.GetFiles(group2, "*.wav");
+      var files2 = Directory.GetFiles(group2, "*.wav", new EnumerationOptions() { RecurseSubdirectories = true });
       var rndArray2 = Enumerable.Range(0, files2.Length).OrderBy(item => rnd.Next()).ToArray();
       for (int i = 0; i < MaxSounds; i++)
       {

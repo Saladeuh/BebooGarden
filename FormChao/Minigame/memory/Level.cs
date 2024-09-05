@@ -59,6 +59,10 @@ internal class Level : Form
         Close();
       }
     }
+    else if (e.Modifiers == Keys.Alt && e.KeyCode == Keys.F4 || e.KeyCode == Keys.Escape) {
+      Win=false;
+      Close();
+    }
   }
 
   private void TryCase(int soundIndex, int caseIndex)

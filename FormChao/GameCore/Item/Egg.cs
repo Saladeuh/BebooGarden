@@ -9,8 +9,8 @@ public class Egg(string color) : Item
 {
   protected override string _translateKeyName { get; } = "egg.name";
   public override string Name { get {
-      var textColor = "";
-      if (Color !="None") textColor= Color;
+      var textColor = " ";
+      if (Color !="none") textColor= Color;
       return Game.GetLocalizedString(_translateKeyName, Game.GetLocalizedString(textColor)); } }
   protected override string _translateKeyDescription { get; } = "egg.description";
   public override Vector3? Position { get; set; } // position null=in inventory

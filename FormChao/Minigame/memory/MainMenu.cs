@@ -31,8 +31,8 @@ internal class MainMenu : IGlobalActions
     }
     SoundSystem.LoadMenu();
     var random = new Random();
-    var groups = Directory.GetDirectories(CONTENTFOLDER).ToList();
-    groups.Insert(0, BebooGarden.SoundSystem.CONTENTFOLDER + "sounds/beboo");
+    var groups = Directory.GetDirectories(Path.Combine(BebooGarden.SoundSystem.CONTENTFOLDER, BebooGarden.SoundSystem.BEBOOSOUNDSFOLDER)).ToList();
+    groups.Concat(Directory.GetDirectories(CONTENTFOLDER).ToList());
     int score = -1;
     do
     {
