@@ -1,6 +1,7 @@
 ﻿using System.Numerics;
 using BebooGarden.GameCore.World;
 using BebooGarden.Interface;
+using BebooGarden.Interface.EscapeMenu;
 using FmodAudio;
 using FmodAudio.DigitalSignalProcessing;
 
@@ -46,7 +47,7 @@ public class Beboo
     MoveBehaviour =
         new TimedBehaviour<Beboo>(this, 200, 400, beboo => { beboo.MoveTowardGoal(); }, !isSleepingAtStart);
     FancyMoveBehaviour =
-        new TimedBehaviour<Beboo>(this, 10000, 30000, beboo => { beboo.WannaGoToRandomPlace(); }, true);
+        new TimedBehaviour<Beboo>(this, 10000, 20000, beboo => { beboo.WannaGoToRandomPlace(); }, true);
     GoingTiredBehaviour =
         new TimedBehaviour<Beboo>(this, 60000*3, 60000*6, beboo => { beboo.Energy--; }, !isSleepingAtStart || !racer);
     GoingDepressedBehaviour =
@@ -278,6 +279,7 @@ public class Beboo
   private void InteractWith(Beboo friend)
   {
     if (friend.Sleeping) ForceWakeUp(friend);
+    else if (Game.Map.IsDansePlaying) SingWith(friend);
     else
     {
       var rnd = Game.Random.Next(5);
@@ -325,12 +327,12 @@ public class Beboo
 
   private void WannaGoToRandomPlace()
   {
-    if (Game.Random.Next(3) == 1)
+    if (Game.Random.Next(2) == 1)
     {
       Item.Item? targetItem = Game.Map?.Items[Game.Random.Next(Game.Map.Items.Count)];
       if (targetItem != null) GoalPosition = targetItem.Position;
     }
-    else if (Game.Map?.Beboos.Count > 1 && Game.Random.Next(3) == 1)
+    else if (Game.Map?.Beboos.Count > 1 && Game.Random.Next(2) == 1)
     {
       var otherBeboos = new List<Beboo>(Game.Map.Beboos);
       otherBeboos.Remove(this);
@@ -529,12 +531,15 @@ public class Beboo
   public void SingWith(Beboo friend)
   {
     if (friend.Channel != null && friend.Channel.IsPlaying) return;
-    var randomSong = Game.SoundSystem.BebooSongSounds[BebooType][Game.Random.Next(Game.SoundSystem.BebooSongSounds.Count)];
+    var songsList = SoundSystem.GetBebooSounds(Game.SoundSystem.BebooSongSounds, this);
+    var randomSong = songsList[Game.Random.Next(songsList.Count)];
+    var songsListFriend = SoundSystem.GetBebooSounds(Game.SoundSystem.BebooSongSounds, friend);
+    var randomSongFriend = songsList[Game.Random.Next(songsListFriend.Count)];
     Game.SoundSystem.PlayBebooSound(randomSong, this);
     Task.Run(async () =>
     {
       await Task.Delay(100);
-      Game.SoundSystem.PlayBebooSound(randomSong, friend);
+      Game.SoundSystem.PlayBebooSound(randomSongFriend, friend);
     });
     Happiness++;
     friend.Happiness++;

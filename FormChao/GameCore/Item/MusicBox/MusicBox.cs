@@ -1,5 +1,6 @@
 ﻿using System.Numerics;
 using BebooGarden.GameCore.Pet;
+using BebooGarden.GameCore.World;
 using BebooGarden.Interface;
 using BebooGarden.Interface.ScriptedScene;
 
@@ -78,11 +79,7 @@ internal class MusicBox : Item
       Roll? choosedRoll =
           IWindowManager.ShowChoice(IGlobalActions.GetLocalizedString("ui.chooseroll"), rollDictionary);
       if (choosedRoll != null) choosedRoll.Play();
-      else
-      {
-        Game.UpdateMapMusic();
-        if (Game.Map != null) Game.Map.IsLullabyPlaying = false;
-      }
+      else Stop();
     }
     else
     {
@@ -90,6 +87,17 @@ internal class MusicBox : Item
       IGlobalActions.SayLocalizedString("musicbox.noroll");
     }
   }
+
+  private static void Stop()
+  {
+    Game.UpdateMapMusic();
+    if (Game.Map != null)
+    {
+      Game.Map.IsLullabyPlaying = false;
+      Game.Map.IsDansePlaying = false;
+    }
+  }
+
   public override void BebooAction(Beboo beboo)
   {
     base.BebooAction(beboo);
@@ -99,5 +107,10 @@ internal class MusicBox : Item
   }
   public override void PlaySound()
   {
+  }
+  public override void Take()
+  {
+    base.Take();
+    Stop();
   }
 }

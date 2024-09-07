@@ -420,12 +420,19 @@ internal class SoundSystem
   public void PlayBebooSound(Dictionary<BebooType, List<Sound>> sounds, Beboo beboo, bool stopOthers = true, float volume = -1)
   {
     List<Sound> soundsList = new();
-    if (sounds.TryGetValue(beboo.BebooType, out soundsList) && soundsList.Count>0) { }
-    else soundsList = sounds[BebooType.Base];
+    soundsList = GetBebooSounds(sounds, beboo); 
     Sound sound = soundsList[Game.Random.Next(soundsList.Count)];
     if (beboo.Channel != null && stopOthers && beboo.Channel.IsPlaying) beboo.Channel.Stop();
     beboo.Channel = PlaySoundAtPosition(sound, beboo.Position, 0, beboo.VoicePitch);
     if (volume != -1) beboo.Channel.Volume = volume;
+  }
+
+  public static List<Sound> GetBebooSounds(Dictionary<BebooType, List<Sound>> sounds, Beboo beboo)
+  {
+    List<Sound> soundsList;
+    if (sounds.TryGetValue(beboo.BebooType, out soundsList) && soundsList.Count > 0) { }
+    else soundsList = sounds[BebooType.Base];
+    return soundsList;
   }
 
   public Channel PlaySoundAtPosition(Sound sound, Vector3 position, double volumeModifier = 0, float pitch = 1)
