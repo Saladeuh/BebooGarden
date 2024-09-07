@@ -41,7 +41,7 @@
     //0=beboo name
     "beboo.good": "{0} 很好",
     //0=beboo name
-    "beboo.verygood": "{0} 做的很好",
+    "beboo.verygood": "{0} 非常好",
     //0=beboo name
     "musicbox.name": "音乐盒",
     "musicbox.description": "一个放入唱片就能播放音乐的就物件。",
@@ -64,7 +64,7 @@
     "ui.letsname": "你的波波刚刚被孵化出来！现在，给可爱的小家伙取个名字吧！",
     "ui.welcome": "欢迎来到波波宠物花园！\n首先，我该怎样称呼你？",
     "ui.welcome2": "这里是波波宠物花园。\n这里是一片巨大的绿地，左边有一个小泻湖，右边有着高大的果树。\n要在花园里导航，我建议你带上耳机或耳塞。\n目前这里什么都没有，除了一个还没有孵化的蛋，在你的右边，你应该可以听到。\n当此对话框关闭后，就用方向键移动，当听到宠物蛋在你面前时，就按下空格键来打破蛋壳。",
-    "ui.aboutyou": "太棒了！ 现在, {0}, 我必须问你几个问题，才能帮你找到最适合你的波波宠物。\n让我们从最简单开始。",
+    "ui.aboutyou": "太棒了！ {0}, 现在，我必须问你几个问题，才能帮你找到最适合你的波波宠物。\n让我们从最简单开始。",
     // 0=player name
     "ui.color": "你最喜欢的颜色是什么？",
     "ui.freetime": "太酷了！\n现在，当你有空闲时间的时候，你喜欢做什么？\n它可以是任何东西。",
@@ -125,13 +125,13 @@
     "ui.emptymap": "这里没有项目。 要放置物品，请前往你的背包，然后选择一键物品，按空格键来放置。",
     "ui.language": "更改语言",
     "ui.languagechanged": "语言已更改",
-    "win": "You win!",
-    "lose": "You lose.",
+    "win": "你赢了！",
+    "lose": "你输了。",
     "boombox": "Boom Box",
-    "score": "Score : {0}",
-    "welcome": "Welcome to Boom Box!",
-    "goal": "Press the numbers on the keyboard to hear a sound. Find all the pairs to move to the next level.",
-    "chest.name": "Treasure chest.",
-    "chest.description": "A chest full of tickets. But be careful! A Beboo must be wit to get them.",
-    "findbeboo": "Find a Beboo",
+    "score": "得分: {0}",
+    "welcome": "欢迎来到 Boom Box!",
+    "goal": "按键盘上的数字可听到声音。 找到匹配成对的词以通往下一关。",
+    "chest.name": "宝箱。",
+    "chest.description": "一箱宠物券。请注意！波波宠物发挥自己的智慧才能得到他们。",
+    "findbeboo": "寻找波波",
 }
