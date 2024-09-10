@@ -83,7 +83,6 @@ internal partial class Game : IGlobalActions
                   ? Util.GetBebooTypeByColor(parameters.FavoredColor)
                   : Util.GetRandomBebooType();
               }
-
               Beboo beboo = new(bebooInfo.Name, bebootype, bebooInfo.Age, Parameters.LastPlayed, bebooInfo.Happiness, bebooInfo.Energy, bebooInfo.SwimLevel, false, bebooInfo.Voice)
               {
                 KnowItsName = bebooInfo.KnowItsName || bebooInfo.Age >= 2
