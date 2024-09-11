@@ -104,6 +104,7 @@ internal partial class Game : IGlobalActions
     SoundSystem.LoadMap(Map);
     if (Flags.NewGame) Welcome.AfterGarden();
     else UpdateMapMusic();
+    SoundSystem.Music.Volume = parameters.MusicVolume;
     LastPressedKeyTime = DateTime.Now;
     TickTimer.Tick += Tick;
     TickTimer.Enabled = true;
@@ -426,22 +427,23 @@ internal partial class Game : IGlobalActions
       MapInfo mapInfo = new(map.Items, fruits, bebooInfos);
       mapInfos.Add(map.Preset, mapInfo);
     }
-  SaveParameters parameters = new(CultureInfo.CurrentUICulture.Name,
-      SoundSystem.Volume,
-      lastPayed: DateTime.Now,
-       flags: Flags,
-       playerName: PlayerName,
-       fruitsBasket: FruitsBasket ?? [],
-       inventory: Inventory,
-       tickets: Tickets,
-       unlockedRolls: MusicBox.AvailableRolls,
-       favoredColor: Parameters.FavoredColor,
-       currentMap: Map?.Preset ?? MapPreset.garden,
-       mapInfos: mapInfos,
-       raceScores: Race.RaceScores,
-       raceTodayTries: Race.TodayTries,
-       raceTotalWin: Race.TotalWin
-   );
+    SaveParameters parameters = new(CultureInfo.CurrentUICulture.Name,
+        SoundSystem.Volume,
+        lastPayed: DateTime.Now,
+         flags: Flags,
+         playerName: PlayerName,
+         fruitsBasket: FruitsBasket ?? [],
+         inventory: Inventory,
+         tickets: Tickets,
+         unlockedRolls: MusicBox.AvailableRolls,
+         favoredColor: Parameters.FavoredColor,
+         currentMap: Map?.Preset ?? MapPreset.garden,
+         mapInfos: mapInfos,
+         raceScores: Race.RaceScores,
+         raceTodayTries: Race.TodayTries,
+         raceTotalWin: Race.TotalWin,
+         musicVolume: SoundSystem.Music.Volume
+     );
     SaveManager.WriteJson(parameters);
   }
   private static Map? _backedMap;
