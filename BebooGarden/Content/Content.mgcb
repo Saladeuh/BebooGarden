@@ -1,0 +1,2696 @@
+
+#----------------------------- Global Properties ----------------------------#
+
+/outputDir:bin/$(Platform)
+/intermediateDir:obj/$(Platform)
+/platform:DesktopGL
+/config:
+/profile:Reach
+/compress:False
+
+#-------------------------------- References --------------------------------#
+
+
+#---------------------------------- Content ---------------------------------#
+
+#begin cinematic/elevator.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:cinematic/elevator.mp3
+
+#begin cinematic/race.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:cinematic/race.mp3
+
+#begin cinematic/Return.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:cinematic/Return.mp3
+
+#begin music/Aquatic.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/Aquatic.mp3
+
+#begin music/Boutique.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/Boutique.mp3
+
+#begin music/Depressed.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/Depressed.mp3
+
+#begin music/Hero.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/Hero.mp3
+
+#begin music/Neutral.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/Neutral.mp3
+
+#begin music/race.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/race.mp3
+
+#begin music/race2.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/race2.mp3
+
+#begin music/snowy.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/snowy.mp3
+
+#begin music/space.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/space.mp3
+
+#begin music/welcome.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/welcome.mp3
+
+#begin sounds/Wind_Trees_Cattails_Fienup_001.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/Wind_Trees_Cattails_Fienup_001.mp3
+
+#begin boombox/music/ATHRETIC.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/music/ATHRETIC.mp3
+
+#begin boombox/music/Jingle_DROPSTAR.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/music/Jingle_DROPSTAR.mp3
+
+#begin boombox/music/Jingle_MINICLEAR.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/music/Jingle_MINICLEAR.mp3
+
+#begin boombox/music/Jingle_MINIOVER.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/music/Jingle_MINIOVER.mp3
+
+#begin boombox/music/Jingle_PERFECT.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/music/Jingle_PERFECT.mp3
+
+#begin boombox/music/Jingle_SLVSTAR1.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/music/Jingle_SLVSTAR1.mp3
+
+#begin boombox/music/PLAYROOM.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/music/PLAYROOM.mp3
+
+#begin sounds/race/stop.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/race/stop.mp3
+
+#begin music/musicbox/danse/1812 Overture (Finale)⧸- Tchaikovsky.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/danse/1812 Overture (Finale)⧸- Tchaikovsky.mp3
+
+#begin music/musicbox/danse/Aquarium Park - Act 1⧸Sonic Colors.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/danse/Aquarium Park - Act 1⧸Sonic Colors.mp3
+
+#begin music/musicbox/danse/Cerulean City -⧸Pokémon Red & Blue.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/danse/Cerulean City -⧸Pokémon Red & Blue.mp3
+
+#begin music/musicbox/danse/Deku Palace⧸- The Legend of Zelda Majora's Mask.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/danse/Deku Palace⧸- The Legend of Zelda Majora's Mask.mp3
+
+#begin music/musicbox/danse/Fist Bump⧸Douglas Robb - Sonic Forces.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/danse/Fist Bump⧸Douglas Robb - Sonic Forces.mp3
+
+#begin music/musicbox/danse/Flight of the Bumblebee -⧸Rimsky-Korsakov.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/danse/Flight of the Bumblebee -⧸Rimsky-Korsakov.mp3
+
+#begin music/musicbox/danse/Float Islands⧸- Kirby's Dream Land.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/danse/Float Islands⧸- Kirby's Dream Land.mp3
+
+#begin music/musicbox/danse/Gerudo Valley -⧸The Legend of Zelda Ocarina of Time.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/danse/Gerudo Valley -⧸The Legend of Zelda Ocarina of Time.mp3
+
+#begin music/musicbox/danse/Invincible⧸- Sonic the Hedgehog.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/danse/Invincible⧸- Sonic the Hedgehog.mp3
+
+#begin music/musicbox/danse/Malo Mart⧸- The Legend of Zelda Twilight Princess.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/danse/Malo Mart⧸- The Legend of Zelda Twilight Princess.mp3
+
+#begin music/musicbox/danse/Orpheus in the Underworld (Can Can) -⧸Offenbach.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/danse/Orpheus in the Underworld (Can Can) -⧸Offenbach.mp3
+
+#begin music/musicbox/danse/Overworld -⧸Super Mario World.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/danse/Overworld -⧸Super Mario World.mp3
+
+#begin music/musicbox/danse/Overworld Main Theme⧸- The Legend of Zelda Link's Awakening.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/danse/Overworld Main Theme⧸- The Legend of Zelda Link's Awakening.mp3
+
+#begin music/musicbox/danse/Romance in the Air⧸- The Legend of Zelda Skyward Sword.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/danse/Romance in the Air⧸- The Legend of Zelda Skyward Sword.mp3
+
+#begin music/musicbox/danse/Saria's Song (Lost Woods) -⧸The Legend of Zelda Ocarina of Time.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/danse/Saria's Song (Lost Woods) -⧸The Legend of Zelda Ocarina of Time.mp3
+
+#begin music/musicbox/danse/Sky Tower -⧸Pokémon Mystery Dungeon.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/danse/Sky Tower -⧸Pokémon Mystery Dungeon.mp3
+
+#begin music/musicbox/danse/Toreador Song - Five Nights at Freddy's.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/danse/Toreador Song - Five Nights at Freddy's.mp3
+
+#begin music/musicbox/danse/Underwater -⧸New Super Mario Bros. Wii.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/danse/Underwater -⧸New Super Mario Bros. Wii.mp3
+
+#begin music/musicbox/danse/Vandalize⧸ONE OK ROCK - ＂Sonic Frontiers.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/danse/Vandalize⧸ONE OK ROCK - ＂Sonic Frontiers.mp3
+
+#begin music/musicbox/danse/William Tell Overture -⧸Rossini.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/danse/William Tell Overture -⧸Rossini.mp3
+
+#begin music/musicbox/danse/Windmill Isle Day -⧸Sonic Unleashed.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/danse/Windmill Isle Day -⧸Sonic Unleashed.mp3
+
+#begin music/musicbox/lullaby/Attic -⧸Animal Crossing City Folk.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/lullaby/Attic -⧸Animal Crossing City Folk.mp3
+
+#begin music/musicbox/lullaby/Farewell -⧸Pokémon Mystery Dungeon.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/lullaby/Farewell -⧸Pokémon Mystery Dungeon.mp3
+
+#begin music/musicbox/lullaby/Flight Range -⧸The Legend of Zelda Breath of the Wild.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/lullaby/Flight Range -⧸The Legend of Zelda Breath of the Wild.mp3
+
+#begin music/musicbox/lullaby/Gate of Time⧸- The Legend of Zelda Skyward Sword.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/lullaby/Gate of Time⧸- The Legend of Zelda Skyward Sword.mp3
+
+#begin music/musicbox/lullaby/Gate⧸- Pokémon Black & White.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/lullaby/Gate⧸- Pokémon Black & White.mp3
+
+#begin music/musicbox/lullaby/Lake Hylia⧸- The Legend of Zelda Twilight Princess.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/lullaby/Lake Hylia⧸- The Legend of Zelda Twilight Princess.mp3
+
+#begin music/musicbox/lullaby/Missing You -⧸MapleStory.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/lullaby/Missing You -⧸MapleStory.mp3
+
+#begin music/musicbox/lullaby/Pavane pour une infante défunte -⧸Ravel.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/lullaby/Pavane pour une infante défunte -⧸Ravel.mp3
+
+#begin music/musicbox/lullaby/Prelude in C Major⧸- J.S. Bach.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/lullaby/Prelude in C Major⧸- J.S. Bach.mp3
+
+#begin music/musicbox/lullaby/Rêverie⧸- Debussy.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/lullaby/Rêverie⧸- Debussy.mp3
+
+#begin music/musicbox/lullaby/Tarrey Town -⧸The Legend of Zelda Breath of the Wild.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/lullaby/Tarrey Town -⧸The Legend of Zelda Breath of the Wild.mp3
+
+#begin music/musicbox/lullaby/Wiegenlied⧸- Brahms.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/lullaby/Wiegenlied⧸- Brahms.mp3
+
+#begin music/musicbox/lullaby/Windfall Island⧸- The Legend of Zelda The Wind Waker.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/lullaby/Windfall Island⧸- The Legend of Zelda The Wind Waker.mp3
+
+#begin music/musicbox/lullaby/Yoshi Story - Yoshi's Island DS.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/lullaby/Yoshi Story - Yoshi's Island DS.mp3
+
+#begin music/musicbox/lullaby/Zora's Domain⧸- The Legend of Zelda Ocarina of Time.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/lullaby/Zora's Domain⧸- The Legend of Zelda Ocarina of Time.mp3
+
+#begin music/musicbox/other/10PM -⧸Animal Crossing New Leaf.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/10PM -⧸Animal Crossing New Leaf.mp3
+
+#begin music/musicbox/other/11AM -⧸Animal Crossing New Leaf.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/11AM -⧸Animal Crossing New Leaf.mp3
+
+#begin music/musicbox/other/1AM⧸- Animal Crossing Wild World.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/1AM⧸- Animal Crossing Wild World.mp3
+
+#begin music/musicbox/other/2AM⧸- Animal Crossing Wild World.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/2AM⧸- Animal Crossing Wild World.mp3
+
+#begin music/musicbox/other/7PM⧸- Animal Crossing New Leaf.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/7PM⧸- Animal Crossing New Leaf.mp3
+
+#begin music/musicbox/other/8PM -⧸Animal Crossing New Leaf.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/8PM -⧸Animal Crossing New Leaf.mp3
+
+#begin music/musicbox/other/Arabesque No.1 -⧸Debussy.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Arabesque No.1 -⧸Debussy.mp3
+
+#begin music/musicbox/other/Astral Observatory -⧸The Legend of Zelda Majora's Mask.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Astral Observatory -⧸The Legend of Zelda Majora's Mask.mp3
+
+#begin music/musicbox/other/Ballad of the Goddess⧸- The Legend of Zelda Skyward Sword.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Ballad of the Goddess⧸- The Legend of Zelda Skyward Sword.mp3
+
+#begin music/musicbox/other/Beedle's Shop -⧸The Legend of Zelda The Wind Waker.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Beedle's Shop -⧸The Legend of Zelda The Wind Waker.mp3
+
+#begin music/musicbox/other/Bunny Day (Easter)⧸- Animal Crossing New Leaf.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Bunny Day (Easter)⧸- Animal Crossing New Leaf.mp3
+
+#begin music/musicbox/other/Chun-nan (Night)⧸- Sonic Unleashed.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Chun-nan (Night)⧸- Sonic Unleashed.mp3
+
+#begin music/musicbox/other/Clair de lune⧸- Debussy.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Clair de lune⧸- Debussy.mp3
+
+#begin music/musicbox/other/Dance Of The Knights (from Romeo And Juliet)⧸- Sergei Prokofiev.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Dance Of The Knights (from Romeo And Juliet)⧸- Sergei Prokofiev.mp3
+
+#begin music/musicbox/other/Dragon Road (Day)⧸- Sonic Unleashed.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Dragon Road (Day)⧸- Sonic Unleashed.mp3
+
+#begin music/musicbox/other/Endless Possibility - SEGA ＂Sonic Unleashed.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Endless Possibility - SEGA ＂Sonic Unleashed.mp3
+
+#begin music/musicbox/other/Escape from the City - Sonic Adventure 2.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Escape from the City - Sonic Adventure 2.mp3
+
+#begin music/musicbox/other/Fi's Theme -⧸The Legend of Zelda Skyward Sword.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Fi's Theme -⧸The Legend of Zelda Skyward Sword.mp3
+
+#begin music/musicbox/other/File Select⧸- Super Mario 64.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/File Select⧸- Super Mario 64.mp3
+
+#begin music/musicbox/other/Friends Forever⧸- Pokémon X & Y.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Friends Forever⧸- Pokémon X & Y.mp3
+
+#begin music/musicbox/other/Frosty Wheel -⧸Kirby's Epic Yarn.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Frosty Wheel -⧸Kirby's Epic Yarn.mp3
+
+#begin music/musicbox/other/Gateway Galaxy -⧸Super Mario Galaxy.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Gateway Galaxy -⧸Super Mario Galaxy.mp3
+
+#begin music/musicbox/other/Grandma's Theme⧸- The Legend of Zelda The Wind Waker.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Grandma's Theme⧸- The Legend of Zelda The Wind Waker.mp3
+
+#begin music/musicbox/other/Great Fairy Fountain⧸- The Legend of Zelda.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Great Fairy Fountain⧸- The Legend of Zelda.mp3
+
+#begin music/musicbox/other/Hilda's Theme⧸- The Legend of Zelda A Link Between Worlds.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Hilda's Theme⧸- The Legend of Zelda A Link Between Worlds.mp3
+
+#begin music/musicbox/other/His World⧸Zebrahead -＂Sonic the Hedgehog.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/His World⧸Zebrahead -＂Sonic the Hedgehog.mp3
+
+#begin music/musicbox/other/I Don't Want To Say Goodbye -⧸Pokémon Mystery Dungeon.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/I Don't Want To Say Goodbye -⧸Pokémon Mystery Dungeon.mp3
+
+#begin music/musicbox/other/I'm Here⧸- Sonic Frontiers.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/I'm Here⧸- Sonic Frontiers.mp3
+
+#begin music/musicbox/other/In the Fields⧸- The Legend of Zelda Spirit Tracks.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/In the Fields⧸- The Legend of Zelda Spirit Tracks.mp3
+
+#begin music/musicbox/other/K.K. Crusin' -⧸Animal Crossing.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/K.K. Crusin' -⧸Animal Crossing.mp3
+
+#begin music/musicbox/other/Kakariko Village⧸- The Legend of Zelda A Link to the Past.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Kakariko Village⧸- The Legend of Zelda A Link to the Past.mp3
+
+#begin music/musicbox/other/Lake Verity⧸- Pokémon Diamond & Pearl.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Lake Verity⧸- Pokémon Diamond & Pearl.mp3
+
+#begin music/musicbox/other/Mabe Village⧸- The Legend of Zelda Link's Awakening.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Mabe Village⧸- The Legend of Zelda Link's Awakening.mp3
+
+#begin music/musicbox/other/METROPOLIS ZONE⧸- Sonic the Hedgehog 2.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/METROPOLIS ZONE⧸- Sonic the Hedgehog 2.mp3
+
+#begin music/musicbox/other/New Horoizon Title - Animal crossing New Horizon.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/New Horoizon Title - Animal crossing New Horizon.mp3
+
+#begin music/musicbox/other/Outset Island⧸- The Legend of Zelda The Wind Waker.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Outset Island⧸- The Legend of Zelda The Wind Waker.mp3
+
+#begin music/musicbox/other/Overworld Theme -⧸Super Mario Land.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Overworld Theme -⧸Super Mario Land.mp3
+
+#begin music/musicbox/other/Piano Practice⧸- The Legend of Zelda Majora's Mask.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Piano Practice⧸- The Legend of Zelda Majora's Mask.mp3
+
+#begin music/musicbox/other/Planet Wisp - Act 1⧸- Sonic Colors.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Planet Wisp - Act 1⧸- Sonic Colors.mp3
+
+#begin music/musicbox/other/Requiem Dies Irae⧸- Mozart.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Requiem Dies Irae⧸- Mozart.mp3
+
+#begin music/musicbox/other/Sea Bottom Segue -⧸Sonic Lost World.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Sea Bottom Segue -⧸Sonic Lost World.mp3
+
+#begin music/musicbox/other/Shampoodle⧸- Animal Crossing New Leaf.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Shampoodle⧸- Animal Crossing New Leaf.mp3
+
+#begin music/musicbox/other/Sky Waltz -⧸Kirby's Return to Dream Land.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Sky Waltz -⧸Kirby's Return to Dream Land.mp3
+
+#begin music/musicbox/other/Sonic Boom⧸Pastiche - Sonic CD.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Sonic Boom⧸Pastiche - Sonic CD.mp3
+
+#begin music/musicbox/other/Spagonia Night⧸- Sonic Unleashed.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Spagonia Night⧸- Sonic Unleashed.mp3
+
+#begin music/musicbox/other/Swan Lake⧸- Tchaikovsky.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Swan Lake⧸- Tchaikovsky.mp3
+
+#begin music/musicbox/other/Turkish March -⧸Mozart.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Turkish March -⧸Mozart.mp3
+
+#begin music/musicbox/other/Valse Sentimentale (Op.51, No.6) -⧸Tchaikovsky.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Valse Sentimentale (Op.51, No.6) -⧸Tchaikovsky.mp3
+
+#begin music/musicbox/other/Waltz of the Flowers＂- Tchaikovsky.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Waltz of the Flowers＂- Tchaikovsky.mp3
+
+#begin music/musicbox/other/Wild World Title⧸- Animal Crossing Wild World.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/Wild World Title⧸- Animal Crossing Wild World.mp3
+
+#begin music/musicbox/other/With Me⧸All Ends - Sonic and the Black Knight.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/musicbox/other/With Me⧸All Ends - Sonic and the Black Knight.mp3
+
+#begin cinematic/hatch.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:cinematic/hatch.wav
+
+#begin cinematic/hatch_Green.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:cinematic/hatch_Green.wav
+
+#begin cinematic/hatch_Pink.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:cinematic/hatch_Pink.wav
+
+#begin music/coplete.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/coplete.wav
+
+#begin music/LittleStar.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/LittleStar.wav
+
+#begin music/star.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/star.wav
+
+#begin music/star2.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/star2.wav
+
+#begin music/waw.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/waw.wav
+
+#begin music/win.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/win.wav
+
+#begin sounds/bell.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/bell.wav
+
+#begin sounds/boing.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/boing.wav
+
+#begin sounds/boing2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/boing2.wav
+
+#begin sounds/boing3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/boing3.wav
+
+#begin sounds/boing4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/boing4.wav
+
+#begin sounds/bubble.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/bubble.wav
+
+#begin sounds/bubble2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/bubble2.wav
+
+#begin sounds/bubble3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/bubble3.wav
+
+#begin sounds/bubble4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/bubble4.wav
+
+#begin sounds/bubblepop.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/bubblepop.wav
+
+#begin sounds/bubbleup.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/bubbleup.wav
+
+#begin sounds/chest.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/chest.wav
+
+#begin sounds/chestclose.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/chestclose.wav
+
+#begin sounds/chestopen.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/chestopen.wav
+
+#begin sounds/cute.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/cute.wav
+
+#begin sounds/door.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/door.wav
+
+#begin sounds/grass_rustle.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/grass_rustle.wav
+
+#begin sounds/Grass_Shake.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/Grass_Shake.wav
+
+#begin sounds/kwak.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/kwak.wav
+
+#begin sounds/magi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/magi.wav
+
+#begin sounds/pwik.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/pwik.wav
+
+#begin sounds/pwipwi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/pwipwi.wav
+
+#begin sounds/slip.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/slip.wav
+
+#begin sounds/ticket.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/ticket.wav
+
+#begin sounds/tutenvol.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/tutenvol.wav
+
+#begin sounds/tutenvol2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/tutenvol2.wav
+
+#begin sounds/wall.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/wall.wav
+
+#begin sounds/WaterCalmWide.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/WaterCalmWide.wav
+
+#begin sounds/wazo.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/wazo.wav
+
+#begin sounds/weird.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/weird.wav
+
+#begin sounds/xp.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/xp.wav
+
+#begin sounds/xpfini.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/xpfini.wav
+
+#begin boombox/music/OTOATE.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/music/OTOATE.wav
+
+#begin sounds/beboo/crunch.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/crunch.wav
+
+#begin sounds/beboo/crunch2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/crunch2.wav
+
+#begin sounds/beboo/EatingApple.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/EatingApple.wav
+
+#begin sounds/beboo/grat.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/grat.wav
+
+#begin sounds/beboo/grat2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/grat2.wav
+
+#begin sounds/beboo/slurp.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/slurp.wav
+
+#begin sounds/beboo/slurp2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/slurp2.wav
+
+#begin sounds/beboo/slurpwater.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/slurpwater.wav
+
+#begin sounds/beboo/slurpwater2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/slurpwater2.wav
+
+#begin sounds/beboo/slurpwater3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/slurpwater3.wav
+
+#begin sounds/beboo/step.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/step.wav
+
+#begin sounds/birds/birdday1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday1.wav
+
+#begin sounds/birds/birdday10.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday10.wav
+
+#begin sounds/birds/birdday11.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday11.wav
+
+#begin sounds/birds/birdday12.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday12.wav
+
+#begin sounds/birds/birdday13.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday13.wav
+
+#begin sounds/birds/birdday14.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday14.wav
+
+#begin sounds/birds/birdday15.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday15.wav
+
+#begin sounds/birds/birdday16.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday16.wav
+
+#begin sounds/birds/birdday17.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday17.wav
+
+#begin sounds/birds/birdday18.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday18.wav
+
+#begin sounds/birds/birdday19.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday19.wav
+
+#begin sounds/birds/birdday2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday2.wav
+
+#begin sounds/birds/birdday21.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday21.wav
+
+#begin sounds/birds/birdday22.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday22.wav
+
+#begin sounds/birds/birdday23.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday23.wav
+
+#begin sounds/birds/birdday24.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday24.wav
+
+#begin sounds/birds/birdday25.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday25.wav
+
+#begin sounds/birds/birdday28.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday28.wav
+
+#begin sounds/birds/birdday29.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday29.wav
+
+#begin sounds/birds/birdday3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday3.wav
+
+#begin sounds/birds/birdday30.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday30.wav
+
+#begin sounds/birds/birdday31.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday31.wav
+
+#begin sounds/birds/birdday32.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday32.wav
+
+#begin sounds/birds/birdday33.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday33.wav
+
+#begin sounds/birds/birdday34.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday34.wav
+
+#begin sounds/birds/birdday35.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday35.wav
+
+#begin sounds/birds/birdday36.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday36.wav
+
+#begin sounds/birds/birdday38.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday38.wav
+
+#begin sounds/birds/birdday39.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday39.wav
+
+#begin sounds/birds/birdday4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday4.wav
+
+#begin sounds/birds/birdday5.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday5.wav
+
+#begin sounds/birds/birdday6.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday6.wav
+
+#begin sounds/birds/birdday7.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday7.wav
+
+#begin sounds/birds/birdday8.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday8.wav
+
+#begin sounds/birds/birdday9.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/birds/birdday9.wav
+
+#begin sounds/character/cursor.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/character/cursor.wav
+
+#begin sounds/character/fruit.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/character/fruit.wav
+
+#begin sounds/character/item.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/character/item.wav
+
+#begin sounds/character/itemfall.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/character/itemfall.wav
+
+#begin sounds/character/itemwaterfall.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/character/itemwaterfall.wav
+
+#begin sounds/character/pet.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/character/pet.wav
+
+#begin sounds/character/pet2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/character/pet2.wav
+
+#begin sounds/character/Pl_ChangeClothes_Normal.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/character/Pl_ChangeClothes_Normal.wav
+
+#begin sounds/character/Pl_ChangeClothes_OutfitSeLabel0.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/character/Pl_ChangeClothes_OutfitSeLabel0.wav
+
+#begin sounds/character/se_sys_whistle_1p.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/character/se_sys_whistle_1p.wav
+
+#begin sounds/character/se_sys_whistle_2p.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/character/se_sys_whistle_2p.wav
+
+#begin sounds/character/snowballfall.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/character/snowballfall.wav
+
+#begin sounds/character/snowballkick.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/character/snowballkick.wav
+
+#begin sounds/character/Tree_Shake.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/character/Tree_Shake.wav
+
+#begin sounds/egg/boubouk.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/egg/boubouk.wav
+
+#begin sounds/egg/boubouk2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/egg/boubouk2.wav
+
+#begin sounds/egg/boubouk3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/egg/boubouk3.wav
+
+#begin sounds/egg/crak.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/egg/crak.wav
+
+#begin sounds/egg/egg_hatched1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/egg/egg_hatched1.wav
+
+#begin sounds/egg/egg_hatched2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/egg/egg_hatched2.wav
+
+#begin sounds/egg/egg_hatched3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/egg/egg_hatched3.wav
+
+#begin sounds/egg/krak.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/egg/krak.wav
+
+#begin sounds/egg/krak2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/egg/krak2.wav
+
+#begin sounds/egg/waw.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/egg/waw.wav
+
+#begin sounds/menu/boup.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/menu/boup.wav
+
+#begin sounds/menu/down.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/menu/down.wav
+
+#begin sounds/menu/join.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/menu/join.wav
+
+#begin sounds/menu/key.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/menu/key.wav
+
+#begin sounds/menu/keydelete.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/menu/keydelete.wav
+
+#begin sounds/menu/keyfull.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/menu/keyfull.wav
+
+#begin sounds/menu/ok.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/menu/ok.wav
+
+#begin sounds/menu/ok2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/menu/ok2.wav
+
+#begin sounds/menu/open.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/menu/open.wav
+
+#begin sounds/menu/return.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/menu/return.wav
+
+#begin sounds/menu/sav.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/menu/sav.wav
+
+#begin sounds/menu/shop.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/menu/shop.wav
+
+#begin sounds/menu/star.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/menu/star.wav
+
+#begin sounds/menu/up.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/menu/up.wav
+
+#begin sounds/menu/warn.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/menu/warn.wav
+
+#begin sounds/menu/warn2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/menu/warn2.wav
+
+#begin sounds/race/bad.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/race/bad.wav
+
+#begin sounds/race/good.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/race/good.wav
+
+#begin sounds/race/SE_RACE_SIGNAL_GO.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/race/SE_RACE_SIGNAL_GO.wav
+
+#begin sounds/race/SE_RACE_SIGNAL_READY.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/race/SE_RACE_SIGNAL_READY.wav
+
+#begin sounds/race/stadium.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/race/stadium.wav
+
+#begin sounds/snow/step.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/snow/step.wav
+
+#begin sounds/snow/winter_day.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/snow/winter_day.wav
+
+#begin boombox/sounds/1rst_misc/00C4_0011 bonus.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/1rst_misc/00C4_0011 bonus.wav
+
+#begin boombox/sounds/1rst_misc/00C7_0008 trou.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/1rst_misc/00C7_0008 trou.wav
+
+#begin boombox/sounds/1rst_misc/00CA_0000 douing.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/1rst_misc/00CA_0000 douing.wav
+
+#begin boombox/sounds/1rst_misc/sm64_1-up.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/1rst_misc/sm64_1-up.wav
+
+#begin boombox/sounds/1rst_misc/sm64_bowser_laugh.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/1rst_misc/sm64_bowser_laugh.wav
+
+#begin boombox/sounds/1rst_misc/sm64_coin.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/1rst_misc/sm64_coin.wav
+
+#begin boombox/sounds/1rst_misc/sm64_exit_course_pause_menu.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/1rst_misc/sm64_exit_course_pause_menu.wav
+
+#begin boombox/sounds/1rst_misc/sm64_pipe.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/1rst_misc/sm64_pipe.wav
+
+#begin boombox/sounds/1rst_misc/sm64_pipe_2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/1rst_misc/sm64_pipe_2.wav
+
+#begin boombox/sounds/luigi/00CB_0000 mario ou luigi let's go.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/luigi/00CB_0000 mario ou luigi let's go.wav
+
+#begin boombox/sounds/luigi/00E1_0003 luigi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/luigi/00E1_0003 luigi.wav
+
+#begin boombox/sounds/luigi/00E1_0004 luigi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/luigi/00E1_0004 luigi.wav
+
+#begin boombox/sounds/luigi/00E8_0000 luigi bobo.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/luigi/00E8_0000 luigi bobo.wav
+
+#begin boombox/sounds/luigi/00E8_0001 luigi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/luigi/00E8_0001 luigi.wav
+
+#begin boombox/sounds/luigi/00E8_0002 luigi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/luigi/00E8_0002 luigi.wav
+
+#begin boombox/sounds/luigi/00E8_0003 luigi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/luigi/00E8_0003 luigi.wav
+
+#begin boombox/sounds/luigi/00E8_0004 luigi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/luigi/00E8_0004 luigi.wav
+
+#begin boombox/sounds/luigi/00E8_0005 luigi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/luigi/00E8_0005 luigi.wav
+
+#begin boombox/sounds/luigi/00E8_0006 luigi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/luigi/00E8_0006 luigi.wav
+
+#begin boombox/sounds/luigi/00E8_0007 luigi saut.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/luigi/00E8_0007 luigi saut.wav
+
+#begin boombox/sounds/luigi/00E8_0009 luigi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/luigi/00E8_0009 luigi.wav
+
+#begin boombox/sounds/luigi/00E8_000A luigi saut.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/luigi/00E8_000A luigi saut.wav
+
+#begin boombox/sounds/luigi/00E8_000B luigi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/luigi/00E8_000B luigi.wav
+
+#begin boombox/sounds/luigi/00E8_000C luigi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/luigi/00E8_000C luigi.wav
+
+#begin boombox/sounds/luigi/00E8_000D luigi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/luigi/00E8_000D luigi.wav
+
+#begin boombox/sounds/luigi/00E8_000E luigi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/luigi/00E8_000E luigi.wav
+
+#begin boombox/sounds/luigi/00E8_000F luigi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/luigi/00E8_000F luigi.wav
+
+#begin boombox/sounds/luigi/00E8_0010 luigi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/luigi/00E8_0010 luigi.wav
+
+#begin boombox/sounds/luigi/00E8_0012 luigi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/luigi/00E8_0012 luigi.wav
+
+#begin boombox/sounds/luigi/00E8_0013 luigi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/luigi/00E8_0013 luigi.wav
+
+#begin boombox/sounds/luigi/00EB_0002 luigi saut.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/luigi/00EB_0002 luigi saut.wav
+
+#begin boombox/sounds/luigi/00EB_0004 luigi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/luigi/00EB_0004 luigi.wav
+
+#begin boombox/sounds/luigi/00EB_0005 luigi mort.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/luigi/00EB_0005 luigi mort.wav
+
+#begin boombox/sounds/luigi/00EB_0006 luigi bobo.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/luigi/00EB_0006 luigi bobo.wav
+
+#begin boombox/sounds/luigi/00EB_0007 luigi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/luigi/00EB_0007 luigi.wav
+
+#begin boombox/sounds/luigi/00EB_0009 luigi mort.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/luigi/00EB_0009 luigi mort.wav
+
+#begin boombox/sounds/luigi/00EB_000A luigi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/luigi/00EB_000A luigi.wav
+
+#begin boombox/sounds/mario/00C3_0000 mario.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00C3_0000 mario.wav
+
+#begin boombox/sounds/mario/00C5_0000 by by.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00C5_0000 by by.wav
+
+#begin boombox/sounds/mario/00C5_0001 itsme mario.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00C5_0001 itsme mario.wav
+
+#begin boombox/sounds/mario/00C5_0002 mario.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00C5_0002 mario.wav
+
+#begin boombox/sounds/mario/00C7_0004 mario.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00C7_0004 mario.wav
+
+#begin boombox/sounds/mario/00CB_0000 mario ou luigi let's go.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00CB_0000 mario ou luigi let's go.wav
+
+#begin boombox/sounds/mario/00CB_000F mario let's go.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00CB_000F mario let's go.wav
+
+#begin boombox/sounds/mario/00D9_0001 mario bobo.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00D9_0001 mario bobo.wav
+
+#begin boombox/sounds/mario/00E1_0002 mario fatigue.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00E1_0002 mario fatigue.wav
+
+#begin boombox/sounds/mario/00E4_0000 mario let's go.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00E4_0000 mario let's go.wav
+
+#begin boombox/sounds/mario/00E6_0000 mario.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00E6_0000 mario.wav
+
+#begin boombox/sounds/mario/00E6_0001 mario dodo fatigue.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00E6_0001 mario dodo fatigue.wav
+
+#begin boombox/sounds/mario/00E6_0002 mario.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00E6_0002 mario.wav
+
+#begin boombox/sounds/mario/00E6_0003 mario.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00E6_0003 mario.wav
+
+#begin boombox/sounds/mario/00E6_0004 mario justesse.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00E6_0004 mario justesse.wav
+
+#begin boombox/sounds/mario/00E6_0005 mario porter.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00E6_0005 mario porter.wav
+
+#begin boombox/sounds/mario/00E6_0006 mario dodo fatigue.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00E6_0006 mario dodo fatigue.wav
+
+#begin boombox/sounds/mario/00E6_0007 mario mort.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00E6_0007 mario mort.wav
+
+#begin boombox/sounds/mario/00E6_0008 mario bouing.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00E6_0008 mario bouing.wav
+
+#begin boombox/sounds/mario/00E6_0009 mario rire.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00E6_0009 mario rire.wav
+
+#begin boombox/sounds/mario/00E6_000A mario fatigue.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00E6_000A mario fatigue.wav
+
+#begin boombox/sounds/mario/00E6_000B mario saut.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00E6_000B mario saut.wav
+
+#begin boombox/sounds/mario/00E6_000C mario poing.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00E6_000C mario poing.wav
+
+#begin boombox/sounds/mario/00E6_000D mario poing.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00E6_000D mario poing.wav
+
+#begin boombox/sounds/mario/00E6_000E mario poing saut.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00E6_000E mario poing saut.wav
+
+#begin boombox/sounds/mario/00EA_0000 mario bobo.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00EA_0000 mario bobo.wav
+
+#begin boombox/sounds/mario/00EA_0001 mario saut.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00EA_0001 mario saut.wav
+
+#begin boombox/sounds/mario/00EA_0002 mario youpi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00EA_0002 mario youpi.wav
+
+#begin boombox/sounds/mario/00EA_0003 mario.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00EA_0003 mario.wav
+
+#begin boombox/sounds/mario/00EA_0004 mario mort.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00EA_0004 mario mort.wav
+
+#begin boombox/sounds/mario/00EA_0005 mario brule.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00EA_0005 mario brule.wav
+
+#begin boombox/sounds/mario/00EA_0006 mario.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00EA_0006 mario.wav
+
+#begin boombox/sounds/mario/00EA_0007 mario.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00EA_0007 mario.wav
+
+#begin boombox/sounds/mario/00EA_0009 mario.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00EA_0009 mario.wav
+
+#begin boombox/sounds/mario/00EA_000B mario.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00EA_000B mario.wav
+
+#begin boombox/sounds/mario/00EA_000C mario bobo.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00EA_000C mario bobo.wav
+
+#begin boombox/sounds/mario/00EA_000D mario saut.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00EA_000D mario saut.wav
+
+#begin boombox/sounds/mario/00EA_000E mario poing.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/mario/00EA_000E mario poing.wav
+
+#begin boombox/sounds/red_coin/sm64_red_coin_1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/red_coin/sm64_red_coin_1.wav
+
+#begin boombox/sounds/red_coin/sm64_red_coin_2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/red_coin/sm64_red_coin_2.wav
+
+#begin boombox/sounds/red_coin/sm64_red_coin_3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/red_coin/sm64_red_coin_3.wav
+
+#begin boombox/sounds/red_coin/sm64_red_coin_4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/red_coin/sm64_red_coin_4.wav
+
+#begin boombox/sounds/red_coin/sm64_red_coin_5.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/red_coin/sm64_red_coin_5.wav
+
+#begin boombox/sounds/red_coin/sm64_red_coin_6.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/red_coin/sm64_red_coin_6.wav
+
+#begin boombox/sounds/red_coin/sm64_red_coin_7.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/red_coin/sm64_red_coin_7.wav
+
+#begin boombox/sounds/red_coin/sm64_red_coin_8.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/red_coin/sm64_red_coin_8.wav
+
+#begin boombox/sounds/wario/00CB_0001 wario.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/wario/00CB_0001 wario.wav
+
+#begin boombox/sounds/wario/00CC_0008 wario.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/wario/00CC_0008 wario.wav
+
+#begin boombox/sounds/wario/00E4_0001 wario saut.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/wario/00E4_0001 wario saut.wav
+
+#begin boombox/sounds/wario/00E4_0002 wario saut.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/wario/00E4_0002 wario saut.wav
+
+#begin boombox/sounds/wario/00E4_0003 wario.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/wario/00E4_0003 wario.wav
+
+#begin boombox/sounds/wario/00E4_0004 wario bobo.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/wario/00E4_0004 wario bobo.wav
+
+#begin boombox/sounds/wario/00E7_0002 wario saut.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/wario/00E7_0002 wario saut.wav
+
+#begin boombox/sounds/wario/00E7_0003 wario.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/wario/00E7_0003 wario.wav
+
+#begin boombox/sounds/wario/00E7_0004 wario.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/wario/00E7_0004 wario.wav
+
+#begin boombox/sounds/wario/00E7_0006 wario bobo.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/wario/00E7_0006 wario bobo.wav
+
+#begin boombox/sounds/wario/00E7_0007 wario.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/wario/00E7_0007 wario.wav
+
+#begin boombox/sounds/wario/00E7_0008 wario.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/wario/00E7_0008 wario.wav
+
+#begin boombox/sounds/wario/00E7_000A wario mort.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/wario/00E7_000A wario mort.wav
+
+#begin boombox/sounds/wario/00E7_000B wario pousse.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/wario/00E7_000B wario pousse.wav
+
+#begin boombox/sounds/wario/00E7_000C wario.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/wario/00E7_000C wario.wav
+
+#begin boombox/sounds/wario/00E7_000D wario waw.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/wario/00E7_000D wario waw.wav
+
+#begin boombox/sounds/wario/00EC_0000 wario saut.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/wario/00EC_0000 wario saut.wav
+
+#begin boombox/sounds/wario/00EC_0001 wario.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/wario/00EC_0001 wario.wav
+
+#begin boombox/sounds/wario/00EC_0002 wario weh.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/wario/00EC_0002 wario weh.wav
+
+#begin boombox/sounds/wario/00EC_0004 wario.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/wario/00EC_0004 wario.wav
+
+#begin boombox/sounds/wario/00EC_0005 wario.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/wario/00EC_0005 wario.wav
+
+#begin boombox/sounds/wario/00EC_0006 wario.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/wario/00EC_0006 wario.wav
+
+#begin boombox/sounds/wario/00EC_0007 wario.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:boombox/sounds/wario/00EC_0007 wario.wav
+
+#begin sounds/beboo/base/cri.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/cri.wav
+
+#begin sounds/beboo/base/terreur.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/terreur.wav
+
+#begin sounds/beboo/green/00CA_0006 yoshi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/00CA_0006 yoshi.wav
+
+#begin sounds/beboo/green/00E1_0008 yoshi mort.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/00E1_0008 yoshi mort.wav
+
+#begin sounds/beboo/green/00E9_0000 yoshi lance.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/00E9_0000 yoshi lance.wav
+
+#begin sounds/beboo/green/00E9_0001 yoshi saut.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/00E9_0001 yoshi saut.wav
+
+#begin sounds/beboo/green/00E9_0002 yoshi saut.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/00E9_0002 yoshi saut.wav
+
+#begin sounds/beboo/green/00E9_0003 yoshi grimpe.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/00E9_0003 yoshi grimpe.wav
+
+#begin sounds/beboo/green/00E9_0004 yoshi lance.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/00E9_0004 yoshi lance.wav
+
+#begin sounds/beboo/green/00E9_0005 yoshi justesse.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/00E9_0005 yoshi justesse.wav
+
+#begin sounds/beboo/green/00E9_0006 yoshi saut.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/00E9_0006 yoshi saut.wav
+
+#begin sounds/beboo/green/00E9_0007 yoshi saut.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/00E9_0007 yoshi saut.wav
+
+#begin sounds/beboo/green/00E9_0008 yoshi saut.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/00E9_0008 yoshi saut.wav
+
+#begin sounds/beboo/green/00E9_0009 yoshi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/00E9_0009 yoshi.wav
+
+#begin sounds/beboo/green/00E9_000A yoshi megnon.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/00E9_000A yoshi megnon.wav
+
+#begin sounds/beboo/green/00E9_000F euf yoshi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/00E9_000F euf yoshi.wav
+
+#begin sounds/beboo/green/00E9_0010 yoshi recrache.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/00E9_0010 yoshi recrache.wav
+
+#begin sounds/beboo/green/00E9_0014 yoshi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/00E9_0014 yoshi.wav
+
+#begin sounds/beboo/green/00E9_0015 yoshi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/00E9_0015 yoshi.wav
+
+#begin sounds/beboo/green/00ED_0000 yoshi mort.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/00ED_0000 yoshi mort.wav
+
+#begin sounds/beboo/green/00ED_0008 yoshi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/00ED_0008 yoshi.wav
+
+#begin sounds/beboo/green/GROUP_VOICE_C04_0000000A.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/GROUP_VOICE_C04_0000000A.wav
+
+#begin sounds/beboo/base/angry/colere.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/angry/colere.wav
+
+#begin sounds/beboo/base/angry/colere2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/angry/colere2.wav
+
+#begin sounds/beboo/base/cry/trist.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/cry/trist.wav
+
+#begin sounds/beboo/base/cry/trist2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/cry/trist2.wav
+
+#begin sounds/beboo/base/cute/agougougou.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/cute/agougougou.wav
+
+#begin sounds/beboo/base/cute/ouou.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/cute/ouou.wav
+
+#begin sounds/beboo/base/cute/ouou2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/cute/ouou2.wav
+
+#begin sounds/beboo/base/fun/rir.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/fun/rir.wav
+
+#begin sounds/beboo/base/fun/rir2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/fun/rir2.wav
+
+#begin sounds/beboo/base/inter/baaah.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/inter/baaah.wav
+
+#begin sounds/beboo/base/inter/ta.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/inter/ta.wav
+
+#begin sounds/beboo/base/pet/rourou.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/pet/rourou.wav
+
+#begin sounds/beboo/base/pet/rourou2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/pet/rourou2.wav
+
+#begin sounds/beboo/base/pet/rourou3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/pet/rourou3.wav
+
+#begin sounds/beboo/base/sleep/dodo.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/sleep/dodo.wav
+
+#begin sounds/beboo/base/sleep/ronfle.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/sleep/ronfle.wav
+
+#begin sounds/beboo/base/song/song.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/song/song.wav
+
+#begin sounds/beboo/base/song/song2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/song/song2.wav
+
+#begin sounds/beboo/base/song/song3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/song/song3.wav
+
+#begin sounds/beboo/base/surprise/surprise.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/surprise/surprise.wav
+
+#begin sounds/beboo/base/surprise/surprise2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/surprise/surprise2.wav
+
+#begin sounds/beboo/base/surprise/surprise3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/surprise/surprise3.wav
+
+#begin sounds/beboo/base/yawn/baille.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/yawn/baille.wav
+
+#begin sounds/beboo/base/yawn/baille2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/yawn/baille2.wav
+
+#begin sounds/beboo/base/yawn/baille3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/yawn/baille3.wav
+
+#begin sounds/beboo/base/yumy/miam.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/yumy/miam.wav
+
+#begin sounds/beboo/base/yumy/miam2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/yumy/miam2.wav
+
+#begin sounds/beboo/base/yumy/miam3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/yumy/miam3.wav
+
+#begin sounds/beboo/base/yumy/miam4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/base/yumy/miam4.wav
+
+#begin sounds/beboo/green/angry/00ED_0002 yoshi bobo.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/angry/00ED_0002 yoshi bobo.wav
+
+#begin sounds/beboo/green/angry/mlpit_yoshi_hnng.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/angry/mlpit_yoshi_hnng.wav
+
+#begin sounds/beboo/green/cry/00E1_0006 yoshi bobo.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/cry/00E1_0006 yoshi bobo.wav
+
+#begin sounds/beboo/green/cry/se_voice_yos_aqu10n_e#4 (se_voice_yos_aqu10n_breakaway).wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/cry/se_voice_yos_aqu10n_e#4 (se_voice_yos_aqu10n_breakaway).wav
+
+#begin sounds/beboo/green/cry/se_voice_yos_aqu10n_e#5 (se_voice_yos_aqu10n_breakaway).wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/cry/se_voice_yos_aqu10n_e#5 (se_voice_yos_aqu10n_breakaway).wav
+
+#begin sounds/beboo/green/cute/00ED_0004 yoshi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/cute/00ED_0004 yoshi.wav
+
+#begin sounds/beboo/green/cute/pj023_000000EC.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/cute/pj023_000000EC.wav
+
+#begin sounds/beboo/green/cute/smsunshine_yoshi_mario_mounts_3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/cute/smsunshine_yoshi_mario_mounts_3.wav
+
+#begin sounds/beboo/green/fun/CHAR_YOSHI_NIS_Goal_High_01.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/fun/CHAR_YOSHI_NIS_Goal_High_01.wav
+
+#begin sounds/beboo/green/fun/pj023_000000EB.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/fun/pj023_000000EB.wav
+
+#begin sounds/beboo/green/fun/smsunshine_yoshi_flutter_jump_1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/fun/smsunshine_yoshi_flutter_jump_1.wav
+
+#begin sounds/beboo/green/inter/GROUP_VOICE_C04_0000000E.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/inter/GROUP_VOICE_C04_0000000E.wav
+
+#begin sounds/beboo/green/inter/smsunshine_yoshi_spitting_juice.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/inter/smsunshine_yoshi_spitting_juice.wav
+
+#begin sounds/beboo/green/pet/00ED_0003 yoshi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/pet/00ED_0003 yoshi.wav
+
+#begin sounds/beboo/green/pet/smsunshine_yoshi_flutter_jump_3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/pet/smsunshine_yoshi_flutter_jump_3.wav
+
+#begin sounds/beboo/green/sleep/00C6_0000 ronffle.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/sleep/00C6_0000 ronffle.wav
+
+#begin sounds/beboo/green/sleep/00C6_0001 ronffle2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/sleep/00C6_0001 ronffle2.wav
+
+#begin sounds/beboo/green/sleep/pj023_000000E7.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/sleep/pj023_000000E7.wav
+
+#begin sounds/beboo/green/song/pj023_000000DA.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/song/pj023_000000DA.wav
+
+#begin sounds/beboo/green/song/pj023_000000DB.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/song/pj023_000000DB.wav
+
+#begin sounds/beboo/green/song/pj023_000000EE.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/song/pj023_000000EE.wav
+
+#begin sounds/beboo/green/surprise/00CB_0015 yoshi.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/surprise/00CB_0015 yoshi.wav
+
+#begin sounds/beboo/green/surprise/pj023_000000E1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/surprise/pj023_000000E1.wav
+
+#begin sounds/beboo/green/surprise/pj023_000000E3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/surprise/pj023_000000E3.wav
+
+#begin sounds/beboo/green/yawn/pj023_000000DD.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/yawn/pj023_000000DD.wav
+
+#begin sounds/beboo/green/yawn/smsunshine_yoshi_mario_dismounts_1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/yawn/smsunshine_yoshi_mario_dismounts_1.wav
+
+#begin sounds/beboo/green/yumy/00E1_0007 yoshi langue.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/green/yumy/00E1_0007 yoshi langue.wav
+
+#begin sounds/beboo/Pink/angry/cafe_barista_men_00000092.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/Pink/angry/cafe_barista_men_00000092.wav
+
+#begin sounds/beboo/Pink/cry/cafe_barista_men_00000081.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/Pink/cry/cafe_barista_men_00000081.wav
+
+#begin sounds/beboo/Pink/cry/cafe_barista_men_00000089.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/Pink/cry/cafe_barista_men_00000089.wav
+
+#begin sounds/beboo/Pink/cry/cafe_barista_men_00000098.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/Pink/cry/cafe_barista_men_00000098.wav
+
+#begin sounds/beboo/Pink/cute/cafe_barista_men_00000085.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/Pink/cute/cafe_barista_men_00000085.wav
+
+#begin sounds/beboo/Pink/cute/cafe_barista_men_00000086.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/Pink/cute/cafe_barista_men_00000086.wav
+
+#begin sounds/beboo/Pink/fun/cafe_barista_men_00000093.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/Pink/fun/cafe_barista_men_00000093.wav
+
+#begin sounds/beboo/Pink/fun/cafe_barista_men_00000094.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/Pink/fun/cafe_barista_men_00000094.wav
+
+#begin sounds/beboo/Pink/inter/cafe_barista_men_00000080.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/Pink/inter/cafe_barista_men_00000080.wav
+
+#begin sounds/beboo/Pink/inter/cafe_barista_men_00000088.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/Pink/inter/cafe_barista_men_00000088.wav
+
+#begin sounds/beboo/Pink/pet/cafe_barista_men_00000085.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/Pink/pet/cafe_barista_men_00000085.wav
+
+#begin sounds/beboo/Pink/sleep/cafe_barista_men_00000096.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/Pink/sleep/cafe_barista_men_00000096.wav
+
+#begin sounds/beboo/Pink/song/cafe_barista_men_00000083.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/Pink/song/cafe_barista_men_00000083.wav
+
+#begin sounds/beboo/Pink/song/cafe_barista_men_00000084.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/Pink/song/cafe_barista_men_00000084.wav
+
+#begin sounds/beboo/Pink/surprise/cafe_barista_men_00000079.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/Pink/surprise/cafe_barista_men_00000079.wav
+
+#begin sounds/beboo/Pink/surprise/cafe_barista_men_00000087.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/Pink/surprise/cafe_barista_men_00000087.wav
+
+#begin sounds/beboo/Pink/yawn/cafe_barista_men_00000090.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/Pink/yawn/cafe_barista_men_00000090.wav
+
+#begin sounds/beboo/Pink/yumy/cafe_barista_men_00000082.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/Pink/yumy/cafe_barista_men_00000082.wav
+
+#begin sounds/beboo/Pink/yumy/cafe_barista_men_00000097.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/Pink/yumy/cafe_barista_men_00000097.wav

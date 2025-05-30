@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35004.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BebooGarden", "BebooGarden\BebooGarden.csproj", "{3099B584-74ED-48E6-A081-6C0C20F7A575}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccessibleMyraUI", "AccessibleMyraUI\AccessibleMyraUI.csproj", "{0AADDE4D-8AEF-678F-BD33-63E0EB441628}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3099B584-74ED-48E6-A081-6C0C20F7A575}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3099B584-74ED-48E6-A081-6C0C20F7A575}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3099B584-74ED-48E6-A081-6C0C20F7A575}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3099B584-74ED-48E6-A081-6C0C20F7A575}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AADDE4D-8AEF-678F-BD33-63E0EB441628}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AADDE4D-8AEF-678F-BD33-63E0EB441628}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AADDE4D-8AEF-678F-BD33-63E0EB441628}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AADDE4D-8AEF-678F-BD33-63E0EB441628}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A77421E4-B70E-459C-A23F-710EA1BCEB24}
+	EndGlobalSection
+EndGlobal

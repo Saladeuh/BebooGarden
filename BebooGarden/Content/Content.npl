@@ -1,0 +1,65 @@
+{
+    "root": "",
+    "references": [
+
+    ],
+    "content": {
+
+        "sfxmp3": {
+            "path": "*.mp3",
+            "recursive": "true",
+            "action": "build",
+            "importer": "Mp3Importer",
+            "processor": "SoundEffectProcessor",
+            "processorParam": {
+                "Quality": "Best"
+            }
+        },
+        "sfxwav": {
+            "path": "*.wav",
+            "recursive": "true",
+            "action": "build",
+            "importer": "WavImporter",
+            "processor": "SoundEffectProcessor",
+            "processorParam": {
+                "Quality": "Best"
+            }
+        },
+        "musicsmp3": {
+            "path": "music/*.mp3",
+            "recursive": "true",
+            "action": "build",
+            "importer": "Mp3Importer",
+            "processor": "SongProcessor",
+            "processorParam": {
+                "Quality": "Best"
+            }
+        },
+        "musicswav": {
+            "path": "music/*.wav",
+            "recursive": "true",
+            "action": "build",
+            "importer": "WavImporter",
+            "processor": "SongProcessor",
+            "processorParam": {
+                "Quality": "Best"
+            }
+        },
+        "textures": {
+            "path": "Graphics/*.png",
+            "recursive": "True",
+            "action": "build",
+            "importer": "TextureImporter",
+            "processor": "TextureProcessor",
+            "processorParam": {
+                "ColorKeyColor": "255,0,255,255",
+                "ColorKeyEnabled": "True",
+                "GenerateMipmaps": "False",
+                "PremultiplyAlpha": "True",
+                "ResizeToPowerOfTwo": "False",
+                "MakeSquare": "False",
+                "TextureFormat": "Color"
+            }
+        }
+    }
+}
