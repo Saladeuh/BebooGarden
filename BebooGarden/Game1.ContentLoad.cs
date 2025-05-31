@@ -71,10 +71,7 @@ public partial class Game1
     {
       _desktop.OnChar(a.Character);
     };
-    /*  CreateMainMenu();
-    CreateSettingsUI();
-    CreateFirstScreen();
-    CreateTableToLearnScreen();
-    SwitchToScreen(Save.Flags.EmptySave ? GameScreen.First : GameScreen.MainMenu);*/
+    SwitchToScreen(GameScreen.game);
+    //SwitchToScreen(Save.Flags.EmptySave ? GameScreen.First : GameScreen.MainMenu);
   }
 }

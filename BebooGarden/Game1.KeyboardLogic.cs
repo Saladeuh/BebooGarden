@@ -32,21 +32,144 @@ public partial class Game1
 
   private void HandleKeyboardNavigation(KeyboardState currentKeyboardState)
   {
-    Widget focused = _desktop.FocusedKeyboardWidget;
-    /*
-    // quit on escape key
-    if (IsKeyPressed(currentKeyboardState, Keys.Escape))
+    if (_gameState.CurrentScreen != GameScreen.game)
     {
-      if (_gameState.CurrentScreen != GameScreen.MainMenu)
+      HandleMenuNavigation(currentKeyboardState);
+    }
+    else
+    {
+      Item? itemUnderCursor = Map?.GetItemArroundPosition(PlayerPosition);
+      Map?.IsInLake(PlayerPosition);
+      if ((DateTime.Now - LastPressedKeyTime).TotalMilliseconds > 150)
+      {
+        if (currentKeyboardState.IsKeyDown(Keys.Left)
+        || WASD && currentKeyboardState.IsKeyDown(Keys.A)
+        || !WASD && currentKeyboardState.IsKeyDown(Keys.Q))
+        {
+          MoveOf(new Vector3(-1, 0, 0));
+        }
+        else if (currentKeyboardState.IsKeyDown(Keys.Right) || currentKeyboardState.IsKeyDown(Keys.D))
+        {
+          MoveOf(new Vector3(1, 0, 0));
+        }
+        else if (currentKeyboardState.IsKeyDown(Keys.Up)
+          || WASD && IsKeyPressed(currentKeyboardState, Keys.W)
+          || !WASD && currentKeyboardState.IsKeyDown(Keys.Z))
+        {
+          if (currentKeyboardState.IsKeyDown(Keys.Enter))
+          {
+            if (!_lastArrowWasUp)
+            {
+              ShakeOrPetAtPlayerPosition();
+              _lastArrowWasUp = true;
+            }
+          }
+          else
+          {
+            MoveOf(new Vector3(0, 1, 0));
+          }
+        }
+        else if (currentKeyboardState.IsKeyDown(Keys.Down)
+          || WASD && currentKeyboardState.IsKeyDown(Keys.S)
+          || !WASD && currentKeyboardState.IsKeyDown(Keys.S))
+        {
+          if (currentKeyboardState.IsKeyDown(Keys.Enter))
+          {
+            if (_lastArrowWasUp)
+            {
+              ShakeOrPetAtPlayerPosition();
+              _lastArrowWasUp = false;
+            }
+          }
+          else
+          {
+            MoveOf(new Vector3(0, -1, 0));
+          }
+        }
+        LastPressedKeyTime = DateTime.Now;
+      }
+      if (currentKeyboardState.IsKeyDown(Keys.F))
+      {
+        SayBebooState();
+      }
+      if (IsKeyPressed(currentKeyboardState, Keys.G))
+      {
+        SayBasketState();
+      }
+      if (currentKeyboardState.IsKeyDown(Keys.T))
+      {
+        SayTickets();
+      }
+      if (currentKeyboardState.IsKeyDown(Keys.Enter))
+      {
+        if (itemUnderCursor != null && itemUnderCursor.IsTakable) itemUnderCursor.Take();
+        else if (!Race.IsARaceRunning && Save.Flags.UnlockShop && (Map?.IsArroundShop(PlayerPosition) ?? false))
+        {
+          //new Shop().Show();
+        }
+        else if (!Race.IsARaceRunning && Save.Flags.UnlockSnowyMap && (Map?.IsArroundMapPath(PlayerPosition) ?? false))
+          TravelBetwieen(MapPreset.garden, MapPreset.snowy);
+        else if (!Race.IsARaceRunning && Save.Flags.UnlockUnderwaterMap && (Map?.IsArroundMapUnderWater(PlayerPosition) ?? false))
+          TravelBetwieen(MapPreset.garden, MapPreset.underwater);
+        else if (!Race.IsARaceRunning && Map?.Beboos.Count > 0 && (Map?.IsArroundRaceGate(PlayerPosition) ?? false))
+        {
+          //StartRace();
+        }
+      }
+      if (currentKeyboardState.GetPressedKeyCount() > 0)
+      {
+        int keyInt;
+        var key = currentKeyboardState.GetPressedKeys()[0];
+        if (Util.IsKeyDigit(key, out keyInt) && keyInt > 0)
+        {
+          if (Map != null && keyInt <= Map.Beboos.Count)
+          {
+            var sortedBeboos = new List<Beboo>(Map.Beboos);
+            sortedBeboos.Sort(delegate (Beboo x, Beboo y) { return x.Age.CompareTo(y.Age); });
+            var beboo = Map.Beboos[keyInt - 1];
+            SoundSystem.Whistle(true, beboo.VoicePitch);
+            ScreenReader.Output(beboo.Name);
+            beboo.Call(this, new EventArgs());
+          }
+        }
+      }
+      if (currentKeyboardState.IsKeyDown(Keys.Escape))
       {
         SwitchToScreen(GameScreen.MainMenu);
       }
-      else
+      if (currentKeyboardState.IsKeyDown(Keys.Space))
       {
-        Exit();
+        if (ItemInHand != null)
+        {
+          TryPutItemInHand();
+        }
+        else
+        {
+          Beboo? bebooUnderCursor = BebooUnderCursor();
+          if (bebooUnderCursor != null)
+          {
+            if (bebooUnderCursor.Sleeping) Whistle();
+            else FeedBeboo();
+          }
+          else if (Map?.GetTreeLineAtPosition(PlayerPosition) != null)
+          {
+          }
+          else if (itemUnderCursor != null)
+          {
+            itemUnderCursor.Action();
+          }
+          else
+          {
+            Whistle();
+          }
+        }
       }
     }
-    // navigation keys (arrows, tab, entrance)
+  }
+
+  private void HandleMenuNavigation(KeyboardState currentKeyboardState)
+  {
+    Widget focused = _desktop.FocusedKeyboardWidget;
     if (IsKeyPressed(currentKeyboardState, Keys.Down) || IsKeyPressed(currentKeyboardState, Keys.Right))
     {
       _desktop.FocusNext();
@@ -63,135 +186,8 @@ public partial class Game1
         button.DoClick();
       }
     }
-    */
-    //if (Race.IsARaceRunning || (DateTime.Now - LastPressedKeyTime).TotalMilliseconds < 150) return;
-    Item? itemUnderCursor = Map?.GetItemArroundPosition(PlayerPosition);
-    Map?.IsInLake(PlayerPosition);
-    if ((DateTime.Now - LastPressedKeyTime).TotalMilliseconds > 150)
-    {
-      if (currentKeyboardState.IsKeyDown(Keys.Left)
-      || WASD && currentKeyboardState.IsKeyDown(Keys.A)
-      || !WASD && currentKeyboardState.IsKeyDown(Keys.Q))
-      {
-        MoveOf(new Vector3(-1, 0, 0));
-      }
-      else if (currentKeyboardState.IsKeyDown(Keys.Right) || currentKeyboardState.IsKeyDown(Keys.D))
-      {
-        MoveOf(new Vector3(1, 0, 0));
-      }
-      else if (currentKeyboardState.IsKeyDown(Keys.Up)
-        || WASD && IsKeyPressed(currentKeyboardState, Keys.W)
-        || !WASD && currentKeyboardState.IsKeyDown(Keys.Z))
-      {
-        if (currentKeyboardState.IsKeyDown(Keys.Enter))
-        {
-          if (!_lastArrowWasUp)
-          {
-            ShakeOrPetAtPlayerPosition();
-            _lastArrowWasUp = true;
-          }
-        }
-        else
-        {
-          MoveOf(new Vector3(0, 1, 0));
-        }
-      }
-      else if (currentKeyboardState.IsKeyDown(Keys.Down)
-        || WASD && currentKeyboardState.IsKeyDown(Keys.S)
-        || !WASD && currentKeyboardState.IsKeyDown(Keys.S))
-      {
-        if (currentKeyboardState.IsKeyDown(Keys.Enter))
-        {
-          if (_lastArrowWasUp)
-          {
-            ShakeOrPetAtPlayerPosition();
-            _lastArrowWasUp = false;
-          }
-        }
-        else
-        {
-          MoveOf(new Vector3(0, -1, 0));
-        }
-      }
-      LastPressedKeyTime = DateTime.Now;
-    }
-    if (currentKeyboardState.IsKeyDown(Keys.F))
-    {
-      SayBebooState();
-    }
-    if (IsKeyPressed(currentKeyboardState, Keys.G))
-    {
-      SayBasketState();
-    }
-    if (currentKeyboardState.IsKeyDown(Keys.T))
-    {
-      SayTickets();
-    }
-    if (currentKeyboardState.IsKeyDown(Keys.Enter))
-    {
-      if (itemUnderCursor != null && itemUnderCursor.IsTakable) itemUnderCursor.Take();
-      else if (!Race.IsARaceRunning && Save.Flags.UnlockShop && (Map?.IsArroundShop(PlayerPosition) ?? false))
-      {
-        //new Shop().Show();
-      }
-      else if (!Race.IsARaceRunning && Save.Flags.UnlockSnowyMap && (Map?.IsArroundMapPath(PlayerPosition) ?? false))
-        TravelBetwieen(MapPreset.garden, MapPreset.snowy);
-      else if (!Race.IsARaceRunning && Save.Flags.UnlockUnderwaterMap && (Map?.IsArroundMapUnderWater(PlayerPosition) ?? false))
-        TravelBetwieen(MapPreset.garden, MapPreset.underwater);
-      else if (!Race.IsARaceRunning && Map?.Beboos.Count > 0 && (Map?.IsArroundRaceGate(PlayerPosition) ?? false))
-      {
-        //StartRace();
-      }
-    }
-    if (currentKeyboardState.GetPressedKeyCount() > 0)
-    {
-      int keyInt;
-      var key = currentKeyboardState.GetPressedKeys()[0];
-      if (Util.IsKeyDigit(key, out keyInt) && keyInt > 0)
-      {
-        if (Map != null && keyInt <= Map.Beboos.Count)
-        {
-          var sortedBeboos = new List<Beboo>(Map.Beboos);
-          sortedBeboos.Sort(delegate (Beboo x, Beboo y) { return x.Age.CompareTo(y.Age); });
-          var beboo = Map.Beboos[keyInt - 1];
-          SoundSystem.Whistle(true, beboo.VoicePitch);
-          ScreenReader.Output(beboo.Name);
-          beboo.Call(this, new EventArgs());
-        }
-      }
-    }
-    if (currentKeyboardState.IsKeyDown( Keys.Escape))
-    {
-      //new EscapeMenu().Show();
-    }
-    if (currentKeyboardState.IsKeyDown( Keys.Space))
-    {
-      if (ItemInHand != null)
-      {
-        TryPutItemInHand();
-      }
-      else
-      {
-        Beboo? bebooUnderCursor = BebooUnderCursor();
-        if (bebooUnderCursor != null)
-        {
-          if (bebooUnderCursor.Sleeping) Whistle();
-          else FeedBeboo();
-        }
-        else if (Map?.GetTreeLineAtPosition(PlayerPosition) != null)
-        {
-        }
-        else if (itemUnderCursor != null)
-        {
-          itemUnderCursor.Action();
-        }
-        else
-        {
-          Whistle();
-        }
-      }
-    }
   }
+
   public bool IsKeyPressed(KeyboardState currentKeyboardState, params Keys[] keys)
   {
     foreach (Keys key in keys)

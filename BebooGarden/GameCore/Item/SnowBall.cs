@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Numerics;
+﻿using BebooGarden.Content;
 using BebooGarden.GameCore.Pet;
 using FmodAudio;
+using System.Collections.Generic;
+using System.Numerics;
 
 namespace BebooGarden.GameCore.Item;
 
@@ -32,8 +33,8 @@ internal class SnowBall : Item
   }
   public Vector3? Direction { get; set; }
   private TimedBehaviour<SnowBall> MoveBehaviour { get; set; }
-  protected override string _translateKeyName { get; } = "snowball.name";
-  protected override string _translateKeyDescription { get; } = "snowball.description";
+  public override string Name { get; } = GameText.snowball_name;
+  public override string Description { get; } = GameText.snowball_name;
   public override Vector3? Position
   {
     get => position;

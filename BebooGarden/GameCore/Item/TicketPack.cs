@@ -1,12 +1,13 @@
-﻿using System.Numerics;
+﻿using BebooGarden.Content;
 using BebooGarden.GameCore.Pet;
+using System.Numerics;
 
 namespace BebooGarden.GameCore.Item;
 
 internal class TicketPack(int amount) : Item
 {
-  protected override string _translateKeyName { get; } = "ticketpack.name";
-  protected override string _translateKeyDescription { get; } = "ticketpack.description";
+  public override string Name { get; } = GameText.ticketpack_name;
+  public override string Description { get; } = GameText.ticketpack_description;
   public override bool IsTakable { get; set; } = true;
 
   public override void Action()

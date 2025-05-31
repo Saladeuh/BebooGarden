@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using BebooGarden.Content;
 using BebooGarden.GameCore.Pet;
 using FmodAudio;
 
@@ -7,15 +8,14 @@ namespace BebooGarden.GameCore.Item;
 
 public class Egg(string color) : Item
 {
-  protected override string _translateKeyName { get; } = "egg.name";
   public override string Name { get
     {
       var textColor = " ";
       return textColor;
-      /*      if (Color !="none") textColor= Color;
-            return Game1.Instance.GetLocalizedString(_translateKeyName, Game1.Instance.GetLocalizedString(textColor)); */
+           if (Color !="none") textColor= Color;
+            return String.Format(GameText.egg_name, textColor); 
     } }
-  protected override string _translateKeyDescription { get; } = "egg.description";
+  public override string Description { get; } = GameText.egg_description;
   public override Vector3? Position { get; set; } // position null=in inventory
   public override bool IsTakable { get; set; } = false;
   public override int Cost { get; set; } = 20;

@@ -1,11 +1,11 @@
-﻿using System;
+﻿using BebooGarden.Content;
+using BebooGarden.GameCore.Pet;
+using FmodAudio;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Numerics;
-using BebooGarden.GameCore.Pet;
-
-using FmodAudio;
 
 namespace BebooGarden.GameCore.Item.MusicBox;
 
@@ -40,8 +40,8 @@ internal class MusicBox : Item
       }
   }
 
-  protected override string _translateKeyName { get; } = "musicbox.name";
-  protected override string _translateKeyDescription { get; } = "musicbox.description";
+  public override string Name { get; } = GameText.musicbox_name;
+  public override string Description { get; } = GameText.musicbox_description;
   public override Vector3? Position { get; set; } = null;
   public override Channel? Channel { get; set; }
   public override bool IsTakable { get; set; } = true;

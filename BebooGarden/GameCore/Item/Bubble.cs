@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Numerics;
+﻿using BebooGarden.Content;
 using BebooGarden.GameCore.Pet;
 using FmodAudio;
+using System.Collections.Generic;
+using System.Numerics;
 
 namespace BebooGarden.GameCore.Item;
 
@@ -38,8 +39,8 @@ internal class Bubble : Item
   private Vector3? Direction { get; set; }
   private TimedBehaviour<Bubble> MoveBehaviour { get; set; }
   private TimedBehaviour<Bubble> SlowDriftBehaviour { get; set; }
-  protected override string _translateKeyName { get; } = "bubble.name";
-  protected override string _translateKeyDescription { get; } = "bubble.description";
+  public override string Name { get; } = GameText.bubble_name;
+  public override string Description { get; } = GameText.bubble_description;
   public override Vector3? Position
   {
     get => position;

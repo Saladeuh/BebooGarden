@@ -1,13 +1,14 @@
-﻿using System.Numerics;
+﻿using BebooGarden.Content;
 using BebooGarden.GameCore.Pet;
 using FmodAudio;
+using System.Numerics;
 
 namespace BebooGarden.GameCore.Item;
 
 internal class Duck : Item
 {
-  protected override string _translateKeyName { get; } = "duck.name";
-  protected override string _translateKeyDescription { get; } = "duck.description";
+  public override string Name { get; } = GameText.duck_name;
+  public override string Description { get; } = GameText.duck_description;
   public override Vector3? Position { get; set; } // position null=in inventory
   public override bool IsTakable { get; set; } = true;
   public override bool IsWaterProof { get; set; } = true;

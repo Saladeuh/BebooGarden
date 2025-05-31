@@ -1,6 +1,7 @@
-﻿using System.Numerics;
+﻿using BebooGarden.Content;
 using BebooGarden.GameCore.Pet;
 using FmodAudio;
+using System.Numerics;
 
 namespace BebooGarden.GameCore.Item.MusicBox;
 
@@ -13,8 +14,9 @@ internal class Roll(
     bool danse = false,
     bool lullaby = false) : Item
 {
-  protected override string _translateKeyName { get; } = title;
-  protected override string _translateKeyDescription { get; } = source;
+  public override string Name { get; } =title;
+  public override string Description { get; } = source;
+
   public override Vector3? Position { get; set; } // position null=in inventory
   public override Channel? Channel { get; set; }
   public override bool IsTakable { get; set; } = true;
