@@ -1,101 +1,397 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
-		Microsoft ResX Schema
-
-		Version 1.3
-
-		The primary goals of this format is to allow a simple XML format 
-		that is mostly human readable. The generation and parsing of the 
-		various data types are done through the TypeConverter classes 
-		associated with the data types.
-
-		Example:
-
-		... ado.net/XML headers & schema ...
-		<resheader name="resmimetype">text/microsoft-resx</resheader>
-		<resheader name="version">1.3</resheader>
-		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-		<data name="Name1">this is my long string</data>
-		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-			[base64 mime encoded serialized .NET Framework object]
-		</data>
-		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-			[base64 mime encoded string representing a byte array form of the .NET Framework object]
-		</data>
-
-		There are any number of "resheader" rows that contain simple 
-		name/value pairs.
-
-		Each data row contains a name, and value. The row also contains a 
-		type or mimetype. Type corresponds to a .NET class that support 
-		text/value conversion through the TypeConverter architecture. 
-		Classes that don't support this are serialized and stored with the 
-		mimetype set.
-
-		The mimetype is used for serialized objects, and tells the 
-		ResXResourceReader how to depersist the object. This is currently not 
-		extensible. For a given mimetype the value must be set accordingly:
-
-		Note - application/x-microsoft.net.object.binary.base64 is the format 
-		that the ResXResourceWriter will generate, however the reader can 
-		read any of the formats listed below.
-
-		mimetype: application/x-microsoft.net.object.binary.base64
-		value   : The object must be serialized with 
-			: System.Serialization.Formatters.Binary.BinaryFormatter
-			: and then encoded with base64 encoding.
-
-		mimetype: application/x-microsoft.net.object.soap.base64
-		value   : The object must be serialized with 
-			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-			: and then encoded with base64 encoding.
-
-		mimetype: application/x-microsoft.net.object.bytearray.base64
-		value   : The object must be serialized into a byte array 
-			: using a System.ComponentModel.TypeConverter
-			: and then encoded with base64 encoding.
-	-->
-	
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
 	<resheader name="resmimetype">
 		<value>text/microsoft-resx</value>
 	</resheader>
 	<resheader name="version">
-		<value>1.3</value>
+		<value>2.0</value>
 	</resheader>
 	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms</value>
 	</resheader>
 	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms</value>
 	</resheader>
+	<data name="beboogarden" xml:space="preserve">
+		<value>Jardin Bébous</value>
+	</data>
+	<data name="pink" xml:space="preserve">
+		<value>Rose</value>
+	</data>
+	<data name="red" xml:space="preserve">
+		<value>Rouge</value>
+	</data>
+	<data name="orange" xml:space="preserve">
+		<value>Orange</value>
+	</data>
+	<data name="yellow" xml:space="preserve">
+		<value>Jaune</value>
+	</data>
+	<data name="green" xml:space="preserve">
+		<value>Vert</value>
+	</data>
+	<data name="blue" xml:space="preserve">
+		<value>Bleu</value>
+	</data>
+	<data name="indigo" xml:space="preserve">
+		<value>Indigo</value>
+	</data>
+	<data name="violet" xml:space="preserve">
+		<value>Violet</value>
+	</data>
+	<data name="none" xml:space="preserve">
+		<value>Aucune</value>
+	</data>
+	<data name="chocolatekake" xml:space="preserve">
+		<value>Un gros gâteau au chocolat</value>
+	</data>
+	<data name="icecream" xml:space="preserve">
+		<value>Une délicieuse glace</value>
+	</data>
+	<data name="fruitsalad" xml:space="preserve">
+		<value>Une salade de fruits raffraîchissante</value>
+	</data>
+	<data name="coffee" xml:space="preserve">
+		<value>Juste un café, merci.</value>
+	</data>
+	<data name="trees.full" xml:space="preserve">
+		<value>Arbres pleins de fruits</value>
+	</data>
+	<data name="trees.empty" xml:space="preserve">
+		<value>Arbres sans fruits</value>
+	</data>
+	<data name="trees.soonempty" xml:space="preserve">
+		<value>Arbres avec quelques fruits</value>
+	</data>
+	<data name="trees.soonfull" xml:space="preserve">
+		<value>Arbres avec beaucoup de fruits</value>
+	</data>
+	<data name="tickets" xml:space="preserve">
+		<value>Vous avez {0} tickets</value>
+	</data>
+	<data name="water" xml:space="preserve">
+		<value>lagon</value>
+	</data>
+	<data name="Normal" xml:space="preserve">
+		<value>Pomme</value>
+	</data>
+	<data name="Energetic" xml:space="preserve">
+		<value>Super pomme</value>
+	</data>
+	<data name="beboo.gosleep" xml:space="preserve">
+		<value>{0} va dormir</value>
+	</data>
+	<data name="beboo.wakeup" xml:space="preserve">
+		<value>{0} se réveille</value>
+	</data>
+	<data name="beboo.sadstart" xml:space="preserve">
+		<value>{0} fond en larmes. Faites quelque chose !</value>
+	</data>
+	<data name="beboo.happystart" xml:space="preserve">
+		<value>{0} est heureux!</value>
+	</data>
+	<data name="beboo.sleep" xml:space="preserve">
+		<value>{0} dort</value>
+	</data>
+	<data name="beboo.verytired" xml:space="preserve">
+		<value>{0} est très fatigué</value>
+	</data>
+	<data name="beboo.verysad" xml:space="preserve">
+		<value>{0} est très triste. Faites quelque chose!</value>
+	</data>
+	<data name="beboo.littlesad" xml:space="preserve">
+		<value>{0} est un peu fatigué</value>
+	</data>
+	<data name="beboo.littletired" xml:space="preserve">
+		<value>{0} est un peu fatigué</value>
+	</data>
+	<data name="beboo.good" xml:space="preserve">
+		<value>{0} va bien</value>
+	</data>
+	<data name="beboo.verygood" xml:space="preserve">
+		<value>{0} est en pleine forme!</value>
+	</data>
+	<data name="musicbox.name" xml:space="preserve">
+		<value>Boîte à musique</value>
+	</data>
+	<data name="musicbox.description" xml:space="preserve">
+		<value>Un objet ancien qui permet de jouer de la musique en y mettant un rouleau</value>
+	</data>
+	<data name="musicbox.noroll" xml:space="preserve">
+		<value>Vous n'avez pas encore de rouleau a y mettre</value>
+	</data>
+	<data name="duck.name" xml:space="preserve">
+		<value>Canard en caoutchouc</value>
+	</data>
+	<data name="duck.description" xml:space="preserve">
+		<value>C'est juste un canard</value>
+	</data>
+	<data name="boots.name" xml:space="preserve">
+		<value>Bottes à ressort</value>
+	</data>
+	<data name="boots.description" xml:space="preserve">
+		<value>Un Bébou peut les utiliser pour sauter plus loin. Posez les au sol et faites en sorte qu'un bébou les enfile.</value>
+	</data>
+	<data name="ticketpack.name" xml:space="preserve">
+		<value>Paquet de tickets</value>
+	</data>
+	<data name="ticketpack.description" xml:space="preserve">
+		<value>Jack pot!</value>
+	</data>
+	<data name="egg.name" xml:space="preserve">
+		<value>œuf de bébou {0}</value>
+	</data>
+	<data name="egg.description" xml:space="preserve">
+		<value>Toujours plus de Bébous!!!!</value>
+	</data>
+	<data name="bubble.name" xml:space="preserve">
+		<value>Bulle</value>
+	</data>
+	<data name="bubble.description" xml:space="preserve">
+		<value>Bloup</value>
+	</data>
+	<data name="snowball.name" xml:space="preserve">
+		<value>Boule de neige</value>
+	</data>
+	<data name="roll.name" xml:space="preserve">
+		<value>Rouleau de boîte à musique</value>
+	</data>
+	<data name="ui.empty" xml:space="preserve">
+		<value>Vous devez écrire quelque chose.</value>
+	</data>
+	<data name="ui.yourname" xml:space="preserve">
+		<value>Votre nom</value>
+	</data>
+	<data name="ui.letsname" xml:space="preserve">
+		<value>Votre Bébou vient de naître, à présent, il faut le nommer !</value>
+	</data>
+	<data name="ui.bebooname" xml:space="preserve">
+		<value>Le nom de votre Bébou</value>
+	</data>
+	<data name="ui.welcome" xml:space="preserve">
+		<value>Bienvenue dans le Jardin Bébou!
+Pour commencer, comment dois-je vous appeler ?</value>
+	</data>
+	<data name="ui.welcome2" xml:space="preserve">
+		<value>Voici le jardin Bébous.
+C'est un grand carré de verdure paisible, agrémenté d'un petit lagon à gauche et de hauts arbres fruitiers à droite.
+Pour vous repérer dans le jardin, je vous recommande grandement de mettre un casque ou des écouteurs.
+Il est actuellement vide, hormis un œuf sur le point d'éclore, que vous devriez entendre à votre droite.
+Une fois ce dialogue fermé, déplacez-vous avec les flèches en direction de cet œuf, puis, une fois que vous l'entendez au centre,  appuyez sur espace pour aider votre bébou à briser sa coquille.</value>
+	</data>
+	<data name="ui.aboutyou" xml:space="preserve">
+		<value>Super ! Maintenant, {0}, je dois vous poser quelques questions pour vous trouver le Bébou qui vous conviendra le mieux.
+Commençons simplement.</value>
+	</data>
+	<data name="ui.color" xml:space="preserve">
+		<value>Quelle est votre couleur préférée ?</value>
+	</data>
+	<data name="ui.freetime" xml:space="preserve">
+		<value>Parfait !
+Maintenant, qu'aimez-vous faire quand vous avez du temps libre ?
+Cela peut être n'importe quoi.</value>
+	</data>
+	<data name="ui.freetimequick" xml:space="preserve">
+		<value>Qu'aimez-vous faire ?</value>
+	</data>
+	<data name="ui.dessert" xml:space="preserve">
+		<value>Enfin, quel est votre dessert préféré parmis ceux-ci ?</value>
+	</data>
+	<data name="ui.allgood" xml:space="preserve">
+		<value>Eh bien, tout est en règle, il me semble.</value>
+	</data>
+	<data name="ui.quicktips" xml:space="preserve">
+		<value>Parfait !
+Avant de vous laisser vous occuper de {0}, je dois vous apprendre le béaba du jardin.
+Pour nourrir {0}, il vous faut récupérer des fruits dans les arbres à votre droite. Secouez-les en maintenant entrée, puis en alternant les flèches haut et bas.
+Pour donner un fruit à {0}, appuyez sur espace quand vous êtes à proximité, comme pour interagir avec l'œuf précédemment.
+Vous pouvez aussi appuyer sur F pour savoir précisément si {0} manque de quelque chose.
+Si {0} est surexcité, rendez-vous en haut à gauche pour qu'il se dépense.
+Enfin, appuyez sur échappe pour accéder au menu.
+Amusez-vous bien !</value>
+	</data>
+	<data name="ui.emptyinventory" xml:space="preserve">
+		<value>Aucun objets dans le sac</value>
+	</data>
+	<data name="ui.chooseitem" xml:space="preserve">
+		<value>Choisissez un objet</value>
+	</data>
+	<data name="ui.itemput" xml:space="preserve">
+		<value>{0} déposé</value>
+	</data>
+	<data name="ui.warningwater" xml:space="preserve">
+		<value>Ne mettez pas ça dans l'eau !</value>
+	</data>
+	<data name="ui.rolltake" xml:space="preserve">
+		<value>Vous avez récupéré le rouleau de boîte à musique {0}, de {1}</value>
+	</data>
+	<data name="ui.chooseroll" xml:space="preserve">
+		<value>Choisissez un rouleau à insérer</value>
+	</data>
+	<data name="ui.itemtake" xml:space="preserve">
+		<value>{0} rangé dans le sac</value>
+	</data>
+	<data name="ui.basket" xml:space="preserve">
+		<value>Il y a {0} fruits dans le panier</value>
+	</data>
+	<data name="ui.back" xml:space="preserve">
+		<value>Retour</value>
+	</data>
+	<data name="shop.item" xml:space="preserve">
+		<value>{0} : {1}, {2} tickets</value>
+	</data>
+	<data name="shop.items" xml:space="preserve">
+		<value>Objets ({0} tickets restants)</value>
+	</data>
+	<data name="shop.itemstitle" xml:space="preserve">
+		<value>Objets</value>
+	</data>
+	<data name="shop.rolls" xml:space="preserve">
+		<value>Rouleaux de boîte à musique ({0} tickets restants)</value>
+	</data>
+	<data name="shop.roll" xml:space="preserve">
+		<value>{0} : {1}, {2} tickets</value>
+	</data>
+	<data name="shop.rollstitle" xml:space="preserve">
+		<value>Rouleaux de boîte à musique</value>
+	</data>
+	<data name="shop.alreadyroll" xml:space="preserve">
+		<value>vous possédez déjà ce rouleau.</value>
+	</data>
+	<data name="shop.notickets" xml:space="preserve">
+		<value>Vous n'avez pas assez de tickets</value>
+	</data>
+	<data name="shop.title" xml:space="preserve">
+		<value>Bienvenue dans la boutique! ({0} tickets restants)</value>
+	</data>
+	<data name="shop.buy" xml:space="preserve">
+		<value>{0} acheté</value>
+	</data>
+	<data name="inventory.item" xml:space="preserve">
+		<value>{0} (×{1})</value>
+	</data>
+	<data name="tp" xml:space="preserve">
+		<value>Trouver un objet.</value>
+	</data>
+	<data name="tp.item" xml:space="preserve">
+		<value>{0} {1}</value>
+	</data>
+	<data name="gainticket" xml:space="preserve">
+		<value>Vous gagnez {0} ticket</value>
+	</data>
+	<data name="shopunlock" xml:space="preserve">
+		<value>Vous venez de débloquer l'accès à la boutique!
+Rendez-vous dans le coin inférieur droit du jardin pour échanger vos tickets!</value>
+	</data>
+	<data name="shop" xml:space="preserve">
+		<value>Boutique</value>
+	</data>
+	<data name="race.third" xml:space="preserve">
+		<value>{0} est le troisième...</value>
+	</data>
+	<data name="race.second" xml:space="preserve">
+		<value>{0} est le deuxième. ({1} secondes)</value>
+	</data>
+	<data name="race.first" xml:space="preserve">
+		<value>{0} est le premier ! ({1} secondes)</value>
+	</data>
+	<data name="race.gate" xml:space="preserve">
+		<value>Participer à une course (encore {0} essais aujourd'hui)</value>
+	</data>
+	<data name="race.chooseracer" xml:space="preserve">
+		<value>Choisissez le coureur</value>
+	</data>
+	<data name="race.chooserace" xml:space="preserve">
+		<value>Choisissez la course</value>
+	</data>
+	<data name="race.trytommorow" xml:space="preserve">
+		<value>Les courses sont fermées pour aujourd'hui.</value>
+	</data>
+	<data name="race.simple" xml:space="preserve">
+		<value>Course facile</value>
+	</data>
+	<data name="race.snow" xml:space="preserve">
+		<value>Course enneigée</value>
+	</data>
+	<data name="unlockvoice" xml:space="preserve">
+		<value>{0} est maintenant assez grand pour reconnaître son nom !
+Essayez de l'appeler.</value>
+	</data>
+	<data name="unlocksnowy" xml:space="preserve">
+		<value>Bravo !
+Vous venez de déblquer le chemin vers la pleine enneigée. Allez vite la visiter en amenant votre Bébou en bas à gauche du jardin.</value>
+	</data>
+	<data name="unlockswimming" xml:space="preserve">
+		<value>Waw !
+{0} sait parfaitement nager désormais.</value>
+	</data>
+	<data name="path" xml:space="preserve">
+		<value>Chemin</value>
+	</data>
+	<data name="nobeboo" xml:space="preserve">
+		<value>Il n'y a pas de bébou ici..</value>
+	</data>
+	<data name="underwater" xml:space="preserve">
+		<value>Cheminée volcanique sous-marine</value>
+	</data>
+	<data name="choosebeboo" xml:space="preserve">
+		<value>Choisissez le Bébou.</value>
+	</data>
+	<data name="ui.mainmenu" xml:space="preserve">
+		<value>Menu principal</value>
+	</data>
+	<data name="ui.commands" xml:space="preserve">
+		<value>Aides : Commandes du jeu.</value>
+	</data>
+	<data name="ui.credits" xml:space="preserve">
+		<value>Crédits</value>
+	</data>
+	<data name="ui.discord" xml:space="preserve">
+		<value>Rejoindre le serveur Discord</value>
+	</data>
+	<data name="ui.quit" xml:space="preserve">
+		<value>Quitter le jeu.</value>
+	</data>
+	<data name="bag" xml:space="preserve">
+		<value>Sac</value>
+	</data>
+	<data name="emptybag" xml:space="preserve">
+		<value>Le sac est vide (échape pour sortir)</value>
+	</data>
+	<data name="ui.emptymap" xml:space="preserve">
+		<value>Il n'y a pas d'objets ici. Pour poser un objet, rendez-vous daos votre sac, sélectionez l'objet puis appuyez sur espace où vous souhaitez le poser.</value>
+	</data>
+	<data name="ui.language" xml:space="preserve">
+		<value>Changer la langue</value>
+	</data>
+	<data name="ui.languagechanged" xml:space="preserve">
+		<value>Langue changée</value>
+	</data>
+	<data name="win" xml:space="preserve">
+		<value>Gagné!</value>
+	</data>
+	<data name="lose" xml:space="preserve">
+		<value>Perdu!</value>
+	</data>
+	<data name="boombox" xml:space="preserve">
+		<value>Trésors sonores</value>
+	</data>
+	<data name="score" xml:space="preserve">
+		<value>Score : {0}</value>
+	</data>
+	<data name="welcome" xml:space="preserve">
+		<value>Bienvenue dans trésors sonores!</value>
+	</data>
+	<data name="goal" xml:space="preserve">
+		<value>Appuyez sur les chiffres du clavier pour entendre un son. Trouvez toutes les pairs pour passer au niveau suivant.</value>
+	</data>
+	<data name="chest.name" xml:space="preserve">
+		<value>Coffre à trésors</value>
+	</data>
+	<data name="chest.description" xml:space="preserve">
+		<value>Un coffre rempli de tickets. M ais attention ! Un Bébou doit redoubler d'intelligence pour les obtenir.</value>
+	</data>
+	<data name="findbeboo" xml:space="preserve">
+		<value>Trouver un Bébou.</value>
+	</data>
 </root>

@@ -20,7 +20,7 @@ public partial class Game1
   private Map map;
 
   public Map? Map { get => map; private set => map = value; }
-  public Vector3 PlayerPosition { get; private set; }
+  public System.Numerics.Vector3 PlayerPosition { get; private set; }
   public DateTime LastPressedKeyTime { get; private set; }
 
   protected override void Initialize()

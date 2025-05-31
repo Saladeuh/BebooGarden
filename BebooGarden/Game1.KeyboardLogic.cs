@@ -1,13 +1,16 @@
-﻿using Microsoft.Xna.Framework.Input;
-using Myra.Graphics2D.UI;
-using SharpHook;
-using System.Collections.Generic;
+﻿using BebooGarden.Content;
+using BebooGarden.GameCore.Item;
+using BebooGarden.Minigame;
+using BebooGarden.Save;
 using BebooGarden.UI;
 using CrossSpeak;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using BebooGarden.Save;
+using Myra.Graphics2D.UI;
+using SharpHook;
 using System;
-using BebooGarden.Content;
+using System.Collections.Generic;
+using System.Numerics;
 
 namespace BebooGarden;
 
@@ -27,7 +30,19 @@ public partial class Game1
   private void HandleKeyboardNavigation(KeyboardState currentKeyboardState)
   {
     Widget focused = _desktop.FocusedKeyboardWidget;
-
+    /*
+    // quit on escape key
+    if (IsKeyPressed(currentKeyboardState, Keys.Escape))
+    {
+      if (_gameState.CurrentScreen != GameScreen.MainMenu)
+      {
+        SwitchToScreen(GameScreen.MainMenu);
+      }
+      else
+      {
+        Exit();
+      }
+    }
     // navigation keys (arrows, tab, entrance)
     if (IsKeyPressed(currentKeyboardState, Keys.Down) || IsKeyPressed(currentKeyboardState, Keys.Right))
     {
@@ -45,26 +60,56 @@ public partial class Game1
         button.DoClick();
       }
     }
-    
-    if (IsKeyPressed(currentKeyboardState, Keys.F1))
+    */
+    if (Race.IsARaceRunning || (DateTime.Now - LastPressedKeyTime).TotalMilliseconds < 150) return;
+    LastPressedKeyTime = DateTime.Now;
+    Item? itemUnderCursor = Map?.GetItemArroundPosition(PlayerPosition);
+    Map?.IsInLake(PlayerPosition);
+    if (currentKeyboardState.IsKeyDown(Keys.Left)
+      || WASD && currentKeyboardState.IsKeyDown(Keys.A)
+      || !WASD && currentKeyboardState.IsKeyDown( Keys.Q))
     {
-      if (CurrentPlayingMiniGame != null)
+      MoveOf(new Vector3(-1, 0, 0));
+    }
+    else if (currentKeyboardState.IsKeyDown( Keys.Right) || currentKeyboardState.IsKeyDown( Keys.D))
+    {
+      MoveOf(new Vector3(1, 0, 0));
+    }
+    else if (currentKeyboardState.IsKeyDown(Keys.Up)
+      || WASD && IsKeyPressed(currentKeyboardState, Keys.W)
+      || !WASD && currentKeyboardState.IsKeyDown(Keys.Z))
+    {
+      if (currentKeyboardState.IsKeyDown(Keys.Enter))
       {
-        //CrossSpeakManager.Instance.Output(CurrentPlayingMiniGame.Tips);
+        if (!_lastArrowWasUp)
+        {
+          ShakeOrPetAtPlayerPosition();
+          _lastArrowWasUp = true;
+        }
       }
       else
       {
-        //CrossSpeakManager.Instance.Output(GameText.Tips);
+        MoveOf(new Vector3(0, 1, 0));
       }
     }
-    if (IsKeyPressed(currentKeyboardState, Keys.F2))
+    else if (currentKeyboardState.IsKeyDown(Keys.Down)
+      || WASD && currentKeyboardState.IsKeyDown(Keys.S) 
+      || !WASD && currentKeyboardState.IsKeyDown(Keys.S))
     {
-      MediaPlayer.Volume -= 0.1f;
+      if (currentKeyboardState.IsKeyDown(Keys.Enter))
+      {
+        if (_lastArrowWasUp)
+        {
+          ShakeOrPetAtPlayerPosition();
+          _lastArrowWasUp = false;
+        }
+      }
+      else
+      {
+        MoveOf(new Vector3(0, -1, 0));
+      }
     }
-    if (IsKeyPressed(currentKeyboardState, Keys.F3))
-    {
-      MediaPlayer.Volume += 0.1f;
-    }
+
   }
 
   public bool IsKeyPressed(KeyboardState currentKeyboardState, params Keys[] keys)
