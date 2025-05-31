@@ -102,11 +102,6 @@ public partial class Game1
     throw new NotImplementedException();
   }
 
-  internal void UpdateMapMusic()
-  {
-    throw new NotImplementedException();
-  }
-
   internal Beboo ChooseBeboo()
   {
     throw new NotImplementedException();

@@ -77,11 +77,9 @@ public static class StringCipher
         {
           using (MemoryStream memoryStream = new(cipherTextBytes))
           {
-            using (CryptoStream cryptoStream = new(memoryStream, decryptor, CryptoStreamMode.Read))
-            using (StreamReader streamReader = new(cryptoStream, Encoding.UTF8))
-            {
-              return streamReader.ReadToEnd();
-            }
+            using CryptoStream cryptoStream = new(memoryStream, decryptor, CryptoStreamMode.Read);
+            using StreamReader streamReader = new(cryptoStream, Encoding.UTF8);
+            return streamReader.ReadToEnd();
           }
         }
       }

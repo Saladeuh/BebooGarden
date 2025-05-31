@@ -8,9 +8,9 @@ using CrossSpeak;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
-using System.Numerics;
 
 namespace BebooGarden;
 
@@ -91,5 +91,49 @@ public partial class Game1
   {
    CrossSpeakManager.Instance.Output(String.Format(GameText.tickets, Tickets));
   }
-
+  private void SayBasketState()
+  {
+    var fruits = 0;
+    foreach (var fruistCount in Save.FruitsBasket.Values) fruits += fruistCount;
+    if (Save.FruitsBasket != null) CrossSpeakManager.Instance.Output(String.Format(GameText.ui_basket, fruits));
+  }
+  private void TryPutItemInHand()
+  {
+    if (ItemInHand == null) return;
+    bool waterProof = ItemInHand?.IsWaterProof ?? false;
+    bool inWater = Map?.IsInLake(PlayerPosition) ?? false;
+    if (inWater && !waterProof)
+    {
+      SoundSystem.System.PlaySound(SoundSystem.WarningSound);
+      CrossSpeakManager.Instance.Output(GameText.ui_warningwater);    }
+    else
+    {
+      if (ItemInHand != null)
+      {
+        Map?.AddItem(ItemInHand, PlayerPosition);
+CrossSpeakManager.Instance.Output(String.Format(GameText.ui_itemput, ItemInHand.Name)); 
+        if (inWater) SoundSystem.System.PlaySound(SoundSystem.ItemPutWaterSound);
+        else SoundSystem.System.PlaySound(SoundSystem.ItemPutSound);
+        Inventory.Remove(ItemInHand);
+      }
+      ItemInHand = null;
+    }
+  }
+  private void Whistle()
+  {
+    SoundSystem.System.Get3DListenerAttributes(0, out Vector3 currentPosition, out _, out _, out _);
+    SoundSystem.Whistle();
+    foreach (Beboo beboo in Map?.Beboos)
+    {
+      if (Map?.Beboos.Count <= 1 || Random.Next(2) == 1)
+      {
+        Task.Run(async () =>
+        {
+          await Task.Delay(Random.Next(1000, 2000));
+          beboo.WakeUp();
+        });
+        beboo.GoalPosition = currentPosition;
+      }
+    }
+  }
 }

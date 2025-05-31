@@ -48,6 +48,7 @@ public partial class Game1
     UpdateMinigames(gameTime, currentKeyboardState);
     UpdateUIState();
     SetPReviousKeyboardStates(currentKeyboardState, currentMouseState);
+    SoundSystem.System.Update();
     base.Update(gameTime);
   }
 
