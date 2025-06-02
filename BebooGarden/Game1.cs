@@ -10,14 +10,14 @@ using System.Collections.Generic;
 namespace BebooGarden;
 public partial class Game1 : Game
 {
-  private readonly GameState _gameState;
+  public readonly GameState _gameState;
 
   internal SoundSystem SoundSystem { get; }
 
   // Singleton
   public static Game1 Instance { get; private set; }
   public Random Random { get; set; }
-  public IMiniGame CurrentPlayingMiniGame { get; set; } = null;
+  public IMiniGame? CurrentPlayingMiniGame { get; set; } = null;
   private bool _lastArrowWasUp;
 
   public Game1()

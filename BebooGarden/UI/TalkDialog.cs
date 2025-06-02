@@ -16,9 +16,10 @@ public class TalkDialog
   private Label _textLabel;
   private int CurrentLine { get; set; }
   private string[] FullText { get; }
-
-  public TalkDialog(string text)
+  private GameScreen _parent;
+  public TalkDialog(string text, GameScreen parent=GameScreen.game)
   {
+    _parent = parent;
     FullText = text.SplitToLines().ToArray();
     CurrentLine = 0;
     CreateTalkPanel();
@@ -76,12 +77,13 @@ public class TalkDialog
   {
     Game1.Instance._desktop.Root = _talkPanel;
     Game1.Instance._desktop.FocusedKeyboardWidget = _textLabel;
-    Game1.Instance.SwitchToScreen(GameScreen.Talkdialog);
+    Game1.Instance.SwitchToScreen(GameScreen.TalkDialog);
+    Game1.Instance._talkDialog = this;
   }
 
   private void Close()
   {
-    Game1.Instance.SwitchToScreen(GameScreen.game);
+    Game1.Instance.SwitchToScreen(_parent);
     Game1.Instance._talkDialog = null;
   }
 }

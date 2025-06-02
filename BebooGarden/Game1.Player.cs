@@ -28,7 +28,7 @@ public partial class Game1
     if (Map.IsInLake(newPos) && Map.Preset != MapPreset.underwater) CrossSpeak.CrossSpeakManager.Instance.Output(GameText.water);
     if (Save.Flags.UnlockShop && (Map?.IsArroundShop(PlayerPosition) ?? false)) CrossSpeakManager.Instance.Output(GameText.shop);
     else if (Save.Flags.UnlockSnowyMap && (Map?.IsArroundMapPath(PlayerPosition) ?? false)) CrossSpeakManager.Instance.Output(GameText.path);
-    else if (Map?.IsArroundRaceGate(PlayerPosition) ?? false) 
+    else if (Map?.IsArroundRaceGate(PlayerPosition) ?? false)
       CrossSpeakManager.Instance.Output(String.Format(GameText.race_gate, Race.GetRemainingTriesToday()));
     else if (Save.Flags.UnlockUnderwaterMap && (Map?.IsArroundMapUnderWater(PlayerPosition) ?? false)) CrossSpeakManager.Instance.Output(GameText.underwater);
     SpeakObjectUnderCursor();
@@ -90,7 +90,7 @@ public partial class Game1
   }
   private void SayTickets()
   {
-   CrossSpeakManager.Instance.Output(String.Format(GameText.tickets, Save.Tickets));
+    CrossSpeakManager.Instance.Output(String.Format(GameText.tickets, Save.Tickets));
   }
   private void SayBasketState()
   {
@@ -106,13 +106,14 @@ public partial class Game1
     if (inWater && !waterProof)
     {
       SoundSystem.System.PlaySound(SoundSystem.WarningSound);
-      CrossSpeakManager.Instance.Output(GameText.ui_warningwater);    }
+      CrossSpeakManager.Instance.Output(GameText.ui_warningwater);
+    }
     else
     {
       if (ItemInHand != null)
       {
         Map?.AddItem(ItemInHand, PlayerPosition);
-CrossSpeakManager.Instance.Output(String.Format(GameText.ui_itemput, ItemInHand.Name)); 
+        CrossSpeakManager.Instance.Output(String.Format(GameText.ui_itemput, ItemInHand.Name));
         if (inWater) SoundSystem.System.PlaySound(SoundSystem.ItemPutWaterSound);
         else SoundSystem.System.PlaySound(SoundSystem.ItemPutSound);
         Inventory.Remove(ItemInHand);
@@ -148,8 +149,8 @@ CrossSpeakManager.Instance.Output(String.Format(GameText.ui_itemput, ItemInHand.
       {
         Save.Flags.UnlockShop = true;
         SoundSystem.System.PlaySound(SoundSystem.JingleComplete);
-        _talkDialog= new TalkDialog(GameText.shopunlock);
-        _talkDialog.Show();
+        new TalkDialog(GameText.shopunlock)
+          .Show();
       }
     }
   }

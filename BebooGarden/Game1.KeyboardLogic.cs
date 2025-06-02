@@ -160,13 +160,14 @@ public partial class Game1
           }
         }
       }
-    } else if (_gameState.CurrentScreen == GameScreen.Talkdialog)
+    }
+    else if (_gameState.CurrentScreen == GameScreen.TalkDialog)
     {
       if (IsKeyPressed(currentKeyboardState, Keys.Escape, Keys.Space, Keys.Enter))
       {
         _talkDialog?.Next();
       }
-      else if(currentKeyboardState.GetPressedKeyCount() > 0)
+      else if (currentKeyboardState.GetPressedKeyCount() > 0)
       {
         _talkDialog?.DisplayCurrentLine();
       }

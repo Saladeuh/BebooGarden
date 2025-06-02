@@ -307,7 +307,7 @@ public partial class Game1
   {
     SwitchToScreen(GameScreen.game);
     SoundSystem.PlayCinematic(SoundSystem.CinematicElevator, false);
-    Game1.Instance.UpdateMapMusic();
+    Game1.Instance.ChangeMapMusic();
     Game1.Instance.Unpause();
 
     // Retourner au jeu principal

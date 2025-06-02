@@ -2,6 +2,7 @@
 using BebooGarden.GameCore.Item;
 using BebooGarden.GameCore.Pet;
 using BebooGarden.UI;
+using BebooGarden.UI.ScriptedScene;
 using CrossSpeak;
 using FmodAudio;
 using Microsoft.Xna.Framework;

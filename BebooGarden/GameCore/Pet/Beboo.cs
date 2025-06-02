@@ -94,7 +94,7 @@ public class Beboo
     //SpeechRecognizer.BebooCalled += Call;
   }
 
-  public string Name { get; }
+  public string Name { get; set; }
   public float Age
   {
     get => age; set
@@ -544,5 +544,10 @@ public class Beboo
     });
     Happiness++;
     friend.Happiness++;
+  }
+
+  public static implicit operator string(Beboo v)
+  {
+    throw new NotImplementedException();
   }
 }

@@ -71,7 +71,7 @@ public partial class Game1
     {
       _desktop.OnChar(a.Character);
     };
-    UpdateMapMusic();
+    ChangeMapMusic();
     Inventory.Add(new Duck());
     SwitchToScreen(GameScreen.game);
     //SwitchToScreen(Save.Flags.EmptySave ? GameScreen.First : GameScreen.MainMenu);

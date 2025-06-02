@@ -23,10 +23,10 @@ public partial class Game1
       richedMap.Beboos.Add(transferedBeboo);
     }
     ChangeMap(richedMap);
-    UpdateMapMusic();
+    ChangeMapMusic();
     PlayerPosition = new(0, 0, 0);
   }
-  public void UpdateMapMusic()
+  public void ChangeMapMusic()
   {
     if (Map != null) SoundSystem.PlayMapMusic(Map);
   }

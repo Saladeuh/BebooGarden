@@ -5,9 +5,11 @@ using BebooGarden.GameCore.World;
 using BebooGarden.MiniGames;
 using BebooGarden.Save;
 using BebooGarden.UI;
+using BebooGarden.UI.ScriptedScene;
 using CrossSpeak;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,6 +19,7 @@ public partial class Game1
 {
   private bool _firstScreenTipsSayed = false;
 
+  public IScriptedScene?_scriptedScene;
   protected override void Update(GameTime gameTime)
   {
     GetKeyStates(out KeyboardState currentKeyboardState, out MouseState currentMouseState);
@@ -50,10 +53,19 @@ public partial class Game1
     }
     HandleKeyboardNavigation(currentKeyboardState);
     UpdateMinigames(gameTime, currentKeyboardState);
+    UpdateScriptedScene(gameTime);
     UpdateUIState();
     SetPreviousKeyboardStates(currentKeyboardState, currentMouseState);
     SoundSystem.System.Update();
     base.Update(gameTime);
+  }
+
+  private void UpdateScriptedScene(GameTime gameTime)
+  {
+    if (_gameState.CurrentScreen == GameScreen.ScriptedScene)
+    {
+      _scriptedScene?.Update(gameTime);
+    }
   }
 
   private void SetPreviousKeyboardStates(KeyboardState currentKeyboardState, MouseState currentMouseState)

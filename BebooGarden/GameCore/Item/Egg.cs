@@ -2,6 +2,7 @@
 using System.Numerics;
 using BebooGarden.Content;
 using BebooGarden.GameCore.Pet;
+using BebooGarden.UI.ScriptedScene;
 using FmodAudio;
 
 namespace BebooGarden.GameCore.Item;
@@ -35,10 +36,11 @@ public class Egg(string color) : Item
     if (!Game1.Instance.SoundSystem.CinematicsHatch.TryGetValue(bebooType, out cinematic)) cinematic = Game1.Instance.SoundSystem.CinematicsHatch[BebooType.Base];
     Game1.Instance.SoundSystem.PlayCinematic(cinematic);
     string name = "";// NewBeboo.Run();
-    int swimLevel = (Game1.Instance.Map?.IsInLake(Position ?? new(0, 0, 0)) ?? false) ? 10 : 0;
-    Game1.Instance.Map?.Beboos.Add(new Beboo(name, bebooType, 1, DateTime.MinValue, 3, 3, swimLevel, false, 1 + (Game1.Instance.Random.Next(4) / 10)) { Position = this.Position ?? new(0, 0, 0) });
-    Game1.Instance.Save.Flags.NewGame = false;
-    Game1.Instance.UpdateMapMusic();
+    int swimLevel = (Game1.Instance.Map?.IsInLake(Position ?? new(0, 0, 0)) ?? false) ? 5 : 0;
+    var beboo = new Beboo(name, bebooType, 1, DateTime.MinValue, 3, 3, swimLevel, false, 1 + (Game1.Instance.Random.Next(4) / 10)) { Position = this.Position ?? new(0, 0, 0) };
+    Game1.Instance.Map?.Beboos.Add(beboo);
+    new NewBebooScene(beboo).Show();
+    Game1.Instance.ChangeMapMusic();
   }
 
   public override void PlaySound()
