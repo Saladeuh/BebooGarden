@@ -3,11 +3,16 @@ using BebooGarden.GameCore.Item;
 using BebooGarden.GameCore.Pet;
 using BebooGarden.UI;
 using CrossSpeak;
+using FmodAudio;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using Myra.Events;
 using Myra.Graphics2D.UI;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 
 namespace BebooGarden;
@@ -24,7 +29,6 @@ public partial class Game1
   private void CreateEscapeMenu()
   {
     _escapeMenuPanel = new Panel();
-
     VerticalStackPanel mainGrid = new()
     {
       Spacing = 20,
@@ -38,11 +42,10 @@ public partial class Game1
       HorizontalAlignment = HorizontalAlignment.Center
     };
     mainGrid.Widgets.Add(titleLabel);
-   
+
     // Espacement
     mainGrid.Widgets.Add(new Label { Text = "" });
 
-    // Bouton Inventaire
     ConfirmButton inventoryButton = new(GameText.bag)
     {
       Id = "inventoryButton"
@@ -53,7 +56,6 @@ public partial class Game1
     };
     mainGrid.Widgets.Add(inventoryButton);
 
-    // Bouton Trouver Beboo
     ConfirmButton findBebooButton = new(GameText.findbeboo)
     {
       Id = "findBebooButton"
@@ -64,7 +66,6 @@ public partial class Game1
     };
     mainGrid.Widgets.Add(findBebooButton);
 
-    // Bouton Téléportation
     ConfirmButton teleportButton = new(GameText.tp)
     {
       Id = "teleportButton"
@@ -75,7 +76,36 @@ public partial class Game1
     };
     mainGrid.Widgets.Add(teleportButton);
 
-    // Bouton Langues
+    ConfirmButton commandsButton = new(GameText.ui_commands)
+    {
+      Id = "commandsButton"
+    };
+    commandsButton.Click += (_, _) =>
+    {
+      OpenCommands();
+    };
+    mainGrid.Widgets.Add(commandsButton);
+
+    ConfirmButton discordButton = new(GameText.ui_discord)
+    {
+      Id = "discordButton"
+    };
+    discordButton.Click += (_, _) =>
+    {
+      InviteDiscord();
+    };
+    mainGrid.Widgets.Add(discordButton);
+
+    ConfirmButton creditsButton = new(GameText.ui_credits)
+    {
+      Id = "creditsButton"
+    };
+    creditsButton.Click += (_, _) =>
+    {
+      OpenCredits();
+    };
+    mainGrid.Widgets.Add(creditsButton);
+
     ConfirmButton languageButton = new(GameText.ui_language)
     {
       Id = "languageButton"
@@ -86,8 +116,7 @@ public partial class Game1
     };
     mainGrid.Widgets.Add(languageButton);
 
-    // Bouton Retour/Fermer
-    BackButton closeButton = new("Fermer")
+    BackButton closeButton = new(GameText.ui_back)
     {
       Id = "closeButton"
     };
@@ -98,7 +127,19 @@ public partial class Game1
     mainGrid.Widgets.Add(closeButton);
 
     _escapeMenuPanel.Widgets.Add(mainGrid);
+    foreach (var widget in mainGrid.Widgets)
+    {
+      //dget.KeyDown += OnEscapePressed;
+    }
     _desktop.FocusedKeyboardWidget = inventoryButton;
+  }
+
+  private void OnEscapePressedMainMenu(object? sender, GenericEventArgs<Keys> e)
+  {
+    if (e.Data == Keys.Escape)
+    {
+      CloseEscapeMenu();
+    }
   }
 
   private void ShowInventoryMenu()
@@ -147,7 +188,7 @@ public partial class Game1
         };
         itemButton.Click += (_, _) =>
         {
-          OnItemSelected(option.Value);
+          OnInventoryItemSelected(option.Value);
         };
         grid.Widgets.Add(itemButton);
       }
@@ -357,20 +398,49 @@ public partial class Game1
     SwitchToScreen(GameScreen.game);
   }
 
-  // Méthodes de callback à implémenter selon votre logique
-  private void OnItemSelected(Item item)
+  private void OnInventoryItemSelected(Item item)
   {
-    // Logique de sélection d'objet
+    Game1.Instance.SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.MenuOkSound);
+    Game1.Instance.ItemInHand = item;
+    CloseEscapeMenu();
   }
 
   private void OnTeleportSelected(Item item)
   {
-    // Logique de téléportation
+    Game1.Instance.SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.MenuOkSound);
+    if (item.Position != null) Game1.Instance.MoveOf(item.Position.Value - Game1.Instance.PlayerPosition);
+    CloseEscapeMenu();
   }
 
   private void OnBebooSelected(Beboo beboo)
   {
-    // Logique de sélection de Beboo
+    Game1.Instance.SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.MenuOkSound);
+    if (beboo.Position != null) Game1.Instance.MoveOf(beboo.Position - Game1.Instance.PlayerPosition);
+    CloseEscapeMenu();
+  }
+  private void OpenCommands()
+  {
+    var twoLetterLang = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+    var langFile = Path.Combine(SoundSystem.CONTENTFOLDER, "doc", $"commands_{twoLetterLang}.html");
+    var file = Path.Combine(SoundSystem.CONTENTFOLDER, "doc", "commands.html");
+    if (File.Exists(langFile))
+      Process.Start(new ProcessStartInfo(langFile) { UseShellExecute = true });
+    else if (File.Exists(file))
+      Process.Start(new ProcessStartInfo(file) { UseShellExecute = true });
+  }
+  private void InviteDiscord()
+  {
+    Process.Start(new ProcessStartInfo(Secrets.DISCORDINVITE) { UseShellExecute = true });
+  }
+  private void OpenCredits()
+  {
+    var twoLetterLang = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+    var langFile = Path.Combine(SoundSystem.CONTENTFOLDER, "doc", $"credits_{twoLetterLang}.html");
+    var file = Path.Combine(SoundSystem.CONTENTFOLDER, "doc", "credits.html");
+    if (File.Exists(langFile))
+      Process.Start(new ProcessStartInfo(langFile) { UseShellExecute = true });
+    else if (File.Exists(file))
+      Process.Start(new ProcessStartInfo(file) { UseShellExecute = true });
   }
 
   private void OnLanguageSelected(string languageCode)

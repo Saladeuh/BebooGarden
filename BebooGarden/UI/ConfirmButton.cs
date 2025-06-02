@@ -14,7 +14,8 @@ public class ConfirmButton : AccessibleButton
 
   private void OnFocusChanged(object? sender, EventArgs e)
   {
-    Game1.Instance.SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.MenuBipSound);
+    if (IsKeyboardFocused)
+      Game1.Instance.SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.MenuBipSound);
   }
 
   private void OnButtonClick(object sender, System.EventArgs e)

@@ -3,7 +3,7 @@
 public enum GameScreen
 {
   MainMenu,
-  BasicPractice,
+  Shop,
   game,
   Settings,
   ChoicePractice,

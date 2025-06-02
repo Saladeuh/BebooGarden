@@ -89,7 +89,7 @@ public partial class Game1
   }
   private void SayTickets()
   {
-   CrossSpeakManager.Instance.Output(String.Format(GameText.tickets, Tickets));
+   CrossSpeakManager.Instance.Output(String.Format(GameText.tickets, Save.Tickets));
   }
   private void SayBasketState()
   {
@@ -133,6 +133,21 @@ CrossSpeakManager.Instance.Output(String.Format(GameText.ui_itemput, ItemInHand.
           beboo.WakeUp();
         });
         beboo.GoalPosition = currentPosition;
+      }
+    }
+  }
+  public void GainTicket(int amount)
+  {
+    if (amount > 0)
+    {
+      Save.Tickets += amount;
+      CrossSpeakManager.Instance.Output(String.Format(GameText.gainticket, amount));
+      SoundSystem.System.PlaySound(SoundSystem.MenuOk2Sound);
+      if (!Save.Flags.UnlockShop && Map.Preset != MapPreset.snowyrace && Map.Preset != MapPreset.basicrace)
+      {
+        Save.Flags.UnlockShop = true;
+        SoundSystem.System.PlaySound(SoundSystem.JingleComplete);
+        //ShopUnlock.Run();
       }
     }
   }

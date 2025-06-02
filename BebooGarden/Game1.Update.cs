@@ -1,5 +1,6 @@
 ﻿using BebooGarden.Content;
 using BebooGarden.GameCore.Item;
+using BebooGarden.GameCore.Pet;
 using BebooGarden.GameCore.World;
 using BebooGarden.MiniGames;
 using BebooGarden.Save;
@@ -17,6 +18,8 @@ public partial class Game1
 
   protected override void Update(GameTime gameTime)
   {
+    Save.Flags.UnlockShop = true;
+    Save.Tickets = 20;
     GetKeyStates(out KeyboardState currentKeyboardState, out MouseState currentMouseState);
     _desktop.UpdateInput();
     foreach (GameCore.Pet.Beboo beboo in Map?.Beboos)
@@ -47,12 +50,12 @@ public partial class Game1
     HandleKeyboardNavigation(currentKeyboardState);
     UpdateMinigames(gameTime, currentKeyboardState);
     UpdateUIState();
-    SetPReviousKeyboardStates(currentKeyboardState, currentMouseState);
+    SetPreviousKeyboardStates(currentKeyboardState, currentMouseState);
     SoundSystem.System.Update();
     base.Update(gameTime);
   }
 
-  private void SetPReviousKeyboardStates(KeyboardState currentKeyboardState, MouseState currentMouseState)
+  private void SetPreviousKeyboardStates(KeyboardState currentKeyboardState, MouseState currentMouseState)
   {
     _previousKeyboardState = currentKeyboardState;
     _previousMouseState = currentMouseState;
@@ -65,7 +68,7 @@ public partial class Game1
 
   private void UpdateMinigames(GameTime gameTime, KeyboardState currentKeyboardState)
   {
-    if ((_gameState.CurrentScreen == GameScreen.BasicPractice || _gameState.CurrentScreen == GameScreen.ChoicePractice || _gameState.CurrentScreen == GameScreen.WordPractice)
+    if ((_gameState.CurrentScreen == GameScreen.ChoicePractice || _gameState.CurrentScreen == GameScreen.WordPractice)
           && !_gameState.IsPaused)
     {
       if (CurrentPlayingMiniGame.IsRunning)
@@ -97,4 +100,21 @@ public partial class Game1
     currentKeyboardState = new(allPressedKeys.ToArray());
     currentMouseState = Mouse.GetState();
   }
+  public void Pause()
+  {
+    foreach (Beboo beboo in Map?.Beboos) beboo.Pause();
+    SoundSystem.DisableAmbiTimer();
+    if (Map == null) return;
+    SoundSystem.Pause(Map);
+    SoundSystem.Music?.Paused = true;
+  }
+  public void Unpause()
+  {
+    foreach (Beboo beboo in Map?.Beboos) beboo.Unpause();
+    SoundSystem.EnableAmbiTimer();
+    if (Map == null) return;
+    SoundSystem.Unpause(Map);
+    SoundSystem.Music.Paused = false;
+  }
+
 }

@@ -1,7 +1,10 @@
-﻿using BebooGarden.GameCore.Pet;
+﻿using BebooGarden.Content;
+using BebooGarden.GameCore.Pet;
 using BebooGarden.GameCore.World;
 using BebooGarden.MiniGames;
+using BebooGarden.Save;
 using BebooGarden.UI;
+using CrossSpeak;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
@@ -16,9 +19,8 @@ public partial class Game1
 {
   private readonly GraphicsDeviceManager _graphics;
   private SpriteBatch _spriteBatch;
-  private Desktop _desktop;
+  public Desktop _desktop;
   private Panel _gamePanel;
-  public int Tickets { get; internal set; }
 
   private void SwitchToScreen(GameScreen screen)
   {
@@ -46,7 +48,7 @@ public partial class Game1
   {
     GraphicsDevice.Clear(Color.Black);
 
-    if (_gameState.CurrentScreen == GameScreen.BasicPractice && !_gameState.IsPaused)
+    if (_gameState.CurrentScreen == GameScreen.Shop && !_gameState.IsPaused)
     {
       _spriteBatch.Begin();
       _spriteBatch.End();
@@ -64,11 +66,6 @@ public partial class Game1
   }
 
   internal Beboo ChooseBeboo()
-  {
-    throw new NotImplementedException();
-  }
-
-  internal void GainTicket(int v)
   {
     throw new NotImplementedException();
   }

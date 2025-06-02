@@ -12,6 +12,7 @@ using Myra.Graphics2D.UI;
 using SharpHook;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using System.Reflection;
 
@@ -28,7 +29,6 @@ public partial class Game1
   private readonly HashSet<Keys> _hookPressedKeys = new();
   private readonly HashSet<Keys> _keysToProcess = new(); // Nouvelles touches à traiter
   private bool _updateProcessed = false;
-  public bool KeyboardSDFJKL = false;
 
   private void HandleKeyboardNavigation(KeyboardState currentKeyboardState)
   {
@@ -105,7 +105,7 @@ public partial class Game1
         if (itemUnderCursor != null && itemUnderCursor.IsTakable) itemUnderCursor.Take();
         else if (!Race.IsARaceRunning && Save.Flags.UnlockShop && (Map?.IsArroundShop(PlayerPosition) ?? false))
         {
-          //new Shop().Show();
+          ShowShop();
         }
         else if (!Race.IsARaceRunning && Save.Flags.UnlockSnowyMap && (Map?.IsArroundMapPath(PlayerPosition) ?? false))
           TravelBetwieen(MapPreset.garden, MapPreset.snowy);
@@ -137,7 +137,7 @@ public partial class Game1
       {
         SwitchToScreen(GameScreen.MainMenu);
       }
-      if (currentKeyboardState.IsKeyDown(Keys.Space))
+      if (IsKeyPressed(currentKeyboardState, Keys.Space))
       {
         if (ItemInHand != null)
         {

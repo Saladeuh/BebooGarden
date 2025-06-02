@@ -42,9 +42,9 @@ public abstract class Item
 
   public virtual void Buy()
   {
-    if (Game1.Instance.Tickets - Cost >= 0)
+    if (Game1.Instance.Save.Tickets - Cost >= 0)
     {
-      Game1.Instance.Tickets -= Cost;
+      Game1.Instance.Save.Tickets -= Cost;
       Game1.Instance.SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.ShopSound);
       Game1.Instance.Inventory?.Add(this);
     }

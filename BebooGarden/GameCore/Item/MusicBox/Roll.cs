@@ -1,5 +1,6 @@
 ﻿using BebooGarden.Content;
 using BebooGarden.GameCore.Pet;
+using CrossSpeak;
 using FmodAudio;
 using System.Numerics;
 
@@ -56,23 +57,23 @@ internal class Roll(
   {
     if (!MusicBox.AvailableRolls.Contains(Title + Source))
     {
-      if (Game1.Instance.Tickets - Cost >= 0)
+      if (Game1.Instance.Save.Tickets - Cost >= 0)
       {
-        Game1.Instance.Tickets -= Cost;
+        Game1.Instance.Save.Tickets -= Cost;
         Game1.Instance.SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.ShopSound);
-        //IGlobalActions.SayLocalizedString("shop.buy", Name);
+        CrossSpeakManager.Instance.Output(string.Format(GameText.shop_buy, Name));
         MusicBox.AvailableRolls.Add(Title + Source);
       }
       else
       {
         Game1.Instance.SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.WarningSound);
-        //IGlobalActions.SayLocalizedString("shop.notickets");
+CrossSpeakManager.Instance.Output(GameText.shop_notickets);
       }
     }
     else
     {
       Game1.Instance.SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.WarningSound);
-      //IGlobalActions.SayLocalizedString("shop.alreadyroll");
+      CrossSpeakManager.Instance.Output(GameText.shop_alreadyroll);
     }
   }
   public override void Action() => Take();
