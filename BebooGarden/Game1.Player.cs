@@ -4,6 +4,7 @@ using BebooGarden.GameCore.Pet;
 using BebooGarden.GameCore.World;
 using BebooGarden.Minigame;
 using BebooGarden.Save;
+using BebooGarden.UI;
 using CrossSpeak;
 using System;
 using System.Collections.Generic;
@@ -147,7 +148,8 @@ CrossSpeakManager.Instance.Output(String.Format(GameText.ui_itemput, ItemInHand.
       {
         Save.Flags.UnlockShop = true;
         SoundSystem.System.PlaySound(SoundSystem.JingleComplete);
-        //ShopUnlock.Run();
+        _talkDialog= new TalkDialog(GameText.shopunlock);
+        _talkDialog.Show();
       }
     }
   }

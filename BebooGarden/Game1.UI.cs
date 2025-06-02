@@ -21,8 +21,8 @@ public partial class Game1
   private SpriteBatch _spriteBatch;
   public Desktop _desktop;
   private Panel _gamePanel;
-
-  private void SwitchToScreen(GameScreen screen)
+  public TalkDialog? _talkDialog = null;
+  public void SwitchToScreen(GameScreen screen)
   {
     _gameState.CurrentScreen = screen;
     switch (screen)

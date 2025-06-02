@@ -32,11 +32,7 @@ public partial class Game1
 
   private void HandleKeyboardNavigation(KeyboardState currentKeyboardState)
   {
-    if (_gameState.CurrentScreen != GameScreen.game)
-    {
-      HandleMenuNavigation(currentKeyboardState);
-    }
-    else
+    if (_gameState.CurrentScreen == GameScreen.game)
     {
       Item? itemUnderCursor = Map?.GetItemArroundPosition(PlayerPosition);
       Map?.IsInLake(PlayerPosition);
@@ -128,7 +124,7 @@ public partial class Game1
             sortedBeboos.Sort(delegate (Beboo x, Beboo y) { return x.Age.CompareTo(y.Age); });
             var beboo = Map.Beboos[keyInt - 1];
             SoundSystem.Whistle(true, beboo.VoicePitch);
-            ScreenReader.Output(beboo.Name);
+            CrossSpeakManager.Instance.Output(beboo.Name);
             beboo.Call(this, new EventArgs());
           }
         }
@@ -164,6 +160,20 @@ public partial class Game1
           }
         }
       }
+    } else if (_gameState.CurrentScreen == GameScreen.Talkdialog)
+    {
+      if (IsKeyPressed(currentKeyboardState, Keys.Escape, Keys.Space, Keys.Enter))
+      {
+        _talkDialog?.Next();
+      }
+      else if(currentKeyboardState.GetPressedKeyCount() > 0)
+      {
+        _talkDialog?.DisplayCurrentLine();
+      }
+    }
+    else
+    {
+      HandleMenuNavigation(currentKeyboardState);
     }
   }
 

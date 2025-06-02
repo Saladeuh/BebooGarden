@@ -8,5 +8,6 @@ public enum GameScreen
   Settings,
   ChoicePractice,
   First,
-  WordPractice
+  WordPractice,
+  Talkdialog
 }

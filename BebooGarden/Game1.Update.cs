@@ -4,6 +4,7 @@ using BebooGarden.GameCore.Pet;
 using BebooGarden.GameCore.World;
 using BebooGarden.MiniGames;
 using BebooGarden.Save;
+using BebooGarden.UI;
 using CrossSpeak;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -18,8 +19,6 @@ public partial class Game1
 
   protected override void Update(GameTime gameTime)
   {
-    Save.Flags.UnlockShop = true;
-    Save.Tickets = 20;
     GetKeyStates(out KeyboardState currentKeyboardState, out MouseState currentMouseState);
     _desktop.UpdateInput();
     foreach (GameCore.Pet.Beboo beboo in Map?.Beboos)
@@ -35,7 +34,9 @@ public partial class Game1
       else if (beboo.Age >= 3 && !Save.Flags.UnlockSnowyMap)
       {
         Save.Flags.UnlockSnowyMap = true;
-        //UnlockSnowyMap.Run();
+        SoundSystem.System.PlaySound(SoundSystem.JingleComplete);
+        _talkDialog = new TalkDialog(GameText.unlocksnowy);
+        _talkDialog?.Show();
         Map.Maps[MapPreset.snowy].AddItem(new Egg("none"), new(0, 0, 0));
         Save.Flags.UnlockEggInShop = true;
       }
