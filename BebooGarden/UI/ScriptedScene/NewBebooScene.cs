@@ -21,7 +21,8 @@ public class NewBebooScene : IScriptedScene
   private TalkDialog _quickTipsDialog;
   private Dialog _nameTextFieldDialog;
   private FancyTextField _textField;
-  private bool _tipsDialogShowed;
+  private bool _tipsDialogShowed=false;
+  private bool _textBoxShowed=false;
 
   public NewBebooScene(Beboo beboo)
   {
@@ -73,12 +74,13 @@ public class NewBebooScene : IScriptedScene
       _letsNameDialog.Show();
       _letsNameDialogShowed = true;
     }
-    else if (_bebooName == String.Empty)
+    else if (!_textBoxShowed && _bebooName == String.Empty)
     {
       _nameTextFieldDialog.ShowModal(Game1.Instance._desktop);
       Game1.Instance._desktop.FocusedKeyboardWidget = _textField;
+      _textBoxShowed = true;
     }
-    else if (Game1.Instance.Save.Flags.NewGame)
+    else if (_bebooName!=String.Empty && Game1.Instance.Save.Flags.NewGame)
     {
       _quickTipsDialog = new TalkDialog(String.Format(GameText.ui_quicktips, _bebooName), GameScreen.ScriptedScene);
       _quickTipsDialog.Show();
