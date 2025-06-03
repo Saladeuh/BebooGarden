@@ -19,10 +19,12 @@ public partial class Game1
 {
   private bool _firstScreenTipsSayed = false;
 
-  public IScriptedScene?_scriptedScene;
+  public IScriptedScene? _scriptedScene;
+  public KeyboardState _currentKeyboardState;
+
   protected override void Update(GameTime gameTime)
   {
-    GetKeyStates(out KeyboardState currentKeyboardState, out MouseState currentMouseState);
+    GetKeyStates(out _currentKeyboardState, out MouseState currentMouseState);
     _desktop.UpdateInput();
     foreach (GameCore.Pet.Beboo beboo in Map?.Beboos)
     {
@@ -51,11 +53,11 @@ public partial class Game1
         Map.Maps[MapPreset.underwater].AddItem(new Egg("blue"), new(0, 0, 0));
       }
     }
-    HandleKeyboardNavigation(currentKeyboardState);
-    UpdateMinigames(gameTime, currentKeyboardState);
+    HandleKeyboardNavigation(_currentKeyboardState);
+    UpdateMinigames(gameTime, _currentKeyboardState);
     UpdateScriptedScene(gameTime);
     UpdateUIState();
-    SetPreviousKeyboardStates(currentKeyboardState, currentMouseState);
+    SetPreviousKeyboardStates(_currentKeyboardState, currentMouseState);
     SoundSystem.System.Update();
     base.Update(gameTime);
   }

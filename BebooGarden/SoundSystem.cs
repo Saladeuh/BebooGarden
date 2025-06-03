@@ -82,7 +82,7 @@ internal class SoundSystem
   public Sound MenuKeySound { get; private set; }
   public Sound MenuKeyDeleteSound { get; private set; }
   public Sound MenuKeyFullSound { get; private set; }
-  public Sound MenuReturnSound { get; private set; }
+  public Sound MenuBackSound { get; private set; }
   public Sound WarningSound { get; private set; }
   public Sound MenuOkSound { get; private set; }
   public Sound MenuOk2Sound { get; private set; }
@@ -280,7 +280,7 @@ internal class SoundSystem
     MenuKeySound = System.CreateSound(CONTENTFOLDER + "sounds/menu/key.wav", Mode.Unique);
     MenuKeyDeleteSound = System.CreateSound(CONTENTFOLDER + "sounds/menu/keydelete.wav", Mode.Unique);
     MenuKeyFullSound = System.CreateSound(CONTENTFOLDER + "sounds/menu/keyfull.wav", Mode.Unique);
-    MenuReturnSound = System.CreateSound(CONTENTFOLDER + "sounds/menu/return.wav", Mode.Unique);
+    MenuBackSound = System.CreateSound(CONTENTFOLDER + "sounds/menu/return.wav", Mode.Unique);
     WarningSound = System.CreateSound(CONTENTFOLDER + "sounds/menu/warn.wav", Mode.Unique);
     ShopSound = System.CreateStream(CONTENTFOLDER + "sounds/menu/shop.wav");
   }

@@ -96,7 +96,7 @@ public partial class Game1
       {
         SayTickets();
       }
-      if (currentKeyboardState.IsKeyDown(Keys.Enter))
+      if (IsKeyPressed(currentKeyboardState, Keys.Enter))
       {
         if (itemUnderCursor != null && itemUnderCursor.IsTakable) itemUnderCursor.Take();
         else if (!Race.IsARaceRunning && Save.Flags.UnlockShop && (Map?.IsArroundShop(PlayerPosition) ?? false))
@@ -171,6 +171,12 @@ public partial class Game1
       {
         _talkDialog?.DisplayCurrentLine();
       }
+    }
+    else if (_aMenuShouldBeClosed &&
+      _gameState.CurrentScreen == GameScreen.MainMenu || _gameState.CurrentScreen == GameScreen.Shop || _gameState.CurrentScreen == GameScreen.ChooseMenu)
+    {
+      SwitchToScreen(GameScreen.game);
+      _aMenuShouldBeClosed = false;
     }
     else
     {

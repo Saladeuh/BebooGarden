@@ -26,6 +26,7 @@ public partial class Game1
   private Panel _teleportPanel;
   private Panel _bebooTPPanel;
   private Panel _languagesPanel;
+  public bool _aMenuShouldBeClosed;
 
   private void CreateEscapeMenu()
   {
@@ -396,7 +397,7 @@ public partial class Game1
 
   private void CloseEscapeMenu()
   {
-    SwitchToScreen(GameScreen.game);
+    _aMenuShouldBeClosed = true;
   }
 
   private void OnInventoryItemSelected(Item item)

@@ -305,12 +305,9 @@ public partial class Game1
 
   private void CloseShop()
   {
-    SwitchToScreen(GameScreen.game);
+    _aMenuShouldBeClosed = true;
     SoundSystem.PlayCinematic(SoundSystem.CinematicElevator, false);
     Game1.Instance.ChangeMapMusic();
     Game1.Instance.Unpause();
-
-    // Retourner au jeu principal
-    Game1.Instance.SwitchToScreen(GameScreen.game);
   }
 }

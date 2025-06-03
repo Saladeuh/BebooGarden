@@ -1,5 +1,7 @@
 ﻿using BebooGarden.Content;
 using BebooGarden.GameCore.Pet;
+using BebooGarden.Interface.UI;
+using CrossSpeak;
 using FmodAudio;
 using System;
 using System.Collections.Generic;
@@ -68,27 +70,30 @@ internal class MusicBox : Item
 
   public override void Action()
   {
-    /*
     if (AvailableRolls.Count > 0)
     {
       Dictionary<string, Roll> rollDictionary = [];
       foreach (string rollName in AvailableRolls)
       {
         Roll? roll = Array.Find(AllRolls, roll => roll.Title + roll.Source == rollName);
-        if (roll != null && !rollDictionary.ContainsKey(roll.Title)) rollDictionary.Add(roll.Title, roll);
+        if (roll != null && !rollDictionary.ContainsKey(roll.Title))
+          rollDictionary.Add(roll.Title, roll);
       }
-
-      Roll? choosedRoll =
-          IWindowManager.ShowChoice(IGlobalActions.GetLocalizedString("ui.chooseroll"), rollDictionary);
-      if (choosedRoll != null) choosedRoll.Play();
-      else Stop();
+      new ChooseMenu<Roll?>(GameText.ui_chooseroll, rollDictionary, OnChoosedRoll)
+        .Show();
     }
     else
     {
+      CrossSpeakManager.Instance.Output(GameText.musicbox_noroll);
       Game1.Instance.SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.WarningSound);
-      IGlobalActions.SayLocalizedString("musicbox.noroll");
     }
-    */
+  }
+  private void OnChoosedRoll(Roll? roll)
+  {
+    if (roll != null)
+      roll.Play();
+    else
+      Stop();
   }
 
   private static void Stop()

@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Media;
 using Myra;
 using Myra.Graphics2D.UI;
 using System;
+using System.Linq;
 using System.Numerics;
 
 namespace BebooGarden;
@@ -72,7 +73,11 @@ public partial class Game1
       _desktop.OnChar(a.Character);
     };
     ChangeMapMusic();
+    Inventory.Add(new MusicBox());
     Inventory.Add(new Duck());
+    Save.Tickets = 20;
+    Save.Flags.UnlockShop = true;
+    Save.Flags.UnlockSnowyMap = true;
     SwitchToScreen(GameScreen.game);
     //SwitchToScreen(Save.Flags.EmptySave ? GameScreen.First : GameScreen.MainMenu);
   }

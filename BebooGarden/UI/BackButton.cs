@@ -21,6 +21,6 @@ public class BackButton : AccessibleButton
 
   private void OnButtonClick(object sender, System.EventArgs e)
   {
-      Game1.Instance.SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.MenuReturnSound);
+      Game1.Instance.SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.MenuBackSound);
   }
 }

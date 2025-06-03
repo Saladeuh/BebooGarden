@@ -10,5 +10,6 @@ public enum GameScreen
   First,
   WordPractice,
   TalkDialog,
-  ScriptedScene
+  ScriptedScene,
+  ChooseMenu
 }
