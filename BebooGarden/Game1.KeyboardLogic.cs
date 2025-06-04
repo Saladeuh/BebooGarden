@@ -20,7 +20,7 @@ namespace BebooGarden;
 
 public partial class Game1
 {
-  private KeyboardState _previousKeyboardState;
+  public KeyboardState _previousKeyboardState;
   private MouseState _previousMouseState;
 
   public SaveParameters Save { get; private set; }
@@ -84,7 +84,7 @@ public partial class Game1
         }
         LastPressedKeyTime = DateTime.Now;
       }
-      if (currentKeyboardState.IsKeyDown(Keys.F))
+      if (IsKeyPressed(currentKeyboardState, Keys.F))
       {
         SayBebooState();
       }
@@ -92,7 +92,7 @@ public partial class Game1
       {
         SayBasketState();
       }
-      if (currentKeyboardState.IsKeyDown(Keys.T))
+      if (IsKeyPressed(currentKeyboardState, Keys.T))
       {
         SayTickets();
       }

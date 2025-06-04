@@ -1,6 +1,7 @@
 ﻿using BebooGarden.Content;
 using BebooGarden.GameCore.Pet;
 using BebooGarden.GameCore.World;
+using BebooGarden.Interface.UI;
 using CrossSpeak;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ public partial class Game1
       else
       {
         if (beboo.Happiness < 0) sentence = GameText.beboo_verysad;
-        else if (beboo.Energy < 0) sentence = GameText.beboo_verytired; 
+        else if (beboo.Energy < 0) sentence = GameText.beboo_verytired;
         else if (beboo.Energy < 3) sentence = GameText.beboo_littletired;
         else sentence = beboo.Happiness < 3 ? GameText.beboo_littlesad : (beboo.Energy < 8 ? GameText.beboo_good : GameText.beboo_verygood);
       }
@@ -43,19 +44,31 @@ public partial class Game1
   }
   private void FeedBeboo()
   {
-    /*Beboo? bebooUnderCursor = BebooUnderCursor();
-    if (FruitsBasket == null || bebooUnderCursor == null) return;
+    Beboo? bebooUnderCursor = BebooUnderCursor();
+    if (Save.FruitsBasket == null || bebooUnderCursor == null) return;
     Dictionary<string, FruitSpecies> options = [];
-    foreach (KeyValuePair<FruitSpecies, int> fruit in FruitsBasket)
+    foreach (KeyValuePair<FruitSpecies, int> fruit in Save.FruitsBasket)
     {
-      if (fruit.Value > 0) options.Add(GetLocalizedString(fruit.Key.ToString()) + " " + fruit.Value.ToString(), fruit.Key);
+      if (fruit.Value > 0) options.Add(fruit.Key.ToString() + " " + fruit.Value.ToString(), fruit.Key);
     }
-    FruitSpecies choice = IWindowManager.ShowChoice("ui.chooseitem", options);
-    if (choice != FruitSpecies.None)
+    if (options.Count == 1)
     {
-      bebooUnderCursor.Eat(choice);
-      FruitsBasket[choice]--;
-    }*/
+      OnFruitSelected(options.First().Value);
+    }
+    else if (options.Count > 0)
+    {
+      new ChooseMenu<FruitSpecies>(GameText.ui_chooseitem, options, OnFruitSelected)
+       .Show();
+    }
   }
 
+  private void OnFruitSelected(FruitSpecies choice)
+  {
+    if (choice != FruitSpecies.None)
+    {
+      Beboo? bebooUnderCursor = BebooUnderCursor();
+      bebooUnderCursor.Eat(choice);
+      Save.FruitsBasket[choice]--;
+    }
+  }
 }
