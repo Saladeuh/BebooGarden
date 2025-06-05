@@ -12,6 +12,7 @@ using BebooGarden.GameCore.Pet;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Numerics;
+using BebooGarden.Content;
 
 namespace BebooGarden;
 
@@ -47,6 +48,7 @@ public partial class Game1
     catch (Exception) { Map = Map.Maps[MapPreset.garden]; }
     MusicBox.AvailableRolls = Save.UnlockedRolls ?? [];
     SoundSystem.LoadMainScreen();
+    GameText.
     /*
     if (!Save.Flags.NewGame)
     {

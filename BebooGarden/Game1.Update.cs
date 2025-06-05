@@ -48,7 +48,9 @@ public partial class Game1
       if (beboo.SwimLevel >= 10 && !Save.Flags.UnlockPerfectSwimming)
       {
         Save.Flags.UnlockPerfectSwimming = true;
-        //UnlockSwimming.Run(beboo.Name);
+        SoundSystem.System.PlaySound(SoundSystem.JingleComplete);
+        _talkDialog = new TalkDialog(String.Format(GameText.unlockswimming, beboo.Name));
+        _talkDialog?.Show();
         Save.Flags.UnlockUnderwaterMap = true;
         Map.Maps[MapPreset.underwater].AddItem(new Egg("blue"), new(0, 0, 0));
       }

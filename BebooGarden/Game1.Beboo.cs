@@ -2,7 +2,10 @@
 using BebooGarden.GameCore.Pet;
 using BebooGarden.GameCore.World;
 using BebooGarden.Interface.UI;
+using BebooGarden.Minigame;
+using BebooGarden.Save;
 using CrossSpeak;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +16,8 @@ namespace BebooGarden;
 
 public partial class Game1
 {
+  private Beboo? _contester;
+
   private void SayBebooState()
   {
     if (Map?.Beboos.Count == 0)
@@ -70,5 +75,62 @@ public partial class Game1
       bebooUnderCursor.Eat(choice);
       Save.FruitsBasket[choice]--;
     }
+  }
+
+  public Beboo? ChooseBebooForRace()
+  {
+    Beboo? beboo = null;
+    if (Map.Beboos.Count > 0)
+    {
+      if (Map.Beboos.Count > 1)
+      {
+        Dictionary<string, Beboo
+          > options = new();
+        foreach (Beboo b in Map.Beboos)
+          options.Add(b.Name, b);
+        new ChooseMenu<Beboo?>(GameText.choosebeboo, options, StartRace)
+          .Show();
+      }
+      else beboo = Map?.Beboos[0];
+    }
+    else
+    {
+      CrossSpeakManager.Instance.Output(GameText.nobeboo);
+      SoundSystem.System.PlaySound(SoundSystem.WarningSound);
+    }
+    return beboo;
+  }
+
+  private void StartRace(Beboo? contester)
+  {
+    if (Race.GetRemainingTriesToday() > 0)
+    {
+      if (contester == null) return;
+      Dictionary<string, RaceType> raceTypeOptions = new()
+      {
+        { GameText.race_simple, RaceType.Base },
+      };
+      if (Save.Flags.UnlockSnowyMap) raceTypeOptions.Add(GameText.race_snow, RaceType.Snowy);
+      RaceType choice = RaceType.Base;
+      if (raceTypeOptions.Count > 1)
+      {
+        _contester = contester;
+        new ChooseMenu<RaceType>(GameText.race_chooserace, raceTypeOptions, OnRaceChoosed)
+          .Show();
+      }
+      if (choice != RaceType.None)
+        new Minigame.Race(choice, contester).Start();
+    }
+    else
+    {
+      SoundSystem.System.PlaySound(SoundSystem.WarningSound);
+      CrossSpeakManager.Instance.Output(GameText.race_trytommorow);
+    }
+  }
+
+  private void OnRaceChoosed(RaceType raceType)
+  {
+
+    new Minigame.Race(raceType, _contester).Start();
   }
 }

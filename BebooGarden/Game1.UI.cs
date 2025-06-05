@@ -59,14 +59,4 @@ public partial class Game1
 
     base.Draw(gameTime);
   }
-
-  internal void ChangeMap(Map map)
-  {
-    throw new NotImplementedException();
-  }
-
-  internal Beboo ChooseBeboo()
-  {
-    throw new NotImplementedException();
-  }
 }

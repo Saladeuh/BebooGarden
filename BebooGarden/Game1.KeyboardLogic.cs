@@ -109,7 +109,7 @@ public partial class Game1
           TravelBetwieen(MapPreset.garden, MapPreset.underwater);
         else if (!Race.IsARaceRunning && Map?.Beboos.Count > 0 && (Map?.IsArroundRaceGate(PlayerPosition) ?? false))
         {
-          //StartRace();
+          ChooseBebooForRace();
         }
       }
       if (currentKeyboardState.GetPressedKeyCount() > 0)

@@ -1,5 +1,6 @@
 ﻿using BebooGarden.GameCore.Pet;
 using BebooGarden.GameCore.World;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace BebooGarden;
 
 public partial class Game1
 {
+  private Map? _backedMap;
   private void TravelBetwieen(MapPreset a, MapPreset b)
   {
     Map richedMap = Map;
@@ -30,4 +32,23 @@ public partial class Game1
   {
     if (Map != null) SoundSystem.PlayMapMusic(Map);
   }
+
+  internal void ChangeMap(Map map, bool backup = true)
+  {
+    if (Map != null) SoundSystem.Pause(Map);
+    if (backup) _backedMap = Map;
+    Map = map;
+    SoundSystem.LoadMap(map);
+    foreach (var otherMap in Map.Maps.Values)
+      if (otherMap != map) SoundSystem.Pause(otherMap);
+  }
+  internal void LoadBackedMap()
+  {
+    if (_backedMap == null) return;
+    SoundSystem.Pause(Map);
+    Map = _backedMap;
+    _backedMap = null;
+    SoundSystem.Unpause(Map);
+  }
+
 }
