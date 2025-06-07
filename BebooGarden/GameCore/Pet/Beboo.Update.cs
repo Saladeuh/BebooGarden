@@ -32,7 +32,8 @@ public partial class Beboo
     {
       if (!Sleeping)
       {
-        WannaGoToRandomPlace();
+        if (Happy || (!Happy && Game1.Instance.Random.Next(3) == 1))
+          WannaGoToRandomPlace();
         FancyMoveBehaviour.Timer = DateTime.Now;
       }
     }

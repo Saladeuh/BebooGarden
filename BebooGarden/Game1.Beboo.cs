@@ -43,8 +43,6 @@ public partial class Game1
 #if DEBUG
       ScreenReader.Output(beboo.Age.ToString());
 #endif
-
-
     }
   }
   private void FeedBeboo()

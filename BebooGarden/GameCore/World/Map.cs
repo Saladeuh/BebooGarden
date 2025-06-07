@@ -160,7 +160,7 @@ public class Map
   }
   public void Update(GameTime gameTime)
   {
-    foreach (var trelline in TreeLines)
+    foreach (var trelline in TreeLines.ToList())
     {
       trelline.Update(gameTime);
     }

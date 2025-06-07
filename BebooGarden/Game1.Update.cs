@@ -56,11 +56,11 @@ public partial class Game1
         Map.Maps[MapPreset.underwater].AddItem(new Egg("blue"), new(0, 0, 0));
       }
     }
-    foreach(var map in Map.Maps.Values)
+    foreach(var map in Map.Maps.Values.ToList())
     {
       map?.Update(gameTime);
     }
-    foreach (Item item in Map?.Items)
+    foreach (Item item in Map?.Items.ToList())
     {
       item?.Update(gameTime);
     }
