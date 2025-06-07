@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BebooGarden.Content;
+using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -9,19 +11,18 @@ public class TreeLine
   private int _fruits;
   private DateTime _lastShaked = DateTime.MinValue;
 
-  public TreeLine(Vector2 x, Vector2 y, int fruitPerHour = 5, List<FruitSpecies>? availableFruitSpecies = null)
+  public TreeLine(System.Numerics.Vector2 x, System.Numerics.Vector2 y, int fruitPerHour = 5, List<FruitSpecies>? availableFruitSpecies = null)
   {
     X = x;
     Y = y;
     FruitPerHour = fruitPerHour;
     Fruits = fruitPerHour;
     AvailableFruitSpecies = availableFruitSpecies ?? [FruitSpecies.Normal];
-    RegenerateBehaviour = new TimedBehaviour<TreeLine>(this, 3600000 / fruitPerHour, 60 / fruitPerHour,
-        treeLine => { treeLine.Regenerate(); }, true);
+    RegenerateBehaviour = new(3600000 / fruitPerHour, 3600000 / fruitPerHour, true);
   }
 
-  public Vector2 X { get; }
-  public Vector2 Y { get; }
+  public System.Numerics.Vector2 X { get; }
+  public System.Numerics.Vector2 Y { get; }
   public int FruitPerHour { get; }
 
   public int Fruits
@@ -31,7 +32,7 @@ public class TreeLine
   }
 
   private List<FruitSpecies> AvailableFruitSpecies { get; }
-  private TimedBehaviour<TreeLine> RegenerateBehaviour { get; set; }
+  private TimedBehaviour RegenerateBehaviour { get; set; }
 
   private void Regenerate()
   {
@@ -58,7 +59,7 @@ public class TreeLine
     return null;
   }
 
-  public bool IsOnLine(Vector3 point)
+  public bool IsOnLine(System.Numerics.Vector3 point)
   {
     float dxc = point.X - X.X;
     float dyc = point.Y - X.Y;
@@ -74,5 +75,13 @@ public class TreeLine
   public void SetFruitsAfterAWhile(DateTime elapsedTime, int remainingFruits)
   {
     Fruits = (int)(remainingFruits + (60 / FruitPerHour * (DateTime.Now - elapsedTime).TotalMinutes));
+  }
+  public void Update(GameTime gameTime)
+  {
+    if (RegenerateBehaviour.ItsTime())
+    {
+      Regenerate();
+      RegenerateBehaviour.Timer = DateTime.Now;
+    }
   }
 }

@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Numerics;
 using System.Threading.Tasks;
+using BebooGarden.Content;
 using BebooGarden.GameCore.World;
+using CrossSpeak;
 using FmodAudio;
 using FmodAudio.DigitalSignalProcessing;
 
 namespace BebooGarden.GameCore.Pet;
 
-public class Beboo
+public partial class Beboo
 {
   private float _energy;
   private Vector3? _goalPosition;
@@ -41,33 +43,23 @@ public class Beboo
     VoiceDsp = Game1.Instance.SoundSystem.System.CreateDSPByType(FmodAudio.DigitalSignalProcessing.DSPType.PitchShift);
     VoiceDsp.SetParameterFloat(0, voicePitch);
     SwimLevel = swimLevel;
-    bool isSleepingAtStart = !racer && (DateTime.Now.Hour < 8 || DateTime.Now.Hour > 20);
+    bool isSleepingAtStart = !racer && (DateTime.Now.Hour < 8 || DateTime.Now.Hour > 22);
     Sleeping = isSleepingAtStart;
     CuteBehaviour =
-        new TimedBehaviour<Beboo>(this, 15000, 25000, beboo => { beboo.DoCuteThing(); }, !isSleepingAtStart);
+      new TimedBehaviour(15000, 25000, !isSleepingAtStart);
     MoveBehaviour =
-        new TimedBehaviour<Beboo>(this, 200, 400, beboo => { beboo.MoveTowardGoal(); }, !isSleepingAtStart);
+        new TimedBehaviour(200, 400, !isSleepingAtStart);
     FancyMoveBehaviour =
-        new TimedBehaviour<Beboo>(this, 10000, 20000, beboo => { beboo.WannaGoToRandomPlace(); }, true);
+        new TimedBehaviour(10000, 20000, true);
     GoingTiredBehaviour =
-        new TimedBehaviour<Beboo>(this, 60000*3, 60000*6, beboo => { beboo.Energy--; }, !isSleepingAtStart || !racer);
-    GoingDepressedBehaviour =
-        new TimedBehaviour<Beboo>(this, 120000, 150000, beboo => { beboo.Happiness--; }, !racer);
-    SadBehaviour = new TimedBehaviour<Beboo>(this, 5000, 15000,
-        beboo => { Game1.Instance.SoundSystem.PlayBebooSound(Game1.Instance.SoundSystem.BebooCrySounds, this); }, false);
-    SleepingBehaviour = new(this, 5000, 10000, beboo =>
-    {
-      beboo.Energy += 0.10f;
-      Game1.Instance.SoundSystem.PlayBebooSound(Game1.Instance.SoundSystem.BebooSleepingSounds, this, true, 0.3f);
-    }, isSleepingAtStart);
+        new TimedBehaviour(60000*3, 60000*6, !isSleepingAtStart || !racer);
+    GoingSadBehaviour =
+        new TimedBehaviour(120000, 150000, !racer);
+    CryBehaviour = 
+      new TimedBehaviour(5000, 15000, false);
+    SleepingBehaviour = new(5000, 10000, isSleepingAtStart);
     //+0.1 every 3mn=1lvl/30mn
-    GrowthBehaviour = new(this, 3000 * 60, 3000 * 60, beboo =>
-    {
-      if (beboo.Energy >= 2 && beboo.Happiness >= 2)
-      {
-        beboo.Age += 0.1f;
-      }
-    }, !racer);
+    GrowthBehaviour = new(3000 * 60, 3000 * 60, !racer);
     TimeSpan elapsedTime = DateTime.Now - lastPlayed;
     Happiness = elapsedTime.TotalHours > 4 ? 3 : happiness;
     Happiness = elapsedTime.TotalDays > 2 ? 0 : happiness;
@@ -164,7 +156,7 @@ public class Beboo
   public bool Happy { get; private set; } = true;
   public bool Sleeping { get; private set; }
   public bool Panik { get; private set; } = false;
-  private TimedBehaviour<Beboo> CuteBehaviour { get; }
+  private TimedBehaviour CuteBehaviour { get; }
 
   public Vector3? GoalPosition
   {
@@ -172,13 +164,13 @@ public class Beboo
     set => _goalPosition = value.HasValue ? Game1.Instance.Map?.Clamp(value.Value) : null;
   }
 
-  private TimedBehaviour<Beboo> GoingTiredBehaviour { get; }
-  private TimedBehaviour<Beboo> GoingDepressedBehaviour { get; }
-  private TimedBehaviour<Beboo> MoveBehaviour { get; }
-  private TimedBehaviour<Beboo> FancyMoveBehaviour { get; }
-  private TimedBehaviour<Beboo> SadBehaviour { get; }
-  private TimedBehaviour<Beboo> SleepingBehaviour { get; }
-  public TimedBehaviour<Beboo> GrowthBehaviour { get; }
+  private TimedBehaviour GoingTiredBehaviour { get; }
+  private TimedBehaviour GoingSadBehaviour { get; }
+  private TimedBehaviour MoveBehaviour { get; }
+  private TimedBehaviour FancyMoveBehaviour { get; }
+  private TimedBehaviour CryBehaviour { get; }
+  private TimedBehaviour SleepingBehaviour { get; }
+  public TimedBehaviour GrowthBehaviour { get; }
  //public BebooSpeechRecognition SpeechRecognizer { get; }
   public bool KnowItsName { get; internal set; }
   public int MaxEnergy { get; private set; } = 10;
@@ -189,10 +181,10 @@ public class Beboo
   {
     if (!Happy) return;
     Happy = false;
-    //IGlobalActions.SayLocalizedString("beboo.sadstart", Name);
+    CrossSpeakManager.Instance.Output(String.Format(GameText.beboo_sadstart, Name));
     Game1.Instance.SoundSystem.PlaySadMusic();
     CuteBehaviour.Stop();
-    SadBehaviour.Start();
+    CryBehaviour.Start();
     MoveBehaviour.MinMS = 800;
     MoveBehaviour.MaxMS = 1000;
   }
@@ -203,8 +195,8 @@ public class Beboo
     Happy = true;
     //IGlobalActions.SayLocalizedString("beboo.happystart", Name);
     //Game1.Instance.UpdateMapMusic();
-    CuteBehaviour.Start();
-    SadBehaviour.Stop();
+   // CuteBehaviour.Start();
+    CryBehaviour.Stop();
     MoveBehaviour.MinMS = 200;
     MoveBehaviour.MaxMS = 400;
   }
@@ -258,6 +250,8 @@ public class Beboo
 
   private void PlayArround()
   {
+    var proximityBeboos = Game1.Instance.Map?.GetBeboosArround(Position);
+    proximityBeboos.Remove(this);
     if (Happy && Game1.Instance.Random.Next(4) == 1)
     {
       Item.Item? proximityItem = Game1.Instance.Map?.GetItemArroundPosition(Position);
@@ -268,10 +262,8 @@ public class Beboo
         Happiness++;
       }
     }
-    if (Happy && Game1.Instance.Random.Next(3) == 1)
+    if (Happy && proximityBeboos.Count >0 && Game1.Instance.Random.Next(3) == 1)
     {
-      var proximityBeboos = Game1.Instance.Map?.GetBeboosArround(Position);
-      proximityBeboos.Remove(this);
       InteractWith(proximityBeboos[Game1.Instance.Random.Next(proximityBeboos.Count)]);
       Happiness++;
     }
@@ -298,10 +290,6 @@ public class Beboo
     if (!Panik) return;
     Panik = false;
     SwimLevel += 1;
-    FancyMoveBehaviour.MinMS = 2000;
-    FancyMoveBehaviour.MaxMS = 40000;
-    MoveBehaviour.MinMS = 200;
-    MoveBehaviour.MaxMS = 400;
     MoveBehaviour.Restart();
     FancyMoveBehaviour.Restart();
   }
@@ -328,7 +316,7 @@ public class Beboo
 
   private void WannaGoToRandomPlace()
   {
-    if (Game1.Instance.Random.Next(2) == 1)
+    if (Game1.Instance.Map?.Items.Count > 0 && Game1.Instance.Random.Next(2) == 1)
     {
       Item.Item? targetItem = Game1.Instance.Map?.Items[Game1.Instance.Random.Next(Game1.Instance.Map.Items.Count)];
       if (targetItem != null) GoalPosition = targetItem.Position;
@@ -356,8 +344,8 @@ public class Beboo
       GoingTiredBehaviour.Stop();
       MoveBehaviour.Stop();
       FancyMoveBehaviour.Stop();
-      CuteBehaviour.Stop();
-      GoingDepressedBehaviour.Stop();
+     //uteBehaviour.Stop();
+      GoingSadBehaviour.Stop();
       Game1.Instance.SoundSystem.PlayBebooSound(Game1.Instance.SoundSystem.GrassSound, this);
       Game1.Instance.SoundSystem.PlayBebooSound(Game1.Instance.SoundSystem.BebooYawningSounds, this);
       Sleeping = true;
@@ -377,8 +365,8 @@ public class Beboo
     GoingTiredBehaviour.Start();
     FancyMoveBehaviour.Start();
     MoveBehaviour.Start(3000);
-    CuteBehaviour.Start();
-    GoingDepressedBehaviour.Start();
+  //  CuteBehaviour.Start();
+    GoingSadBehaviour.Start();
     Game1.Instance.SoundSystem.PlayBebooSound(Game1.Instance.SoundSystem.GrassSound, this);
     Game1.Instance.SoundSystem.PlayBebooSound(Game1.Instance.SoundSystem.BebooYawningSounds, this);
     Sleeping = false;
@@ -431,11 +419,11 @@ public class Beboo
     MoveBehaviour.MaxMS = 400;
     FancyMoveBehaviour.MinMS = 30000;
     FancyMoveBehaviour.MaxMS = 60000;
-    CuteBehaviour.MinMS = 15000;
-    CuteBehaviour.MaxMS = 25000;
+    //CuteBehaviour.MinMS = 15000;
+    //CuteBehaviour.MaxMS = 25000;
     MoveBehaviour.Restart();
     FancyMoveBehaviour.Restart();
-    CuteBehaviour.Restart();
+    //CuteBehaviour.Restart();
   }
 
   private void BeFloppy()
@@ -444,11 +432,11 @@ public class Beboo
     MoveBehaviour.MaxMS = 1000;
     FancyMoveBehaviour.MinMS = 40000;
     FancyMoveBehaviour.MaxMS = 70000;
-    CuteBehaviour.MinMS = 15000;
-    CuteBehaviour.MaxMS = 25000;
+    //CuteBehaviour.MinMS = 15000;
+    //CuteBehaviour.MaxMS = 25000;
     MoveBehaviour.Restart();
     FancyMoveBehaviour.Restart();
-    CuteBehaviour.Restart();
+    //teBehaviour.Restart();
   }
 
   private void BeOverexcited()
@@ -457,19 +445,19 @@ public class Beboo
     MoveBehaviour.MaxMS = 150;
     FancyMoveBehaviour.MinMS = 5000;
     FancyMoveBehaviour.MaxMS = 10000;
-    CuteBehaviour.MinMS = 10000;
-    CuteBehaviour.MaxMS = 20000;
+  //  CuteBehaviour.MinMS = 10000;
+  //  CuteBehaviour.MaxMS = 20000;
     MoveBehaviour.Restart();
     FancyMoveBehaviour.Restart();
-    CuteBehaviour.Restart();
+   //uteBehaviour.Restart();
   }
   public void Pause()
   {
     Paused = true;
-    CuteBehaviour.Stop();
+   // CuteBehaviour.Stop();
     MoveBehaviour.Stop();
-    GoingDepressedBehaviour.Stop();
-    SadBehaviour.Stop();
+    GoingSadBehaviour.Stop();
+    CryBehaviour.Stop();
     SleepingBehaviour.Stop();
     GrowthBehaviour.Stop();
   }
@@ -479,11 +467,12 @@ public class Beboo
     if (Sleeping) SleepingBehaviour.Start();
     else
     {
-      if (Happy) CuteBehaviour.Start();
-      else SadBehaviour.Start();
+      if (Happy){//CuteBehaviour.Start();
+                 }
+      else CryBehaviour.Start();
       MoveBehaviour.Start();
     }
-    GoingDepressedBehaviour.Start();
+    GoingSadBehaviour.Start();
     GrowthBehaviour.Start();
   }
   public void Call(object? sender, EventArgs eventArgs)

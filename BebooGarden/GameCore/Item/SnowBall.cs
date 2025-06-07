@@ -12,27 +12,10 @@ internal class SnowBall : Item
   private Vector3? position;
   public SnowBall()
   {
-    MoveBehaviour = new(this, 100, 100, (snowBall) =>
-    {
-      if (snowBall.Direction == null || snowBall.Position == null) return;
-      snowBall.Position += snowBall.Direction;
-      Game1.Instance.SoundSystem.PlaySoundAtPosition(Game1.Instance.SoundSystem.BebooStepSnowSound, snowBall.Position.Value);
-      if (Game1.Instance.Map != null)
-      {
-        List<Item> snowBalls = Game1.Instance.Map.Items.FindAll(x => x is SnowBall);
-        foreach (SnowBall otherSnowBall in snowBalls)
-        {
-          if (otherSnowBall.Direction == null && Util.IsInSquare(snowBall.Position.Value, otherSnowBall.Position.Value, 1))
-          {
-            otherSnowBall.Action();
-          }
-        }
-      }
-      if (Game1.Instance.Random.Next(8) == 1) snowBall.Direction = null;
-    }, true);
+    MoveBehaviour = new(100, 100, true);
   }
   public Vector3? Direction { get; set; }
-  private TimedBehaviour<SnowBall> MoveBehaviour { get; set; }
+  private TimedBehaviour MoveBehaviour { get; set; }
   public override string Name { get; } = GameText.snowball_name;
   public override string Description { get; } = GameText.snowball_name;
   public override Vector3? Position
@@ -75,4 +58,27 @@ internal class SnowBall : Item
     Action();
   }
   public override void PlaySound() { }
+  public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
+  {
+    base.Update(gameTime);
+    if (MoveBehaviour.ItsTime())
+    {
+      if (Direction == null || Position == null) return;
+      Position += Direction;
+      Game1.Instance.SoundSystem.PlaySoundAtPosition(Game1.Instance.SoundSystem.BebooStepSnowSound, Position.Value);
+      if (Game1.Instance.Map != null)
+      {
+        List<Item> snowBalls = Game1.Instance.Map.Items.FindAll(x => x is SnowBall);
+        foreach (SnowBall otherSnowBall in snowBalls)
+        {
+          if (otherSnowBall.Direction == null && Util.IsInSquare(Position.Value, otherSnowBall.Position.Value, 1))
+          {
+            otherSnowBall.Action();
+          }
+        }
+      }
+      if (Game1.Instance.Random.Next(8) == 1) Direction = null;
+      MoveBehaviour.Timer = System.DateTime.Now;
+    }
+  }
 }

@@ -6,7 +6,10 @@ using BebooGarden.GameCore.Item;
 using BebooGarden.GameCore.Pet;
 using BebooGarden.Minigame;
 using FmodAudio;
+using Microsoft.Xna.Framework;
 using Newtonsoft.Json;
+using Vector2 = System.Numerics.Vector2;
+using Vector3 = System.Numerics.Vector3;
 
 namespace BebooGarden.GameCore.World;
 
@@ -47,6 +50,9 @@ public class Map
   public MapPreset Preset { get; }
   public List<Beboo> Beboos { get; set; } = new();
   public bool Paused { get; internal set; }
+  private TimedBehaviour TicketPopBehaviour { get; set; }
+  private TimedBehaviour SnowBallPopBehaviour { get; set; }
+  private TimedBehaviour BubblePopBehaviour { get; set; }
 
   public Map(MapPreset preset, int sizeX, int sizeY, List<TreeLine> treeLines, Vector3? waterPoint, ReverbProperties reverbPreset)
   {
@@ -55,25 +61,9 @@ public class Map
     SizeY = sizeY;
     TreeLines = treeLines;
     WaterPoint = waterPoint;
-    TimedBehaviour<Map> ticketPopBehaviour = new(this, 30000 * 60, 60000 * 60, (map) => map.PopTicketPack(), true);
-    TimedBehaviour<Map> SnowBallPopBehaviour = new(this, 10000, 15000, (map) =>
-    {
-      List<Item.Item> snowBalls = this.Items.FindAll(x => x is SnowBall);
-      if (snowBalls.Count < 10)
-      {
-        Vector3 randPos = GenerateRandomUnoccupedPosition();
-        AddItem(new SnowBall(), randPos);
-      }
-    }, this.Preset == MapPreset.snowy);
-    TimedBehaviour<Map> BubblePopBehaviour = new(this, 10000, 15000, (map) =>
-    {
-      List<Item.Item> snowBalls = this.Items.FindAll(x => x is Bubble);
-      if (snowBalls.Count < 15)
-      {
-        Vector3 randPos = GenerateRandomUnoccupedPosition(false);
-        AddItem(new Bubble(), randPos);
-      }
-    }, this.Preset == MapPreset.underwater);
+    TicketPopBehaviour = new(30000 * 60, 60000 * 60, true);
+    SnowBallPopBehaviour = new(10000, 15000, this.Preset == MapPreset.snowy);
+    BubblePopBehaviour = new(10000, 15000, this.Preset == MapPreset.underwater);
     ReverbPreset = reverbPreset;
   }
 
@@ -167,5 +157,37 @@ public class Map
   {
     return obj is Map map &&
            Preset == map.Preset;
+  }
+  public void Update(GameTime gameTime)
+  {
+    foreach (var trelline in TreeLines)
+    {
+      trelline.Update(gameTime);
+    }
+    if (TicketPopBehaviour.ItsTime())
+    {
+      PopTicketPack();
+      TicketPopBehaviour.Timer = DateTime.Now;
+    }
+    if (SnowBallPopBehaviour.ItsTime())
+    {
+      List<Item.Item> snowBalls = this.Items.FindAll(x => x is SnowBall);
+      if (snowBalls.Count < 10)
+      {
+        Vector3 randPos = GenerateRandomUnoccupedPosition();
+        AddItem(new SnowBall(), randPos);
+      }
+      SnowBallPopBehaviour.Timer = DateTime.Now;
+    }
+    if (BubblePopBehaviour.ItsTime())
+    {
+      List<Item.Item> bubbles = this.Items.FindAll(x => x is Bubble);
+      if (bubbles.Count < 15)
+      {
+        Vector3 randPos = GenerateRandomUnoccupedPosition(false);
+        AddItem(new Bubble(), randPos);
+      }
+      BubblePopBehaviour.Timer = DateTime.Now;
+    }
   }
 }

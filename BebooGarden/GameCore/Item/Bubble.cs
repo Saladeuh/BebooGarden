@@ -1,6 +1,8 @@
 ﻿using BebooGarden.Content;
 using BebooGarden.GameCore.Pet;
 using FmodAudio;
+using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -8,40 +10,18 @@ namespace BebooGarden.GameCore.Item;
 
 internal class Bubble : Item
 {
-  private Vector3? position;
+  private System.Numerics.Vector3? position;
   public Bubble()
   {
-    MoveBehaviour = new(this, 1200, 1500, (bubble) =>
-    {
-      if (bubble.Direction == null || bubble.Position == null) return;
-      bubble.Position += bubble.Direction;
-      Game1.Instance.SoundSystem.PlaySoundAtPosition(Game1.Instance.SoundSystem.BubbleSounds, bubble.Position.Value);
-      if (Game1.Instance.Map != null)
-      {
-        List<Item> bubbles = Game1.Instance.Map.Items.FindAll(x => x is Bubble);
-        foreach (Bubble otherBubble in bubbles)
-        {
-          if (otherBubble.Direction == null && Util.IsInSquare(bubble.Position.Value, otherBubble.Position.Value, 1))
-          {
-            otherBubble.Action();
-          }
-        }
-      }
-      if (Game1.Instance.Random.Next(8) == 1) bubble.Direction = null;
-    }, false);
-    SlowDriftBehaviour = new(this, 20000, 40000, (bubble) =>
-    {
-      if (bubble.Direction != null || bubble.Position == null) return;
-      Direction = Util.DIRECTIONS[Game1.Instance.Random.Next(Util.DIRECTIONS.Length)];
-      Game1.Instance.SoundSystem.PlaySoundAtPosition(Game1.Instance.SoundSystem.BubbleUpSound, bubble.Position.Value);
-    }, false);
+    MoveBehaviour = new(1200, 1500, false);
+    SlowDriftBehaviour = new(20000, 40000, false);
   }
-  private Vector3? Direction { get; set; }
-  private TimedBehaviour<Bubble> MoveBehaviour { get; set; }
-  private TimedBehaviour<Bubble> SlowDriftBehaviour { get; set; }
+  private System.Numerics.Vector3? Direction { get; set; }
+  private TimedBehaviour MoveBehaviour { get; set; }
+  private TimedBehaviour SlowDriftBehaviour { get; set; }
   public override string Name { get; } = GameText.bubble_name;
   public override string Description { get; } = GameText.bubble_description;
-  public override Vector3? Position
+  public override System.Numerics.Vector3? Position
   {
     get => position;
     set
@@ -52,7 +32,7 @@ internal class Bubble : Item
       }
       else if (Game1.Instance.Map != null)
       {
-        Vector3 newPos = Game1.Instance.Map.Clamp(value.Value);
+        System.Numerics.Vector3 newPos = Game1.Instance.Map.Clamp(value.Value);
         if (newPos != value)
         {
           Game1.Instance.SoundSystem.PlaySoundAtPosition(Game1.Instance.SoundSystem.WallSound, newPos);
@@ -98,5 +78,34 @@ internal class Bubble : Item
     base.Unpause();
     MoveBehaviour.Start();
     SlowDriftBehaviour.Start();
+  }
+  public override void Update(GameTime gameTime)
+  {
+    base.Update(gameTime);
+    if (MoveBehaviour.ItsTime())
+    {
+      if (Direction == null || Position == null) return;
+      Position += Direction;
+      Game1.Instance.SoundSystem.PlaySoundAtPosition(Game1.Instance.SoundSystem.BubbleSounds, Position.Value);
+      if (Game1.Instance.Map != null)
+      {
+        List<Item> bubbles = Game1.Instance.Map.Items.FindAll(x => x is Bubble);
+        foreach (Bubble otherBubble in bubbles)
+        {
+          if (otherBubble.Direction == null && Util.IsInSquare(Position.Value, otherBubble.Position.Value, 1))
+          {
+            otherBubble.Action();
+          }
+        }
+      }
+      if (Game1.Instance.Random.Next(8) == 1) Direction = null;
+      MoveBehaviour.Timer = DateTime.Now;
+    }
+    if (SlowDriftBehaviour.ItsTime()) {
+      if (Direction != null || Position == null) return;
+      Direction = Util.DIRECTIONS[Game1.Instance.Random.Next(Util.DIRECTIONS.Length)];
+      Game1.Instance.SoundSystem.PlaySoundAtPosition(Game1.Instance.SoundSystem.BubbleUpSound, Position.Value);
+      SlowDriftBehaviour.Timer = DateTime.Now;
+    }
   }
 }

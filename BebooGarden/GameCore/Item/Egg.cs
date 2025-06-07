@@ -30,7 +30,7 @@ public class Egg(string color) : Item
   private void Hatch()
   {
     Game1.Instance.Map?.Items.Remove(this);
-    SoundLoopTimer.Stop();
+    SoundLoopBeahaviour.Stop();
     BebooType bebooType = Color != "none" ? Util.GetBebooTypeByColor(Color) : Util.GetRandomBebooType();
     Sound cinematic;
     if (!Game1.Instance.SoundSystem.CinematicsHatch.TryGetValue(bebooType, out cinematic)) cinematic = Game1.Instance.SoundSystem.CinematicsHatch[BebooType.Base];

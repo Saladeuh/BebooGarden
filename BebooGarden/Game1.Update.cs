@@ -28,6 +28,7 @@ public partial class Game1
     _desktop.UpdateInput();
     foreach (GameCore.Pet.Beboo beboo in Map?.Beboos)
     {
+      beboo.Update(gameTime);
       if (Map.IsLullabyPlaying) beboo.GoAsleep();
       else if (Map.IsDansePlaying) beboo.WakeUp();
       if (Map.Preset != MapPreset.basicrace && Map.Preset != MapPreset.snowyrace && beboo.Racer) beboo.Pause();
@@ -55,6 +56,15 @@ public partial class Game1
         Map.Maps[MapPreset.underwater].AddItem(new Egg("blue"), new(0, 0, 0));
       }
     }
+    foreach(var map in Map.Maps.Values)
+    {
+      map?.Update(gameTime);
+    }
+    foreach (Item item in Map?.Items)
+    {
+      item?.Update(gameTime);
+    }
+
     HandleKeyboardNavigation(_currentKeyboardState);
     UpdateMinigames(gameTime, _currentKeyboardState);
     UpdateScriptedScene(gameTime);

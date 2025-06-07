@@ -48,12 +48,11 @@ public partial class Game1
     catch (Exception) { Map = Map.Maps[MapPreset.garden]; }
     MusicBox.AvailableRolls = Save.UnlockedRolls ?? [];
     SoundSystem.LoadMainScreen();
-    GameText.
     /*
+`
     if (!Save.Flags.NewGame)
     {
       CultureInfo.CurrentUICulture = new CultureInfo(parameters.Language);
-      UpdateLocalizer();
       PlayerPosition = new Vector3(0, 0, 0);
       foreach (Map map in Map.Maps.Values)
       {

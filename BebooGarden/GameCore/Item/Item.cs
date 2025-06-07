@@ -1,7 +1,9 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 using BebooGarden.GameCore;
 using BebooGarden.GameCore.Pet;
 using FmodAudio;
+using Microsoft.Xna.Framework;
 using Newtonsoft.Json;
 
 namespace BebooGarden.GameCore.Item;
@@ -10,12 +12,12 @@ public abstract class Item
 {
   protected Item()
   {
-    SoundLoopTimer = new TimedBehaviour<Item>(this, 3000, 3000, item => { item.PlaySound(); }, true);
+    SoundLoopBeahaviour = new TimedBehaviour(3000, 3000, true);
   }
 
   public virtual string Name { get;  }
   public virtual string Description { get; } = string.Empty;
-  public abstract Vector3? Position { get; set; } // position null = in inventory
+  public abstract System.Numerics.Vector3? Position { get; set; } // position null = in inventory
   public virtual bool IsTakable { get; set; } = true;
   public virtual bool IsWaterProof { get; set; } = false;
   public virtual int Cost { get; set; } = 1;
@@ -24,7 +26,7 @@ public abstract class Item
   public virtual Channel? Channel { get; set; }
 
   [JsonIgnore]
-  public TimedBehaviour<Item> SoundLoopTimer { get; set; }
+  public TimedBehaviour SoundLoopBeahaviour { get; set; }
 
   public virtual void Action()
   {
@@ -57,14 +59,22 @@ public abstract class Item
   public virtual void BebooAction(Beboo beboo)
   {
   }
+  public virtual void Update(GameTime gameTime)
+  {
+    if (SoundLoopBeahaviour.ItsTime())
+    {
+      PlaySound();
+      SoundLoopBeahaviour.Timer = DateTime.Now;
+    }
+  }
 
   public virtual void Pause()
   {
-    SoundLoopTimer?.Stop();
+    SoundLoopBeahaviour?.Stop();
   }
 
   public virtual void Unpause()
   {
-    SoundLoopTimer?.Start();
+    SoundLoopBeahaviour?.Start();
   }
 }

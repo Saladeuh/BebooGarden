@@ -7,79 +7,42 @@ using Timer = System.Timers.Timer;
 
 namespace BebooGarden.GameCore;
 
-public class TimedBehaviour<T>
+public class TimedBehaviour
 {
-  public TimedBehaviour(T actionParameter, int minMS, int maxMS, Action<T> action, bool startAtInit)
+  public TimedBehaviour(int minMS, int maxMS, bool startAtInit)
   {
-    ActionParameter = actionParameter;
+    _defaultMinMS = minMS;
+    _defaultMaxMS = maxMS;
     MinMS = minMS;
     MaxMS = maxMS;
-    Action = action;
-    ActionTimer = minMS < maxMS ? new Timer(Game1.Instance.Random.Next(minMS, maxMS)) : new Timer(MinMS);
-    ActionTimer.Elapsed += onTimer;
-    ActionTimer.Enabled = startAtInit;
     Enabled = startAtInit;
   }
 
-  private T ActionParameter { get; }
   public int MinMS { get; set; }
   public int MaxMS { get; set; }
-  private Action<T> Action { get; }
-  private Timer ActionTimer { get; set; }
   private bool Enabled { get; set; }
+  public DateTime Timer = DateTime.Now;
+  private int _defaultMinMS;
+  private int _defaultMaxMS;
 
-  public void onTimer(object? sender, ElapsedEventArgs e)
+  public bool ItsTime()
   {
-    try
-    {
-      if (ActionParameter is Beboo)
-      {
-        var beboo = ActionParameter as Beboo;
-        if (beboo.Racer && Race.IsARaceRunning) Action(ActionParameter);
-        else if (!beboo.Racer) Action(ActionParameter);
-      }
-      else Action(ActionParameter);
-      ActionTimer.Dispose();
-      int ms = MinMS != MaxMS ? Game1.Instance.Random.Next(MinMS, MaxMS) : MinMS;
-      ActionTimer = new Timer(ms);
-      ActionTimer.Elapsed += onTimer;
-      ActionTimer.Enabled = Enabled;
-    }
-    catch { }
+    var elapsedms = (DateTime.Now - Timer).TotalMilliseconds;
+    return Enabled && elapsedms >= Game1.Instance.Random.Next(MinMS, MaxMS);
   }
+  public void Start() => Enabled = true;
+  public void Stop() => Enabled = false;
+
+  public void Start(int delayMS)
+  {
+    Timer = (DateTime.Now - TimeSpan.FromMilliseconds(delayMS));
+    Enabled = true;
+  }
+
   public void Restart()
   {
-    ActionTimer.Dispose();
-    int ms = MinMS != MaxMS ? Game1.Instance.Random.Next(MinMS, MaxMS) : MinMS;
-    ActionTimer = new Timer(ms);
-    ActionTimer.Elapsed += onTimer;
-    ActionTimer.Enabled = Enabled;
-  }
-  public void Start(float delayMS = 0)
-  {
-    if (Enabled) return;
-    if (delayMS == 0)
-    {
-      ActionTimer.Enabled = true;
-      Enabled = true;
-    }
-    else
-    {
-      try
-      {
-        Timer delayTimer = new(delayMS);
-        delayTimer.Elapsed += (_, _) => ActionTimer.Enabled = true;
-        delayTimer.Enabled = true;
-        Enabled = true;
-      }
-      catch { }
-    }
-  }
-
-  public void Stop()
-  {
-    if (!Enabled) return;
-    ActionTimer.Stop();
-    Enabled = false;
+    MinMS = _defaultMinMS;
+    MaxMS = _defaultMaxMS;
+    Start();
   }
 }
