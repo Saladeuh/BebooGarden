@@ -10,4 +10,5 @@ namespace BebooGarden.UI.ScriptedScene;
 public interface IScriptedScene
 {
   public void Update(GameTime gameTime);
+  public void Show();
 }

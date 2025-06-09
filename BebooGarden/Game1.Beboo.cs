@@ -75,7 +75,7 @@ public partial class Game1
     }
   }
 
-  public Beboo? ChooseBebooForRace()
+  public void ChooseBebooForRace()
   {
     Beboo? beboo = null;
     if (Map.Beboos.Count > 0)
@@ -89,14 +89,13 @@ public partial class Game1
         new ChooseMenu<Beboo?>(GameText.choosebeboo, options, StartRace)
           .Show();
       }
-      else beboo = Map?.Beboos[0];
+      else { StartRace(Map?.Beboos[0]); }
     }
     else
     {
       CrossSpeakManager.Instance.Output(GameText.nobeboo);
       SoundSystem.System.PlaySound(SoundSystem.WarningSound);
     }
-    return beboo;
   }
 
   private void StartRace(Beboo? contester)
@@ -110,14 +109,16 @@ public partial class Game1
       };
       if (Save.Flags.UnlockSnowyMap) raceTypeOptions.Add(GameText.race_snow, RaceType.Snowy);
       RaceType choice = RaceType.Base;
+      _contester = contester;
       if (raceTypeOptions.Count > 1)
       {
-        _contester = contester;
         new ChooseMenu<RaceType>(GameText.race_chooserace, raceTypeOptions, OnRaceChoosed)
           .Show();
       }
-      if (choice != RaceType.None)
-        new Minigame.Race(choice, contester).Start();
+      else
+      {
+        OnRaceChoosed(choice);
+      }
     }
     else
     {
@@ -128,7 +129,8 @@ public partial class Game1
 
   private void OnRaceChoosed(RaceType raceType)
   {
-
-    new Minigame.Race(raceType, _contester).Start();
+    CurrentPlayingMiniGame = new Minigame.Race(raceType, _contester);
+    CurrentPlayingMiniGame.Start();
+    SwitchToScreen(GameScreen.race);
   }
 }

@@ -158,7 +158,7 @@ public partial class Beboo
   public bool Panik { get; private set; } = false;
   private TimedBehaviour CuteBehaviour { get; }
 
-  public Vector3? GoalPosition
+  public Vector3? Destination
   {
     get => _goalPosition;
     set => _goalPosition = value.HasValue ? Game1.Instance.Map?.Clamp(value.Value) : null;
@@ -203,8 +203,8 @@ public partial class Beboo
 
   private bool MoveTowardGoal()
   {
-    if (GoalPosition == null || GoalPosition == Position || Sleeping) return false;
-    Vector3 direction = (Vector3)GoalPosition - Position;
+    if (Destination == null || Destination == Position || Sleeping) return false;
+    Vector3 direction = (Vector3)Destination - Position;
     Vector3 directionNormalized = Vector3.Normalize(direction);
     directionNormalized.X = Math.Sign(directionNormalized.X);
     directionNormalized.Y = Math.Sign(directionNormalized.Y);
@@ -213,8 +213,11 @@ public partial class Beboo
     if (Game1.Instance.Map?.IsInLake(Position) ?? false)
     {
       Game1.Instance.SoundSystem.PlayBebooSound(Game1.Instance.SoundSystem.BebooStepWaterSound, this, false);
-      if (SwimLevel <= 1) StartPanik();
-      else if (SwimLevel < 10 && Game1.Instance.Random.Next(SwimLevel) == 1) StartPanik();
+      if (SwimLevel <= 1 || (SwimLevel < 10 && Game1.Instance.Random.Next(SwimLevel) == 1))
+      {
+        StartPanik();
+        Destination = Game1.Instance.Map.GenerateRandomUnoccupedPosition(true);  
+      }
     }
     else if (Game1.Instance.Map?.Preset == MapPreset.snowy)
     {
@@ -243,8 +246,8 @@ public partial class Beboo
 
     PlayArround();
     if (Game1.Instance.Random.Next(20) == 1) BootsSlippedOn = false;
-    bool moved = Position != GoalPosition;
-    if (!moved) GoalPosition = null;
+    bool moved = Position != Destination;
+    if (!moved) Destination = null;
     return moved;
   }
 
@@ -317,19 +320,19 @@ public partial class Beboo
     if (Game1.Instance.Map?.Items.Count > 0 && Game1.Instance.Random.Next(2) == 1)
     {
       Item.Item? targetItem = Game1.Instance.Map?.Items[Game1.Instance.Random.Next(Game1.Instance.Map.Items.Count)];
-      if (targetItem != null) GoalPosition = targetItem.Position;
+      if (targetItem != null) Destination = targetItem.Position;
     }
     else if (Game1.Instance.Map?.Beboos.Count > 1 && Game1.Instance.Random.Next(2) == 1)
     {
       var otherBeboos = new List<Beboo>(Game1.Instance.Map.Beboos);
       otherBeboos.Remove(this);
       var targetBeboo = otherBeboos[Game1.Instance.Random.Next(otherBeboos.Count)];
-      GoalPosition = targetBeboo.Position;
+      Destination = targetBeboo.Position;
     }
     else
     {
       Vector3 randomMove = new(Game1.Instance.Random.Next(-4, 5), Game1.Instance.Random.Next(-4, 5), 0);
-      GoalPosition = Position + randomMove;
+      Destination = Position + randomMove;
     }
   }
 
@@ -351,7 +354,7 @@ public partial class Beboo
     }
     else
     {
-      GoalPosition = new(0, 0, 0); //TODO do somethin better
+      Destination = new(0, 0, 0); //TODO do somethin better
     }
   }
 
@@ -469,7 +472,7 @@ public partial class Beboo
       await Task.Delay(1000);
       WakeUp();
     });
-    GoalPosition = Game1.Instance.PlayerPosition;
+    Destination = Game1.Instance.PlayerPosition;
   }
   public void Scare(Beboo friend)
   {
@@ -502,7 +505,7 @@ public partial class Beboo
   }
   public void Follow(Beboo friend)
   {
-    GoalPosition = friend.GoalPosition;
+    Destination = friend.Destination;
   }
   public void SingWith(Beboo friend)
   {
@@ -520,9 +523,4 @@ public partial class Beboo
     Happiness++;
     friend.Happiness++;
   }
-
-  public static implicit operator string(Beboo v)
-  {
-    throw new NotImplementedException();
-  }
-}
+} 

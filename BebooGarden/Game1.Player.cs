@@ -134,7 +134,7 @@ public partial class Game1
           await Task.Delay(Random.Next(1000, 2000));
           beboo.WakeUp();
         });
-        beboo.GoalPosition = currentPosition;
+        beboo.Destination = currentPosition;
       }
     }
   }

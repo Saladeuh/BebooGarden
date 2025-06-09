@@ -76,7 +76,7 @@ public class Map
     }
   }
 
-  private Vector3 GenerateRandomUnoccupedPosition(bool excludeWater = true)
+  public Vector3 GenerateRandomUnoccupedPosition(bool excludeWater = true)
   {
     int tryCounter = 0;
     Vector3 randPos;
@@ -84,7 +84,7 @@ public class Map
     {
       randPos = new Vector3(Game1.Instance.Random.Next(-SizeX / 2, SizeX / 2), Game1.Instance.Random.Next(-SizeY / 2, SizeY / 2), 0);
       tryCounter++;
-    } while ((tryCounter <= 5 && excludeWater && IsInLake(randPos)) || GetTreeLineAtPosition(randPos) != null);
+    } while ((tryCounter <= 10 && excludeWater && IsInLake(randPos)) || GetTreeLineAtPosition(randPos) != null);
     return randPos;
   }
 

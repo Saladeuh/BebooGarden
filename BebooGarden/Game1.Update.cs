@@ -95,8 +95,7 @@ public partial class Game1
 
   private void UpdateMinigames(GameTime gameTime, KeyboardState currentKeyboardState)
   {
-    if ((_gameState.CurrentScreen == GameScreen.ChoicePractice || _gameState.CurrentScreen == GameScreen.WordPractice)
-          && !_gameState.IsPaused)
+    if (_gameState.CurrentScreen == GameScreen.race)
     {
       if (CurrentPlayingMiniGame.IsRunning)
       {
@@ -104,7 +103,7 @@ public partial class Game1
       }
       else
       {
-        SwitchToScreen(GameScreen.MainMenu);
+        SwitchToScreen(GameScreen.game);
         CurrentPlayingMiniGame = null;
         SaveManager.WriteSave(Save);
       }

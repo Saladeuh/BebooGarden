@@ -46,22 +46,25 @@ public class NewBebooScene : IScriptedScene
       {
         bool alreadyExistingName = false;
         var name = _textField.Text;
-        foreach (var map in Map.Maps)
+        if (name.Length > 0)
         {
-          foreach (Beboo beboo in map.Value.Beboos)
+          foreach (var map in Map.Maps)
           {
-            alreadyExistingName = alreadyExistingName || beboo.Name.ToLower() == name.ToLower();
+            foreach (Beboo beboo in map.Value.Beboos)
+            {
+              alreadyExistingName = alreadyExistingName || beboo.Name.ToLower() == name.ToLower();
+            }
           }
-        }
-        if (alreadyExistingName)
-        {
-          _nameTextFieldDialog.ShowModal(Game1.Instance._desktop);
-        }
-        else
-        {
-          Game1.Instance.SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.MenuOkSound);
-          _bebooName = name;
-          _beboo.Name = _bebooName;
+          if (alreadyExistingName)
+          {
+            _nameTextFieldDialog.ShowModal(Game1.Instance._desktop);
+          }
+          else
+          {
+            Game1.Instance.SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.MenuOkSound);
+            _bebooName = name;
+            _beboo.Name = _bebooName;
+          }
         }
       }
     };
@@ -97,10 +100,10 @@ public class NewBebooScene : IScriptedScene
     Game1.Instance.SwitchToScreen(GameScreen.game);
     Game1.Instance._scriptedScene = null;
   }
-
   public void Show()
   {
     Game1.Instance.SwitchToScreen(GameScreen.ScriptedScene);
     Game1.Instance._scriptedScene = this;
+
   }
 }

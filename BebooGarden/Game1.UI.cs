@@ -48,7 +48,7 @@ public partial class Game1
   {
     GraphicsDevice.Clear(Color.Black);
 
-    if (_gameState.CurrentScreen == GameScreen.Shop && !_gameState.IsPaused)
+    if (_gameState.CurrentScreen == GameScreen.Shop)
     {
       _spriteBatch.Begin();
       _spriteBatch.End();
