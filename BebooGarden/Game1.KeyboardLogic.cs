@@ -26,8 +26,8 @@ public partial class Game1
   public SaveParameters Save { get; private set; }
 
   private readonly object _keyLock = new();
-  private readonly HashSet<Keys> _hookPressedKeys = new();
-  private readonly HashSet<Keys> _keysToProcess = new(); // Nouvelles touches à traiter
+  private readonly HashSet<Keys> _hookPressedKeys = [];
+  private readonly HashSet<Keys> _keysToProcess = []; // Nouvelles touches à traiter
   private bool _updateProcessed = false;
 
   private void HandleKeyboardNavigation(KeyboardState currentKeyboardState)
@@ -114,9 +114,8 @@ public partial class Game1
       }
       if (currentKeyboardState.GetPressedKeyCount() > 0)
       {
-        int keyInt;
         var key = currentKeyboardState.GetPressedKeys()[0];
-        if (Util.IsKeyDigit(key, out keyInt) && keyInt > 0)
+        if (Util.IsKeyDigit(key, out int keyInt) && keyInt > 0)
         {
           if (Map != null && keyInt <= Map.Beboos.Count)
           {

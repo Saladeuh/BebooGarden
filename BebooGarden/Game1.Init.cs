@@ -18,9 +18,7 @@ namespace BebooGarden;
 
 public partial class Game1
 {
-  private Map map;
-
-  public Map? Map { get => map; private set => map = value; }
+  public Map? Map { get; private set; }
   public System.Numerics.Vector3 PlayerPosition { get; private set; }
   public DateTime LastPressedKeyTime { get; private set; }
 
@@ -48,22 +46,21 @@ public partial class Game1
     catch (Exception) { Map = Map.Maps[MapPreset.garden]; }
     MusicBox.AvailableRolls = Save.UnlockedRolls ?? [];
     SoundSystem.LoadMainScreen();
-    /*
-`
     if (!Save.Flags.NewGame)
     {
-      CultureInfo.CurrentUICulture = new CultureInfo(parameters.Language);
+      CultureInfo.CurrentUICulture = new CultureInfo(Save.Language);
       PlayerPosition = new Vector3(0, 0, 0);
       foreach (Map map in Map.Maps.Values)
       {
-        if (map.TreeLines.Count > 0) map.TreeLines[0].SetFruitsAfterAWhile(Save.LastPlayed, Save.MapInfos[map.Preset].RemainingFruits);
+        if (map.TreeLines.Count > 0) 
+          map.TreeLines[0].SetFruitsAfterAWhile(Save.LastPlayed, Save.MapInfos[map.Preset].RemainingFruits);
         try
         {
           map.Items = Save.MapInfos[map.Preset].Items;
         }
         catch
         {
-          map.Items = new();
+          map.Items = [];
         }
         try
         {
@@ -72,7 +69,8 @@ public partial class Game1
             if (bebooInfo.Name != "bob" && bebooInfo.Name != "boby")
             {
               BebooType bebootype;
-              if (bebooInfo.BebooType != null && bebooInfo.BebooType != BebooType.Base) bebootype = bebooInfo.BebooType;
+              if (bebooInfo.BebooType != BebooType.Base)
+                bebootype = bebooInfo.BebooType;
               else
               {
                 bebootype = Random.Next(2) == 1 && Save.FavoredColor != "none"
@@ -88,26 +86,24 @@ public partial class Game1
             }
           }
         }
-        catch (KeyNotFoundException _) { }
+        catch (KeyNotFoundException) { }
         if (map != Map) SoundSystem.Pause(map);
       }
     }
     else
     {
       PlayerPosition = new Vector3(-2, 0, 0);
-      Map.AddItem(new Egg(Parameters.FavoredColor), new(2, 0, 0));
+      Map.AddItem(new Egg(Save.FavoredColor), new(2, 0, 0));
     }
     SoundSystem.LoadMap(Map);
-    if (Save.Flags.NewGame) Welcome.AfterGarden();
-    else UpdateMapMusic();
-    SoundSystem.Music.Volume = Save.MusicVolume;
+    //if (Save.Flags.NewGame) Welcome.AfterGarden();
+    //else UpdateMapMusic();
+    SoundSystem.Music?.Volume = Save.MusicVolume;
     LastPressedKeyTime = DateTime.Now;
     if (Save.FruitsBasket == null || Save.FruitsBasket.Count == 0)
     {
       Save.FruitsBasket = [];
       foreach (FruitSpecies fruitSpecies in Enum.GetValues(typeof(FruitSpecies))) Save.FruitsBasket[fruitSpecies] = 0;
     }
-    */
   }
-
 }

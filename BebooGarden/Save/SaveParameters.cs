@@ -42,7 +42,7 @@ public class SaveParameters
 
   public float Volume { get; set; }
   public float MusicVolume { get; set; }
-  public string? Language { get; set; }
+  public string Language { get; set; }
   public DateTime LastPlayed { get; set; }
   public Flags Flags { get; set; }
   public string PlayerName { get; set; }

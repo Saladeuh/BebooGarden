@@ -329,13 +329,13 @@ internal class SoundSystem
       case MapPreset.snowy:
         map.BackgroundChannel = System.PlaySound(ColdWindSound, paused: false)!;
         map.BackgroundChannel.Volume = 1f;
-        _ambiTimer.Enabled = false;
+        _ambiTimer?.Enabled = false;
         break;
       case MapPreset.underwater:
         map.BackgroundChannel = System.PlaySound(UnderWaterSound, paused: false)!;
         map.BackgroundChannel.SetLoopPoints(TimeUnit.PCM, 85488, TimeUnit.PCM, 1265135);
         map.BackgroundChannel.Volume = 0.5f;
-        _ambiTimer.Enabled = false;
+        _ambiTimer?.Enabled = false;
         break;
     }
     foreach (GameCore.Item.Item item in map.Items) item.Unpause();
@@ -411,12 +411,14 @@ internal class SoundSystem
 
   public void PlayBebooSound(Sound sound, Beboo beboo, bool stopOthers = true)
   {
+    if (beboo.Paused) return;
     if (beboo.Channel != null && stopOthers && beboo.Channel.IsPlaying) beboo.Channel.Stop();
     beboo.Channel = PlaySoundAtPosition(sound, beboo.Position, -0.1, beboo.VoicePitch);
   }
 
   public void PlayBebooSound(List<Sound> sounds, Beboo beboo, bool stopOthers = true, float volume = -1)
   {
+    if (beboo.Paused) return;
     Sound sound = sounds[Game1.Instance.Random.Next(sounds.Count())];
     if (beboo.Channel != null && stopOthers && beboo.Channel.IsPlaying) beboo.Channel.Stop();
     beboo.Channel = PlaySoundAtPosition(sound, beboo.Position, 0, beboo.VoicePitch);
@@ -425,8 +427,9 @@ internal class SoundSystem
 
   public void PlayBebooSound(Dictionary<BebooType, List<Sound>> sounds, Beboo beboo, bool stopOthers = true, float volume = -1)
   {
+    if (beboo.Paused) return;
     List<Sound> soundsList = new();
-    soundsList = GetBebooSounds(sounds, beboo); 
+    soundsList = GetBebooSounds(sounds, beboo);
     Sound sound = soundsList[Game1.Instance.Random.Next(soundsList.Count)];
     if (beboo.Channel != null && stopOthers && beboo.Channel.IsPlaying) beboo.Channel.Stop();
     beboo.Channel = PlaySoundAtPosition(sound, beboo.Position, 0, beboo.VoicePitch);
@@ -436,7 +439,7 @@ internal class SoundSystem
   public static List<Sound> GetBebooSounds(Dictionary<BebooType, List<Sound>> sounds, Beboo beboo)
   {
     List<Sound> soundsList;
-    if (!sounds.TryGetValue(beboo.BebooType, out soundsList) || soundsList.Count <= 0) 
+    if (!sounds.TryGetValue(beboo.BebooType, out soundsList) || soundsList.Count <= 0)
       soundsList = sounds[BebooType.Base];
     return soundsList;
   }
@@ -506,7 +509,8 @@ internal class SoundSystem
       if (channel.IsPlaying) channel.Paused = true;
     foreach (GameCore.Item.Item item in map.Items) item.Pause();
     try { if (map != null && map.BackgroundChannel != null) map.BackgroundChannel.Paused = true; } catch { }
-    foreach (Beboo beboo in map.Beboos) beboo.Pause();
+    foreach (Beboo beboo in map.Beboos)
+      beboo.Pause();
     DisableAmbiTimer();
   }
 
@@ -519,7 +523,7 @@ internal class SoundSystem
       foreach (Channel channel in map.TreesChannels) channel.Paused = false;
       foreach (Channel channel in map.WaterChannels) channel.Paused = false;
       foreach (GameCore.Item.Item item in map.Items) item.Unpause();
-      if (map.BackgroundChannel != null) map.BackgroundChannel.Paused = false;
+      map.BackgroundChannel?.Paused = false;
       if (map.Preset == MapPreset.garden) EnableAmbiTimer();
     }
     catch
