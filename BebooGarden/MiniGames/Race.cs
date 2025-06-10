@@ -78,33 +78,8 @@ internal class Race : IMiniGame
     else if (second.Item1 == 0) contesterScore = second.Item2;
     else if (first.Item1 == 0) contesterScore = first.Item2;
     RaceScores[this.RaceType] = contesterScore;
-    new RaceResult(third, second, first)
-²      .Show();
-    Game1.Instance.Map?.Beboos[1].Pause();
-    Game1.Instance.Map?.Beboos[2].Pause();
-    Game1.Instance.Map?.Beboos.Clear();
-    Game1.Instance.LoadBackedMap();
-    MainBeboo.Position = new(0, 0, 0);
-    MainBeboo.Destination = new(0, 0, 0);
-    Game1.Instance.SoundSystem.PlayCinematic(Game1.Instance.SoundSystem.CinematicRaceEnd);
-    Game1.Instance.ChangeMapMusic();
-    IsARaceRunning = false;
-    if (first.Item1 == 0)
-    {
-      switch (RaceType)
-      {
-        case RaceType.Base: Game1.Instance.GainTicket(2); break;
-        case RaceType.Snowy: Game1.Instance.GainTicket(3); break;
-      }
-      TotalWin++;
-      MainBeboo.Happiness += 2;
-      MainBeboo.Energy -= 1;
-    }
-    else
-    {
-      MainBeboo.Happiness--;
-      MainBeboo.Energy -= 2;
-    }
+    new RaceResult(third, second, first, MainBeboo, RaceType)
+      .Show();
   }
   (int, double) first = (-1, 0), second = (-1, 0), third = (-1, 0);
 

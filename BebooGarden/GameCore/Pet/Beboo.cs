@@ -216,7 +216,7 @@ public partial class Beboo
       if (SwimLevel <= 1 || (SwimLevel < 10 && Game1.Instance.Random.Next(SwimLevel) == 1))
       {
         StartPanik();
-        Destination = Game1.Instance.Map.GenerateRandomUnoccupedPosition(true);  
+        Destination = Game1.Instance.Map.GenerateRandomUnoccupedPosition(true);
       }
     }
     else if (Game1.Instance.Map?.Preset == MapPreset.snowy)
@@ -511,16 +511,19 @@ public partial class Beboo
   {
     if (friend.Channel != null && friend.Channel.IsPlaying) return;
     var songsList = SoundSystem.GetBebooSounds(Game1.Instance.SoundSystem.BebooSongSounds, this);
-    var randomSong = songsList[Game1.Instance.Random.Next(songsList.Count)];
     var songsListFriend = SoundSystem.GetBebooSounds(Game1.Instance.SoundSystem.BebooSongSounds, friend);
-    var randomSongFriend = songsList[Game1.Instance.Random.Next(songsListFriend.Count)];
-    Game1.Instance.SoundSystem.PlayBebooSound(randomSong, this);
-    Task.Run(async () =>
+    if (songsList.Count > 0 && songsListFriend.Count > 0)
     {
-      await Task.Delay(100);
-      Game1.Instance.SoundSystem.PlayBebooSound(randomSongFriend, friend);
-    });
-    Happiness++;
-    friend.Happiness++;
+      var randomSong = songsList[Game1.Instance.Random.Next(songsList.Count)];
+      var randomSongFriend = songsList[Game1.Instance.Random.Next(songsListFriend.Count)];
+      Game1.Instance.SoundSystem.PlayBebooSound(randomSong, this);
+      Task.Run(async () =>
+      {
+        await Task.Delay(100);
+        Game1.Instance.SoundSystem.PlayBebooSound(randomSongFriend, friend);
+      });
+      Happiness++;
+      friend.Happiness++;
+    }
   }
-} 
+}

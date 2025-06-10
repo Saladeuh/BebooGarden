@@ -436,8 +436,8 @@ internal class SoundSystem
   public static List<Sound> GetBebooSounds(Dictionary<BebooType, List<Sound>> sounds, Beboo beboo)
   {
     List<Sound> soundsList;
-    if (sounds.TryGetValue(beboo.BebooType, out soundsList) && soundsList.Count > 0) { }
-    else soundsList = sounds[BebooType.Base];
+    if (!sounds.TryGetValue(beboo.BebooType, out soundsList) || soundsList.Count <= 0) 
+      soundsList = sounds[BebooType.Base];
     return soundsList;
   }
 
