@@ -81,7 +81,7 @@ public class TreeLine
     if (RegenerateBehaviour.ItsTime())
     {
       Regenerate();
-      RegenerateBehaviour.Timer = DateTime.Now;
+      RegenerateBehaviour.Done();
     }
   }
 }

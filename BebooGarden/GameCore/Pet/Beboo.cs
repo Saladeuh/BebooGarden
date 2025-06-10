@@ -14,7 +14,6 @@ public partial class Beboo
 {
   private float _energy;
   private Vector3? _goalPosition;
-  private int _hapiness;
   private DateTime _lastPetted = DateTime.MinValue;
 
   private int _petCount;
@@ -49,12 +48,15 @@ public partial class Beboo
       new TimedBehaviour(15000, 25000, !isSleepingAtStart);
     MoveBehaviour =
         new TimedBehaviour(200, 400, !isSleepingAtStart);
+    GoToSleepOrWakeUpBehaviour =
+        new TimedBehaviour(10000, 150000, true);
     FancyMoveBehaviour =
         new TimedBehaviour(10000, 20000, true);
     GoingTiredBehaviour =
         new TimedBehaviour(60000 * 3, 60000 * 6, !isSleepingAtStart || !racer);
     GoingSadBehaviour =
         new TimedBehaviour(120000, 150000, !racer);
+    EmotionBehaviour = new TimedBehaviour(1000, 1500, true);
     CryBehaviour =
       new TimedBehaviour(5000, 15000, false);
     SleepingBehaviour = new(5000, 10000, isSleepingAtStart);
@@ -121,34 +123,16 @@ public partial class Beboo
     set
     {
       value = Math.Clamp(value, -10, MaxEnergy);
-      if (_energy > value && ((Happy && value <= 0) || (!Happy && value <= -1))) GoAsleep();
-      else if (_energy < value && _energy >= 2)
-        Task.Run(async () =>
-        {
-          await Task.Delay(1000);
-          WakeUp();
-        });
       _energy = value;
     }
   }
 
   public int Happiness
   {
-    get => _hapiness;
+    get;
     set
     {
-      value = Math.Clamp(value, -10, MaxHappinness);
-      if (_hapiness > value && value <= 0) BurstInTearrs();
-      else if (_hapiness <= 0 && value > 0)
-        Task.Run(async () =>
-        {
-          await Task.Delay(1000);
-          BeHappy();
-        });
-      if (value >= 9 && Energy > 5) BeOverexcited();
-      else if (value <= 0 && Energy < 5) BeFloppy();
-      else BeNormal();
-      _hapiness = value;
+      field = Math.Clamp(value, -10, MaxHappinness);
     }
   }
 
@@ -166,7 +150,9 @@ public partial class Beboo
 
   private TimedBehaviour GoingTiredBehaviour { get; }
   private TimedBehaviour GoingSadBehaviour { get; }
+  public TimedBehaviour EmotionBehaviour { get; private set; }
   private TimedBehaviour MoveBehaviour { get; }
+  public TimedBehaviour GoToSleepOrWakeUpBehaviour { get; private set; }
   private TimedBehaviour FancyMoveBehaviour { get; }
   private TimedBehaviour CryBehaviour { get; }
   private TimedBehaviour SleepingBehaviour { get; }
@@ -254,7 +240,7 @@ public partial class Beboo
   private void PlayArround()
   {
     var proximityBeboos = Game1.Instance.Map?.GetBeboosArround(Position);
-    proximityBeboos.Remove(this);
+    (proximityBeboos ??= []).Remove(this);
     if (Game1.Instance.Random.Next(4) == 1)
     {
       Item.Item? proximityItem = Game1.Instance.Map?.GetItemArroundPosition(Position);
@@ -275,7 +261,8 @@ public partial class Beboo
   private void InteractWith(Beboo friend)
   {
     if (friend.Sleeping) ForceWakeUp(friend);
-    else if (Game1.Instance.Map.IsDansePlaying) SingWith(friend);
+    else if (Game1.Instance.Map?.IsDansePlaying ?? false) 
+      SingWith(friend);
     else
     {
       var rnd = Game1.Instance.Random.Next(5);
@@ -339,7 +326,7 @@ public partial class Beboo
   public void GoAsleep()
   {
     if (Sleeping) return;
-    if (SwimLevel >= 10 || Game1.Instance.Map.Preset == MapPreset.underwater || (Game1.Instance.Map != null && !Game1.Instance.Map.IsInLake(Position)))
+    if (SwimLevel >= 10 || Game1.Instance.Map?.Preset == MapPreset.underwater || (!Game1.Instance.Map?.IsInLake(Position) ?? false))
     {
       CrossSpeakManager.Instance.Output(String.Format(GameText.beboo_gosleep, Name));
       GoingTiredBehaviour.Stop();

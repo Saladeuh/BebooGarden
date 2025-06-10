@@ -78,7 +78,7 @@ internal class SnowBall : Item
         }
       }
       if (Game1.Instance.Random.Next(8) == 1) Direction = null;
-      MoveBehaviour.Timer = System.DateTime.Now;
+      MoveBehaviour.Done();
     }
   }
 }

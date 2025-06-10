@@ -21,13 +21,13 @@ public class TimedBehaviour
   public int MinMS { get; set; }
   public int MaxMS { get; set; }
   private bool Enabled { get; set; }
-  public DateTime Timer = DateTime.Now;
+  private DateTime _timer = DateTime.Now;
   private int _defaultMinMS;
   private int _defaultMaxMS;
 
   public bool ItsTime()
   {
-    var elapsedms = (DateTime.Now - Timer).TotalMilliseconds;
+    var elapsedms = (DateTime.Now - _timer).TotalMilliseconds;
     return Enabled && elapsedms >= Game1.Instance.Random.Next(MinMS, MaxMS);
   }
   public void Start() => Enabled = true;
@@ -35,7 +35,7 @@ public class TimedBehaviour
 
   public void Start(int delayMS)
   {
-    Timer = (DateTime.Now - TimeSpan.FromMilliseconds(delayMS));
+    _timer = (DateTime.Now - TimeSpan.FromMilliseconds(delayMS));
     Enabled = true;
   }
 
@@ -45,4 +45,5 @@ public class TimedBehaviour
     MaxMS = _defaultMaxMS;
     Start();
   }
+  public void Done() => _timer = DateTime.Now;
 }

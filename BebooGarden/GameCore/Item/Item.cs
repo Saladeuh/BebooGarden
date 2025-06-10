@@ -64,7 +64,7 @@ public abstract class Item
     if (SoundLoopBeahaviour.ItsTime())
     {
       PlaySound();
-      SoundLoopBeahaviour.Timer = DateTime.Now;
+      SoundLoopBeahaviour.Done();
     }
   }
 

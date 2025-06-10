@@ -167,7 +167,7 @@ public class Map
     if (TicketPopBehaviour.ItsTime())
     {
       PopTicketPack();
-      TicketPopBehaviour.Timer = DateTime.Now;
+      TicketPopBehaviour.Done();
     }
     if (SnowBallPopBehaviour.ItsTime())
     {
@@ -177,7 +177,7 @@ public class Map
         Vector3 randPos = GenerateRandomUnoccupedPosition();
         AddItem(new SnowBall(), randPos);
       }
-      SnowBallPopBehaviour.Timer = DateTime.Now;
+      SnowBallPopBehaviour.Done();
     }
     if (BubblePopBehaviour.ItsTime())
     {
@@ -187,7 +187,7 @@ public class Map
         Vector3 randPos = GenerateRandomUnoccupedPosition(false);
         AddItem(new Bubble(), randPos);
       }
-      BubblePopBehaviour.Timer = DateTime.Now;
+      BubblePopBehaviour.Done();
     }
   }
 }

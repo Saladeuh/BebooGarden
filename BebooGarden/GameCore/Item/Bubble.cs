@@ -99,13 +99,13 @@ internal class Bubble : Item
         }
       }
       if (Game1.Instance.Random.Next(8) == 1) Direction = null;
-      MoveBehaviour.Timer = DateTime.Now;
+      MoveBehaviour.Done();
     }
     if (SlowDriftBehaviour.ItsTime()) {
       if (Direction != null || Position == null) return;
       Direction = Util.DIRECTIONS[Game1.Instance.Random.Next(Util.DIRECTIONS.Length)];
       Game1.Instance.SoundSystem.PlaySoundAtPosition(Game1.Instance.SoundSystem.BubbleUpSound, Position.Value);
-      SlowDriftBehaviour.Timer = DateTime.Now;
+      SlowDriftBehaviour.Done();
     }
   }
 }

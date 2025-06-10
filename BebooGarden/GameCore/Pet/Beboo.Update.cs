@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using info.lundin.math;
+using Microsoft.Xna.Framework;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +19,7 @@ public partial class Beboo
       if (!Sleeping)
       {
         DoCuteThing();
-        CuteBehaviour.Timer = DateTime.Now;
+        CuteBehaviour.Done();
       }
     }
     if (MoveBehaviour.ItsTime())
@@ -25,8 +27,24 @@ public partial class Beboo
       if (!Sleeping)
       {
         MoveTowardGoal();
-        MoveBehaviour.Timer = DateTime.Now;
+        MoveBehaviour.Done();
       }
+    }
+    if (GoToSleepOrWakeUpBehaviour.ItsTime())
+    {
+      if (!Sleeping && Energy <= 0)
+      {
+        GoAsleep();
+      }
+      else if (Sleeping && Energy > 2)
+      {
+        Task.Run(async () =>
+        {
+          await Task.Delay(1000);
+          WakeUp();
+        });
+      }
+      GoToSleepOrWakeUpBehaviour.Done();
     }
     if (FancyMoveBehaviour.ItsTime())
     {
@@ -34,7 +52,7 @@ public partial class Beboo
       {
         if (Happy || (!Happy && Game1.Instance.Random.Next(3) == 1))
           WannaGoToRandomPlace();
-        FancyMoveBehaviour.Timer = DateTime.Now;
+        FancyMoveBehaviour.Done();
       }
     }
     if (GoingTiredBehaviour.ItsTime())
@@ -42,7 +60,7 @@ public partial class Beboo
       if (!Sleeping)
       {
         Energy--;
-        GoingTiredBehaviour.Timer = DateTime.Now;
+        GoingTiredBehaviour.Done();
       }
     }
     if (GoingSadBehaviour.ItsTime())
@@ -50,15 +68,34 @@ public partial class Beboo
       if (!Sleeping)
       {
         Happiness--;
-        GoingSadBehaviour.Timer = DateTime.Now;
+        GoingSadBehaviour.Done();
       }
+    }
+    if (EmotionBehaviour.ItsTime())
+    {
+      if (Happy && Happiness <= 0)
+        BurstInTearrs();
+      else if (!Happy && Happiness > 0)
+      {
+        Task.Run(async () =>
+        {
+          await Task.Delay(1000);
+          BeHappy();
+        });
+      }
+      if (Energy > 5 && Happiness >= 9)
+        BeOverexcited();
+      else if (Happiness <= 0 && Energy < 5)
+        BeFloppy();
+      else BeNormal();
+      EmotionBehaviour.Done();
     }
     if (CryBehaviour.ItsTime())
     {
       if (!Sleeping)
       {
         Game1.Instance.SoundSystem.PlayBebooSound(Game1.Instance.SoundSystem.BebooCrySounds, this);
-        CryBehaviour.Timer = DateTime.Now;
+        CryBehaviour.Done();
       }
     }
     if (SleepingBehaviour.ItsTime())
@@ -67,7 +104,7 @@ public partial class Beboo
       {
         Energy += 0.10f;
         Game1.Instance.SoundSystem.PlayBebooSound(Game1.Instance.SoundSystem.BebooSleepingSounds, this, true, 0.3f);
-        CuteBehaviour.Timer = DateTime.Now;
+        CuteBehaviour.Done(); ;
       }
     }
     //+0.1 every 3mn=1lvl/30mn
@@ -76,7 +113,7 @@ public partial class Beboo
       if (Energy >= 2 && Happiness >= 2)
       {
         Age += 0.1f;
-        GrowthBehaviour.Timer = DateTime.Now;
+        GrowthBehaviour.Done();
       }
     }
   }
