@@ -12,8 +12,7 @@ namespace BebooGarden.GameCore.Pet;
 
 public partial class Beboo
 {
-  private float _energy;
-  private Vector3? _goalPosition;
+  private Vector3? _destination;
   private DateTime _lastPetted = DateTime.MinValue;
 
   private int _petCount;
@@ -119,11 +118,11 @@ public partial class Beboo
 
   public float Energy
   {
-    get => _energy;
+    get;
     set
     {
       value = Math.Clamp(value, -10, MaxEnergy);
-      _energy = value;
+      field = value;
     }
   }
 
@@ -144,8 +143,8 @@ public partial class Beboo
 
   public Vector3? Destination
   {
-    get => _goalPosition;
-    set => _goalPosition = value.HasValue ? Game1.Instance.Map?.Clamp(value.Value) : null;
+    get;
+    set => _destination = value.HasValue ? Game1.Instance.Map?.Clamp(value.Value) : null;
   }
 
   private TimedBehaviour GoingTiredBehaviour { get; }

@@ -24,7 +24,9 @@ public partial class Game1
     {
       CrossSpeakManager.Instance.Output(GameText.nobeboo);
     }
-    foreach (Beboo beboo in Map?.Beboos)
+    if (Map is null) return;
+    string allSentences = "";
+    foreach (var beboo in Map.Beboos)
     {
       string sentence;
       string name = beboo.Name;
@@ -39,11 +41,13 @@ public partial class Game1
         else if (beboo.Energy < 3) sentence = GameText.beboo_littletired;
         else sentence = beboo.Happiness < 3 ? GameText.beboo_littlesad : (beboo.Energy < 8 ? GameText.beboo_good : GameText.beboo_verygood);
       }
-      CrossSpeakManager.Instance.Output(String.Format(sentence, name));
+      allSentences += String.Format(sentence, name);
 #if DEBUG
-      ScreenReader.Output(beboo.Age.ToString());
+      allSentences += $"\n{beboo.Age}";
 #endif
+      allSentences += "\n";
     }
+    CrossSpeakManager.Instance.Output(allSentences);
   }
   private void FeedBeboo()
   {
@@ -70,15 +74,14 @@ public partial class Game1
     if (choice != FruitSpecies.None)
     {
       Beboo? bebooUnderCursor = BebooUnderCursor();
-      bebooUnderCursor.Eat(choice);
+      bebooUnderCursor?.Eat(choice);
       Save.FruitsBasket[choice]--;
     }
   }
 
   public void ChooseBebooForRace()
   {
-    Beboo? beboo = null;
-    if (Map.Beboos.Count > 0)
+    if (Map?.Beboos.Count > 0)
     {
       if (Map.Beboos.Count > 1)
       {
