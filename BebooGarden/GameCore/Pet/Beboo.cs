@@ -12,7 +12,6 @@ namespace BebooGarden.GameCore.Pet;
 
 public partial class Beboo
 {
-  private Vector3? _destination;
   private DateTime _lastPetted = DateTime.MinValue;
 
   private int _petCount;
@@ -44,7 +43,7 @@ public partial class Beboo
     bool isSleepingAtStart = !racer && (DateTime.Now.Hour < 8 || DateTime.Now.Hour > 22);
     Sleeping = isSleepingAtStart;
     CuteBehaviour =
-      new TimedBehaviour(15000, 25000, !isSleepingAtStart);
+      new TimedBehaviour(10000, 35000, !isSleepingAtStart);
     MoveBehaviour =
         new TimedBehaviour(200, 400, !isSleepingAtStart);
     GoToSleepOrWakeUpBehaviour =
@@ -81,7 +80,7 @@ public partial class Beboo
         break;
     }
     Energy = elapsedTime.TotalHours > 8 ? 5 : energy;
-    Energy = elapsedTime.TotalDays > 2? 7 : energy;
+    Energy = elapsedTime.TotalDays > 2 ? 7 : energy;
     //SpeechRecognizer = new BebooSpeechRecognition(this);
     //SpeechRecognizer.BebooCalled += Call;
   }
@@ -143,7 +142,7 @@ public partial class Beboo
   public Vector3? Destination
   {
     get;
-    set => _destination = value.HasValue ? Game1.Instance.Map?.Clamp(value.Value) : null;
+    set => field = value.HasValue ? Game1.Instance.Map?.Clamp(value.Value) : null;
   }
 
   private TimedBehaviour GoingTiredBehaviour { get; }
@@ -259,7 +258,7 @@ public partial class Beboo
   private void InteractWith(Beboo friend)
   {
     if (friend.Sleeping) ForceWakeUp(friend);
-    else if (Game1.Instance.Map?.IsDansePlaying ?? false) 
+    else if (Game1.Instance.Map?.IsDansePlaying ?? false)
       SingWith(friend);
     else
     {
@@ -430,24 +429,18 @@ public partial class Beboo
     MoveBehaviour.Stop();
     GoingSadBehaviour.Stop();
     CryBehaviour.Stop();
-    SleepingBehaviour.Stop();
-    GrowthBehaviour.Stop();
   }
   public void Unpause()
   {
     Paused = false;
-    if (Sleeping) SleepingBehaviour.Start();
-    else
+    SleepingBehaviour.Start();
+    if (Happy)
     {
-      if (Happy)
-      {
-        CuteBehaviour.Start();
-      }
-      else CryBehaviour.Start();
-      MoveBehaviour.Start();
+      CuteBehaviour.Start();
     }
+    else CryBehaviour.Start();
+    MoveBehaviour.Start();
     GoingSadBehaviour.Start();
-    GrowthBehaviour.Start();
   }
   public void Call(object? sender, EventArgs eventArgs)
   {
