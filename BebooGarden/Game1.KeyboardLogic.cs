@@ -39,8 +39,8 @@ public partial class Game1
       if ((DateTime.Now - LastPressedKeyTime).TotalMilliseconds > 150)
       {
         if (currentKeyboardState.IsKeyDown(Keys.Left)
-        || WASD && currentKeyboardState.IsKeyDown(Keys.A)
-        || !WASD && currentKeyboardState.IsKeyDown(Keys.Q))
+        || Wasd && currentKeyboardState.IsKeyDown(Keys.A)
+        || !Wasd && currentKeyboardState.IsKeyDown(Keys.Q))
         {
           MoveOf(new Vector3(-1, 0, 0));
         }
@@ -49,8 +49,8 @@ public partial class Game1
           MoveOf(new Vector3(1, 0, 0));
         }
         else if (currentKeyboardState.IsKeyDown(Keys.Up)
-          || WASD && IsKeyPressed(currentKeyboardState, Keys.W)
-          || !WASD && currentKeyboardState.IsKeyDown(Keys.Z))
+          || Wasd && IsKeyPressed(currentKeyboardState, Keys.W)
+          || !Wasd && currentKeyboardState.IsKeyDown(Keys.Z))
         {
           if (currentKeyboardState.IsKeyDown(Keys.Enter))
           {
@@ -66,8 +66,8 @@ public partial class Game1
           }
         }
         else if (currentKeyboardState.IsKeyDown(Keys.Down)
-          || WASD && currentKeyboardState.IsKeyDown(Keys.S)
-          || !WASD && currentKeyboardState.IsKeyDown(Keys.S))
+          || Wasd && currentKeyboardState.IsKeyDown(Keys.S)
+          || !Wasd && currentKeyboardState.IsKeyDown(Keys.S))
         {
           if (currentKeyboardState.IsKeyDown(Keys.Enter))
           {

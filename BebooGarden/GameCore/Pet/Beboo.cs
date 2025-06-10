@@ -63,7 +63,6 @@ public partial class Beboo
     GrowthBehaviour = new(3000 * 60, 3000 * 60, !racer);
     TimeSpan elapsedTime = DateTime.Now - lastPlayed;
     Happiness = elapsedTime.TotalHours > 4 ? 3 : happiness;
-    Happiness = elapsedTime.TotalDays > 2 ? 0 : happiness;
     Age = age;
     KnowItsName = age > 2;
     switch (age)
@@ -81,8 +80,8 @@ public partial class Beboo
         MaxHappinness = 20;
         break;
     }
-    Energy = elapsedTime.TotalHours > 8 ? 3 : 10;
-    Energy = elapsedTime.TotalDays > 2 ? 1 : 5;
+    Energy = elapsedTime.TotalHours > 8 ? 5 : energy;
+    Energy = elapsedTime.TotalDays > 2? 7 : energy;
     //SpeechRecognizer = new BebooSpeechRecognition(this);
     //SpeechRecognizer.BebooCalled += Call;
   }

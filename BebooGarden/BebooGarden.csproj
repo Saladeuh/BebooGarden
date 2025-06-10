@@ -7,7 +7,8 @@
     <TieredCompilation>false</TieredCompilation>
 		<LangVersion>preview</LangVersion>
 		<Nullable>enable</Nullable>
-	</PropertyGroup>
+	  <UserSecretsId>68536503-09e2-4512-b4c2-e12d8fae3534</UserSecretsId>
+  </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
@@ -34,6 +35,8 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Fmod5Sharp" Version="3.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.6" />
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.2.1105" />
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.2.1105" />
     <PackageReference Include="Myra" Version="1.5.9" />

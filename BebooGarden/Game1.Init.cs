@@ -27,7 +27,7 @@ public partial class Game1
   protected override void Initialize()
   {
     base.Initialize();
-    this.Exiting += onExit;
+    this.Exiting += OnExit;
     CrossSpeakManager.Instance.Initialize();
     // create hook to get keyboard and simulated keyboard (e.g. screen readers inputs) 
     TaskPoolGlobalHook hook = new();

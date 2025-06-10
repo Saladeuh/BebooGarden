@@ -16,16 +16,6 @@ namespace BebooGarden;
 
 public partial class Game1
 {
-  public SoundEffect UIConfirmSound { get => _UiConfirmSound; private set => _UiConfirmSound = value; }
-  public SoundEffect UIGoodSound { get; private set; }
-  public SoundEffect UIVictorySound { get; private set; }
-  public SoundEffect UIFailSound { get; private set; }
-  public SoundEffect UIViewScrollSound { get; private set; }
-  public SoundEffect UIBackSound { get; private set; }
-  private SoundEffect _UiConfirmSound;
-  private Song _titleScreenSong;
-  private Song _brailleTableViewSong;
-  private Song _basicPracticeSong;
   protected override void LoadContent()
   {
     _spriteBatch = new SpriteBatch(GraphicsDevice);

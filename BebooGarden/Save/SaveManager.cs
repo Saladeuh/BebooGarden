@@ -33,11 +33,14 @@ public class SaveManager
       string json = r.ReadToEnd();
       try
       {
-        json = StringCipher.Decrypt(json, Secrets.SAVEKEY);
+#if DEBUG
+        json = StringCipher.Decrypt(json, Game1.Instance.Config["Save:Key"]);
+#endif
       }
       catch (FormatException)
       {
       }
+
 
       SaveParameters parameters = JsonConvert.DeserializeObject<SaveParameters>(json, Settings);
       return parameters;
