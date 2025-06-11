@@ -38,17 +38,13 @@ public partial class Beboo
       }
       else if (Sleeping && Energy > 2)
       {
-        Task.Run(async () =>
-        {
-          await Task.Delay(1000);
-          WakeUp();
-        });
+        WakeUp();
+        GoToSleepOrWakeUpBehaviour.Done();
       }
-      GoToSleepOrWakeUpBehaviour.Done();
     }
     if (FancyMoveBehaviour.ItsTime())
     {
-      if (!Sleeping)
+      if (!Sleeping && !Racer)
       {
         if (Happy || (!Happy && Game1.Instance.Random.Next(3) == 1))
           WannaGoToRandomPlace();
@@ -65,13 +61,13 @@ public partial class Beboo
     }
     if (GoingSadBehaviour.ItsTime())
     {
-      if (!Sleeping)
+      if (!Sleeping && !Racer)
       {
         Happiness--;
         GoingSadBehaviour.Done();
       }
     }
-    if (EmotionBehaviour.ItsTime())
+    if (!Racer && EmotionBehaviour.ItsTime())
     {
       if (Happy && Happiness <= 0)
         BurstInTearrs();
@@ -92,7 +88,7 @@ public partial class Beboo
     }
     if (CryBehaviour.ItsTime())
     {
-      if (!Sleeping)
+      if (!Sleeping && !Racer)
       {
         Game1.Instance.SoundSystem.PlayBebooSound(Game1.Instance.SoundSystem.BebooCrySounds, this);
         CryBehaviour.Done();
@@ -108,7 +104,7 @@ public partial class Beboo
       }
     }
     //+0.1 every 3mn=1lvl/30mn
-    if (GrowthBehaviour.ItsTime())
+    if (!Racer && GrowthBehaviour.ItsTime())
     {
       if (Energy >= 2 && Happiness >= 2)
       {

@@ -11,7 +11,8 @@ using System.Collections.Generic;
 namespace BebooGarden;
 public partial class Game1 : Game
 {
-  public readonly GameState _gameState;
+  public GameScreen _currentScreen;
+  public GameScreen _previousGameScreen;
 
   internal SoundSystem SoundSystem { get; }
 
@@ -30,7 +31,7 @@ public partial class Game1 : Game
     _graphics = new GraphicsDeviceManager(this);
     Content.RootDirectory = "Content";
     Random = new Random();
-    _gameState = new GameState();
+    _currentScreen = GameScreen.game;
     SoundSystem = new SoundSystem();
     Instance = this; // Set the static instance
   }

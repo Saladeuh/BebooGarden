@@ -76,7 +76,7 @@ public partial class Game1
 
   private void UpdateScriptedScene(GameTime gameTime)
   {
-    if (_gameState.CurrentScreen == GameScreen.ScriptedScene)
+    if (_currentScreen == GameScreen.ScriptedScene)
     {
       _scriptedScene?.Update(gameTime);
     }
@@ -95,7 +95,7 @@ public partial class Game1
 
   private void UpdateMinigames(GameTime gameTime, KeyboardState currentKeyboardState)
   {
-    if (_gameState.CurrentScreen == GameScreen.race)
+    if (_currentScreen == GameScreen.race)
     {
       if (CurrentPlayingMiniGame.IsRunning)
       {

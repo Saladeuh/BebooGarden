@@ -24,7 +24,7 @@ public partial class Game1
   public TalkDialog? _talkDialog = null;
   public void SwitchToScreen(GameScreen screen)
   {
-    _gameState.CurrentScreen = screen;
+    _currentScreen = screen;
     switch (screen)
     {
       case GameScreen.First:
@@ -38,6 +38,12 @@ public partial class Game1
       case GameScreen.game:
         _desktop.Root = _gamePanel;
         break;
+      case GameScreen.ChooseMenu:
+        if (_aMenuShouldBeClosed)
+        {
+          _aMenuShouldBeClosed = false;
+        }
+        break;
     }
   }
 
@@ -48,12 +54,8 @@ public partial class Game1
   {
     GraphicsDevice.Clear(Color.Black);
 
-    if (_gameState.CurrentScreen == GameScreen.Shop)
-    {
-      _spriteBatch.Begin();
-      _spriteBatch.End();
-    }
-
+    _spriteBatch.Begin();
+    _spriteBatch.End();
     // Make myra interface
     _desktop.Render();
 

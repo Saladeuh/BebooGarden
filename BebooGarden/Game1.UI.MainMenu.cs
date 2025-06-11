@@ -26,7 +26,7 @@ public partial class Game1
   private Panel _teleportPanel;
   private Panel _bebooTPPanel;
   private Panel _languagesPanel;
-  public bool _aMenuShouldBeClosed;
+  public bool _aMenuShouldBeClosed = false;
 
   private void CreateEscapeMenu()
   {

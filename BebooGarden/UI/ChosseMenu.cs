@@ -18,7 +18,7 @@ public class ChooseMenu<T>
   private string _title;
   private Dictionary<string, T> _choices;
   private bool _allowCancel;
-  private bool _firstClick=true;
+  private bool _firstClick = true;
 
   public ChooseMenu(string title, Dictionary<string, T> choices, Action<T?> onItemSelected, bool allowCancel = true)
   {
@@ -63,10 +63,7 @@ public class ChooseMenu<T>
         var selectedValue = choice.Value;
         choiceButton.Click += (_, _) =>
         {
-          if (!_firstClick)
-            OnItemSelected(selectedValue);
-          else
-            _firstClick = false;
+          OnItemSelected(selectedValue);
         };
         grid.Widgets.Add(choiceButton);
       }
@@ -99,15 +96,15 @@ public class ChooseMenu<T>
   private void OnItemSelected(T item)
   {
     Game1.Instance.SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.MenuOkSound);
-    _onItemSelected?.Invoke(item);
     Close();
+    _onItemSelected?.Invoke(item);
   }
 
   private void OnCancel()
   {
     Game1.Instance.SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.MenuBackSound);
-    _onItemSelected?.Invoke(default(T)); // Passer la valeur par défaut pour indiquer l'annulation
     Close();
+    _onItemSelected?.Invoke(default(T)); // Passer la valeur par défaut pour indiquer l'annulation
   }
 
   public void Show()
@@ -122,7 +119,6 @@ public class ChooseMenu<T>
       return;
     }
     Game1.Instance._desktop.Root = _menuPanel;
-    // Définir le focus sur le premier bouton de choix disponible
     var firstChoiceButton = _menuPanel.Widgets.First()?.GetChildren()?.FirstOrDefault(w => w.Id?.StartsWith("choice_") == true);
     if (firstChoiceButton != null)
     {

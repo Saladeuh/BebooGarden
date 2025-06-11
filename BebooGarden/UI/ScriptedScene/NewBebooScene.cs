@@ -71,7 +71,7 @@ public class NewBebooScene : IScriptedScene
   }
   public void Update(GameTime gameTime)
   {
-    if (Game1.Instance._gameState.CurrentScreen != GameScreen.ScriptedScene) return;
+    if (Game1.Instance._currentScreen != GameScreen.ScriptedScene) return;
     if (!_letsNameDialogShowed)
     {
       _letsNameDialog.Show();
