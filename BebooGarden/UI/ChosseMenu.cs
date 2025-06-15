@@ -18,8 +18,7 @@ public class ChooseMenu<T>
   private string _title;
   private Dictionary<string, T> _choices;
   private bool _allowCancel;
-  private bool _firstClick = true;
-
+  
   public ChooseMenu(string title, Dictionary<string, T> choices, Action<T?> onItemSelected, bool allowCancel = true)
   {
     _title = title;

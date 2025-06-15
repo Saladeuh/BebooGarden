@@ -426,7 +426,7 @@ internal class SoundSystem
   }
 
   public void PlayBebooSound(Dictionary<BebooType, List<Sound>> sounds, Beboo beboo, bool stopOthers = true, float volume = -1)
-  {
+   {
     if (beboo.Paused) return;
     List<Sound> soundsList = new();
     soundsList = GetBebooSounds(sounds, beboo);

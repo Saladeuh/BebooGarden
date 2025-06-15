@@ -26,6 +26,11 @@ public partial class Game1
   {
     GetKeyStates(out _currentKeyboardState, out MouseState currentMouseState);
     _desktop.UpdateInput();
+    if (_aMenuShouldBeClosed)
+    {
+      SwitchToScreen(GameScreen.game);
+      _aMenuShouldBeClosed = false;
+    }
     foreach (GameCore.Pet.Beboo beboo in Map?.Beboos)
     {
       beboo.Update(gameTime);
@@ -56,7 +61,7 @@ public partial class Game1
         Map.Maps[MapPreset.underwater].AddItem(new Egg("blue"), new(0, 0, 0));
       }
     }
-    foreach(var map in Map.Maps.Values.ToList())
+    foreach (var map in Map.Maps.Values.ToList())
     {
       map?.Update(gameTime);
     }
@@ -76,10 +81,7 @@ public partial class Game1
 
   private void UpdateScriptedScene(GameTime gameTime)
   {
-    if (_currentScreen == GameScreen.ScriptedScene)
-    {
-      _scriptedScene?.Update(gameTime);
-    }
+    _scriptedScene?.Update(gameTime);
   }
 
   private void SetPreviousKeyboardStates(KeyboardState currentKeyboardState, MouseState currentMouseState)
@@ -95,18 +97,9 @@ public partial class Game1
 
   private void UpdateMinigames(GameTime gameTime, KeyboardState currentKeyboardState)
   {
-    if (_currentScreen == GameScreen.race)
+    if (CurrentPlayingMiniGame?.IsRunning ?? false)
     {
-      if (CurrentPlayingMiniGame.IsRunning)
-      {
-        CurrentPlayingMiniGame.Update(gameTime, currentKeyboardState);
-      }
-      else
-      {
-        SwitchToScreen(GameScreen.game);
-        CurrentPlayingMiniGame = null;
-        SaveManager.WriteSave(Save);
-      }
+      CurrentPlayingMiniGame?.Update(gameTime, currentKeyboardState);
     }
   }
 

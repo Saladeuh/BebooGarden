@@ -100,7 +100,7 @@ public partial class Beboo
       {
         Energy += 0.10f;
         Game1.Instance.SoundSystem.PlayBebooSound(Game1.Instance.SoundSystem.BebooSleepingSounds, this, true, 0.3f);
-        CuteBehaviour.Done(); ;
+        SleepingBehaviour.Done(); ;
       }
     }
     //+0.1 every 3mn=1lvl/30mn

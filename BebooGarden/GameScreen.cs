@@ -6,7 +6,6 @@ public enum GameScreen
   Shop,
   game,
   Settings,
-  race,
   First,
   WordPractice,
   TalkDialog,

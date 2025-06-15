@@ -47,12 +47,6 @@ public partial class Game1
         _talkDialog?.DisplayCurrentLine();
       }
     }
-    else if (_aMenuShouldBeClosed &&
-      (_currentScreen == GameScreen.MainMenu || _currentScreen == GameScreen.Shop || _currentScreen == GameScreen.ChooseMenu))
-    {
-      SwitchToScreen(GameScreen.game);
-      _aMenuShouldBeClosed = false;
-    }
     else
     {
       HandleMenuNavigation(currentKeyboardState);
@@ -171,7 +165,10 @@ public partial class Game1
         if (bebooUnderCursor != null)
         {
           if (bebooUnderCursor.Sleeping) Whistle();
-          else FeedBeboo();
+          else
+          {
+            FeedBeboo();
+          }
         }
         else if (Map?.GetTreeLineAtPosition(PlayerPosition) != null)
         {
@@ -185,6 +182,10 @@ public partial class Game1
           Whistle();
         }
       }
+    }
+    if (IsKeyPressed(currentKeyboardState, Keys.F4) && IsKeyPressed(currentKeyboardState, Keys.LeftAlt, Keys.RightAlt))
+    {
+      Exit();
     }
   }
 

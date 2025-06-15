@@ -47,6 +47,7 @@ internal class Race : IMiniGame
   }
   public void Start()
   {
+    if (IsARaceRunning) return;
     IsARaceRunning = true;
     TodayTries++;
     switch (RaceType)
@@ -78,6 +79,7 @@ internal class Race : IMiniGame
     else if (second.Item1 == 0) contesterScore = second.Item2;
     else if (first.Item1 == 0) contesterScore = first.Item2;
     RaceScores[this.RaceType] = contesterScore;
+    Game1.Instance.CurrentPlayingMiniGame = null;
     new RaceResult(third, second, first, MainBeboo, RaceType)
       .Show();
   }

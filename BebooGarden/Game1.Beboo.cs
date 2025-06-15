@@ -132,8 +132,8 @@ public partial class Game1
 
   private void OnRaceChoosed(RaceType raceType)
   {
+    if (Minigame.Race.IsARaceRunning || CurrentPlayingMiniGame != null) return;
     CurrentPlayingMiniGame = new Minigame.Race(raceType, _contester);
     CurrentPlayingMiniGame.Start();
-    SwitchToScreen(GameScreen.race);
   }
 }

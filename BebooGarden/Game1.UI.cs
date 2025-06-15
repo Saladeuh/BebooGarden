@@ -24,6 +24,7 @@ public partial class Game1
   public TalkDialog? _talkDialog = null;
   public void SwitchToScreen(GameScreen screen)
   {
+    _previousGameScreen=_currentScreen;
     _currentScreen = screen;
     switch (screen)
     {
