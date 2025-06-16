@@ -32,6 +32,7 @@ public partial class Game1
 
   private void HandleKeyboardNavigation(KeyboardState currentKeyboardState)
   {
+    if(_paused) return;
     if (_currentScreen == GameScreen.game)
     {
       MainGameKeyboardLogic(currentKeyboardState);

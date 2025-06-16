@@ -21,6 +21,7 @@ public partial class Game1
 
   public IScriptedScene? _scriptedScene;
   public KeyboardState _currentKeyboardState;
+  private bool _paused;
 
   protected override void Update(GameTime gameTime)
   {
@@ -121,6 +122,7 @@ public partial class Game1
   }
   public void Pause()
   {
+    _paused = true;
     foreach (Beboo beboo in Map?.Beboos) beboo.Pause();
     SoundSystem.DisableAmbiTimer();
     if (Map == null) return;
@@ -129,6 +131,7 @@ public partial class Game1
   }
   public void Unpause()
   {
+    _paused=false;
     foreach (Beboo beboo in Map?.Beboos) beboo.Unpause();
     SoundSystem.EnableAmbiTimer();
     if (Map == null) return;
