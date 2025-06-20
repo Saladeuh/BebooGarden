@@ -2694,3 +2694,9 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:sounds/beboo/Pink/yumy/cafe_barista_men_00000097.wav
+
+#begin sounds/beboo/cri.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beboo/cri.wav
