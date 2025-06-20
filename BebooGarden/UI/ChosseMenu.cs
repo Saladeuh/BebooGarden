@@ -84,14 +84,6 @@ public class ChooseMenu<T>
     _menuPanel.Widgets.Add(grid);
   }
 
-  private void OnEscapePressed(object? sender, GenericEventArgs<Keys> e)
-  {
-    if (e.Data == Keys.Escape && _allowCancel)
-    {
-      OnCancel();
-    }
-  }
-
   private void OnItemSelected(T item)
   {
     Game1.Instance.SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.MenuOkSound);
@@ -103,7 +95,7 @@ public class ChooseMenu<T>
   {
     Game1.Instance.SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.MenuBackSound);
     Close();
-    _onItemSelected?.Invoke(default(T)); // Passer la valeur par défaut pour indiquer l'annulation
+    _onItemSelected?.Invoke(default(T));
   }
 
   public void Show()

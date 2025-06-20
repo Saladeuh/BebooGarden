@@ -32,8 +32,7 @@ public partial class Game1
 
   private void HandleKeyboardNavigation(KeyboardState currentKeyboardState)
   {
-    if(_paused) return;
-    if (_currentScreen == GameScreen.game)
+    if (_currentScreen == GameScreen.game && !_paused)
     {
       MainGameKeyboardLogic(currentKeyboardState);
     }
@@ -150,7 +149,7 @@ public partial class Game1
         }
       }
     }
-    if (currentKeyboardState.IsKeyDown(Keys.Escape))
+    if (IsKeyPressed(currentKeyboardState, Keys.Escape) && !EscapeJustPressed)
     {
       SwitchToScreen(GameScreen.MainMenu);
     }
@@ -208,6 +207,10 @@ public partial class Game1
       {
         button.DoClick();
       }
+    }
+    if (IsKeyPressed(currentKeyboardState, Keys.Escape) && !EscapeJustPressed)
+    {
+      _aMenuShouldBeClosed = true;
     }
   }
 

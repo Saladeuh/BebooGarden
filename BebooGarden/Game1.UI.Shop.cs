@@ -15,8 +15,8 @@ namespace BebooGarden;
 public partial class Game1
 {
   private Panel _mainShopPanel;
-  private Panel _itemsPanel;
-  private Panel _rollsPanel;
+  private Panel _itemsSopPanel;
+  private Panel _rollsShopPanel;
 
   private void CreateShopMenus()
   {
@@ -77,16 +77,11 @@ public partial class Game1
     mainGrid.Widgets.Add(closeButton);
 
     _mainShopPanel.Widgets.Add(mainGrid);
-
-    foreach (var widget in mainGrid.Widgets)
-    {
-      //dget.KeyDown += OnEscapePressed;
-    }
   }
 
   private void CreateItemsMenu()
   {
-    _itemsPanel = new Panel();
+    _itemsSopPanel = new Panel();
 
     VerticalStackPanel grid = new()
     {
@@ -146,17 +141,13 @@ public partial class Game1
     };
     grid.Widgets.Add(backButton);
 
-    _itemsPanel.Widgets.Add(grid);
+    _itemsSopPanel.Widgets.Add(grid);
 
-    foreach (var widget in grid.Widgets)
-    {
-      widget.KeyDown += OnEscapePressed;
-    }
   }
 
   private void CreateRollsMenu()
   {
-    _rollsPanel = new Panel();
+    _rollsShopPanel = new Panel();
 
     VerticalStackPanel grid = new()
     {
@@ -215,12 +206,7 @@ public partial class Game1
     };
     grid.Widgets.Add(backButton);
 
-    _rollsPanel.Widgets.Add(grid);
-
-    foreach (var widget in grid.Widgets)
-    {
-      widget.KeyDown += OnEscapePressed;
-    }
+    _rollsShopPanel.Widgets.Add(grid);
   }
 
   private void OnEscapePressed(object? sender, GenericEventArgs<Keys> e)
@@ -246,7 +232,6 @@ public partial class Game1
   {
     _desktop.Root = _mainShopPanel;
 
-    // Définir le focus sur le premier bouton
     var itemsButton = _mainShopPanel.FindWidgetById("itemsButton");
     if (itemsButton != null)
     {
@@ -260,10 +245,10 @@ public partial class Game1
 
     // Recréer le menu des objets pour actualiser les données
     CreateItemsMenu();
-    _desktop.Root = _itemsPanel;
+    _desktop.Root = _itemsSopPanel;
 
     // Définir le focus sur le premier élément disponible
-    var firstButton = _itemsPanel.Widgets.First()?.GetChildren()?.FirstOrDefault(w => w.Id?.StartsWith("item_") == true);
+    var firstButton = _itemsSopPanel.Widgets.First()?.GetChildren()?.FirstOrDefault(w => w.Id?.StartsWith("item_") == true);
     if (firstButton != null)
     {
       _desktop.FocusedKeyboardWidget = firstButton;
@@ -275,11 +260,11 @@ public partial class Game1
     SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.MenuOkSound);
 
     // Recréer le menu des rouleaux pour actualiser les données
-    CreateRollsMenu();
-    _desktop.Root = _rollsPanel;
+   CreateRollsMenu();
+    _desktop.Root = _rollsShopPanel;
 
     // Définir le focus sur le premier élément disponible
-    var firstButton = _rollsPanel.Widgets.First()?.GetChildren()?.FirstOrDefault(w => w.Id?.StartsWith("roll_") == true);
+    var firstButton = _rollsShopPanel.Widgets.First()?.GetChildren()?.FirstOrDefault(w => w.Id?.StartsWith("roll_") == true);
     if (firstButton != null)
     {
       _desktop.FocusedKeyboardWidget = firstButton;
@@ -309,5 +294,6 @@ public partial class Game1
     SoundSystem.PlayCinematic(SoundSystem.CinematicElevator, false);
     Game1.Instance.ChangeMapMusic();
     Game1.Instance.Unpause();
+    SwitchToScreen(GameScreen.game);
   }
 }

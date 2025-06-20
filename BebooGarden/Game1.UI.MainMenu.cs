@@ -37,7 +37,6 @@ public partial class Game1
       HorizontalAlignment = HorizontalAlignment.Center,
       VerticalAlignment = VerticalAlignment.Center
     };
-
     Label titleLabel = new()
     {
       Text = GameText.ui_mainmenu,
@@ -133,16 +132,10 @@ public partial class Game1
     {
       //dget.KeyDown += OnEscapePressed;
     }
+    PreviousPanels[_escapeMenuPanel] = _gamePanel;
     _desktop.FocusedKeyboardWidget = inventoryButton;
   }
 
-  private void OnEscapePressedMainMenu(object? sender, GenericEventArgs<Keys> e)
-  {
-    if (e.Data == Keys.Escape)
-    {
-      CloseEscapeMenu();
-    }
-  }
 
   private void ShowInventoryMenu()
   {
@@ -207,6 +200,7 @@ public partial class Game1
     grid.Widgets.Add(backButton);
 
     _inventoryPanel.Widgets.Add(grid);
+    PreviousPanels[_inventoryPanel] = _escapeMenuPanel;
     _desktop.Root = _inventoryPanel;
   }
 
@@ -279,6 +273,7 @@ public partial class Game1
     grid.Widgets.Add(backButton);
 
     _teleportPanel.Widgets.Add(grid);
+    PreviousPanels[_teleportPanel] = _escapeMenuPanel;
     _desktop.Root = _teleportPanel;
   }
 
@@ -336,6 +331,7 @@ public partial class Game1
     grid.Widgets.Add(backButton);
 
     _bebooTPPanel.Widgets.Add(grid);
+    PreviousPanels[_bebooTPPanel] = _escapeMenuPanel;
     _desktop.Root = _bebooTPPanel;
   }
 
@@ -387,6 +383,7 @@ public partial class Game1
     grid.Widgets.Add(backButton);
 
     _languagesPanel.Widgets.Add(grid);
+    PreviousPanels[_languagesPanel] = _escapeMenuPanel;
     _desktop.Root = _languagesPanel;
   }
 

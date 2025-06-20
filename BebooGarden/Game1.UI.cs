@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 using Myra.Graphics2D.UI;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
@@ -22,6 +23,8 @@ public partial class Game1
   public Desktop _desktop;
   private Panel _gamePanel;
   public TalkDialog? _talkDialog = null;
+  public Dictionary<Panel, Panel> PreviousPanels { get; set; } = [];
+
   public void SwitchToScreen(GameScreen screen)
   {
     _previousGameScreen=_currentScreen;

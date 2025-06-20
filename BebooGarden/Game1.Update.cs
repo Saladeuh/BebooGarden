@@ -9,6 +9,7 @@ using BebooGarden.UI.ScriptedScene;
 using CrossSpeak;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Myra.Graphics2D.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,15 +24,13 @@ public partial class Game1
   public KeyboardState _currentKeyboardState;
   private bool _paused;
 
+  public bool EscapeJustPressed { get; set; }
+
   protected override void Update(GameTime gameTime)
   {
     GetKeyStates(out _currentKeyboardState, out MouseState currentMouseState);
     _desktop.UpdateInput();
-    if (_aMenuShouldBeClosed)
-    {
-      SwitchToScreen(GameScreen.game);
-      _aMenuShouldBeClosed = false;
-    }
+    CloseMenuIfNeeded();
     foreach (GameCore.Pet.Beboo beboo in Map?.Beboos)
     {
       beboo.Update(gameTime);
@@ -80,6 +79,38 @@ public partial class Game1
     base.Update(gameTime);
   }
 
+  private void CloseMenuIfNeeded()
+  {
+    if (_aMenuShouldBeClosed)
+    {
+      SoundSystem.System.PlaySound(SoundSystem.MenuBackSound);
+      if (PreviousPanels.TryGetValue((Panel)_desktop.Root, out var previousPanal))
+      {
+        if (previousPanal == _gamePanel)
+        {
+          SwitchToScreen(GameScreen.game);
+        }
+        else
+        {
+          _desktop.Root = previousPanal;
+        }
+      }
+      else if (_desktop.Root == _mainShopPanel)
+      {
+        CloseShop();
+      }
+      else if (_desktop.Root == _itemsSopPanel || _desktop.Root == _rollsShopPanel)
+      {
+        ShowMainShopMenu();
+      }
+      else
+      {
+        SwitchToScreen(GameScreen.game);
+      }
+      _aMenuShouldBeClosed = false;
+    }
+  }
+
   private void UpdateScriptedScene(GameTime gameTime)
   {
     _scriptedScene?.Update(gameTime);
@@ -117,8 +148,19 @@ public partial class Game1
         allPressedKeys = allPressedKeys.Distinct().ToList();
       }
     }
+    if (EscapeJustPressed)
+    {
+      allPressedKeys.RemoveAll(key => key == Keys.Escape);
+      EscapeJustPressed = false;
+    }
     currentKeyboardState = new(allPressedKeys.ToArray());
     currentMouseState = Mouse.GetState();
+  }
+  public void RemoveEscapeKey()
+  {
+    List<Keys> allPressedKeys = _currentKeyboardState.GetPressedKeys().ToList();
+    allPressedKeys.RemoveAll(key => key == Keys.Escape);
+    _currentKeyboardState = new(allPressedKeys.ToArray());
   }
   public void Pause()
   {
@@ -131,7 +173,7 @@ public partial class Game1
   }
   public void Unpause()
   {
-    _paused=false;
+    _paused = false;
     foreach (Beboo beboo in Map?.Beboos) beboo.Unpause();
     SoundSystem.EnableAmbiTimer();
     if (Map == null) return;
