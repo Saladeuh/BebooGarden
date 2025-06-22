@@ -87,7 +87,7 @@ public partial class Game1 : Game
          raceTotalWin: Race.TotalWin,
          musicVolume: SoundSystem.Music?.Volume ?? 0.5f
      );
-    SaveManager.WriteSave(this.Save);
+    SaveManager.WriteSave(parameters);
   }
 
   public List<Item> Inventory { get; set; } = [];
