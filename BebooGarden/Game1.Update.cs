@@ -36,7 +36,7 @@ public partial class Game1
       beboo.Update(gameTime);
       if (Map.IsLullabyPlaying) beboo.GoAsleep();
       else if (Map.IsDansePlaying) beboo.WakeUp();
-      if (Map.Preset != MapPreset.basicrace && Map.Preset != MapPreset.snowyrace && beboo.Racer) beboo.Pause();
+      if (!Map.IsRaceMap && beboo.Racer) beboo.Pause();
       if (beboo.Age >= 2 && !Save.Flags.VoiceRecoPopupPrinted)
       {
         Save.Flags.VoiceRecoPopupPrinted = true;
@@ -48,7 +48,7 @@ public partial class Game1
         SoundSystem.System.PlaySound(SoundSystem.JingleComplete);
         _talkDialog = new TalkDialog(GameText.unlocksnowy);
         _talkDialog?.Show();
-        Map.Maps[MapPreset.snowy].AddItem(new Egg("none"), new(0, 0, 0));
+        Map.Snowy.AddItem(new Egg("none"), new(0, 0, 0));
         Save.Flags.UnlockEggInShop = true;
       }
       if (beboo.SwimLevel >= 10 && !Save.Flags.UnlockPerfectSwimming)
@@ -58,7 +58,7 @@ public partial class Game1
         _talkDialog = new TalkDialog(String.Format(GameText.unlockswimming, beboo.Name));
         _talkDialog?.Show();
         Save.Flags.UnlockUnderwaterMap = true;
-        Map.Maps[MapPreset.underwater].AddItem(new Egg("blue"), new(0, 0, 0));
+        Map.UnderWater.AddItem(new Egg("blue"), new(0, 0, 0));
       }
     }
     foreach (var map in Map.Maps.Values.ToList())

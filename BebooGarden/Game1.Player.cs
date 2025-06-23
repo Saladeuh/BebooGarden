@@ -25,7 +25,7 @@ public partial class Game1
     else SoundSystem.PlayCursorSound();
     PlayerPosition = newPos;
     SoundSystem.MovePlayerTo(newPos);
-    if (Map.IsInLake(newPos) && Map.Preset != MapPreset.underwater) CrossSpeak.CrossSpeakManager.Instance.Output(GameText.water);
+    if (Map.IsInWater(newPos) && Map != Map.UnderWater) CrossSpeak.CrossSpeakManager.Instance.Output(GameText.water);
     if (Save.Flags.UnlockShop && (Map?.IsArroundShop(PlayerPosition) ?? false)) CrossSpeakManager.Instance.Output(GameText.shop);
     else if (Save.Flags.UnlockSnowyMap && (Map?.IsArroundMapPath(PlayerPosition) ?? false)) CrossSpeakManager.Instance.Output(GameText.path);
     else if (Map?.IsArroundRaceGate(PlayerPosition) ?? false)
@@ -102,7 +102,7 @@ public partial class Game1
   {
     if (ItemInHand == null) return;
     bool waterProof = ItemInHand?.IsWaterProof ?? false;
-    bool inWater = Map?.IsInLake(PlayerPosition) ?? false;
+    bool inWater = Map?.IsInWater(PlayerPosition) ?? false;
     if (inWater && !waterProof)
     {
       SoundSystem.System.PlaySound(SoundSystem.WarningSound);
@@ -145,7 +145,7 @@ public partial class Game1
       Save.Tickets += amount;
       CrossSpeakManager.Instance.Output(String.Format(GameText.gainticket, amount));
       SoundSystem.System.PlaySound(SoundSystem.MenuOk2Sound);
-      if (!Save.Flags.UnlockShop && Map.Preset != MapPreset.snowyrace && Map.Preset != MapPreset.basicrace)
+      if (!Save.Flags.UnlockShop && Map != Map.SnowyRace && Map != Map.BasicRace)
       {
         Save.Flags.UnlockShop = true;
         SoundSystem.System.PlaySound(SoundSystem.JingleComplete);

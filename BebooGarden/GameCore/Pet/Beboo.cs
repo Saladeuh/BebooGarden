@@ -193,7 +193,7 @@ public partial class Beboo
     directionNormalized.Y = Math.Sign(directionNormalized.Y);
     Position += directionNormalized;
     if (BootsSlippedOn && Game1.Instance.Random.Next(2) == 1) Position += directionNormalized;
-    if (Game1.Instance.Map?.IsInLake(Position) ?? false)
+    if (Game1.Instance.Map?.IsInWater(Position) ?? false)
     {
       Game1.Instance.SoundSystem.PlayBebooSound(Game1.Instance.SoundSystem.BebooStepWaterSound, this, false);
       if (SwimLevel <= 1 || (SwimLevel < 10 && Game1.Instance.Random.Next(SwimLevel) == 1))
@@ -202,7 +202,7 @@ public partial class Beboo
         Destination = Game1.Instance.Map.GenerateRandomUnoccupedPosition(true);
       }
     }
-    else if (Game1.Instance.Map?.Preset == MapPreset.snowy)
+    else if (Game1.Instance.Map == Map.Snowy)
     {
       Game1.Instance.SoundSystem.PlayBebooSound(Game1.Instance.SoundSystem.BebooStepSnowSound, this, false);
       if (BootsSlippedOn || Game1.Instance.Random.Next(4) == 1)
@@ -211,7 +211,7 @@ public partial class Beboo
         Position += Util.DIRECTIONS[Game1.Instance.Random.Next(Util.DIRECTIONS.Length)];
       }
     }
-    else if (Game1.Instance.Map?.Preset == MapPreset.snowyrace)
+    else if (Game1.Instance.Map == Map.SnowyRace)
     {
       Game1.Instance.SoundSystem.PlayBebooSound(Game1.Instance.SoundSystem.BebooStepSnowSound, this, false);
       if (BootsSlippedOn || Game1.Instance.Random.Next(4) == 1)
@@ -323,7 +323,7 @@ public partial class Beboo
   public void GoAsleep()
   {
     if (Sleeping) return;
-    if (SwimLevel >= 10 || Game1.Instance.Map?.Preset == MapPreset.underwater || (!Game1.Instance.Map?.IsInLake(Position) ?? false))
+    if (SwimLevel >= 10 || Game1.Instance.Map == Map.UnderWater || (!Game1.Instance.Map?.IsInWater(Position) ?? false))
     {
       CrossSpeakManager.Instance.Output(String.Format(GameText.beboo_gosleep, Name));
       GoingTiredBehaviour.Stop();

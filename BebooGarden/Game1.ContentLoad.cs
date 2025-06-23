@@ -29,9 +29,9 @@ public partial class Game1
       if (Save.CurrentMap != MapPreset.basicrace && Save.CurrentMap != MapPreset.snowyrace)
         Map = Map.Maps[Save.CurrentMap];
       else
-        Map = Map.Maps[MapPreset.garden];
+        Map = Map.Garden;
     }
-    catch (Exception) { Map = Map.Maps[MapPreset.garden]; }
+    catch (Exception) { Map = Map.Garden; }
     MusicBox.AvailableRolls = Save.UnlockedRolls ?? [];
     SoundSystem.Volume = Save.Volume;
     SoundSystem.LoadMainScreen();

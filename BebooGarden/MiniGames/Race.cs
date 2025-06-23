@@ -52,8 +52,8 @@ internal class Race : IMiniGame
     TodayTries++;
     switch (RaceType)
     {
-      case RaceType.Base: Game1.Instance.ChangeMap(Map.Maps[MapPreset.basicrace]); break;
-      case RaceType.Snowy: Game1.Instance.ChangeMap(Map.Maps[MapPreset.snowyrace]); ; break;
+      case RaceType.Base: Game1.Instance.ChangeMap(Map.BasicRace); break;
+      case RaceType.Snowy: Game1.Instance.ChangeMap(Map.SnowyRace); break;
     }
     Game1.Instance.Map?.Beboos.Add(MainBeboo);
     MainBeboo.Unpause();

@@ -287,7 +287,7 @@ internal class SoundSystem
 
   public void LoadMap(Map map)
   {
-    if (map.Preset == MapPreset.underwater)
+    if (map == Map.UnderWater)
     {
       map.WaterChannels.Clear();
     }
@@ -426,7 +426,7 @@ internal class SoundSystem
   }
 
   public void PlayBebooSound(Dictionary<BebooType, List<Sound>> sounds, Beboo beboo, bool stopOthers = true, float volume = -1)
-   {
+  {
     if (beboo.Paused) return;
     List<Sound> soundsList = new();
     soundsList = GetBebooSounds(sounds, beboo);
@@ -524,7 +524,7 @@ internal class SoundSystem
       foreach (Channel channel in map.WaterChannels) channel.Paused = false;
       foreach (GameCore.Item.Item item in map.Items) item.Unpause();
       map.BackgroundChannel?.Paused = false;
-      if (map.Preset == MapPreset.garden) EnableAmbiTimer();
+      if (map == Map.Garden) EnableAmbiTimer();
     }
     catch
     {

@@ -56,7 +56,7 @@ public partial class Game1
   private void MainGameKeyboardLogic(KeyboardState currentKeyboardState)
   {
     Item? itemUnderCursor = Map?.GetItemArroundPosition(PlayerPosition);
-    Map?.IsInLake(PlayerPosition);
+    Map?.IsInWater(PlayerPosition);
     if ((DateTime.Now - LastPressedKeyTime).TotalMilliseconds > 150)
     {
       if (currentKeyboardState.IsKeyDown(Keys.Left)
