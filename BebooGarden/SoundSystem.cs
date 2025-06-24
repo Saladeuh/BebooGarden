@@ -306,15 +306,19 @@ internal class SoundSystem
           case WaterPreset.Lagoon:
             waterChannel = System.PlaySound(LagoonWaterSound, paused: true)!;
             waterChannel.SetLoopPoints(TimeUnit.MS, 2780, TimeUnit.MS, 17796);
+            waterChannel.Set3DAttributes(wp.TopLeftPoint + new Vector3(0, 0, 10), default, default);
+            waterChannel.Set3DMinMaxDistance(30f, 35f);
+            waterChannel.Volume = 0.1f;
             break;
           case WaterPreset.Sea:
             waterChannel = System.PlaySound(SeaWaterSound, paused: true)!;
             waterChannel.SetLoopPoints(TimeUnit.MS, 1961541, TimeUnit.MS, 11889193);
+            waterChannel.Set3DAttributes(wp.TopLeftPoint + new Vector3(0, 0, 0), default, default);
+            waterChannel.Set3DMinMaxDistance(0f, 100f);
+            waterChannel.Volume = 0.5f;
             break;
         }
-        waterChannel.Set3DAttributes(wp.Position + new Vector3(0, 0, 10), default, default);
         waterChannel.Set3DMinMaxDistance(30f, 35f);
-        waterChannel.Volume = 0.1f;
         waterChannel.Paused = false;
         wp.Channel?.Stop();
         wp.Channel = waterChannel;
@@ -523,8 +527,8 @@ internal class SoundSystem
     map.Paused = true;
     foreach (Channel channel in map.TreesChannels)
       if (channel.IsPlaying) channel.Paused = true;
-    foreach (var wp in  map.WaterPoints)
-      if (wp.Channel?.IsPlaying??false) wp.Channel.Paused = true;
+    foreach (var wp in map.WaterPoints)
+      if (wp.Channel?.IsPlaying ?? false) wp.Channel.Paused = true;
     foreach (GameCore.Item.Item item in map.Items) item.Pause();
     try { if (map != null && map.BackgroundChannel != null) map.BackgroundChannel.Paused = true; } catch { }
     foreach (Beboo beboo in map.Beboos)
@@ -539,7 +543,7 @@ internal class SoundSystem
     try
     {
       foreach (Channel channel in map.TreesChannels) channel.Paused = false;
-      foreach (var wp in map.WaterPoints) 
+      foreach (var wp in map.WaterPoints)
         wp.Channel?.Paused = false;
       foreach (GameCore.Item.Item item in map.Items) item.Unpause();
       map.BackgroundChannel?.Paused = false;
@@ -634,6 +638,33 @@ internal class SoundSystem
       } while (Music.Volume > 0.1f);
       Thread.Sleep(250);
       Music.Paused = true;
+    }
+  }
+
+  internal void UpdateWaterPoints(Map map, Vector3 playerPosition)
+  {
+    foreach (var wr in map.WaterPoints)
+    {
+      if (wr.IsInRectangle(playerPosition))
+      {
+        wr.Channel?.Set3DAttributes(playerPosition, default, default);
+      }
+      else if (wr.IsWithinX(playerPosition))
+      {
+        //else if (playerPosition.X > wr.Length1 + wr.TopLeftPoint.X || playerPosition.X < wr.TopLeftPoint.X) {
+        var soundPosition = wr.GetMiddlePoint();
+        soundPosition.X = playerPosition.X;
+        wr.Channel?.Set3DAttributes(soundPosition, default, default);
+      }
+      else if (wr.IsWithinY(playerPosition))
+      {
+        //else if (playerPosition.Y > wr.TopLeftPoint.Y || playerPosition.Y < wr.TopLeftPoint.Y - wr.Length2)
+        {
+          var soundPosition = wr.GetMiddlePoint();
+          soundPosition.Y = playerPosition.Y;
+          wr.Channel?.Set3DAttributes(soundPosition, default, default);
+        }
+      }
     }
   }
 }

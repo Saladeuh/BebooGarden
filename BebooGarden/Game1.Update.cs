@@ -75,6 +75,7 @@ public partial class Game1
     UpdateScriptedScene(gameTime);
     UpdateUIState();
     SetPreviousKeyboardStates(_currentKeyboardState, currentMouseState);
+    SoundSystem.UpdateWaterPoints(Map, PlayerPosition);
     SoundSystem.System.Update();
     base.Update(gameTime);
   }

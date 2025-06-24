@@ -28,20 +28,20 @@ public class Map
   {
     Garden = new Map(MapPreset.garden, 40, 40,
         [new TreeLine(new Vector2(20, 20), new Vector2(20, -20))],
-       [new WaterPoint(new Vector3(-15, 0, 0))], FmodAudio.Preset.Plain);
+       [new WaterRectangle(WaterPreset.Lagoon, new Vector3(-20, 5, 0), 10, 10)], FmodAudio.Preset.Plain);
     Snowy = new Map(MapPreset.snowy, 60, 60,
         [new TreeLine(new Vector2(-5, 30), new Vector2(5, 30), 3, [FruitSpecies.Normal, FruitSpecies.Energetic])],
         [], FmodAudio.Preset.Plain);
     UnderWater = new Map(MapPreset.underwater, 40, 40,
         [],
-        [new WaterPoint(new Vector3(0, 0, 0))], FmodAudio.Preset.UnderWater);
+        [], FmodAudio.Preset.UnderWater);
     Beach = new Map(MapPreset.beach, 60, 40,
         [],
-        [new WaterPoint(new Vector3(0, 0, 0), WaterPreset.Sea, 40)], FmodAudio.Preset.Off);
+        [new WaterRectangle(WaterPreset.Sea, new Vector3(-30, 20, 0), 60, 20)], FmodAudio.Preset.Off);
+    
     BasicRace = new Map(MapPreset.basicrace, Race.BASERACELENGTH, 10,
         [],
-        [new WaterPoint(new Vector3(0, -(Race.BASERACELENGTH / 2) - 10, 0))], FmodAudio.Preset.StoneCorridor);
-
+        [/*new WaterRectangle(position: new Vector3(0, -(Race.BASERACELENGTH / 2) - 10, 0))*/], FmodAudio.Preset.StoneCorridor);
     SnowyRace = new Map(MapPreset.snowyrace, Race.BASERACELENGTH, 10,
         [],
         [], FmodAudio.Preset.Plain);
@@ -58,7 +58,7 @@ public class Map
   private int SizeX { get; set; }
   private int SizeY { get; set; }
   public List<TreeLine> TreeLines { get; }
-  public List<WaterPoint> WaterPoints { get; } = [];
+  public List<WaterRectangle> WaterPoints { get; } = [];
   public List<Item.Item> Items { get; set; } = new();
   public bool IsLullabyPlaying { get; set; } = false;
   public bool IsDansePlaying { get; set; } = false;
@@ -75,7 +75,7 @@ public class Map
   private TimedBehaviour SnowBallPopBehaviour { get; set; }
   private TimedBehaviour BubblePopBehaviour { get; set; }
 
-  public Map(MapPreset preset, int sizeX, int sizeY, List<TreeLine> treeLines, List<WaterPoint> waterPoints, ReverbProperties reverbPreset)
+  public Map(MapPreset preset, int sizeX, int sizeY, List<TreeLine> treeLines, List<WaterRectangle> waterPoints, ReverbProperties reverbPreset)
   {
     this.Preset = preset;
     SizeX = sizeX;
@@ -127,7 +127,7 @@ public class Map
     {
       foreach(var waterPoint in WaterPoints)
       {
-        if(Util.IsInSquare(position, waterPoint.Position, waterPoint.Radius))
+        if(waterPoint.IsInRectangle(position))
         {
           return true;
         }
