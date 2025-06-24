@@ -86,7 +86,8 @@ internal class SoundSystem
   public Sound WarningSound { get; private set; }
   public Sound MenuOkSound { get; private set; }
   public Sound MenuOk2Sound { get; private set; }
-  public Sound WaterSound { get; private set; }
+  public Sound LagoonWaterSound { get; private set; }
+  public SoundHandle SeaWaterSound { get; private set; }
   public Sound TreeWindSound { get; private set; }
   public Sound JingleComplete { get; private set; }
   public Sound JingleStar { get; private set; }
@@ -99,6 +100,7 @@ internal class SoundSystem
   public Sound ShopMusicStream { get; private set; }
   public Sound SnowyMusicStream { get; private set; }
   public Sound UnderWaterMusicStream { get; private set; }
+  public SoundHandle BeachMusicStream { get; private set; }
   public Sound RaceMusicStream { get; private set; }
   public Sound RaceLolMusicStream { get; private set; }
   public Sound RaceStopSound { get; private set; }
@@ -168,8 +170,11 @@ internal class SoundSystem
     ShopMusicStream = System.CreateStream(CONTENTFOLDER + "music/Boutique.mp3", Mode.Loop_Normal);
     SnowyMusicStream = System.CreateStream(CONTENTFOLDER + "music/snowy.mp3", Mode.Loop_Normal);
     UnderWaterMusicStream = System.CreateStream(CONTENTFOLDER + "music/Aquatic.mp3", Mode.Loop_Normal);
+    BeachMusicStream = System.CreateStream(CONTENTFOLDER + "music/WhiteCity.mp3", Mode.Loop_Normal);
     LoadRace();
-    WaterSound = System.CreateStream(CONTENTFOLDER + "sounds/WaterCalmWide.wav",
+    LagoonWaterSound = System.CreateStream(CONTENTFOLDER + "sounds/WaterCalmWide.wav",
+        Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff);
+    SeaWaterSound = System.CreateStream(CONTENTFOLDER + "sounds/beach/waves.wav",
         Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff);
     TreeWindSound = System.CreateStream(CONTENTFOLDER + "sounds/Wind_Trees_Cattails_Fienup_001.mp3",
         Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff);
@@ -289,18 +294,31 @@ internal class SoundSystem
   {
     if (map == Map.UnderWater)
     {
-      map.WaterChannels.Clear();
+      map.WaterPoints.ForEach(w => w.Channel?.Stop());
     }
-    else if (map.WaterPoint != null)
+    else
     {
-      Channel waterChannel = System.PlaySound(WaterSound, paused: true)!;
-      waterChannel.SetLoopPoints(TimeUnit.MS, 2780, TimeUnit.MS, 17796);
-      waterChannel.Set3DAttributes(map.WaterPoint.Value + new Vector3(0, 0, 10), default, default);
-      waterChannel.Set3DMinMaxDistance(30f, 35f);
-      waterChannel.Volume = 0.1f;
-      waterChannel.Paused = false;
-      map.WaterChannels.Clear();
-      map.WaterChannels.Add(waterChannel);
+      foreach (var wp in map.WaterPoints)
+      {
+        Channel waterChannel = System.PlaySound(LagoonWaterSound, paused: true)!;
+        switch (wp.Preset)
+        {
+          case WaterPreset.Lagoon:
+            waterChannel = System.PlaySound(LagoonWaterSound, paused: true)!;
+            waterChannel.SetLoopPoints(TimeUnit.MS, 2780, TimeUnit.MS, 17796);
+            break;
+          case WaterPreset.Sea:
+            waterChannel = System.PlaySound(SeaWaterSound, paused: true)!;
+            waterChannel.SetLoopPoints(TimeUnit.MS, 1961541, TimeUnit.MS, 11889193);
+            break;
+        }
+        waterChannel.Set3DAttributes(wp.Position + new Vector3(0, 0, 10), default, default);
+        waterChannel.Set3DMinMaxDistance(30f, 35f);
+        waterChannel.Volume = 0.1f;
+        waterChannel.Paused = false;
+        wp.Channel?.Stop();
+        wp.Channel = waterChannel;
+      }
     }
     if (map.TreeLines.Count > 0)
     {
@@ -505,8 +523,8 @@ internal class SoundSystem
     map.Paused = true;
     foreach (Channel channel in map.TreesChannels)
       if (channel.IsPlaying) channel.Paused = true;
-    foreach (Channel channel in map.WaterChannels)
-      if (channel.IsPlaying) channel.Paused = true;
+    foreach (var wp in  map.WaterPoints)
+      if (wp.Channel?.IsPlaying??false) wp.Channel.Paused = true;
     foreach (GameCore.Item.Item item in map.Items) item.Pause();
     try { if (map != null && map.BackgroundChannel != null) map.BackgroundChannel.Paused = true; } catch { }
     foreach (Beboo beboo in map.Beboos)
@@ -521,7 +539,8 @@ internal class SoundSystem
     try
     {
       foreach (Channel channel in map.TreesChannels) channel.Paused = false;
-      foreach (Channel channel in map.WaterChannels) channel.Paused = false;
+      foreach (var wp in map.WaterPoints) 
+        wp.Channel?.Paused = false;
       foreach (GameCore.Item.Item item in map.Items) item.Unpause();
       map.BackgroundChannel?.Paused = false;
       if (map == Map.Garden) EnableAmbiTimer();
@@ -562,6 +581,10 @@ internal class SoundSystem
   {
     MusicTransition(ShopMusicStream, 459264, 8156722, FmodAudio.TimeUnit.PCM);
   }
+  internal void PlayBeachMusic()
+  {
+    MusicTransition(BeachMusicStream, 3556910, 7437331, TimeUnit.MS);
+  }
 
   internal void PlayRaceMusic()
   {
@@ -594,6 +617,7 @@ internal class SoundSystem
         case MapPreset.garden: PlayNeutralMusic(); break;
         case MapPreset.snowy: PlaySnowyMusic(); break;
         case MapPreset.underwater: PlayUnderWaterMusic(); break;
+        case MapPreset.beach: PlayBeachMusic(); break;
         default: PlayNeutralMusic(); break;
       }
     }

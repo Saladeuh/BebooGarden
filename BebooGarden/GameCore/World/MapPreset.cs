@@ -7,4 +7,5 @@ public enum MapPreset
   snowy,
   underwater,
   snowyrace,
+  beach,
 }

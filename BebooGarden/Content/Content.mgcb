@@ -2700,3 +2700,15 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:sounds/beboo/cri.wav
+
+#begin music/WhiteCity.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/WhiteCity.mp3
+
+#begin sounds/beach/waves.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beach/waves.wav

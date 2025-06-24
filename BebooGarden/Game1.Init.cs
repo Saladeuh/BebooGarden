@@ -95,7 +95,10 @@ public partial class Game1
       PlayerPosition = new Vector3(-2, 0, 0);
       Map.AddItem(new Egg(Save.FavoredColor), new(2, 0, 0));
     }
+    Map = Map.Beach;
+    Map.Beboos = Map.Garden.Beboos;
     SoundSystem.LoadMap(Map);
+    ChangeMapMusic();
     //if (Save.Flags.NewGame) Welcome.AfterGarden();
     //else UpdateMapMusic();
     SoundSystem.Music?.Volume = Save.MusicVolume;
