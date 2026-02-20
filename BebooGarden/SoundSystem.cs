@@ -178,7 +178,7 @@ internal class SoundSystem
     SeagullStream = System.CreateStream(CONTENTFOLDER + "sounds/beach/seagull.wav", Mode.Loop_Normal);
     LagoonWaterSound = System.CreateStream(CONTENTFOLDER + "sounds/WaterCalmWide.wav",
         Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff);
-    SeaWaterSound = System.CreateStream(CONTENTFOLDER + "sounds/beach/waves.wav",
+    SeaWaterSound = System.CreateStream(CONTENTFOLDER + "sounds/beach/waves_2.mp3",
         Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff);
     TreeWindSound = System.CreateStream(CONTENTFOLDER + "sounds/Wind_Trees_Cattails_Fienup_001.mp3",
         Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff);
@@ -318,7 +318,7 @@ internal class SoundSystem
             break;
           case WaterPreset.Sea:
             waterChannel = System.PlaySound(SeaWaterSound, paused: true)!;
-            waterChannel.SetLoopPoints(TimeUnit.MS, 1961541, TimeUnit.MS, 11889193);
+            //waterChannel.SetLoopPoints(TimeUnit.MS, 1961541, TimeUnit.MS, 11889193);
             waterChannel.Set3DAttributes(wp.TopLeftPoint + new Vector3(0, 0, 0), default, default);
             waterChannel.Set3DMinMaxDistance(0f, 100f);
             waterChannel.Volume = 0.5f;

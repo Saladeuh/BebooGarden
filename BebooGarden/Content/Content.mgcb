@@ -2898,3 +2898,9 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:sounds/rubberring.wav
+
+#begin sounds/beach/waves_2.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beach/waves_2.mp3

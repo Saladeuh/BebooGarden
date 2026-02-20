@@ -106,7 +106,7 @@ public class Map
     TicketPopBehaviour = new(30000 * 60, 60000 * 60, true);
     SnowBallPopBehaviour = new(10000, 15000, preset == MapPreset.snowy);
     BubblePopBehaviour = new(10000, 15000, preset == MapPreset.underwater);
-    SeagullSoundBehaviour = new(1000 * 60 * 4, 1000 * 60 * 5, preset == MapPreset.beach);
+    SeagullSoundBehaviour = new(1000 * 60 * 2, 1000 * 60 * 3, preset == MapPreset.beach);
     ReverbPreset = reverbPreset;
   }
 
