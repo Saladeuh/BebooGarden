@@ -65,6 +65,7 @@ public partial class Game1
     ChangeMapMusic();
     Inventory.Add(new MusicBox());
     Inventory.Add(new Duck());
+    Inventory.Add(new RubberRing());
     Save.Tickets = 20;
     Save.Flags.UnlockShop = true;
     Save.Flags.UnlockSnowyMap = true;

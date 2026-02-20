@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using Newtonsoft.Json;
 using Vector2 = System.Numerics.Vector2;
 using Vector3 = System.Numerics.Vector3;
+using BebooGarden.Content;
 
 namespace BebooGarden.GameCore.World;
 
@@ -28,28 +29,40 @@ public class Map
   {
     Garden = new Map(MapPreset.garden, 40, 40,
         [new TreeLine(new Vector2(20, 20), new Vector2(20, -20))],
-       [new WaterRectangle(WaterPreset.Lagoon, new Vector3(-20, 5, 0), 10, 10)], FmodAudio.Preset.Plain);
+        [new WaterRectangle(WaterPreset.Lagoon, new Vector3(-20, 5, 0), 10, 10)],
+       [
+         new(new(-20, -20,0), MapPreset.snowy, GameText.path),
+         new(new(-20, 0, 0), MapPreset.underwater, GameText.underwater)
+       ],
+       FmodAudio.Preset.Plain);
     Snowy = new Map(MapPreset.snowy, 60, 60,
         [new TreeLine(new Vector2(-5, 30), new Vector2(5, 30), 3, [FruitSpecies.Normal, FruitSpecies.Energetic])],
-        [], FmodAudio.Preset.Plain);
+        [],
+        [new(new(-30, -30, 0), MapPreset.garden, GameText.path)],
+        FmodAudio.Preset.Plain);
     UnderWater = new Map(MapPreset.underwater, 40, 40,
         [],
-        [], FmodAudio.Preset.UnderWater);
+        [],
+        [new(new(20, 0, 0), MapPreset.garden, GameText.underwater)],
+        FmodAudio.Preset.UnderWater);
     Beach = new Map(MapPreset.beach, 60, 40,
+        [new TreeLine(new Vector2(-30, -20), new Vector2(30, -20), 5, [FruitSpecies.Normal, FruitSpecies.Energetic])],
+        [new WaterRectangle(WaterPreset.Sea, new Vector3(-30, 20, 0), 60, 20)],
         [],
-        [new WaterRectangle(WaterPreset.Sea, new Vector3(-30, 20, 0), 60, 20)], FmodAudio.Preset.Off);
-    
+        FmodAudio.Preset.Off);
+
     BasicRace = new Map(MapPreset.basicrace, Race.BASERACELENGTH, 10,
-        [],
+        [], [],
         [/*new WaterRectangle(position: new Vector3(0, -(Race.BASERACELENGTH / 2) - 10, 0))*/], FmodAudio.Preset.StoneCorridor);
     SnowyRace = new Map(MapPreset.snowyrace, Race.BASERACELENGTH, 10,
-        [],
+        [], [],
         [], FmodAudio.Preset.Plain);
 
-    Maps =  new Dictionary<MapPreset, Map>{
+    Maps = new Dictionary<MapPreset, Map>{
       { MapPreset.garden, Garden },
       { MapPreset.snowy, Snowy },
       { MapPreset.underwater, UnderWater },
+      { MapPreset.beach, Beach },
       { MapPreset.basicrace, BasicRace },
       { MapPreset.snowyrace, SnowyRace }
     };
@@ -58,11 +71,14 @@ public class Map
   private int SizeX { get; set; }
   private int SizeY { get; set; }
   public List<TreeLine> TreeLines { get; }
+  public List<MapConnexion> Connexions { get; set; } = [];
+
   public List<WaterRectangle> WaterPoints { get; } = [];
   public List<Item.Item> Items { get; set; } = new();
   public bool IsLullabyPlaying { get; set; } = false;
   public bool IsDansePlaying { get; set; } = false;
   public bool IsRaceMap => (this == BasicRace || this == SnowyRace);
+
   [JsonIgnore]
   public List<Channel> TreesChannels { get; set; } = new();
   [JsonIgnore]
@@ -74,17 +90,20 @@ public class Map
   private TimedBehaviour TicketPopBehaviour { get; set; }
   private TimedBehaviour SnowBallPopBehaviour { get; set; }
   private TimedBehaviour BubblePopBehaviour { get; set; }
+  private TimedBehaviour SeagullSoundBehaviour { get; set; }
 
-  public Map(MapPreset preset, int sizeX, int sizeY, List<TreeLine> treeLines, List<WaterRectangle> waterPoints, ReverbProperties reverbPreset)
+  public Map(MapPreset preset, int sizeX, int sizeY, List<TreeLine> treeLines, List<WaterRectangle> waterPoints, List<MapConnexion> mapConnexions, ReverbProperties reverbPreset)
   {
     this.Preset = preset;
     SizeX = sizeX;
     SizeY = sizeY;
     TreeLines = treeLines;
     WaterPoints = waterPoints;
+    Connexions = mapConnexions;
     TicketPopBehaviour = new(30000 * 60, 60000 * 60, true);
-    SnowBallPopBehaviour = new(10000, 15000, this == Snowy);
-    BubblePopBehaviour = new(10000, 15000, this == UnderWater);
+    SnowBallPopBehaviour = new(10000, 15000, preset == MapPreset.snowy);
+    BubblePopBehaviour = new(10000, 15000, preset == MapPreset.underwater);
+    SeagullSoundBehaviour = new(1000 * 60 * 4, 1000 * 60 * 5, preset == MapPreset.beach);
     ReverbPreset = reverbPreset;
   }
 
@@ -125,9 +144,9 @@ public class Map
     }
     else
     {
-      foreach(var waterPoint in WaterPoints)
+      foreach (var waterPoint in WaterPoints)
       {
-        if(waterPoint.IsInRectangle(position))
+        if (waterPoint.IsInRectangle(position))
         {
           return true;
         }
@@ -168,21 +187,6 @@ public class Map
   {
     return Util.IsInSquare(new Vector3(SizeX / 2, -SizeY / 2, 0), position, 1);
   }
-  public bool IsArroundMapPath(Vector3 position)
-  {
-    return (this == Garden || this == Snowy) && Util.IsInSquare(new Vector3(-SizeX / 2, -SizeY / 2, 0), position, 1);
-  }
-  public bool IsArroundMapUnderWater(Vector3 position)
-  {
-    switch (Preset)
-    {
-      case MapPreset.garden:
-        return Util.IsInSquare(new Vector3(-SizeX / 2, 0, 0), position, 1);
-      case MapPreset.underwater:
-        return Util.IsInSquare(new Vector3(SizeX / 2, 0, 0), position, 1);
-      default: return false;
-    }
-  }
   public bool IsArroundRaceGate(Vector3 position)
   {
     return Util.IsInSquare(new Vector3(-SizeX / 2, SizeY / 2, 0), position, 1);
@@ -203,6 +207,11 @@ public class Map
     {
       PopTicketPack();
       TicketPopBehaviour.Done();
+    }
+    if (SeagullSoundBehaviour.ItsTime() && this == Beach)
+    {
+      Game1.Instance.SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.SeagullStream);
+      SeagullSoundBehaviour.Done();
     }
     if (SnowBallPopBehaviour.ItsTime())
     {
@@ -225,7 +234,18 @@ public class Map
       BubblePopBehaviour.Done();
     }
   }
-
+  public bool IsUnlocked()
+  {
+    return (Preset == MapPreset.garden)
+      || (Preset == MapPreset.underwater && Game1.Instance.Save.Flags.UnlockUnderwaterMap)
+      || (Preset == MapPreset.snowy && Game1.Instance.Save.Flags.UnlockSnowyMap)
+      || (Preset == MapPreset.beach && Game1.Instance.Save.Flags.UnlockBeachMap
+      );
+  }
+  public MapConnexion? GetConnexionArroundPosition(Vector3 position)
+  {
+    return Connexions.FirstOrDefault(connexion => connexion != null && Util.IsInSquare(connexion.Position, position, 1), null);
+  }
   public override int GetHashCode()
   => Preset.GetHashCode();
 }

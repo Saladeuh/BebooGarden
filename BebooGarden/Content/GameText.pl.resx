@@ -13,124 +13,124 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms</value>
 	</resheader>
 	<data name="beboogarden" xml:space="preserve">
-		<value>Beboo Garden</value>
+		<value>ogród beboo</value>
 	</data>
 	<data name="pink" xml:space="preserve">
-		<value>Pink</value>
+		<value>Rużowy</value>
 	</data>
 	<data name="red" xml:space="preserve">
-		<value>Red</value>
+		<value>Czerwony</value>
 	</data>
 	<data name="orange" xml:space="preserve">
-		<value>Orange</value>
+		<value>Pomarańczowy</value>
 	</data>
 	<data name="yellow" xml:space="preserve">
-		<value>Yellow</value>
+		<value>Żółty</value>
 	</data>
 	<data name="green" xml:space="preserve">
-		<value>Green</value>
+		<value>Zielony</value>
 	</data>
 	<data name="blue" xml:space="preserve">
-		<value>Blue</value>
+		<value>Niebieski</value>
 	</data>
 	<data name="indigo" xml:space="preserve">
 		<value>Indigo</value>
 	</data>
 	<data name="violet" xml:space="preserve">
-		<value>Violet</value>
+		<value>Fioletowy</value>
 	</data>
 	<data name="none" xml:space="preserve">
-		<value>None</value>
+		<value>Żaden</value>
 	</data>
 	<data name="chocolatekake" xml:space="preserve">
-		<value>A fat chocolate cake</value>
+		<value>czekoladowe ciasto.</value>
 	</data>
 	<data name="icecream" xml:space="preserve">
-		<value>A delicious icecream</value>
+		<value>Pyszne lody</value>
 	</data>
 	<data name="fruitsalad" xml:space="preserve">
-		<value>A light and fresh fruit salad</value>
+		<value>Świeża, pyszna sałatka.</value>
 	</data>
 	<data name="coffee" xml:space="preserve">
-		<value>Just a coffee, thanks.</value>
+		<value>Tylko kawę, poproszę.</value>
 	</data>
 	<data name="trees.full" xml:space="preserve">
-		<value>Trees full of fruits</value>
+		<value>drzewa pełne owoców</value>
 	</data>
 	<data name="trees.empty" xml:space="preserve">
-		<value>Trees without any fruit</value>
+		<value>drzewa bez żadnych owoców</value>
 	</data>
 	<data name="trees.soonempty" xml:space="preserve">
-		<value>Trees with some fruits</value>
+		<value>drzewa z małą ilością owoców</value>
 	</data>
 	<data name="trees.soonfull" xml:space="preserve">
-		<value>Trees with some fruits</value>
+		<value>drzewa z średnią ilością owoców</value>
 	</data>
 	<data name="tickets" xml:space="preserve">
-		<value>You have {0} tickets</value>
+		<value>You have {0} biletów</value>
 	</data>
 	<data name="water" xml:space="preserve">
-		<value>lagoon</value>
+		<value>laguna</value>
 	</data>
 	<data name="Normal" xml:space="preserve">
-		<value>Apple</value>
+		<value>Jabłko</value>
 	</data>
 	<data name="Energetic" xml:space="preserve">
-		<value>Super Apple</value>
+		<value>Super Jabłko</value>
 	</data>
 	<data name="beboo.gosleep" xml:space="preserve">
-		<value>{0} went asleep</value>
+		<value>{0} śpi</value>
 	</data>
 	<data name="beboo.wakeup" xml:space="preserve">
-		<value>{0} wakes up</value>
+		<value>{0} się budzi</value>
 	</data>
 	<data name="beboo.sadstart" xml:space="preserve">
-		<value>{0} burst in tears. Do something!</value>
+		<value>{0} zaczyna płakać. zrób coś!</value>
 	</data>
 	<data name="beboo.happystart" xml:space="preserve">
-		<value>{0} is happy!</value>
+		<value>{0} jest szczęśliwy!</value>
 	</data>
 	<data name="beboo.sleep" xml:space="preserve">
-		<value>{0} is sleeping</value>
+		<value>{0} śpi</value>
 	</data>
 	<data name="beboo.verytired" xml:space="preserve">
-		<value>{0} is very tired</value>
+		<value>{0} jest bardzo zmęczony</value>
 	</data>
 	<data name="beboo.verysad" xml:space="preserve">
-		<value>{0} is very sad.. Do something!</value>
+		<value>{0} jest bardzo smutny, zrób coś!</value>
 	</data>
 	<data name="beboo.littlesad" xml:space="preserve">
-		<value>{0} is a little bit sad</value>
+		<value>{0} jest trochę smutny</value>
 	</data>
 	<data name="beboo.littletired" xml:space="preserve">
-		<value>{0} is a little bit tired</value>
+		<value>{0} jest trochę zmęczony</value>
 	</data>
 	<data name="beboo.good" xml:space="preserve">
-		<value>{0} is fine</value>
+		<value>{0} jest ok</value>
 	</data>
 	<data name="beboo.verygood" xml:space="preserve">
-		<value>{0} is doing very well</value>
+		<value>{0} jest bardzo ok</value>
 	</data>
 	<data name="musicbox.name" xml:space="preserve">
-		<value>Music box</value>
+		<value>odtwarzacz muzyki</value>
 	</data>
 	<data name="musicbox.description" xml:space="preserve">
-		<value>An old object that can play music when putting a roll in it</value>
+		<value>stare urządzenie, które pozwala na odtwarzanie muzyki z cd</value>
 	</data>
 	<data name="musicbox.noroll" xml:space="preserve">
-		<value>You don't have any roll to put in it yet</value>
+		<value>nie masz żadnych rolek</value>
 	</data>
 	<data name="duck.name" xml:space="preserve">
-		<value>Rubber duck</value>
+		<value>Gumowa kaczka</value>
 	</data>
 	<data name="duck.description" xml:space="preserve">
-		<value>It's just a duck</value>
+		<value>Zwykła Gumowa kaczka</value>
 	</data>
 	<data name="boots.name" xml:space="preserve">
-		<value>Bouncing Boots</value>
+		<value>Buty do skakania</value>
 	</data>
 	<data name="boots.description" xml:space="preserve">
-		<value>A Beboo can use them to bounce further. Place it on the ground then try make a beboo to put them on</value>
+		<value>twój Beboo może użyć ich do skakania.</value>
 	</data>
 	<data name="ticketpack.name" xml:space="preserve">
 		<value>Tickets pack</value>
@@ -139,265 +139,255 @@
 		<value>Jack pot!</value>
 	</data>
 	<data name="egg.name" xml:space="preserve">
-		<value>{0} beboo's egg</value>
+		<value>{0} jajko beboo</value>
 	</data>
 	<data name="egg.description" xml:space="preserve">
-		<value>For more and more beboos!</value>
+		<value>więcej, więcej beboo!</value>
 	</data>
 	<data name="bubble.name" xml:space="preserve">
-		<value>Bubble</value>
+		<value>Bańka</value>
 	</data>
 	<data name="bubble.description" xml:space="preserve">
 		<value>Blup</value>
 	</data>
 	<data name="snowball.name" xml:space="preserve">
-		<value>Snow ball</value>
+		<value>śnieżka</value>
 	</data>
 	<data name="roll.name" xml:space="preserve">
-		<value>Music box's roll</value>
+		<value>rolka</value>
 	</data>
 	<data name="ui.empty" xml:space="preserve">
-		<value>You must type something.</value>
+		<value>Musisz coś wpisać.</value>
 	</data>
 	<data name="ui.yourname" xml:space="preserve">
-		<value>Your name</value>
+		<value>Twoje imię</value>
 	</data>
 	<data name="ui.letsname" xml:space="preserve">
-		<value>Your Beboo has just hatched! Now it's time to name it!</value>
+		<value>Twój beboo już się wykluł! czas go nazwać!</value>
 	</data>
 	<data name="ui.bebooname" xml:space="preserve">
-		<value>Your Beboo's cute name</value>
+		<value>Urocze imię dla twojego beboo</value>
 	</data>
 	<data name="ui.welcome" xml:space="preserve">
-		<value>Welcome to the Beboo Garden!
-To begin with, what should I call you?</value>
+		<value>Witam w ogrodzie beboo!
+Więc, zacznijmy! jak chcesz się nazywać?</value>
 	</data>
 	<data name="ui.welcome2" xml:space="preserve">
-		<value>Here is the Beboo Garden.
-It's a large square of greenery, featuring a small lagoon to the left and tall fruit trees to the right.
-To navigate the garden, I highly recommend wearing headphones or earphones.
-It is currently empty, except for an egg about to hatch, which you should hear on your right.
-Once this dialogue is closed, move using the arrow keys towards the egg, and when you hear it in front of you, press the space bar to help your Beboo break its shell.</value>
+		<value>Tutaj jest twój ogród beboo.
+jest to kwadrat pełny roślin, z małą laguną z lewej strony i wysokimi drzewami owocowymi z prawej.
+Rekomenduje używanie słuchawek.
+Po prawej jest jeszcze jajko, które za pewne słyszysz.
+Gdy ten dialog się zamknie, podejdź do tego jajka używając strzałek albo WSAD aby podejść, gdy słyszysz je na przód od ciebie, naciśnij spację, aby pomóc twojemu beboo się wykluć</value>
 	</data>
 	<data name="ui.aboutyou" xml:space="preserve">
-		<value>Great! Now, {0}, I have to ask you a few questions to find the Beboo who suits you best.
-Let's start simple.</value>
+		<value>Świetnie!! teraz, {0}, muszę ci zadać parę pytań aby znaleźć najlepszego beboo dla ciebie.</value>
 	</data>
 	<data name="ui.color" xml:space="preserve">
-		<value>What is your favorite color?</value>
+		<value>jaki jest twój ulubiony kolor?</value>
 	</data>
 	<data name="ui.freetime" xml:space="preserve">
-		<value>Cool!
-Now, what do you love doing when you have some free time?
-It may be anything.</value>
+		<value>Co lubisz robić, gdy masz dużo wolnego czasu?</value>
 	</data>
 	<data name="ui.freetimequick" xml:space="preserve">
-		<value>What do you love to do?</value>
+		<value>Co lubisz robić?</value>
 	</data>
 	<data name="ui.dessert" xml:space="preserve">
-		<value>Finally, what is your favorite dessert in this list?</value>
+		<value>i na sam koniec, jaki jest twój ulubiony deser?</value>
 	</data>
 	<data name="ui.allgood" xml:space="preserve">
-		<value>Well, everything seems in order.</value>
+		<value>dobrze, wszystko jest gotowe..</value>
 	</data>
 	<data name="ui.quicktips" xml:space="preserve">
-		<value>Perfect!
-Before you start taking care of {0}, I need to teach you the basics of the garden.
-To feed {0}, you'll need to collect fruits from the trees on your right. Shake the trees by holding down the enter key and alternating between the up and down arrow keys.
-To give a fruit to {0}, press the space bar when you are close, just like you did with the egg earlier.
-You can also press F to know if {0} is missing something.
-Once {0} is very happy, you can go to top-left corner to get some exercise.
-Finally, press escape to open the menu.
-Have fun!</value>
+		<value>super!
+zanim się zaczniesz opiekować {0}, muszę ci opowiedzieć podstawy.
+aby nakarmić {0}, musisz zebrać owoce z drzew na prawej.. potrząś drzewem, klikając strzałki w górę i w dół.
+Aby dać owoc {0}, naciśnij spację gdy jesteś blisko, tak samo jak pomogłeś się wykluć jajku.
+naciśnij f aby sprawdzić, czy {0} czegoś potrzebuje.
+gdy {0} jest bardzo szczęśliwy, możesz iść poćwiczyć.
+Naciśnij escape aby otworzyć menu.
+Baw się dobrze!</value>
 	</data>
 	<data name="ui.emptyinventory" xml:space="preserve">
-		<value>Nothing in the bag</value>
+		<value>Nie masz niczego w torbie</value>
 	</data>
 	<data name="ui.chooseitem" xml:space="preserve">
-		<value>Choose an item</value>
+		<value>Wybierz rzecz</value>
 	</data>
 	<data name="ui.itemput" xml:space="preserve">
-		<value>{0} dropped</value>
+		<value>{0} postawione</value>
 	</data>
 	<data name="ui.warningwater" xml:space="preserve">
-		<value>Don't put this in water!</value>
+		<value>Nie dawaj tego do wody!</value>
 	</data>
 	<data name="ui.rolltake" xml:space="preserve">
-		<value>You have taken the music box's roll {0}, from {1}</value>
+		<value>wziąłeś rolkę {0}, od {1}</value>
 	</data>
 	<data name="ui.chooseroll" xml:space="preserve">
-		<value>Please choose a roll to insert</value>
+		<value>Wybierz rolkę</value>
 	</data>
 	<data name="ui.itemtake" xml:space="preserve">
-		<value>{0} stored in the bag</value>
+		<value>{0} w torbie</value>
 	</data>
 	<data name="ui.basket" xml:space="preserve">
-		<value>There are {0} fruits in the basket</value>
+		<value>{0} owoców w koszyku</value>
 	</data>
 	<data name="ui.back" xml:space="preserve">
-		<value>Back</value>
+		<value>wróć</value>
 	</data>
 	<data name="shop.item" xml:space="preserve">
-		<value>{0} : {1}, {2} tickets</value>
+		<value>{0} : {1}, za {2} biletów</value>
 	</data>
 	<data name="shop.items" xml:space="preserve">
-		<value>Items ({0} remaining tickets)</value>
+		<value>Przedmioty ({0} biletów pozostało)</value>
 	</data>
 	<data name="shop.itemstitle" xml:space="preserve">
-		<value>Items</value>
+		<value>Przedmioty</value>
 	</data>
 	<data name="shop.rolls" xml:space="preserve">
-		<value>Music box roll's ({0} remaining tickets)</value>
+		<value>rolki do odtwarzacza muzyki ({0} pozostało biletów)</value>
 	</data>
 	<data name="shop.roll" xml:space="preserve">
-		<value>{0} : {1}, {2} tickets</value>
+		<value>{0} : {1}, za {2} biletów</value>
 	</data>
 	<data name="shop.rollstitle" xml:space="preserve">
-		<value>Music Box roll's</value>
+		<value>rolki do odtwarzacza muzyki</value>
 	</data>
 	<data name="shop.alreadyroll" xml:space="preserve">
-		<value>You already have this roll</value>
+		<value>Masz już tą rolkę</value>
 	</data>
 	<data name="shop.notickets" xml:space="preserve">
-		<value>You don't have enough tickets</value>
+		<value>Nie masz na tyle biletów</value>
 	</data>
 	<data name="shop.title" xml:space="preserve">
-		<value>Welcome to the boutique! ({0} remaining tickets)</value>
+		<value>Witamy w butiku! ({0} biletów pozostało)</value>
 	</data>
 	<data name="shop.buy" xml:space="preserve">
-		<value>{0} bought</value>
+		<value>{0} kupiono</value>
 	</data>
 	<data name="inventory.item" xml:space="preserve">
 		<value>{0} (×{1})</value>
 	</data>
 	<data name="tp" xml:space="preserve">
-		<value>Find an item</value>
+		<value>Znajdź przedmiot</value>
 	</data>
 	<data name="tp.item" xml:space="preserve">
 		<value>{0} {1}</value>
 	</data>
 	<data name="gainticket" xml:space="preserve">
-		<value>You gain {0} ticket</value>
+		<value>dostałeś {0} biletów</value>
 	</data>
 	<data name="shopunlock" xml:space="preserve">
-		<value>You unlock the boutique!
-Go to the lower right corner of the garden to redeem your tickets!</value>
+		<value>odblokowałeś butik, możesz iść do dolnego prawego rogu aby sprawdzić!</value>
 	</data>
 	<data name="shop" xml:space="preserve">
-		<value>Boutique</value>
+		<value>Butik</value>
 	</data>
 	<data name="race.third" xml:space="preserve">
-		<value>{0} is the third...</value>
+		<value>{0} jest trzeci...</value>
 	</data>
 	<data name="race.second" xml:space="preserve">
-		<value>{0} is the second. ({1} seconds)</value>
+		<value>{0} drugi. ({1} sekund)</value>
 	</data>
 	<data name="race.first" xml:space="preserve">
-		<value>{0} is the first! ({1} seconds)</value>
+		<value>{0} jest pierwszy! ({1} sekund)</value>
 	</data>
 	<data name="race.gate" xml:space="preserve">
-		<value>Take part in a race ({0} remaining today)</value>
+		<value>idź na wyścig ({0} dzisiaj pozostało)</value>
 	</data>
 	<data name="race.chooseracer" xml:space="preserve">
-		<value>Choose your racer</value>
+		<value>Wybierz, kto będzie się ścigać</value>
 	</data>
 	<data name="race.chooserace" xml:space="preserve">
-		<value>Choose a race</value>
+		<value>Wybierz wyścig</value>
 	</data>
 	<data name="race.trytommorow" xml:space="preserve">
-		<value>Racing is closed for today.</value>
+		<value>Wyścigi są zamknięte na dzisiaj.</value>
 	</data>
 	<data name="race.simple" xml:space="preserve">
-		<value>Easy race</value>
+		<value>Łatwy wyścig</value>
 	</data>
 	<data name="race.snow" xml:space="preserve">
-		<value>Snowy race</value>
+		<value>Śnieżny wyścig</value>
 	</data>
 	<data name="unlockvoice" xml:space="preserve">
-		<value>{0} is now old enough to recognize its name!
-Try calling it!</value>
+		<value>{0} zaczyna rozpoznawać swoje imię!
+próbuj go zawołać!</value>
 	</data>
 	<data name="unlocksnowy" xml:space="preserve">
-		<value>Congratulations!
-You unlock the path to the snowy area. Go through it by calling your Beboo to the bottom left of the garden.</value>
+		<value>Gratulacje!
+Odblokowałeś śnieżną trasę dla wyścigu.</value>
 	</data>
 	<data name="unlockswimming" xml:space="preserve">
-		<value>Congratulations!
-{0} can perfectly swim now.</value>
+		<value>Gratulacje!
+{0} może teraz pływać!</value>
 	</data>
 	<data name="path" xml:space="preserve">
-		<value>Path</value>
+		<value>Ścieżka</value>
 	</data>
 	<data name="nobeboo" xml:space="preserve">
-		<value>There is no beboo here.</value>
+		<value>Nie ma tu żadnego beboo.</value>
 	</data>
 	<data name="underwater" xml:space="preserve">
-		<value>Volcanic underwater chimney</value>
+		<value>pod wodą</value>
 	</data>
 	<data name="choosebeboo" xml:space="preserve">
-		<value>Choose a Beboo</value>
+		<value>Wybierz beboo.</value>
 	</data>
 	<data name="ui.mainmenu" xml:space="preserve">
-		<value>Main menu</value>
+		<value>menu główne</value>
 	</data>
 	<data name="ui.commands" xml:space="preserve">
-		<value>Help: Game's keybindings</value>
+		<value>pomoc: lista klawiszy</value>
 	</data>
 	<data name="ui.credits" xml:space="preserve">
-		<value>Credits</value>
+		<value>Podziękowania</value>
 	</data>
 	<data name="ui.discord" xml:space="preserve">
-		<value>Join the discord server</value>
+		<value>dołącz do serwera na discordzie</value>
 	</data>
 	<data name="ui.quit" xml:space="preserve">
-		<value>Close the Game.</value>
+		<value>Zamknij grę.</value>
 	</data>
 	<data name="bag" xml:space="preserve">
-		<value>Bag</value>
+		<value>Torba</value>
 	</data>
 	<data name="emptybag" xml:space="preserve">
-		<value>Your bag is empty (escape to leave)</value>
+		<value>twoja torba jest pusta, naciśnij esc, aby wyjść.</value>
 	</data>
 	<data name="ui.emptymap" xml:space="preserve">
-		<value>There are no items here. To place an item, go to your bag, select an item then press space where you want to place it.</value>
+		<value>Tu nie ma żadnych przedmiotów, wejdź do menu później na torbę i wybierz przedmiot do postawienia.</value>
 	</data>
 	<data name="ui.language" xml:space="preserve">
-		<value>Change language</value>
+		<value>zmień język</value>
 	</data>
 	<data name="ui.languagechanged" xml:space="preserve">
-		<value>Language changed</value>
+		<value>język zmieniony.</value>
 	</data>
 	<data name="win" xml:space="preserve">
-		<value>You win!</value>
+		<value>Wygrywasz!</value>
 	</data>
 	<data name="lose" xml:space="preserve">
-		<value>You lose.</value>
+		<value>Przegrywasz.</value>
 	</data>
 	<data name="boombox" xml:space="preserve">
 		<value>Boom Box</value>
 	</data>
 	<data name="score" xml:space="preserve">
-		<value>Score: {0}</value>
+		<value>Wynik: {0}</value>
 	</data>
 	<data name="welcome" xml:space="preserve">
-		<value>Welcome to Boom Box!</value>
+		<value>Witaj w boom boxie!</value>
 	</data>
 	<data name="goal" xml:space="preserve">
-		<value>Press the numbers on the keyboard to hear a sound. Find all the pairs to move to the next level.</value>
+		<value>Naciskaj numery, aby usłyszeć dźwięk, znajdź pary aby iść dalej</value>
 	</data>
 	<data name="chest.name" xml:space="preserve">
-		<value>Treasure chest</value>
+		<value>Skrzynka pełna skarbów</value>
 	</data>
 	<data name="chest.description" xml:space="preserve">
-		<value>A chest full of tickets. But be careful! A Beboo must be wit to get them.</value>
+		<value>Skrzynka pełna biletów, beboo musi iść aby ją zdobyć.</value>
 	</data>
 	<data name="findbeboo" xml:space="preserve">
-		<value>Find a Beboo</value>
-	</data>
-	<data name="rubberring.name" xml:space="preserve">
-		<value>Rubber ring</value>
-	</data>
-	<data name="rubberring.description" xml:space="preserve">
-		<value>Floating beboo isn't water scared</value>
+		<value>Znajdź Beboo</value>
 	</data>
 </root>

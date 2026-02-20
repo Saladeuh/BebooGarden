@@ -18,6 +18,7 @@ public partial class Beboo
   private float voicePitch = 1.1f;
   private float age = 1;
   public bool BootsSlippedOn { get; set; } = false;
+  public bool RubberRingSlippedOn { get; set; } = false;
   public Channel? Channel { get; set; }
   public float VoicePitch
   {

@@ -60,6 +60,7 @@ internal class SoundSystem
   public Sound WhistleSound { get; set; }
   public Sound Whistle2Sound { get; private set; }
   public Sound CursorSound { get; private set; }
+  public Sound WaterCursorSound { get; private set; }
   public Sound TreesShakeSound { get; private set; }
   public Sound WallSound { get; private set; }
   public Dictionary<BebooType, List<Sound>> BebooSleepingSounds { get; private set; }
@@ -72,6 +73,7 @@ internal class SoundSystem
   public Sound ItemTakeSound { get; private set; }
   public Sound ItemPutWaterSound { get; private set; }
   public Sound ItemDuckSound { get; private set; }
+  public Sound ItemRubberRingSound { get; private set; }
   public Sound ItemTicketPackSound { get; private set; }
   public Sound ItemSnowBallKickSound { get; private set; }
   public List<Sound> EggKrakSounds { get; private set; }
@@ -86,6 +88,7 @@ internal class SoundSystem
   public Sound WarningSound { get; private set; }
   public Sound MenuOkSound { get; private set; }
   public Sound MenuOk2Sound { get; private set; }
+  public SoundHandle SeagullStream { get; private set; }
   public Sound LagoonWaterSound { get; private set; }
   public SoundHandle SeaWaterSound { get; private set; }
   public Sound TreeWindSound { get; private set; }
@@ -172,6 +175,7 @@ internal class SoundSystem
     UnderWaterMusicStream = System.CreateStream(CONTENTFOLDER + "music/Aquatic.mp3", Mode.Loop_Normal);
     BeachMusicStream = System.CreateStream(CONTENTFOLDER + "music/WhiteCity.mp3", Mode.Loop_Normal);
     LoadRace();
+    SeagullStream = System.CreateStream(CONTENTFOLDER + "sounds/beach/seagull.wav", Mode.Loop_Normal);
     LagoonWaterSound = System.CreateStream(CONTENTFOLDER + "sounds/WaterCalmWide.wav",
         Mode.Loop_Normal | Mode._3D | Mode._3D_InverseTaperedRolloff);
     SeaWaterSound = System.CreateStream(CONTENTFOLDER + "sounds/beach/waves.wav",
@@ -203,6 +207,7 @@ internal class SoundSystem
     WhistleSound = System.CreateSound(CONTENTFOLDER + "sounds/character/se_sys_whistle_1p.wav", Mode.Unique);
     Whistle2Sound = System.CreateSound(CONTENTFOLDER + "sounds/character/se_sys_whistle_2p.wav", Mode.Unique);
     CursorSound = System.CreateSound(CONTENTFOLDER + "sounds/character/cursor.wav", Mode.Unique);
+    WaterCursorSound = System.CreateSound(CONTENTFOLDER + "sounds/character/watercursor.wav", Mode.Unique);
     TreesShakeSound = System.CreateSound(CONTENTFOLDER + "sounds/character/Tree_Shake.wav");
     FruitsSounds = new SortedDictionary<FruitSpecies, Sound>
     {
@@ -262,6 +267,7 @@ internal class SoundSystem
     ItemTakeSound = System.CreateSound(CONTENTFOLDER + "sounds/pwik.wav", Mode.Unique);
     ItemPutWaterSound = System.CreateSound(CONTENTFOLDER + "sounds/character/itemwaterfall.wav", Mode.Unique);
     ItemDuckSound = System.CreateSound(CONTENTFOLDER + "sounds/kwak.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
+    ItemRubberRingSound = System.CreateSound(CONTENTFOLDER + "sounds/rubberring.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     ItemTicketPackSound = System.CreateSound(CONTENTFOLDER + "sounds/ticket.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     ItemSnowBallKickSound = System.CreateSound(CONTENTFOLDER + "sounds/character/snowballkick.wav", Mode._3D | Mode._3D_LinearSquareRolloff);
     EggKrakSounds = [];
@@ -485,11 +491,16 @@ internal class SoundSystem
     else channel = System.PlaySound(WhistleSound);
     channel.Pitch = pitch;
   }
+  public void PlayWaterCursorSound()
+  {
+    Channel channel = System.PlaySound(WaterCursorSound);
+  }
   public void PlayCursorSound()
   {
     Channel channel = System.PlaySound(CursorSound);
     channel.Volume += 1f;
   }
+
   public void ShakeTrees()
   {
     System.PlaySound(TreesShakeSound);

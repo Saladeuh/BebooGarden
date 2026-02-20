@@ -19,6 +19,7 @@ public class Flags
   public bool UnlockShop { get; set; }
   public bool VoiceRecoPopupPrinted { get; set; }
   public bool UnlockSnowyMap { get; set; }
+  public bool UnlockBeachMap { get; set; }
   public bool UnlockPerfectSwimming { get; set; }
   public bool UnlockEggInShop { get; set; }
   public bool UnlockUnderwaterMap { get; set; }

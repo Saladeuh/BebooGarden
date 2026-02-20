@@ -124,10 +124,14 @@ public partial class Game1
       {
         ShowShop();
       }
-      else if (!Race.IsARaceRunning && Save.Flags.UnlockSnowyMap && (Map?.IsArroundMapPath(PlayerPosition) ?? false))
-        TravelBetwieen(MapPreset.garden, MapPreset.snowy);
-      else if (!Race.IsARaceRunning && Save.Flags.UnlockUnderwaterMap && (Map?.IsArroundMapUnderWater(PlayerPosition) ?? false))
-        TravelBetwieen(MapPreset.garden, MapPreset.underwater);
+      else if (!Race.IsARaceRunning)
+      {
+        var mapConnexion= Map?.GetConnexionArroundPosition(PlayerPosition);
+        if (mapConnexion?.Map.IsUnlocked()??false)
+        {
+          TravelBetwieen(Map.Preset, mapConnexion.MapPreset);
+        }
+      }
       else if (!Race.IsARaceRunning && Map?.Beboos.Count > 0 && (Map?.IsArroundRaceGate(PlayerPosition) ?? false))
       {
         ChooseBebooForRace();

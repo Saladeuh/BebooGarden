@@ -53,7 +53,7 @@ public partial class Game1
       foreach (Map map in Map.Maps.Values)
       {
         if (map.TreeLines.Count > 0) 
-          map.TreeLines[0].SetFruitsAfterAWhile(Save.LastPlayed, Save.MapInfos[map.Preset].RemainingFruits);
+          map.TreeLines[0].SetFruitsAfterAWhile(Save.LastPlayed, Save.MapInfos.GetValueOrDefault(map.Preset, Save.MapInfos[0]).RemainingFruits);
         try
         {
           map.Items = Save.MapInfos[map.Preset].Items;
@@ -95,7 +95,7 @@ public partial class Game1
       PlayerPosition = new Vector3(-2, 0, 0);
       Map.AddItem(new Egg(Save.FavoredColor), new(2, 0, 0));
     }
-    Map = Map.Beach;
+    //Map = Map.Beach;
     SoundSystem.LoadMap(Map);
     //ChangeMapMusic();
     //if (Save.Flags.NewGame) Welcome.AfterGarden();

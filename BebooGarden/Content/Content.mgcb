@@ -2712,3 +2712,189 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:sounds/beach/waves.wav
+
+#begin sounds/beach/seagull.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/beach/seagull.wav
+
+#begin sounds/character/stepwater.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/character/stepwater.wav
+
+#begin sounds/character/watercursor.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/character/watercursor.wav
+
+#begin music/STRM_BGM_PNP_BOSS_CLEAR_KAIWA [1].wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/STRM_BGM_PNP_BOSS_CLEAR_KAIWA [1].wav
+
+#begin music/STRM_BGM_PNP_BOSS_LOST_KAIWA [1].wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/STRM_BGM_PNP_BOSS_LOST_KAIWA [1].wav
+
+#begin music/STRM_BGM_PNP_CLEAR [1].wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/STRM_BGM_PNP_CLEAR [1].wav
+
+#begin music/STRM_BGM_PNP_CLEAR_OBOSS [1].wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/STRM_BGM_PNP_CLEAR_OBOSS [1].wav
+
+#begin music/STRM_BGM_PNP_GAMESET [1].wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/STRM_BGM_PNP_GAMESET [1].wav
+
+#begin music/STRM_BGM_PNP_GET_ITEM [1].wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/STRM_BGM_PNP_GET_ITEM [1].wav
+
+#begin music/STRM_BGM_PNP_KAIWA [1].wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/STRM_BGM_PNP_KAIWA [1].wav
+
+#begin music/STRM_BGM_PNP_KAIWA_ROUND [1].wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/STRM_BGM_PNP_KAIWA_ROUND [1].wav
+
+#begin music/STRM_BGM_PNP_LOST [1].wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/STRM_BGM_PNP_LOST [1].wav
+
+#begin music/STRM_BGM_PNP_LOST_BOSS [1].wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/STRM_BGM_PNP_LOST_BOSS [1].wav
+
+#begin music/STRM_BGM_PNP_PLAY [1].wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/STRM_BGM_PNP_PLAY [1].wav
+
+#begin music/STRM_BGM_PNP_PLAY_CHUBOSS [1].wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/STRM_BGM_PNP_PLAY_CHUBOSS [1].wav
+
+#begin music/STRM_BGM_PNP_PLAY_OBOSS [1].wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/STRM_BGM_PNP_PLAY_OBOSS [1].wav
+
+#begin music/STRM_BGM_PNP_PUZZLEMODE_GAMESET [1].wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/STRM_BGM_PNP_PUZZLEMODE_GAMESET [1].wav
+
+#begin music/STRM_BGM_PNP_PUZZLEMODE_PLAY [1].wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/STRM_BGM_PNP_PUZZLEMODE_PLAY [1].wav
+
+#begin music/STRM_BGM_PNP_PUZZLEMODE_RESULT_KOUSHIN [1].wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/STRM_BGM_PNP_PUZZLEMODE_RESULT_KOUSHIN [1].wav
+
+#begin music/STRM_BGM_PNP_PUZZLEMODE_RESULT_NORMAL [1].wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/STRM_BGM_PNP_PUZZLEMODE_RESULT_NORMAL [1].wav
+
+#begin music/STRM_BGM_PNP_SETTEI [1].wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/STRM_BGM_PNP_SETTEI [1].wav
+
+#begin music/STRM_BGM_PNP_STORY_MODE_CLEAR [1].wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/STRM_BGM_PNP_STORY_MODE_CLEAR [1].wav
+
+#begin music/STRM_BGM_PNP_TITLE [1].wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/STRM_BGM_PNP_TITLE [1].wav
+
+#begin sounds/character/Cartoon Balloon Release Rubber Snap 01.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/character/Cartoon Balloon Release Rubber Snap 01.wav
+
+#begin sounds/character/Foley Rubber Glove Snap 01.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/character/Foley Rubber Glove Snap 01.wav
+
+#begin sounds/character/Ftr_Rubberduck_On_1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/character/Ftr_Rubberduck_On_1.wav
+
+#begin sounds/character/Ftr_Rubberduck_On_2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/character/Ftr_Rubberduck_On_2.wav
+
+#begin sounds/character/Ftr_Rubberduck_On_3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/character/Ftr_Rubberduck_On_3.wav
+
+#begin sounds/character/Impact Tire Rubber Hit By Solid Metal Pole 01.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/character/Impact Tire Rubber Hit By Solid Metal Pole 01.wav
+
+#begin sounds/character/Impact Tire Rubber Hit By Solid Metal Pole 02.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/character/Impact Tire Rubber Hit By Solid Metal Pole 02.wav
+
+#begin sounds/rubberring.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/rubberring.wav

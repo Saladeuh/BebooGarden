@@ -21,16 +21,29 @@ public partial class Game1
   {
     if (Map == null) return;
     System.Numerics.Vector3 newPos = Map.Clamp(PlayerPosition + movement);
-    if (newPos != PlayerPosition + movement) SoundSystem.System.PlaySound(SoundSystem.WallSound);
-    else SoundSystem.PlayCursorSound();
+    if (newPos != PlayerPosition + movement)
+      SoundSystem.System.PlaySound(SoundSystem.WallSound);
+    else
+    {
+      if (Map.IsInWater(newPos))
+      {
+        SoundSystem.PlayWaterCursorSound();
+      }
+      else
+      {
+        SoundSystem.PlayCursorSound();
+      }
+    }
     PlayerPosition = newPos;
+    var connexion = Map.GetConnexionArroundPosition(PlayerPosition);
     SoundSystem.MovePlayerTo(newPos);
-    if (Map.IsInWater(newPos) && Map != Map.UnderWater) CrossSpeak.CrossSpeakManager.Instance.Output(GameText.water);
     if (Save.Flags.UnlockShop && (Map?.IsArroundShop(PlayerPosition) ?? false)) CrossSpeakManager.Instance.Output(GameText.shop);
-    else if (Save.Flags.UnlockSnowyMap && (Map?.IsArroundMapPath(PlayerPosition) ?? false)) CrossSpeakManager.Instance.Output(GameText.path);
     else if (Map?.IsArroundRaceGate(PlayerPosition) ?? false)
       CrossSpeakManager.Instance.Output(String.Format(GameText.race_gate, Race.GetRemainingTriesToday()));
-    else if (Save.Flags.UnlockUnderwaterMap && (Map?.IsArroundMapUnderWater(PlayerPosition) ?? false)) CrossSpeakManager.Instance.Output(GameText.underwater);
+    else if (connexion?.Map.IsUnlocked() ?? false)
+    {
+      CrossSpeak.CrossSpeakManager.Instance.Output(connexion.Nme);
+    }
     SpeakObjectUnderCursor();
   }
   private void SpeakObjectUnderCursor()
