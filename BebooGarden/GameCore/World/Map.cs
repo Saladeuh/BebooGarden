@@ -93,6 +93,7 @@ public class Map
   private TimedBehaviour TicketPopBehaviour { get; set; }
   private TimedBehaviour SnowBallPopBehaviour { get; set; }
   private TimedBehaviour BubblePopBehaviour { get; set; }
+  private TimedBehaviour FishSpawnBehaviour { get; set; }
   private TimedBehaviour SeagullSoundBehaviour { get; set; }
 
   public Map(MapPreset preset, int sizeX, int sizeY, List<TreeLine> treeLines, List<WaterRectangle> waterPoints, List<MapConnexion> mapConnexions, ReverbProperties reverbPreset)
@@ -106,6 +107,7 @@ public class Map
     TicketPopBehaviour = new(30000 * 60, 60000 * 60, true);
     SnowBallPopBehaviour = new(10000, 15000, preset == MapPreset.snowy);
     BubblePopBehaviour = new(10000, 15000, preset == MapPreset.underwater);
+    FishSpawnBehaviour = new(2000, 4000, preset == MapPreset.beach);
     SeagullSoundBehaviour = new(1000 * 60 * 2, 1000 * 60 * 3, preset == MapPreset.beach);
     ReverbPreset = reverbPreset;
   }
@@ -119,15 +121,19 @@ public class Map
     }
   }
 
-  public Vector3 GenerateRandomUnoccupedPosition(bool excludeWater = true)
+  public Vector3 GenerateRandomUnoccupedPosition(bool excludeWater = false, bool onlyWater=false)
   {
     int tryCounter = 0;
     Vector3 randPos;
+    bool isInWater;
     do
     {
       randPos = new Vector3(Game1.Instance.Random.Next(-SizeX / 2, SizeX / 2), Game1.Instance.Random.Next(-SizeY / 2, SizeY / 2), 0);
       tryCounter++;
-    } while ((tryCounter <= 10 && excludeWater && IsInWater(randPos)) || GetTreeLineAtPosition(randPos) != null);
+      isInWater = IsInWater(randPos);
+    } while ((tryCounter <= 10 && excludeWater && isInWater) 
+    || (tryCounter <= 10 && onlyWater && !isInWater)
+    || GetTreeLineAtPosition(randPos) != null);
     return randPos;
   }
 
@@ -235,6 +241,16 @@ public class Map
         AddItem(new Bubble(), randPos);
       }
       BubblePopBehaviour.Done();
+    }
+    if (FishSpawnBehaviour.ItsTime() && this == Beach)
+    {
+      List<Item.Item> fishes = this.Items.FindAll(x => x is Fish);
+      if (fishes.Count < 10)
+      {
+        Vector3 randPos = GenerateRandomUnoccupedPosition(onlyWater: true);
+        AddItem(new Fish(), randPos);
+        FishSpawnBehaviour.Done();
+      }
     }
   }
   public bool IsUnlocked()

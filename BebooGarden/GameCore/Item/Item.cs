@@ -12,7 +12,7 @@ public abstract class Item
 {
   protected Item()
   {
-    SoundLoopBeahaviour = new TimedBehaviour(3000, 3000, true);
+    SoundLoopBehaviour = new TimedBehaviour(3000, 3000, true);
   }
 
   public virtual string Name { get;  }
@@ -26,7 +26,7 @@ public abstract class Item
   public virtual Channel? Channel { get; set; }
 
   [JsonIgnore]
-  public TimedBehaviour SoundLoopBeahaviour { get; set; }
+  public TimedBehaviour SoundLoopBehaviour { get; set; }
 
   public virtual void Action()
   {
@@ -61,20 +61,20 @@ public abstract class Item
   }
   public virtual void Update(GameTime gameTime)
   {
-    if (SoundLoopBeahaviour.ItsTime())
+    if (SoundLoopBehaviour.ItsTime())
     {
       PlaySound();
-      SoundLoopBeahaviour.Done();
+      SoundLoopBehaviour.Done();
     }
   }
 
   public virtual void Pause()
   {
-    SoundLoopBeahaviour?.Stop();
+    SoundLoopBehaviour?.Stop();
   }
 
   public virtual void Unpause()
   {
-    SoundLoopBeahaviour?.Start();
+    SoundLoopBehaviour?.Start();
   }
 }

@@ -8,7 +8,7 @@ using System.Numerics;
 
 namespace BebooGarden.GameCore.Item;
 
-internal class Bubble : Item
+public class Bubble : Item
 {
   private System.Numerics.Vector3? position;
   public Bubble()

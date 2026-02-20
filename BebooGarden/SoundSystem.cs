@@ -127,6 +127,8 @@ internal class SoundSystem
   public List<Sound> BubbleSounds { get; private set; }
   public Sound BubblePopSound { get; private set; }
   public Sound BubbleUpSound { get; private set; }
+  public Sound FishMoveSound { get; private set; }
+  public Sound FishFleeSound { get; private set; }
   public Sound ItemChestSound { get; private set; }
   public Sound ItemChestOpenSound { get; private set; }
   public Sound ItemChestCloseSound { get; private set; }
@@ -278,6 +280,8 @@ internal class SoundSystem
     LoadSoundsInList(["bubble.wav", "bubble2.wav", "bubble3.wav"], BubbleSounds, "sounds/");
     BubblePopSound = System.CreateSound(CONTENTFOLDER + "sounds/bubblepop.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     BubbleUpSound = System.CreateSound(CONTENTFOLDER + "sounds/bubbleup.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
+    FishFleeSound = System.CreateSound(CONTENTFOLDER + "sounds/fish/Shellfish_Asari_Escape00.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
+    FishMoveSound = System.CreateSound(CONTENTFOLDER + "sounds/fish/Fish_Struggle_S.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique | Mode.Loop_Normal);
     ItemChestSound = System.CreateSound(CONTENTFOLDER + "sounds/chest.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     ItemChestOpenSound = System.CreateSound(CONTENTFOLDER + "sounds/chestopen.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     ItemChestCloseSound = System.CreateSound(CONTENTFOLDER + "sounds/chestclose.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);

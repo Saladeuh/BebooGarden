@@ -2904,3 +2904,165 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:sounds/beach/waves_2.mp3
+
+#begin sounds/fish/DiveFish_Shadow_Bubble_01.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/fish/DiveFish_Shadow_Bubble_01.wav
+
+#begin sounds/fish/DiveFish_Shadow_Bubble_02.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/fish/DiveFish_Shadow_Bubble_02.wav
+
+#begin sounds/fish/DiveFish_Shadow_Bubble_06.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/fish/DiveFish_Shadow_Bubble_06.wav
+
+#begin sounds/fish/DiveFish_Shadow_Bubble_10.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/fish/DiveFish_Shadow_Bubble_10.wav
+
+#begin sounds/fish/DiveFish_Spring_Strong_00.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/fish/DiveFish_Spring_Strong_00.wav
+
+#begin sounds/fish/DiveFish_Spring_Strong_03.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/fish/DiveFish_Spring_Strong_03.wav
+
+#begin sounds/fish/DiveFish_Spring_Strong_02.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/fish/DiveFish_Spring_Strong_02.wav
+
+#begin sounds/fish/Fish_Captured.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/fish/Fish_Captured.wav
+
+#begin sounds/fish/Fish_Kurione_Appeal.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/fish/Fish_Kurione_Appeal.wav
+
+#begin sounds/fish/Fish_Pick.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/fish/Fish_Pick.wav
+
+#begin sounds/fish/Fish_Release_SS.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/fish/Fish_Release_SS.wav
+
+#begin sounds/fish/Fish_Struggle_S.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/fish/Fish_Struggle_S.wav
+
+#begin sounds/fish/Fish_Zarigani_On.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/fish/Fish_Zarigani_On.wav
+
+#begin sounds/fish/FishingFloat_Water_NoFish.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/fish/FishingFloat_Water_NoFish.wav
+
+#begin sounds/fish/FishingFloat_WaterfallIn00.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/fish/FishingFloat_WaterfallIn00.wav
+
+#begin sounds/fish/FishingFloat_WaterfallOut00.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/fish/FishingFloat_WaterfallOut00.wav
+
+#begin sounds/fish/FishingFloat_WaterIn00.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/fish/FishingFloat_WaterIn00.wav
+
+#begin sounds/fish/Ftr_DiveFish_Chinanago_Out.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/fish/Ftr_DiveFish_Chinanago_Out.wav
+
+#begin sounds/fish/Ftr_DiveFish_Gazami_Move_3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/fish/Ftr_DiveFish_Gazami_Move_3.wav
+
+#begin sounds/fish/Ftr_DiveFish_Hotate_Move_01.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/fish/Ftr_DiveFish_Hotate_Move_01.wav
+
+#begin sounds/fish/Ftr_DiveFish_Hotate_Move_02.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/fish/Ftr_DiveFish_Hotate_Move_02.wav
+
+#begin sounds/fish/Ftr_DiveFish_Lobster_Move_01.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/fish/Ftr_DiveFish_Lobster_Move_01.wav
+
+#begin sounds/fish/Ftr_DiveFish_Lobster_Move_02.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/fish/Ftr_DiveFish_Lobster_Move_02.wav
+
+#begin sounds/fish/Ftr_DiveFish_Mizukurage_Move_01.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/fish/Ftr_DiveFish_Mizukurage_Move_01.wav
+
+#begin sounds/fish/Ftr_DiveFish_Mizukurage_Move_02.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/fish/Ftr_DiveFish_Mizukurage_Move_02.wav
+
+#begin sounds/fish/Ftr_DiveFish_Mizukurage_Move_05.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/fish/Ftr_DiveFish_Mizukurage_Move_05.wav
+
+#begin sounds/fish/Shellfish_Asari_Escape00.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/fish/Shellfish_Asari_Escape00.wav
