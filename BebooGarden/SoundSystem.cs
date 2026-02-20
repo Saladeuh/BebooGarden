@@ -326,7 +326,11 @@ internal class SoundSystem
         }
         waterChannel.Set3DMinMaxDistance(30f, 35f);
         waterChannel.Paused = false;
-        wp.Channel?.Stop();
+        try
+        {
+          wp.Channel?.Stop();
+        }
+        catch { }
         wp.Channel = waterChannel;
       }
     }

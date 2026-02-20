@@ -43,12 +43,15 @@ public class Map
     UnderWater = new Map(MapPreset.underwater, 40, 40,
         [],
         [],
-        [new(new(20, 0, 0), MapPreset.garden, GameText.underwater)],
+        [
+          new(new(20, 0, 0), MapPreset.garden, GameText.underwater),
+          new(new(-20,0,0), MapPreset.beach, GameText.underwater)
+        ],
         FmodAudio.Preset.UnderWater);
     Beach = new Map(MapPreset.beach, 60, 40,
         [new TreeLine(new Vector2(-30, -20), new Vector2(30, -20), 5, [FruitSpecies.Normal, FruitSpecies.Energetic])],
         [new WaterRectangle(WaterPreset.Sea, new Vector3(-30, 20, 0), 60, 20)],
-        [],
+        [new(new(30,20,0), MapPreset.underwater, GameText.underwater)],
         FmodAudio.Preset.Off);
 
     BasicRace = new Map(MapPreset.basicrace, Race.BASERACELENGTH, 10,

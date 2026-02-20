@@ -36,6 +36,7 @@ public partial class Game1
     _previousMouseState = Mouse.GetState();
     Save=SaveManager.LoadSave();
     Save.Flags.UnlockEggInShop = Save.Flags.UnlockUnderwaterMap || Save.Flags.UnlockSnowyMap || Save.Flags.UnlockEggInShop;
+    Save.Flags.UnlockBeachMap = true;
     try
     {
       if (Save.CurrentMap != MapPreset.basicrace && Save.CurrentMap != MapPreset.snowyrace)
@@ -95,9 +96,8 @@ public partial class Game1
       PlayerPosition = new Vector3(-2, 0, 0);
       Map.AddItem(new Egg(Save.FavoredColor), new(2, 0, 0));
     }
-    //Map = Map.Beach;
     SoundSystem.LoadMap(Map);
-    //ChangeMapMusic();
+    ChangeMapMusic();
     //if (Save.Flags.NewGame) Welcome.AfterGarden();
     //else UpdateMapMusic();
     SoundSystem.Music?.Volume = Save.MusicVolume;
