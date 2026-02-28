@@ -63,14 +63,14 @@ internal class Fish : Item
   public override void Pause()
   {
     base.Pause();
-    Channel.Paused = true;
+    if(Channel!=null && Channel.IsPlaying) Channel.Paused = true;
     MoveBehaviour.Stop();
     ChangeDirectionBehaviour.Stop();
   }
   public override void Unpause()
   {
     base.Unpause();
-    Channel.Paused = false;
+    if (Channel != null && Channel.IsPlaying) Channel.Paused = false;
     MoveBehaviour.Start();
     ChangeDirectionBehaviour.Start();
   }
