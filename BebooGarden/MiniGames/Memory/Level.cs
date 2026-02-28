@@ -54,7 +54,7 @@ internal class Level
         TryCase(soundIndex + 1, caseIndex);
         if (Grid.All(pair => pair.Item2 == CaseState.Paired))
         {
-          CrossSpeakManager.Instance.Output(GameText.win);
+          CrossSpeakManager.Instance.Output(BebooText.win);
           SoundSystem.PlayQueue(SoundSystem.JingleWin);
           Release();
           Win = true;
@@ -62,7 +62,7 @@ internal class Level
         }
         else if (Retry >= MaxRetry)
         {
-          CrossSpeakManager.Instance.Output(GameText.lose);
+          CrossSpeakManager.Instance.Output(BebooText.lose);
           SoundSystem.PlayQueue(SoundSystem.JingleLose);
           Release();
           Win = false;

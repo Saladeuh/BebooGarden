@@ -22,7 +22,7 @@ public partial class Game1
   {
     if (Map?.Beboos.Count == 0)
     {
-      CrossSpeakManager.Instance.Output(GameText.nobeboo);
+      CrossSpeakManager.Instance.Output(BebooText.nobeboo);
     }
     if (Map is null) return;
     string allSentences = "";
@@ -32,14 +32,14 @@ public partial class Game1
       string name = beboo.Name;
       if (beboo.Sleeping)
       {
-        sentence = GameText.beboo_sleep;
+        sentence = BebooText.beboo_sleep;
       }
       else
       {
-        if (beboo.Happiness < 0) sentence = GameText.beboo_verysad;
-        else if (beboo.Energy < 0) sentence = GameText.beboo_verytired;
-        else if (beboo.Energy < 3) sentence = GameText.beboo_littletired;
-        else sentence = beboo.Happiness < 3 ? GameText.beboo_littlesad : (beboo.Energy < 8 ? GameText.beboo_good : GameText.beboo_verygood);
+        if (beboo.Happiness < 0) sentence = BebooText.beboo_verysad;
+        else if (beboo.Energy < 0) sentence = BebooText.beboo_verytired;
+        else if (beboo.Energy < 3) sentence = BebooText.beboo_littletired;
+        else sentence = beboo.Happiness < 3 ? BebooText.beboo_littlesad : (beboo.Energy < 8 ? BebooText.beboo_good : BebooText.beboo_verygood);
       }
       allSentences += String.Format(sentence, name);
 #if DEBUG
@@ -64,7 +64,7 @@ public partial class Game1
     }
     else if (options.Count > 0)
     {
-      new ChooseMenu<FruitSpecies>(GameText.ui_chooseitem, options, OnFruitSelected)
+      new ChooseMenu<FruitSpecies>(BebooText.ui_chooseitem, options, OnFruitSelected)
        .Show();
     }
   }
@@ -89,14 +89,14 @@ public partial class Game1
           > options = new();
         foreach (Beboo b in Map.Beboos)
           options.Add(b.Name, b);
-        new ChooseMenu<Beboo?>(GameText.choosebeboo, options, StartRace)
+        new ChooseMenu<Beboo?>(BebooText.choosebeboo, options, StartRace)
           .Show();
       }
       else { StartRace(Map?.Beboos[0]); }
     }
     else
     {
-      CrossSpeakManager.Instance.Output(GameText.nobeboo);
+      CrossSpeakManager.Instance.Output(BebooText.nobeboo);
       SoundSystem.System.PlaySound(SoundSystem.WarningSound);
     }
   }
@@ -108,14 +108,14 @@ public partial class Game1
       if (contester == null) return;
       Dictionary<string, RaceType> raceTypeOptions = new()
       {
-        { GameText.race_simple, RaceType.Base },
+        { BebooText.race_simple, RaceType.Base },
       };
-      if (Save.Flags.UnlockSnowyMap) raceTypeOptions.Add(GameText.race_snow, RaceType.Snowy);
+      if (Save.Flags.UnlockSnowyMap) raceTypeOptions.Add(BebooText.race_snow, RaceType.Snowy);
       RaceType choice = RaceType.Base;
       _contester = contester;
       if (raceTypeOptions.Count > 1)
       {
-        new ChooseMenu<RaceType>(GameText.race_chooserace, raceTypeOptions, OnRaceChoosed)
+        new ChooseMenu<RaceType>(BebooText.race_chooserace, raceTypeOptions, OnRaceChoosed)
           .Show();
       }
       else
@@ -126,7 +126,7 @@ public partial class Game1
     else
     {
       SoundSystem.System.PlaySound(SoundSystem.WarningSound);
-      CrossSpeakManager.Instance.Output(GameText.race_trytommorow);
+      CrossSpeakManager.Instance.Output(BebooText.race_trytommorow);
     }
   }
 

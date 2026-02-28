@@ -6,8 +6,8 @@ namespace BebooGarden.GameCore.Item;
 
 internal class TicketPack(int amount) : Item
 {
-  public override string Name { get; } = GameText.ticketpack_name;
-  public override string Description { get; } = GameText.ticketpack_description;
+  public override string Name { get; } = BebooText.ticketpack_name;
+  public override string Description { get; } = BebooText.ticketpack_description;
   public override bool IsTakable { get; set; } = true;
 
   public override void Action()

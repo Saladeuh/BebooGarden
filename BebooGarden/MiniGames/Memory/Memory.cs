@@ -69,7 +69,7 @@ internal class Memory : IMiniGame
     } else if((_level?.Ended??false) && !(_level?.Win??false))
     {
       _level = null;
-      CrossSpeakManager.Instance.Output(String.Format(GameText.score, Score));
+      CrossSpeakManager.Instance.Output(String.Format(BebooText.score, Score));
       End();
     }
   }

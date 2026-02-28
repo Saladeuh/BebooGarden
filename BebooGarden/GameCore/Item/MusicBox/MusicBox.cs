@@ -42,8 +42,8 @@ internal class MusicBox : Item
       }
   }
 
-  public override string Name { get; } = GameText.musicbox_name;
-  public override string Description { get; } = GameText.musicbox_description;
+  public override string Name { get; } = BebooText.musicbox_name;
+  public override string Description { get; } = BebooText.musicbox_description;
   public override Vector3? Position { get; set; } = null;
   public override Channel? Channel { get; set; }
   public override bool IsTakable { get; set; } = true;
@@ -79,12 +79,12 @@ internal class MusicBox : Item
         if (roll != null && !rollDictionary.ContainsKey(roll.Title))
           rollDictionary.Add(roll.Title, roll);
       }
-      new ChooseMenu<Roll?>(GameText.ui_chooseroll, rollDictionary, OnChoosedRoll)
+      new ChooseMenu<Roll?>(BebooText.ui_chooseroll, rollDictionary, OnChoosedRoll)
         .Show();
     }
     else
     {
-      CrossSpeakManager.Instance.Output(GameText.musicbox_noroll);
+      CrossSpeakManager.Instance.Output(BebooText.musicbox_noroll);
       Game1.Instance.SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.WarningSound);
     }
   }

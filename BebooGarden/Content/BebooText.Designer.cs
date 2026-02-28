@@ -22,13 +22,14 @@ namespace BebooGarden.Content {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class GameText {
-    private static global::System.Resources.ResourceManager resourceMan;
+    internal class BebooText {
+        
+        private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal GameText() {
+        internal BebooText() {
         }
         
         /// <summary>
@@ -38,7 +39,7 @@ namespace BebooGarden.Content {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BebooGarden.Content.GameText", typeof(GameText).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BebooGarden.Content.BebooText", typeof(BebooText).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -60,7 +61,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Sac.
+        ///   Recherche une chaîne localisée semblable à Bag.
         /// </summary>
         internal static string bag {
             get {
@@ -69,7 +70,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à {0} va bien.
+        ///   Recherche une chaîne localisée semblable à {0} is fine.
         /// </summary>
         internal static string beboo_good {
             get {
@@ -78,7 +79,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à {0} va dormir.
+        ///   Recherche une chaîne localisée semblable à {0} went asleep.
         /// </summary>
         internal static string beboo_gosleep {
             get {
@@ -87,7 +88,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à {0} est heureux!.
+        ///   Recherche une chaîne localisée semblable à {0} is happy!.
         /// </summary>
         internal static string beboo_happystart {
             get {
@@ -96,7 +97,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à {0} est un peu fatigué.
+        ///   Recherche une chaîne localisée semblable à {0} is a little bit sad.
         /// </summary>
         internal static string beboo_littlesad {
             get {
@@ -105,7 +106,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à {0} est un peu fatigué.
+        ///   Recherche une chaîne localisée semblable à {0} is a little bit tired.
         /// </summary>
         internal static string beboo_littletired {
             get {
@@ -114,7 +115,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à {0} fond en larmes. Faites quelque chose !.
+        ///   Recherche une chaîne localisée semblable à {0} burst in tears. Do something!.
         /// </summary>
         internal static string beboo_sadstart {
             get {
@@ -123,7 +124,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à {0} dort.
+        ///   Recherche une chaîne localisée semblable à {0} is sleeping.
         /// </summary>
         internal static string beboo_sleep {
             get {
@@ -132,7 +133,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à {0} est en pleine forme!.
+        ///   Recherche une chaîne localisée semblable à {0} is doing very well.
         /// </summary>
         internal static string beboo_verygood {
             get {
@@ -141,7 +142,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à {0} est très triste. Faites quelque chose!.
+        ///   Recherche une chaîne localisée semblable à {0} is very sad.. Do something!.
         /// </summary>
         internal static string beboo_verysad {
             get {
@@ -150,7 +151,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à {0} est très fatigué.
+        ///   Recherche une chaîne localisée semblable à {0} is very tired.
         /// </summary>
         internal static string beboo_verytired {
             get {
@@ -159,7 +160,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à {0} se réveille.
+        ///   Recherche une chaîne localisée semblable à {0} wakes up.
         /// </summary>
         internal static string beboo_wakeup {
             get {
@@ -168,7 +169,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Jardin Bébous.
+        ///   Recherche une chaîne localisée semblable à Beboo Garden.
         /// </summary>
         internal static string beboogarden {
             get {
@@ -177,7 +178,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Bleu.
+        ///   Recherche une chaîne localisée semblable à Blue.
         /// </summary>
         internal static string blue {
             get {
@@ -186,7 +187,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Trésors sonores.
+        ///   Recherche une chaîne localisée semblable à Boom Box.
         /// </summary>
         internal static string boombox {
             get {
@@ -195,7 +196,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Un Bébou peut les utiliser pour sauter plus loin. Posez les au sol et faites en sorte qu&apos;un bébou les enfile..
+        ///   Recherche une chaîne localisée semblable à A Beboo can use them to bounce further. Place it on the ground then try make a beboo to put them on.
         /// </summary>
         internal static string boots_description {
             get {
@@ -204,7 +205,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Bottes à ressort.
+        ///   Recherche une chaîne localisée semblable à Bouncing Boots.
         /// </summary>
         internal static string boots_name {
             get {
@@ -213,7 +214,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Bloup.
+        ///   Recherche une chaîne localisée semblable à Blup.
         /// </summary>
         internal static string bubble_description {
             get {
@@ -222,7 +223,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Bulle.
+        ///   Recherche une chaîne localisée semblable à Bubble.
         /// </summary>
         internal static string bubble_name {
             get {
@@ -231,7 +232,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Un coffre rempli de tickets. M ais attention ! Un Bébou doit redoubler d&apos;intelligence pour les obtenir..
+        ///   Recherche une chaîne localisée semblable à A chest full of tickets. But be careful! A Beboo must be wit to get them..
         /// </summary>
         internal static string chest_description {
             get {
@@ -240,7 +241,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Coffre à trésors.
+        ///   Recherche une chaîne localisée semblable à Treasure chest.
         /// </summary>
         internal static string chest_name {
             get {
@@ -249,7 +250,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Un gros gâteau au chocolat.
+        ///   Recherche une chaîne localisée semblable à A fat chocolate cake.
         /// </summary>
         internal static string chocolatekake {
             get {
@@ -258,7 +259,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Choisissez le Bébou..
+        ///   Recherche une chaîne localisée semblable à Choose a Beboo.
         /// </summary>
         internal static string choosebeboo {
             get {
@@ -267,7 +268,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Juste un café, merci..
+        ///   Recherche une chaîne localisée semblable à Just a coffee, thanks..
         /// </summary>
         internal static string coffee {
             get {
@@ -276,7 +277,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à C&apos;est juste un canard.
+        ///   Recherche une chaîne localisée semblable à It&apos;s just a duck.
         /// </summary>
         internal static string duck_description {
             get {
@@ -285,7 +286,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Canard en caoutchouc.
+        ///   Recherche une chaîne localisée semblable à Rubber duck.
         /// </summary>
         internal static string duck_name {
             get {
@@ -294,7 +295,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Toujours plus de Bébous!!!!.
+        ///   Recherche une chaîne localisée semblable à For more and more beboos!.
         /// </summary>
         internal static string egg_description {
             get {
@@ -303,7 +304,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à œuf de bébou {0}.
+        ///   Recherche une chaîne localisée semblable à {0} beboo&apos;s egg.
         /// </summary>
         internal static string egg_name {
             get {
@@ -312,7 +313,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Le sac est vide (échape pour sortir).
+        ///   Recherche une chaîne localisée semblable à Your bag is empty (escape to leave).
         /// </summary>
         internal static string emptybag {
             get {
@@ -321,7 +322,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Super pomme.
+        ///   Recherche une chaîne localisée semblable à Super Apple.
         /// </summary>
         internal static string Energetic {
             get {
@@ -330,7 +331,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Trouver un Bébou..
+        ///   Recherche une chaîne localisée semblable à Find a Beboo.
         /// </summary>
         internal static string findbeboo {
             get {
@@ -339,7 +340,25 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Une salade de fruits raffraîchissante.
+        ///   Recherche une chaîne localisée semblable à It&apos;s just a fish.
+        /// </summary>
+        internal static string fish_description {
+            get {
+                return ResourceManager.GetString("fish.description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Fish.
+        /// </summary>
+        internal static string fish_name {
+            get {
+                return ResourceManager.GetString("fish.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à A light and fresh fruit salad.
         /// </summary>
         internal static string fruitsalad {
             get {
@@ -348,7 +367,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Vous gagnez {0} ticket.
+        ///   Recherche une chaîne localisée semblable à You gain {0} ticket.
         /// </summary>
         internal static string gainticket {
             get {
@@ -357,7 +376,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Appuyez sur les chiffres du clavier pour entendre un son. Trouvez toutes les pairs pour passer au niveau suivant..
+        ///   Recherche une chaîne localisée semblable à Press the numbers on the keyboard to hear a sound. Find all the pairs to move to the next level..
         /// </summary>
         internal static string goal {
             get {
@@ -366,7 +385,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Vert.
+        ///   Recherche une chaîne localisée semblable à Green.
         /// </summary>
         internal static string green {
             get {
@@ -375,7 +394,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Une délicieuse glace.
+        ///   Recherche une chaîne localisée semblable à A delicious icecream.
         /// </summary>
         internal static string icecream {
             get {
@@ -402,7 +421,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Perdu!.
+        ///   Recherche une chaîne localisée semblable à You lose..
         /// </summary>
         internal static string lose {
             get {
@@ -411,7 +430,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Un objet ancien qui permet de jouer de la musique en y mettant un rouleau.
+        ///   Recherche une chaîne localisée semblable à An old object that can play music when putting a roll in it.
         /// </summary>
         internal static string musicbox_description {
             get {
@@ -420,7 +439,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Boîte à musique.
+        ///   Recherche une chaîne localisée semblable à Music box.
         /// </summary>
         internal static string musicbox_name {
             get {
@@ -429,7 +448,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Vous n&apos;avez pas encore de rouleau a y mettre.
+        ///   Recherche une chaîne localisée semblable à You don&apos;t have any roll to put in it yet.
         /// </summary>
         internal static string musicbox_noroll {
             get {
@@ -438,7 +457,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Il n&apos;y a pas de bébou ici...
+        ///   Recherche une chaîne localisée semblable à There is no beboo here..
         /// </summary>
         internal static string nobeboo {
             get {
@@ -447,7 +466,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Aucune.
+        ///   Recherche une chaîne localisée semblable à None.
         /// </summary>
         internal static string none {
             get {
@@ -456,7 +475,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Pomme.
+        ///   Recherche une chaîne localisée semblable à Apple.
         /// </summary>
         internal static string Normal {
             get {
@@ -474,7 +493,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Chemin.
+        ///   Recherche une chaîne localisée semblable à Path.
         /// </summary>
         internal static string path {
             get {
@@ -483,7 +502,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Rose.
+        ///   Recherche une chaîne localisée semblable à Pink.
         /// </summary>
         internal static string pink {
             get {
@@ -492,7 +511,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Choisissez la course.
+        ///   Recherche une chaîne localisée semblable à Choose a race.
         /// </summary>
         internal static string race_chooserace {
             get {
@@ -501,7 +520,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Choisissez le coureur.
+        ///   Recherche une chaîne localisée semblable à Choose your racer.
         /// </summary>
         internal static string race_chooseracer {
             get {
@@ -510,7 +529,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à {0} est le premier ! ({1} secondes).
+        ///   Recherche une chaîne localisée semblable à {0} is the first! ({1} seconds).
         /// </summary>
         internal static string race_first {
             get {
@@ -519,7 +538,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Participer à une course (encore {0} essais aujourd&apos;hui).
+        ///   Recherche une chaîne localisée semblable à Take part in a race ({0} remaining today).
         /// </summary>
         internal static string race_gate {
             get {
@@ -528,7 +547,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à {0} est le deuxième. ({1} secondes).
+        ///   Recherche une chaîne localisée semblable à {0} is the second. ({1} seconds).
         /// </summary>
         internal static string race_second {
             get {
@@ -537,7 +556,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Course facile.
+        ///   Recherche une chaîne localisée semblable à Easy race.
         /// </summary>
         internal static string race_simple {
             get {
@@ -546,7 +565,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Course enneigée.
+        ///   Recherche une chaîne localisée semblable à Snowy race.
         /// </summary>
         internal static string race_snow {
             get {
@@ -555,7 +574,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à {0} est le troisième....
+        ///   Recherche une chaîne localisée semblable à {0} is the third....
         /// </summary>
         internal static string race_third {
             get {
@@ -564,7 +583,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Les courses sont fermées pour aujourd&apos;hui..
+        ///   Recherche une chaîne localisée semblable à Racing is closed for today..
         /// </summary>
         internal static string race_trytommorow {
             get {
@@ -573,7 +592,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Rouge.
+        ///   Recherche une chaîne localisée semblable à Red.
         /// </summary>
         internal static string red {
             get {
@@ -582,7 +601,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Rouleau de boîte à musique.
+        ///   Recherche une chaîne localisée semblable à Music box&apos;s roll.
         /// </summary>
         internal static string roll_name {
             get {
@@ -591,7 +610,25 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Score : {0}.
+        ///   Recherche une chaîne localisée semblable à Floating beboo isn&apos;t water scared.
+        /// </summary>
+        internal static string rubberring_description {
+            get {
+                return ResourceManager.GetString("rubberring.description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Rubber ring.
+        /// </summary>
+        internal static string rubberring_name {
+            get {
+                return ResourceManager.GetString("rubberring.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Score: {0}.
         /// </summary>
         internal static string score {
             get {
@@ -609,7 +646,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à vous possédez déjà ce rouleau..
+        ///   Recherche une chaîne localisée semblable à You already have this roll.
         /// </summary>
         internal static string shop_alreadyroll {
             get {
@@ -618,7 +655,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à {0} acheté.
+        ///   Recherche une chaîne localisée semblable à {0} bought.
         /// </summary>
         internal static string shop_buy {
             get {
@@ -636,7 +673,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Objets ({0} tickets restants).
+        ///   Recherche une chaîne localisée semblable à Items ({0} remaining tickets).
         /// </summary>
         internal static string shop_items {
             get {
@@ -645,7 +682,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Objets.
+        ///   Recherche une chaîne localisée semblable à Items.
         /// </summary>
         internal static string shop_itemstitle {
             get {
@@ -654,7 +691,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Vous n&apos;avez pas assez de tickets.
+        ///   Recherche une chaîne localisée semblable à You don&apos;t have enough tickets.
         /// </summary>
         internal static string shop_notickets {
             get {
@@ -672,7 +709,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Rouleaux de boîte à musique ({0} tickets restants).
+        ///   Recherche une chaîne localisée semblable à Music box roll&apos;s ({0} remaining tickets).
         /// </summary>
         internal static string shop_rolls {
             get {
@@ -681,7 +718,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Rouleaux de boîte à musique.
+        ///   Recherche une chaîne localisée semblable à Music Box roll&apos;s.
         /// </summary>
         internal static string shop_rollstitle {
             get {
@@ -690,7 +727,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Bienvenue dans la boutique! ({0} tickets restants).
+        ///   Recherche une chaîne localisée semblable à Welcome to the boutique! ({0} remaining tickets).
         /// </summary>
         internal static string shop_title {
             get {
@@ -699,8 +736,8 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Vous venez de débloquer l&apos;accès à la boutique!
-        ///Rendez-vous dans le coin inférieur droit du jardin pour échanger vos tickets!.
+        ///   Recherche une chaîne localisée semblable à You unlock the boutique!
+        ///Go to the lower right corner of the garden to redeem your tickets!.
         /// </summary>
         internal static string shopunlock {
             get {
@@ -709,7 +746,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Boule de neige.
+        ///   Recherche une chaîne localisée semblable à Snow ball.
         /// </summary>
         internal static string snowball_name {
             get {
@@ -727,7 +764,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Paquet de tickets.
+        ///   Recherche une chaîne localisée semblable à Tickets pack.
         /// </summary>
         internal static string ticketpack_name {
             get {
@@ -736,7 +773,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Vous avez {0} tickets.
+        ///   Recherche une chaîne localisée semblable à You have {0} tickets.
         /// </summary>
         internal static string tickets {
             get {
@@ -745,7 +782,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Trouver un objet..
+        ///   Recherche une chaîne localisée semblable à Find an item.
         /// </summary>
         internal static string tp {
             get {
@@ -763,7 +800,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Arbres sans fruits.
+        ///   Recherche une chaîne localisée semblable à Trees without any fruit.
         /// </summary>
         internal static string trees_empty {
             get {
@@ -772,7 +809,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Arbres pleins de fruits.
+        ///   Recherche une chaîne localisée semblable à Trees full of fruits.
         /// </summary>
         internal static string trees_full {
             get {
@@ -781,7 +818,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Arbres avec quelques fruits.
+        ///   Recherche une chaîne localisée semblable à Trees with some fruits.
         /// </summary>
         internal static string trees_soonempty {
             get {
@@ -790,7 +827,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Arbres avec beaucoup de fruits.
+        ///   Recherche une chaîne localisée semblable à Trees with some fruits.
         /// </summary>
         internal static string trees_soonfull {
             get {
@@ -799,8 +836,8 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Super ! Maintenant, {0}, je dois vous poser quelques questions pour vous trouver le Bébou qui vous conviendra le mieux.
-        ///Commençons simplement..
+        ///   Recherche une chaîne localisée semblable à Great! Now, {0}, I have to ask you a few questions to find the Beboo who suits you best.
+        ///Let&apos;s start simple..
         /// </summary>
         internal static string ui_aboutyou {
             get {
@@ -809,7 +846,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Eh bien, tout est en règle, il me semble..
+        ///   Recherche une chaîne localisée semblable à Well, everything seems in order..
         /// </summary>
         internal static string ui_allgood {
             get {
@@ -818,7 +855,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Retour.
+        ///   Recherche une chaîne localisée semblable à Back.
         /// </summary>
         internal static string ui_back {
             get {
@@ -827,7 +864,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Il y a {0} fruits dans le panier.
+        ///   Recherche une chaîne localisée semblable à There are {0} fruits in the basket.
         /// </summary>
         internal static string ui_basket {
             get {
@@ -836,7 +873,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Le nom de votre Bébou.
+        ///   Recherche une chaîne localisée semblable à Your Beboo&apos;s cute name.
         /// </summary>
         internal static string ui_bebooname {
             get {
@@ -845,7 +882,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Choisissez un objet.
+        ///   Recherche une chaîne localisée semblable à Choose an item.
         /// </summary>
         internal static string ui_chooseitem {
             get {
@@ -854,7 +891,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Choisissez un rouleau à insérer.
+        ///   Recherche une chaîne localisée semblable à Please choose a roll to insert.
         /// </summary>
         internal static string ui_chooseroll {
             get {
@@ -863,7 +900,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Quelle est votre couleur préférée ?.
+        ///   Recherche une chaîne localisée semblable à What is your favorite color?.
         /// </summary>
         internal static string ui_color {
             get {
@@ -872,7 +909,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Aides : Commandes du jeu..
+        ///   Recherche une chaîne localisée semblable à Help: Game&apos;s keybindings.
         /// </summary>
         internal static string ui_commands {
             get {
@@ -881,7 +918,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Crédits.
+        ///   Recherche une chaîne localisée semblable à Credits.
         /// </summary>
         internal static string ui_credits {
             get {
@@ -890,7 +927,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Enfin, quel est votre dessert préféré parmis ceux-ci ?.
+        ///   Recherche une chaîne localisée semblable à Finally, what is your favorite dessert in this list?.
         /// </summary>
         internal static string ui_dessert {
             get {
@@ -899,7 +936,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Rejoindre le serveur Discord.
+        ///   Recherche une chaîne localisée semblable à Join the discord server.
         /// </summary>
         internal static string ui_discord {
             get {
@@ -908,7 +945,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Vous devez écrire quelque chose..
+        ///   Recherche une chaîne localisée semblable à You must type something..
         /// </summary>
         internal static string ui_empty {
             get {
@@ -917,7 +954,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Aucun objets dans le sac.
+        ///   Recherche une chaîne localisée semblable à Nothing in the bag.
         /// </summary>
         internal static string ui_emptyinventory {
             get {
@@ -926,7 +963,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Il n&apos;y a pas d&apos;objets ici. Pour poser un objet, rendez-vous daos votre sac, sélectionez l&apos;objet puis appuyez sur espace où vous souhaitez le poser..
+        ///   Recherche une chaîne localisée semblable à There are no items here. To place an item, go to your bag, select an item then press space where you want to place it..
         /// </summary>
         internal static string ui_emptymap {
             get {
@@ -935,9 +972,9 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Parfait !
-        ///Maintenant, qu&apos;aimez-vous faire quand vous avez du temps libre ?
-        ///Cela peut être n&apos;importe quoi..
+        ///   Recherche une chaîne localisée semblable à Cool!
+        ///Now, what do you love doing when you have some free time?
+        ///It may be anything..
         /// </summary>
         internal static string ui_freetime {
             get {
@@ -946,7 +983,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Qu&apos;aimez-vous faire ?.
+        ///   Recherche une chaîne localisée semblable à What do you love to do?.
         /// </summary>
         internal static string ui_freetimequick {
             get {
@@ -955,7 +992,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à {0} déposé.
+        ///   Recherche une chaîne localisée semblable à {0} dropped.
         /// </summary>
         internal static string ui_itemput {
             get {
@@ -964,7 +1001,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à {0} rangé dans le sac.
+        ///   Recherche une chaîne localisée semblable à {0} stored in the bag.
         /// </summary>
         internal static string ui_itemtake {
             get {
@@ -973,7 +1010,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Changer la langue.
+        ///   Recherche une chaîne localisée semblable à Change language.
         /// </summary>
         internal static string ui_language {
             get {
@@ -982,7 +1019,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Langue changée.
+        ///   Recherche une chaîne localisée semblable à Language changed.
         /// </summary>
         internal static string ui_languagechanged {
             get {
@@ -991,7 +1028,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Votre Bébou vient de naître, à présent, il faut le nommer !.
+        ///   Recherche une chaîne localisée semblable à Your Beboo has just hatched! Now it&apos;s time to name it!.
         /// </summary>
         internal static string ui_letsname {
             get {
@@ -1000,7 +1037,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Menu principal.
+        ///   Recherche une chaîne localisée semblable à Main menu.
         /// </summary>
         internal static string ui_mainmenu {
             get {
@@ -1009,12 +1046,13 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Parfait !
-        ///Avant de vous laisser vous occuper de {0}, je dois vous apprendre le béaba du jardin.
-        ///Pour nourrir {0}, il vous faut récupérer des fruits dans les arbres à votre droite. Secouez-les en maintenant entrée, puis en alternant les flèches haut et bas.
-        ///Pour donner un fruit à {0}, appuyez sur espace quand vous êtes à proximité, comme pour interagir avec l&apos;œuf précédemment.
-        ///Vous pouvez aussi appuyer sur F pour savoir précisément si {0} manque de quelque chose.
-        ///Si {0} est surexcité, rendez-vous en hau [le reste de la chaîne a été tronqué]&quot;;.
+        ///   Recherche une chaîne localisée semblable à Perfect!
+        ///Before you start taking care of {0}, I need to teach you the basics of the garden.
+        ///To feed {0}, you&apos;ll need to collect fruits from the trees on your right. Shake the trees by holding down the enter key and alternating between the up and down arrow keys.
+        ///To give a fruit to {0}, press the space bar when you are close, just like you did with the egg earlier.
+        ///You can also press F to know if {0} is missing something.
+        ///Once {0} is very happy, you can go to top-left corner to get some exercise.
+        ///Final [le reste de la chaîne a été tronqué]&quot;;.
         /// </summary>
         internal static string ui_quicktips {
             get {
@@ -1023,7 +1061,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Quitter le jeu..
+        ///   Recherche une chaîne localisée semblable à Close the Game..
         /// </summary>
         internal static string ui_quit {
             get {
@@ -1032,7 +1070,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Vous avez récupéré le rouleau de boîte à musique {0}, de {1}.
+        ///   Recherche une chaîne localisée semblable à You have taken the music box&apos;s roll {0}, from {1}.
         /// </summary>
         internal static string ui_rolltake {
             get {
@@ -1041,7 +1079,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Ne mettez pas ça dans l&apos;eau !.
+        ///   Recherche une chaîne localisée semblable à Don&apos;t put this in water!.
         /// </summary>
         internal static string ui_warningwater {
             get {
@@ -1050,8 +1088,8 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Bienvenue dans le Jardin Bébou!
-        ///Pour commencer, comment dois-je vous appeler ?.
+        ///   Recherche une chaîne localisée semblable à Welcome to the Beboo Garden!
+        ///To begin with, what should I call you?.
         /// </summary>
         internal static string ui_welcome {
             get {
@@ -1060,11 +1098,11 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Voici le jardin Bébous.
-        ///C&apos;est un grand carré de verdure paisible, agrémenté d&apos;un petit lagon à gauche et de hauts arbres fruitiers à droite.
-        ///Pour vous repérer dans le jardin, je vous recommande grandement de mettre un casque ou des écouteurs.
-        ///Il est actuellement vide, hormis un œuf sur le point d&apos;éclore, que vous devriez entendre à votre droite.
-        ///Une fois ce dialogue fermé, déplacez-vous avec les flèches en direction de cet œuf, puis, une fois que vous l&apos;entendez au centre,  appuyez sur espace pour aider [le reste de la chaîne a été tronqué]&quot;;.
+        ///   Recherche une chaîne localisée semblable à Here is the Beboo Garden.
+        ///It&apos;s a large square of greenery, featuring a small lagoon to the left and tall fruit trees to the right.
+        ///To navigate the garden, I highly recommend wearing headphones or earphones.
+        ///It is currently empty, except for an egg about to hatch, which you should hear on your right.
+        ///Once this dialogue is closed, move using the arrow keys towards the egg, and when you hear it in front of you, press the space bar to help your Beboo break its shell..
         /// </summary>
         internal static string ui_welcome2 {
             get {
@@ -1073,7 +1111,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Votre nom.
+        ///   Recherche une chaîne localisée semblable à Your name.
         /// </summary>
         internal static string ui_yourname {
             get {
@@ -1082,7 +1120,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Cheminée volcanique sous-marine.
+        ///   Recherche une chaîne localisée semblable à Volcanic underwater chimney.
         /// </summary>
         internal static string underwater {
             get {
@@ -1091,8 +1129,8 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Bravo !
-        ///Vous venez de déblquer le chemin vers la pleine enneigée. Allez vite la visiter en amenant votre Bébou en bas à gauche du jardin..
+        ///   Recherche une chaîne localisée semblable à Congratulations!
+        ///You unlock the path to the snowy area. Go through it by calling your Beboo to the bottom left of the garden..
         /// </summary>
         internal static string unlocksnowy {
             get {
@@ -1101,8 +1139,8 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Waw !
-        ///{0} sait parfaitement nager désormais..
+        ///   Recherche une chaîne localisée semblable à Congratulations!
+        ///{0} can perfectly swim now..
         /// </summary>
         internal static string unlockswimming {
             get {
@@ -1111,8 +1149,8 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à {0} est maintenant assez grand pour reconnaître son nom !
-        ///Essayez de l&apos;appeler..
+        ///   Recherche une chaîne localisée semblable à {0} is now old enough to recognize its name!
+        ///Try calling it!.
         /// </summary>
         internal static string unlockvoice {
             get {
@@ -1130,7 +1168,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à lagon.
+        ///   Recherche une chaîne localisée semblable à lagoon.
         /// </summary>
         internal static string water {
             get {
@@ -1139,7 +1177,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Bienvenue dans trésors sonores!.
+        ///   Recherche une chaîne localisée semblable à Welcome to Boom Box!.
         /// </summary>
         internal static string welcome {
             get {
@@ -1148,7 +1186,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Gagné!.
+        ///   Recherche une chaîne localisée semblable à You win!.
         /// </summary>
         internal static string win {
             get {
@@ -1157,7 +1195,7 @@ namespace BebooGarden.Content {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Jaune.
+        ///   Recherche une chaîne localisée semblable à Yellow.
         /// </summary>
         internal static string yellow {
             get {

@@ -165,7 +165,7 @@ public partial class Beboo
   {
     if (!Happy) return;
     Happy = false;
-    CrossSpeakManager.Instance.Output(String.Format(GameText.beboo_sadstart, Name));
+    CrossSpeakManager.Instance.Output(String.Format(BebooText.beboo_sadstart, Name));
     Game1.Instance.SoundSystem.PlaySadMusic();
     CuteBehaviour.Stop();
     CryBehaviour.Start();
@@ -326,7 +326,7 @@ public partial class Beboo
     if (Sleeping) return;
     if (SwimLevel >= 10 || Game1.Instance.Map == Map.UnderWater || (!Game1.Instance.Map?.IsInWater(Position) ?? false))
     {
-      CrossSpeakManager.Instance.Output(String.Format(GameText.beboo_gosleep, Name));
+      CrossSpeakManager.Instance.Output(String.Format(BebooText.beboo_gosleep, Name));
       GoingTiredBehaviour.Stop();
       MoveBehaviour.Stop();
       FancyMoveBehaviour.Stop();
@@ -346,7 +346,7 @@ public partial class Beboo
   public void WakeUp()
   {
     if (Game1.Instance.Map != null && (!Sleeping || Game1.Instance.Map.IsLullabyPlaying)) return;
-    CrossSpeakManager.Instance.Output(String.Format(GameText.beboo_wakeup, Name));
+    CrossSpeakManager.Instance.Output(String.Format(BebooText.beboo_wakeup, Name));
     SleepingBehaviour.Stop();
     GoingTiredBehaviour.Start();
     FancyMoveBehaviour.Start();

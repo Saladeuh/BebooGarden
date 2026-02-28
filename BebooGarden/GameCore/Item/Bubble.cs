@@ -19,8 +19,8 @@ public class Bubble : Item
   private System.Numerics.Vector3? Direction { get; set; }
   private TimedBehaviour MoveBehaviour { get; set; }
   private TimedBehaviour SlowDriftBehaviour { get; set; }
-  public override string Name { get; } = GameText.bubble_name;
-  public override string Description { get; } = GameText.bubble_description;
+  public override string Name { get; } = BebooText.bubble_name;
+  public override string Description { get; } = BebooText.bubble_description;
   public override System.Numerics.Vector3? Position
   {
     get => position;

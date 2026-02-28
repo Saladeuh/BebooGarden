@@ -38,7 +38,7 @@ public partial class Game1
 
     Label titleLabel = new()
     {
-      Text = GameText.shop_title,
+      Text = BebooText.shop_title,
       HorizontalAlignment = HorizontalAlignment.Center
     };
     mainGrid.Widgets.Add(titleLabel);
@@ -46,7 +46,7 @@ public partial class Game1
     // Espacement
     mainGrid.Widgets.Add(new Label { Text = "" });
 
-    ConfirmButton itemsButton = new(String.Format(GameText.shop_items, Save.Tickets))
+    ConfirmButton itemsButton = new(String.Format(BebooText.shop_items, Save.Tickets))
     {
       Id = "itemsButton"
     };
@@ -56,7 +56,7 @@ public partial class Game1
     };
     mainGrid.Widgets.Add(itemsButton);
 
-    ConfirmButton rollsButton = new(String.Format(GameText.shop_rolls, Save.Tickets))
+    ConfirmButton rollsButton = new(String.Format(BebooText.shop_rolls, Save.Tickets))
     {
       Id = "rollsButton"
     };
@@ -66,7 +66,7 @@ public partial class Game1
     };
     mainGrid.Widgets.Add(rollsButton);
 
-    BackButton closeButton = new(GameText.ui_back)
+    BackButton closeButton = new(BebooText.ui_back)
     {
       Id = "closeButton"
     };
@@ -92,7 +92,7 @@ public partial class Game1
 
     Label titleLabel = new()
     {
-      Text = GameText.shop_itemstitle,
+      Text = BebooText.shop_itemstitle,
       HorizontalAlignment = HorizontalAlignment.Center
     };
     grid.Widgets.Add(titleLabel);
@@ -102,7 +102,7 @@ public partial class Game1
       itemsList.Add(new Egg("none"));
 
     Dictionary<string, Item> itemsOptions = itemsList.ToDictionary(
-        item => string.Format(GameText.shop_item, item.Name, item.Description, item.Cost),
+        item => string.Format(BebooText.shop_item, item.Name, item.Description, item.Cost),
         item => item
     );
 
@@ -131,7 +131,7 @@ public partial class Game1
       grid.Widgets.Add(emptyLabel);
     }
 
-    BackButton backButton = new(GameText.ui_back)
+    BackButton backButton = new(BebooText .ui_back)
     {
       Id = "backToMainButton"
     };
@@ -158,7 +158,7 @@ public partial class Game1
 
     Label titleLabel = new()
     {
-      Text = GameText.shop_rollstitle,
+      Text = BebooText.shop_rollstitle,
       HorizontalAlignment = HorizontalAlignment.Center
     };
     grid.Widgets.Add(titleLabel);
@@ -167,7 +167,7 @@ public partial class Game1
         !MusicBox.AvailableRolls.Contains(roll.Name + roll.Source)).ToList();
 
     Dictionary<string, Roll> rollsOptions = availableRolls.ToDictionary(
-        roll => string.Format(GameText.shop_roll, roll.Title, roll.Source, roll.Cost),
+        roll => string.Format(BebooText.shop_roll, roll.Title, roll.Source, roll.Cost),
         roll => roll
     );
 
@@ -196,7 +196,7 @@ public partial class Game1
       grid.Widgets.Add(emptyLabel);
     }
 
-    BackButton backButton = new(GameText.ui_back)
+    BackButton backButton = new(BebooText .ui_back)
     {
       Id = "backToMainButton"
     };

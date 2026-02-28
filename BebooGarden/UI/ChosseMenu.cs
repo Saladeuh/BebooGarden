@@ -70,7 +70,7 @@ public class ChooseMenu<T>
     // Bouton de retour/annulation (optionnel)
     if (_allowCancel)
     {
-      BackButton cancelButton = new(GameText.ui_back)
+      BackButton cancelButton = new(BebooText.ui_back)
       {
         Id = "cancelButton"
       };

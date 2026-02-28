@@ -61,19 +61,19 @@ internal class Roll(
       {
         Game1.Instance.Save.Tickets -= Cost;
         Game1.Instance.SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.ShopSound);
-        CrossSpeakManager.Instance.Output(string.Format(GameText.shop_buy, Name));
+        CrossSpeakManager.Instance.Output(string.Format(BebooText.shop_buy, Name));
         MusicBox.AvailableRolls.Add(Title + Source);
       }
       else
       {
         Game1.Instance.SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.WarningSound);
-CrossSpeakManager.Instance.Output(GameText.shop_notickets);
+CrossSpeakManager.Instance.Output(BebooText.shop_notickets);
       }
     }
     else
     {
       Game1.Instance.SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.WarningSound);
-      CrossSpeakManager.Instance.Output(GameText.shop_alreadyroll);
+      CrossSpeakManager.Instance.Output(BebooText.shop_alreadyroll);
     }
   }
   public override void Action() => Take();

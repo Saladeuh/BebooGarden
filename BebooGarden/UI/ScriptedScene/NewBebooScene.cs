@@ -27,10 +27,10 @@ public class NewBebooScene : IScriptedScene
   public NewBebooScene(Beboo beboo)
   {
     _beboo = beboo;
-    _letsNameDialog = new TalkDialog(GameText.ui_letsname, GameScreen.ScriptedScene);
+    _letsNameDialog = new TalkDialog(BebooText.ui_letsname, GameScreen.ScriptedScene);
     _nameTextFieldDialog = new Dialog
     {
-      Title = GameText.ui_bebooname
+      Title = BebooText.ui_bebooname
     };
     var stackPanel = new HorizontalStackPanel
     {
@@ -85,7 +85,7 @@ public class NewBebooScene : IScriptedScene
     }
     else if (_bebooName!=String.Empty && Game1.Instance.Save.Flags.NewGame)
     {
-      _quickTipsDialog = new TalkDialog(String.Format(GameText.ui_quicktips, _bebooName), GameScreen.ScriptedScene);
+      _quickTipsDialog = new TalkDialog(String.Format(BebooText.ui_quicktips, _bebooName), GameScreen.ScriptedScene);
       _quickTipsDialog.Show();
       _tipsDialogShowed = true;
       Game1.Instance.Save.Flags.NewGame = false;

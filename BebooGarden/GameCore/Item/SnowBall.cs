@@ -16,8 +16,8 @@ internal class SnowBall : Item
   }
   public Vector3? Direction { get; set; }
   private TimedBehaviour MoveBehaviour { get; set; }
-  public override string Name { get; } = GameText.snowball_name;
-  public override string Description { get; } = GameText.snowball_name;
+  public override string Name { get; } = BebooText.snowball_name;
+  public override string Description { get; } = BebooText.snowball_name;
   public override Vector3? Position
   {
     get => position;

@@ -62,7 +62,7 @@ _mainBeboo = mainBeboo;
         if (!_step1Executed)
         {
           Game1.Instance.SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.RaceBadSound);
-          CrossSpeakManager.Instance.Output(String.Format(GameText.race_third, Game1.Instance.Map.Beboos[_third.Item1].Name));
+          CrossSpeakManager.Instance.Output(String.Format(BebooText.race_third, Game1.Instance.Map.Beboos[_third.Item1].Name));
           _step1Executed = true;
         }
         if (elapsedMs >= _stepDurations[1])
@@ -75,7 +75,7 @@ _mainBeboo = mainBeboo;
         if (!_step2Executed)
         {
           Game1.Instance.SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.RaceGoodSound);
-          CrossSpeakManager.Instance.Output(String.Format(GameText.race_second, Game1.Instance.Map.Beboos[_second.Item1].Name, _second.Item2));
+          CrossSpeakManager.Instance.Output(String.Format(BebooText.race_second, Game1.Instance.Map.Beboos[_second.Item1].Name, _second.Item2));
           _step2Executed = true;
         }
         if (elapsedMs >= _stepDurations[2])
@@ -88,7 +88,7 @@ _mainBeboo = mainBeboo;
         if (!_step3Executed)
         {
           Game1.Instance.SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.RaceGoodSound);
-          CrossSpeakManager.Instance.Output(String.Format(GameText.race_first, Game1.Instance.Map.Beboos[_first.Item1].Name, _first.Item2));
+          CrossSpeakManager.Instance.Output(String.Format(BebooText.race_first, Game1.Instance.Map.Beboos[_first.Item1].Name, _first.Item2));
           _step3Executed = true;
         }
         if (elapsedMs >= _stepDurations[3])

@@ -14,9 +14,9 @@ public class Egg(string color) : Item
       var textColor = " ";
       return textColor;
            if (Color !="none") textColor= Color;
-            return String.Format(GameText.egg_name, textColor); 
+            return String.Format(BebooText.egg_name, textColor); 
     } }
-  public override string Description { get; } = GameText.egg_description;
+  public override string Description { get; } = BebooText.egg_description;
   public override Vector3? Position { get; set; } // position null=in inventory
   public override bool IsTakable { get; set; } = false;
   public override int Cost { get; set; } = 20;

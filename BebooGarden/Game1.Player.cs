@@ -37,9 +37,9 @@ public partial class Game1
     PlayerPosition = newPos;
     var connexion = Map.GetConnexionArroundPosition(PlayerPosition);
     SoundSystem.MovePlayerTo(newPos);
-    if (Save.Flags.UnlockShop && (Map?.IsArroundShop(PlayerPosition) ?? false)) CrossSpeakManager.Instance.Output(GameText.shop);
+    if (Save.Flags.UnlockShop && (Map?.IsArroundShop(PlayerPosition) ?? false)) CrossSpeakManager.Instance.Output(BebooText.shop);
     else if (Map?.IsArroundRaceGate(PlayerPosition) ?? false)
-      CrossSpeakManager.Instance.Output(String.Format(GameText.race_gate, Race.GetRemainingTriesToday()));
+      CrossSpeakManager.Instance.Output(String.Format(BebooText.race_gate, Race.GetRemainingTriesToday()));
     else if (connexion?.Map.IsUnlocked() ?? false)
     {
       CrossSpeak.CrossSpeakManager.Instance.Output(connexion.Nme);
@@ -56,13 +56,13 @@ public partial class Game1
     if (treeLine != null)
     {
       if (treeLine.Fruits == treeLine.FruitPerHour)
-        CrossSpeakManager.Instance.Output(GameText.trees_full);
+        CrossSpeakManager.Instance.Output(BebooText.trees_full);
       else if (treeLine.Fruits == 0)
-        CrossSpeakManager.Instance.Output(GameText.trees_empty);
+        CrossSpeakManager.Instance.Output(BebooText.trees_empty);
       else if (treeLine.Fruits <= treeLine.FruitPerHour / 2)
-        CrossSpeakManager.Instance.Output(GameText.trees_soonempty);
+        CrossSpeakManager.Instance.Output(BebooText.trees_soonempty);
       else if (treeLine.Fruits >= treeLine.FruitPerHour / 2)
-        CrossSpeakManager.Instance.Output(GameText.trees_soonfull);
+        CrossSpeakManager.Instance.Output(BebooText.trees_soonfull);
     }
     else if (item != null) CrossSpeakManager.Instance.Output(item.Name);
   }
@@ -103,13 +103,13 @@ public partial class Game1
   }
   private void SayTickets()
   {
-    CrossSpeakManager.Instance.Output(String.Format(GameText.tickets, Save.Tickets));
+    CrossSpeakManager.Instance.Output(String.Format(BebooText.tickets, Save.Tickets));
   }
   private void SayBasketState()
   {
     var fruits = 0;
     foreach (var fruistCount in Save.FruitsBasket.Values) fruits += fruistCount;
-    if (Save.FruitsBasket != null) CrossSpeakManager.Instance.Output(String.Format(GameText.ui_basket, fruits));
+    if (Save.FruitsBasket != null) CrossSpeakManager.Instance.Output(String.Format(BebooText.ui_basket, fruits));
   }
   private void TryPutItemInHand()
   {
@@ -119,14 +119,14 @@ public partial class Game1
     if (inWater && !waterProof)
     {
       SoundSystem.System.PlaySound(SoundSystem.WarningSound);
-      CrossSpeakManager.Instance.Output(GameText.ui_warningwater);
+      CrossSpeakManager.Instance.Output(BebooText.ui_warningwater);
     }
     else
     {
       if (ItemInHand != null)
       {
         Map?.AddItem(ItemInHand, PlayerPosition);
-        CrossSpeakManager.Instance.Output(String.Format(GameText.ui_itemput, ItemInHand.Name));
+        CrossSpeakManager.Instance.Output(String.Format(BebooText.ui_itemput, ItemInHand.Name));
         if (inWater) SoundSystem.System.PlaySound(SoundSystem.ItemPutWaterSound);
         else SoundSystem.System.PlaySound(SoundSystem.ItemPutSound);
         Inventory.Remove(ItemInHand);
@@ -156,13 +156,13 @@ public partial class Game1
     if (amount > 0)
     {
       Save.Tickets += amount;
-      CrossSpeakManager.Instance.Output(String.Format(GameText.gainticket, amount));
+      CrossSpeakManager.Instance.Output(String.Format(BebooText.gainticket, amount));
       SoundSystem.System.PlaySound(SoundSystem.MenuOk2Sound);
       if (!Save.Flags.UnlockShop && Map != Map.SnowyRace && Map != Map.BasicRace)
       {
         Save.Flags.UnlockShop = true;
         SoundSystem.System.PlaySound(SoundSystem.JingleComplete);
-        new TalkDialog(GameText.shopunlock)
+        new TalkDialog(BebooText.shopunlock)
           .Show();
       }
     }

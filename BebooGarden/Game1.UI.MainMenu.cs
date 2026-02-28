@@ -39,7 +39,7 @@ public partial class Game1
     };
     Label titleLabel = new()
     {
-      Text = GameText.ui_mainmenu,
+      Text = BebooText.ui_mainmenu,
       HorizontalAlignment = HorizontalAlignment.Center
     };
     mainGrid.Widgets.Add(titleLabel);
@@ -47,7 +47,7 @@ public partial class Game1
     // Espacement
     mainGrid.Widgets.Add(new Label { Text = "" });
 
-    ConfirmButton inventoryButton = new(GameText.bag)
+    ConfirmButton inventoryButton = new(BebooText.bag)
     {
       Id = "inventoryButton"
     };
@@ -57,7 +57,7 @@ public partial class Game1
     };
     mainGrid.Widgets.Add(inventoryButton);
 
-    ConfirmButton findBebooButton = new(GameText.findbeboo)
+    ConfirmButton findBebooButton = new(BebooText.findbeboo)
     {
       Id = "findBebooButton"
     };
@@ -67,7 +67,7 @@ public partial class Game1
     };
     mainGrid.Widgets.Add(findBebooButton);
 
-    ConfirmButton teleportButton = new(GameText.tp)
+    ConfirmButton teleportButton = new(BebooText.tp)
     {
       Id = "teleportButton"
     };
@@ -77,7 +77,7 @@ public partial class Game1
     };
     mainGrid.Widgets.Add(teleportButton);
 
-    ConfirmButton commandsButton = new(GameText.ui_commands)
+    ConfirmButton commandsButton = new(BebooText.ui_commands)
     {
       Id = "commandsButton"
     };
@@ -87,7 +87,7 @@ public partial class Game1
     };
     mainGrid.Widgets.Add(commandsButton);
 
-    ConfirmButton discordButton = new(GameText.ui_discord)
+    ConfirmButton discordButton = new(BebooText.ui_discord)
     {
       Id = "discordButton"
     };
@@ -97,7 +97,7 @@ public partial class Game1
     };
     mainGrid.Widgets.Add(discordButton);
 
-    ConfirmButton creditsButton = new(GameText.ui_credits)
+    ConfirmButton creditsButton = new(BebooText.ui_credits)
     {
       Id = "creditsButton"
     };
@@ -107,7 +107,7 @@ public partial class Game1
     };
     mainGrid.Widgets.Add(creditsButton);
 
-    ConfirmButton languageButton = new(GameText.ui_language)
+    ConfirmButton languageButton = new(BebooText.ui_language)
     {
       Id = "languageButton"
     };
@@ -117,7 +117,7 @@ public partial class Game1
     };
     mainGrid.Widgets.Add(languageButton);
 
-    BackButton closeButton = new(GameText.ui_back)
+    BackButton closeButton = new(BebooText.ui_back)
     {
       Id = "closeButton"
     };
@@ -151,8 +151,8 @@ public partial class Game1
     Label titleLabel = new()
     {
       Text = Game1.Instance.Inventory.Count > 0 ?
-            GameText.ui_chooseitem :
-            GameText.ui_emptyinventory,
+            BebooText.ui_chooseitem :
+            BebooText.ui_emptyinventory,
       HorizontalAlignment = HorizontalAlignment.Center
     };
     grid.Widgets.Add(titleLabel);
@@ -164,7 +164,7 @@ public partial class Game1
       foreach (Item item in Game1.Instance.Inventory)
       {
         int occurences = Game1.Instance.Inventory.FindAll(x => x.Name == item.Name).Count;
-        string text = String.Format(GameText.inventory_item, item.Name, occurences);
+        string text = String.Format(BebooText.inventory_item, item.Name, occurences);
         if (options.Keys.ToList().Find(x => x.Contains(item.Name)) == null && occurences == 1)
         {
           options.Add(item.Name, item);
@@ -233,7 +233,7 @@ public partial class Game1
           for (int i = 0; i < sameItems.Count; i++)
           {
             Item sameItem = sameItems[i];
-            var text = String.Format(GameText.tp_item, item.Name, i + 1);
+            var text = String.Format(BebooText.tp_item, item.Name, i + 1);
             tPOptions.Add(text, sameItem);
           }
         }
@@ -243,8 +243,8 @@ public partial class Game1
     Label titleLabel = new()
     {
       Text = tPOptions.Count > 0 ?
-            GameText.ui_chooseitem :
-            GameText.ui_emptymap,
+            BebooText.ui_chooseitem :
+            BebooText.ui_emptymap,
       HorizontalAlignment = HorizontalAlignment.Center
     };
     grid.Widgets.Add(titleLabel);
@@ -301,8 +301,8 @@ public partial class Game1
     Label titleLabel = new()
     {
       Text = bebooTPOptions.Count > 0 ?
-            GameText.choosebeboo :
-            GameText.nobeboo,
+            BebooText.choosebeboo :
+            BebooText.nobeboo,
       HorizontalAlignment = HorizontalAlignment.Center
     };
     grid.Widgets.Add(titleLabel);
@@ -348,7 +348,7 @@ public partial class Game1
 
     Label titleLabel = new()
     {
-      Text = GameText.ui_language,
+      Text = BebooText.ui_language,
       HorizontalAlignment = HorizontalAlignment.Center
     };
     grid.Widgets.Add(titleLabel);

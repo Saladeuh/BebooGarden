@@ -46,7 +46,7 @@ public partial class Game1
       {
         Save.Flags.UnlockSnowyMap = true;
         SoundSystem.System.PlaySound(SoundSystem.JingleComplete);
-        _talkDialog = new TalkDialog(GameText.unlocksnowy);
+        _talkDialog = new TalkDialog(BebooText.unlocksnowy);
         _talkDialog?.Show();
         Map.Snowy.AddItem(new Egg("none"), new(0, 0, 0));
         Save.Flags.UnlockEggInShop = true;
@@ -55,7 +55,7 @@ public partial class Game1
       {
         Save.Flags.UnlockPerfectSwimming = true;
         SoundSystem.System.PlaySound(SoundSystem.JingleComplete);
-        _talkDialog = new TalkDialog(String.Format(GameText.unlockswimming, beboo.Name));
+        _talkDialog = new TalkDialog(String.Format(BebooText.unlockswimming, beboo.Name));
         _talkDialog?.Show();
         Save.Flags.UnlockUnderwaterMap = true;
         Map.UnderWater.AddItem(new Egg("blue"), new(0, 0, 0));

@@ -31,27 +31,27 @@ public class Map
         [new TreeLine(new Vector2(20, 20), new Vector2(20, -20))],
         [new WaterRectangle(WaterPreset.Lagoon, new Vector3(-20, 5, 0), 10, 10)],
        [
-         new(new(-20, -20,0), MapPreset.snowy, GameText.path),
-         new(new(-20, 0, 0), MapPreset.underwater, GameText.underwater)
+         new(new(-20, -20,0), MapPreset.snowy, BebooText.path),
+         new(new(-20, 0, 0), MapPreset.underwater, BebooText.underwater)
        ],
        FmodAudio.Preset.Plain);
     Snowy = new Map(MapPreset.snowy, 60, 60,
         [new TreeLine(new Vector2(-5, 30), new Vector2(5, 30), 3, [FruitSpecies.Normal, FruitSpecies.Energetic])],
         [],
-        [new(new(-30, -30, 0), MapPreset.garden, GameText.path)],
+        [new(new(-30, -30, 0), MapPreset.garden, BebooText.path)],
         FmodAudio.Preset.Plain);
     UnderWater = new Map(MapPreset.underwater, 40, 40,
         [],
         [],
         [
-          new(new(20, 0, 0), MapPreset.garden, GameText.underwater),
-          new(new(-20,0,0), MapPreset.beach, GameText.underwater)
+          new(new(20, 0, 0), MapPreset.garden, BebooText.underwater),
+          new(new(-20,0,0), MapPreset.beach, BebooText.underwater)
         ],
         FmodAudio.Preset.UnderWater);
     Beach = new Map(MapPreset.beach, 60, 40,
         [new TreeLine(new Vector2(-30, -20), new Vector2(30, -20), 5, [FruitSpecies.Normal, FruitSpecies.Energetic])],
         [new WaterRectangle(WaterPreset.Sea, new Vector3(-30, 20, 0), 60, 20)],
-        [new(new(30,20,0), MapPreset.underwater, GameText.underwater)],
+        [new(new(30,20,0), MapPreset.underwater, BebooText.underwater)],
         FmodAudio.Preset.Off);
 
     BasicRace = new Map(MapPreset.basicrace, Race.BASERACELENGTH, 10,

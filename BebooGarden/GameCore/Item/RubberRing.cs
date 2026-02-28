@@ -12,8 +12,8 @@ namespace BebooGarden.GameCore.Item;
 
 internal class RubberRing : Item
 {
-  public override string Name { get; } = GameText.duck_description;
-  public override string Description { get; } = GameText.duck_description;
+  public override string Name { get; } = BebooText.duck_description;
+  public override string Description { get; } = BebooText.duck_description;
   public override Vector3? Position { get; set; } // position null=in inventory
   public override bool IsTakable { get; set; } = true;
   public override bool IsWaterProof { get; set; } = true;

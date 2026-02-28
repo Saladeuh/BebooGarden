@@ -7,8 +7,8 @@ namespace BebooGarden.GameCore.Item;
 
 internal class BouncingBoots : Item
 {
-  public override string Name { get; } = GameText.boots_name;
-  public override string Description { get; } = GameText.boots_description;
+  public override string Name { get; } = BebooText.boots_name;
+  public override string Description { get; } = BebooText.boots_description;
   public override Vector3? Position { get; set; } // position null=in inventory
   public override bool IsTakable { get; set; } = true;
   public override bool IsWaterProof { get; set; } = false;
