@@ -51,7 +51,7 @@ public class Map
     Beach = new Map(MapPreset.beach, 60, 40,
         [new TreeLine(new Vector2(-30, -20), new Vector2(30, -20), 5, [FruitSpecies.Normal, FruitSpecies.Energetic])],
         [new WaterRectangle(WaterPreset.Sea, new Vector3(-30, 20, 0), 60, 20)],
-        [new(new(30,20,0), MapPreset.underwater, BebooText.underwater)],
+        [new(new(30, 20, 0), MapPreset.underwater, BebooText.underwater)],
         FmodAudio.Preset.Off);
 
     BasicRace = new Map(MapPreset.basicrace, Race.BASERACELENGTH, 10,
@@ -83,7 +83,7 @@ public class Map
   public bool IsRaceMap => (this == BasicRace || this == SnowyRace);
 
   [JsonIgnore]
-  public List<Channel> TreesChannels { get; set; } = new();
+  public List<Channel> TreesAndAmbientChannels { get; set; } = new();
   [JsonIgnore]
   public Channel? BackgroundChannel { get; set; }
   public ReverbProperties ReverbPreset { get; set; }
@@ -121,7 +121,7 @@ public class Map
     }
   }
 
-  public Vector3 GenerateRandomUnoccupedPosition(bool excludeWater = false, bool onlyWater=false)
+  public Vector3 GenerateRandomUnoccupedPosition(bool excludeWater = false, bool onlyWater = false)
   {
     int tryCounter = 0;
     Vector3 randPos;
@@ -131,7 +131,7 @@ public class Map
       randPos = new Vector3(Game1.Instance.Random.Next(-SizeX / 2, SizeX / 2), Game1.Instance.Random.Next(-SizeY / 2, SizeY / 2), 0);
       tryCounter++;
       isInWater = IsInWater(randPos);
-    } while ((tryCounter <= 10 && excludeWater && isInWater) 
+    } while ((tryCounter <= 10 && excludeWater && isInWater)
     || (tryCounter <= 10 && onlyWater && !isInWater)
     || GetTreeLineAtPosition(randPos) != null);
     return randPos;
@@ -219,7 +219,8 @@ public class Map
     }
     if (SeagullSoundBehaviour.ItsTime() && this == Beach)
     {
-      Game1.Instance.SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.SeagullStream);
+     var SeaguleChannel=Game1.Instance.SoundSystem.System.PlaySound(Game1.Instance.SoundSystem.SeagullStream);
+      TreesAndAmbientChannels.Add(SeaguleChannel);
       SeagullSoundBehaviour.Done();
     }
     if (SnowBallPopBehaviour.ItsTime())

@@ -350,8 +350,8 @@ internal class SoundSystem
       treeChannel.Set3DConeOrientation(new Vector3(1, 0, 0));
       treeChannel.Volume = 0.2f;
       treeChannel.Paused = false;
-      map.TreesChannels.Clear();
-      map.TreesChannels.Add(treeChannel);
+      map.TreesAndAmbientChannels.Clear();
+      map.TreesAndAmbientChannels.Add(treeChannel);
     }
     switch (map.Preset)
     {
@@ -544,7 +544,7 @@ internal class SoundSystem
   public void Pause(Map map)
   {
     map.Paused = true;
-    foreach (Channel channel in map.TreesChannels)
+    foreach (Channel channel in map.TreesAndAmbientChannels)
       if (channel.IsPlaying) channel.Paused = true;
     foreach (var wp in map.WaterPoints)
       if (wp.Channel?.IsPlaying ?? false) wp.Channel.Paused = true;
@@ -561,7 +561,7 @@ internal class SoundSystem
     System.SetReverbProperties(1, Preset.Off);
     try
     {
-      foreach (Channel channel in map.TreesChannels) channel.Paused = false;
+      foreach (Channel channel in map.TreesAndAmbientChannels) channel.Paused = false;
       foreach (var wp in map.WaterPoints)
         wp.Channel?.Paused = false;
       foreach (GameCore.Item.Item item in map.Items) item.Unpause();
