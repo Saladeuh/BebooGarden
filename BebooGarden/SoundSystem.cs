@@ -103,7 +103,8 @@ internal class SoundSystem
   public Sound ShopMusicStream { get; private set; }
   public Sound SnowyMusicStream { get; private set; }
   public Sound UnderWaterMusicStream { get; private set; }
-  public SoundHandle BeachMusicStream { get; private set; }
+  public Sound BeachMusicStream { get; private set; }
+  public Sound CityMusicStream { get; private set; }
   public Sound RaceMusicStream { get; private set; }
   public Sound RaceLolMusicStream { get; private set; }
   public Sound RaceStopSound { get; private set; }
@@ -176,6 +177,7 @@ internal class SoundSystem
     SnowyMusicStream = System.CreateStream(CONTENTFOLDER + "music/snowy.mp3", Mode.Loop_Normal);
     UnderWaterMusicStream = System.CreateStream(CONTENTFOLDER + "music/Aquatic.mp3", Mode.Loop_Normal);
     BeachMusicStream = System.CreateStream(CONTENTFOLDER + "music/WhiteCity.mp3", Mode.Loop_Normal);
+    CityMusicStream = System.CreateStream(CONTENTFOLDER + "music/city.mp3", Mode.Loop_Normal);
     LoadRace();
     SeagullStream = System.CreateStream(CONTENTFOLDER + "sounds/beach/seagull.wav", Mode.Loop_Normal);
     LagoonWaterSound = System.CreateStream(CONTENTFOLDER + "sounds/WaterCalmWide.wav",
@@ -280,8 +282,8 @@ internal class SoundSystem
     LoadSoundsInList(["bubble.wav", "bubble2.wav", "bubble3.wav"], BubbleSounds, "sounds/");
     BubblePopSound = System.CreateSound(CONTENTFOLDER + "sounds/bubblepop.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     BubbleUpSound = System.CreateSound(CONTENTFOLDER + "sounds/bubbleup.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
-    FishFleeSound = System.CreateSound(CONTENTFOLDER + "sounds/fish/Shellfish_Asari_Escape00.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
-    FishMoveSound = System.CreateSound(CONTENTFOLDER + "sounds/fish/Fish_Struggle_S.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique | Mode.Loop_Normal);
+    FishFleeSound = System.CreateSound(CONTENTFOLDER + "sounds/fish/Shellfish_Asari_Escape00.wav", Mode._3D | Mode._3D_LinearSquareRolloff);
+    FishMoveSound = System.CreateSound(CONTENTFOLDER + "sounds/fish/Fish_Struggle_S.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Loop_Normal);
     ItemChestSound = System.CreateSound(CONTENTFOLDER + "sounds/chest.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     ItemChestOpenSound = System.CreateSound(CONTENTFOLDER + "sounds/chestopen.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
     ItemChestCloseSound = System.CreateSound(CONTENTFOLDER + "sounds/chestclose.wav", Mode._3D | Mode._3D_LinearSquareRolloff | Mode.Unique);
@@ -608,7 +610,10 @@ internal class SoundSystem
   {
     MusicTransition(BeachMusicStream, 3556910, 7437331, TimeUnit.MS);
   }
-
+  internal void PlayCityMusic()
+  {
+    MusicTransition(CityMusicStream, 1500166, 10572175, TimeUnit.MS);
+  }
   internal void PlayRaceMusic()
   {
     MusicTransition(RaceMusicStream, 0, 0, FmodAudio.TimeUnit.PCM);

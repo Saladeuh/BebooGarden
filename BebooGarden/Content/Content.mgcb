@@ -3078,3 +3078,9 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:music/Join Avenue Level Up 1.mp3
+
+#begin music/city.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/city.mp3
