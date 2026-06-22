@@ -16,6 +16,8 @@ public class TalkDialog
   private Label _textLabel;
   private int CurrentLine { get; set; }
   private string[] FullText { get; }
+  public bool Closed { get; private set; } = false;
+
   private GameScreen _parent;
   public TalkDialog(string text, GameScreen parent=GameScreen.game)
   {
@@ -85,5 +87,6 @@ public class TalkDialog
   {
     Game1.Instance.SwitchToScreen(_parent);
     Game1.Instance._talkDialog = null;
+    Closed = true;
   }
 }

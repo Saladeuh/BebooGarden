@@ -3,6 +3,7 @@ using BebooGarden.GameCore.Item.MusicBox;
 using BebooGarden.GameCore.World;
 using BebooGarden.Minigame;
 using BebooGarden.Save;
+using BebooGarden.UI.ScriptedScene;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
@@ -62,14 +63,13 @@ public partial class Game1
     {
       _desktop.OnChar(a.Character);
     };
-    ChangeMapMusic();
-    Inventory.Add(new MusicBox());
-    Inventory.Add(new Duck());
-    Inventory.Add(new RubberRing());
-    Save.Tickets = 20;
-    Save.Flags.UnlockShop = true;
-    Save.Flags.UnlockSnowyMap = true;
-    SwitchToScreen(GameScreen.game);
-    //SwitchToScreen(Save.Flags.EmptySave ? GameScreen.First : GameScreen.MainMenu);
-  }
+    if (Save.Flags.NewGame)
+    {
+      (new WelcomeScene()).Show();
+    }
+    else
+    {
+      ChangeMapMusic();
+      SwitchToScreen(GameScreen.game);
+    }  }
 }

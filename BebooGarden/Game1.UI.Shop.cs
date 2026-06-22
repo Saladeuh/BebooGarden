@@ -142,7 +142,6 @@ public partial class Game1
     grid.Widgets.Add(backButton);
 
     _itemsSopPanel.Widgets.Add(grid);
-
   }
 
   private void CreateRollsMenu()

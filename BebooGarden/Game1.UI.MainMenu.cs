@@ -113,7 +113,7 @@ public partial class Game1
     };
     languageButton.Click += (_, _) =>
     {
-      ShowLanguageMenu();
+      ShowLanguageMenu(_escapeMenuPanel);
     };
     mainGrid.Widgets.Add(languageButton);
 
@@ -335,7 +335,7 @@ public partial class Game1
     _desktop.Root = _bebooTPPanel;
   }
 
-  private void ShowLanguageMenu()
+  public void ShowLanguageMenu(Panel parentManel, bool backOption=true)
   {
     _languagesPanel = new Panel();
 
@@ -371,19 +371,21 @@ public partial class Game1
       };
       grid.Widgets.Add(langButton);
     }
-
-    BackButton backButton = new("Retour")
+    if (backOption)
     {
-      Id = "backToMainButton"
-    };
-    backButton.Click += (_, _) =>
-    {
-      ShowEscapeMenu();
-    };
-    grid.Widgets.Add(backButton);
+      BackButton backButton = new("Retour")
+      {
+        Id = "backToMainButton"
+      };
+      backButton.Click += (_, _) =>
+      {
+        ShowEscapeMenu();
+      };
+      grid.Widgets.Add(backButton);
+    }
 
     _languagesPanel.Widgets.Add(grid);
-    PreviousPanels[_languagesPanel] = _escapeMenuPanel;
+    PreviousPanels[_languagesPanel] = parentManel;
     _desktop.Root = _languagesPanel;
   }
 

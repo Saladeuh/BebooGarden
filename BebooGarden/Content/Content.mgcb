@@ -2971,12 +2971,6 @@
 /processorParam:Quality=Best
 /build:sounds/fish/Fish_Release_SS.wav
 
-#begin sounds/fish/Fish_Struggle_S.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:sounds/fish/Fish_Struggle_S.wav
-
 #begin sounds/fish/Fish_Zarigani_On.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -3066,3 +3060,21 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:sounds/fish/Shellfish_Asari_Escape00.wav
+
+#begin sounds/fish/Fish_Struggle_S.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/fish/Fish_Struggle_S.wav
+
+#begin music/Join Avenue Level Up 2.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/Join Avenue Level Up 2.mp3
+
+#begin music/Join Avenue Level Up 1.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/Join Avenue Level Up 1.mp3
